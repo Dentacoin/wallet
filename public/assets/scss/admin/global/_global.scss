@@ -1,0 +1,203 @@
+body {
+    background-color: #222d32;
+}
+
+@for $i from 0 through 100 {
+    .padding-bottom-#{$i} {
+        padding-bottom: 0px + $i!important;
+    }
+}
+
+.inline-block {
+    display: inline-block; float: none; vertical-align: middle;
+}
+
+.inline-block-important{
+    display: inline-block !important; float: none; vertical-align: middle;
+}
+
+.inline-block-top {
+    display: inline-block; float: none; vertical-align: top;
+}
+
+.inline-block-bottom {
+    display: inline-block; float: none; vertical-align: bottom;
+}
+
+input[type='text'] {
+    padding: 5px;
+    width: 100%;
+}
+
+.form-wrapper {
+    width: 100%;
+    background-color: white;
+    padding: 25px;
+    margin-top: 200px;
+    form {
+        .form-row {
+            padding-bottom: 10px;
+            input[type='text'], input[type='password'] {
+                border: 1px solid #d2d6de;
+                color: #333;
+                padding: 6px 12px;
+                width: 100%;
+            }
+            &.submit {
+                padding-bottom: 0;
+                padding-top: 10px;
+                input[type='submit'] {
+                    color: white;
+                    background-color: #21bef4;
+                    padding: 8px 20px;
+                    border: 0;
+                }
+            }
+        }
+    }
+}
+
+.alerts-wrapper {
+    padding-bottom: 15px;
+    .alert {
+        margin-bottom: 5px;
+        padding: 5px 10px;
+    }
+}
+
+header.main-header {
+    figure.logo {
+        width: 230px;
+        padding: 0;
+        img {
+            width: 35px;
+        }
+    }
+    nav {
+        &:before, &:after {
+            display: none;
+        }
+    }
+}
+
+.content-wrapper {
+    min-height: calc(100vh - 50px);
+}
+
+.user-menu {
+    .dropdown-menu {
+        width: auto !important;
+        min-width: 0 !important;
+    }
+}
+
+.content-wrapper {
+    padding: 10px;
+    section.content {
+        padding: 20px;
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            margin: 0;
+            font-size: 26px;
+            padding-bottom: 20px;
+        }
+        form {
+            .form-row {
+                padding-bottom: 10px;
+                text-align: left;
+            }
+            .btn-container {
+                padding-top: 15px;
+            }
+            label {
+                display: block;
+            }
+        }
+    }
+}
+
+.btn {
+    background-color: #3c8dbc !important;
+    color: white !important;
+    &:hover {
+        color: white !important;
+    }
+}
+
+.dataTables_wrapper {
+    .dataTables_info {
+        text-align: center;
+    }
+    .dataTables_paginate {
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        span {
+            margin: 0 15px;
+            a {
+                margin: 0 5px;
+                &.current {
+                    cursor: initial;
+                    color: #72afd2;
+                }
+            }
+        }
+    }
+    .dataTables_length {
+        float: left;
+    }
+    .dataTables_filter {
+        float: right;
+        input {
+            margin-left: 5px;
+        }
+    }
+    .sorting_1 {
+        cursor: all-scroll;
+    }
+    .actions {
+        a {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.required-mark {
+    color: red;
+}
+
+.media-popup {
+    .modal-dialog {
+        width: 100%;
+        max-width: 70%;
+        .bootbox-body {
+            padding-top: 15px;
+        }
+    }
+}
+
+.small-image {
+    max-width: 150px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.no-results {
+    text-align: center;
+    padding-top: 100px;
+    font-size: 18px;
+}
+
+body.media {
+    margin: 0;
+    overflow: visible;
+}
+
+.remove-image {
+    font-size: 18px;
+    padding-left: 5px;
+    color: red;
+    cursor: pointer;
+}

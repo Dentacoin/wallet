@@ -1,0 +1,3 @@
+[Tue Jul 24 13:47:49.288685 2018] [core:error] [pid 16808:tid 1252] (20024)The given path is misformatted or contained invalid characters: [client 127.0.0.1:55009] AH00127: Cannot map GET /return%20redirect()-%3Eroute('admin-access') HTTP/1.1 to file
+[Fri Jul 27 18:19:54.881816 2018] [core:error] [pid 13120:tid 1240] (20024)The given path is misformatted or contained invalid characters: [client 127.0.0.1:63297] AH00127: Cannot map GET /js/index.js%22 HTTP/1.1 to file, referer: http://dentacoin.test/
+[Fri Jul 27 18:20:18.558936 2018] [core:error] [pid 13120:tid 1256] (20024)The given path is misformatted or contained invalid characters: [client 127.0.0.1:63333] AH00127: Cannot map GET /js/index.js%22 HTTP/1.1 to file
