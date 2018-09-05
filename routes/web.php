@@ -12,6 +12,10 @@
 */
 
 
-Route::group(['prefix' => '/', 'middleware' => 'frontEndMiddleware'], function () {
+Route::group(['prefix' => '/'/*, 'middleware' => 'frontEndMiddleware'*/], function () {
     Route::get('/', 'HomeController@getView')->name('home');
+
+    Route::get('/buy', 'BuyController@getView')->name('buy');
+
+    Route::get('/send', 'SendController@getView')->name('send');
 });

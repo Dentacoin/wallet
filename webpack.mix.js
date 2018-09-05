@@ -15,8 +15,6 @@ mix.disableSuccessNotifications();
 mix.styles([
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
     'public/assets/libs/font-awesome/css/font-awesome.min.css',
-    'node_modules/slick-carousel/slick/slick.css',
-    'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
 ], 'public/dist/css/front-libs-style.css');
 
 mix.styles([
@@ -26,26 +24,17 @@ mix.styles([
 mix.scripts([
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
-    'node_modules/bootbox.js/bootbox.min.js',
-    'node_modules/slick-carousel/slick/slick.min.js',
-    'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
 ], 'public/dist/js/front-libs-script.js');
 
 mix.babel([
     'public/assets/js/basic.js',
-    'public/assets/js/markerclusterer-v2.js',
-    'public/assets/js/google-map.js',
     'public/assets/js/index.js',
 ], 'public/dist/js/front-script.js');
 /* ===== /PUBLIC =====*/
 
 /* ===== ADMIN =====*/
 
-mix.scripts([
-    /*'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js',
-    'node_modules/admin-lte/dist/js/app.min.js',*/
-
+/*mix.scripts([
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
     'node_modules/bootbox.js/bootbox.min.js',
@@ -62,18 +51,12 @@ mix.scripts([
 
 
 mix.styles([
-    /*'node_modules/bootstrap/dist/css/bootstrap.min.css',
-    'node_modules/font-awesome/css/font-awesome.min.css',
-    'node_modules/admin-lte/dist/css/AdminLTE.min.css',
-    'node_modules/admin-lte/dist/css/skins/_all-skins.min.css',*/
-
-
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
     'public/assets/libs/font-awesome/css/font-awesome.min.css',
     'node_modules/admin-lte/dist/css/AdminLTE.min.css',
     'node_modules/datatables.net-rowreorder-bs/css/rowReorder.bootstrap.min.css',
     'node_modules/admin-lte/dist/css/skins/_all-skins.min.css',
-], 'public/dist/css/admin-libs-style.css');
+], 'public/dist/css/admin-libs-style.css');*/
 
 /* ===== /ADMIN =====*/
 

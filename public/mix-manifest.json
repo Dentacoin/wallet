@@ -2,8 +2,5 @@
     "/dist/css/front-libs-style.css": "/dist/css/front-libs-style.css",
     "/dist/css/front-style.css": "/dist/css/front-style.css",
     "/dist/js/front-libs-script.js": "/dist/js/front-libs-script.js",
-    "/dist/js/front-script.js": "/dist/js/front-script.js",
-    "/dist/js/admin-libs-script.js": "/dist/js/admin-libs-script.js",
-    "/dist/js/admin-script.js": "/dist/js/admin-script.js",
-    "/dist/css/admin-libs-style.css": "/dist/css/admin-libs-style.css"
+    "/dist/js/front-script.js": "/dist/js/front-script.js"
 }

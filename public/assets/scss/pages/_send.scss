@@ -1,0 +1,40 @@
+.send-container {
+    padding-top: 30px;
+    padding-bottom: 50px;
+    .wallet-address {
+        input {
+            width: calc(100% - 80px);
+            font-size: 16px;
+            padding: 7px 12px;
+            border: 0;
+            vertical-align: middle;
+            @include rounded(4px);
+        }
+        figure {
+            width: 80px;
+            padding-left: 15px;
+            vertical-align: middle;
+        }
+    }
+    .line {
+        margin-bottom: 20px;
+    }
+    .fill-the-address {
+        padding-top: 20px;
+    }
+    @include breakpoint($xs)    {
+        padding-top: 20px;
+        padding-bottom: 0;
+        .wallet-address {
+            input {
+                width: calc(100% - 60px);
+            }
+            figure {
+                width: 60px;
+            }
+        }
+        .line {
+            display: none !important;
+        }
+    }
+}

@@ -1,0 +1,152 @@
+.homepage-container {
+    .your-dcn-wallet {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        .subtitle {
+            padding-bottom: 5px;
+        }
+        .address {
+            figure {
+                padding-right: 10px;
+                img {
+                    width: 40px;
+                }
+            }
+        }
+    }
+    .values-and-qr-code {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        .transfer-value {
+            figure {
+                width: 30px;
+                vertical-align: bottom;
+            }
+            .current-value {
+                .dcn-value {
+                    width: calc(100% - 30px);
+                    font-size: 54px;  
+                    line-height: 60px;
+                    font-weight: 500;
+                    padding-left: 15px;
+                    .mobile-symbol {
+                        display: none;
+                        font-size: 20px;
+                        line-height: 20px;
+                    }
+                }
+            }
+            .transferred-value {
+                .output {
+                    font-size: 32px;
+                    padding-top: 15px;
+                    .mobile-symbol {
+                        display: none;
+                    }
+                    button {
+                        border: 0;
+                    }
+                }
+            }
+        }
+        .qr-code {
+            a {
+                display: block;
+                max-width: 220px;
+                background-image: url('/assets/images/qr-border.jpg');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                padding: 10px;
+            }
+        }
+    }
+    @include breakpoint($sm-only)   {
+        .values-and-qr-code {
+            .transfer-value {
+                .current-value {
+                    .dcn-value {
+                        font-size: 50px;
+                    }
+                }
+            }
+        }
+    }
+    @include breakpoint($xs)    {
+        .your-dcn-wallet {
+            .address {
+                font-size: 12px;
+            }
+        }
+        .values-and-qr-code {
+            display: block;
+            font-size: 0;
+            .transfer-value {
+                display: inline-block;
+                vertical-align: middle;
+                .current-value {
+                    figure {
+                        width: 25px;
+                    }
+                    .dcn-value {
+                        font-size: 40px;
+                        line-height: 40px;
+                        padding-left: 10px;
+                    }
+                }
+            }
+            .qr-code {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+    @include breakpoint($xxs)   {
+        .values-and-qr-code {
+            padding-top: 20px;
+            padding-bottom: 0;
+            .transfer-value {
+                .current-value {
+                    figure {
+                        width: 20px;
+                        display: block;
+                    }
+                    .dcn-value {
+                        padding-left: 0;
+                        padding-top: 10px;
+                        font-size: 38px;
+                        width: 100%;
+                        .mobile-symbol {
+                            display: block;
+                        }
+                        .desktop-symbol {
+                            display: none;
+                        }
+                    }
+                }
+                .transferred-value {
+                    .output {
+                        font-size: 22px;
+                        padding-top: 10px;
+                        .mobile-symbol {
+                            display: inline-block;
+                        }
+                        .desktop-symbol {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            .qr-code {
+                padding-left: 0;
+                a {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

@@ -170,8 +170,11 @@
     width: 16.67%; } }
 body {
   margin: 0;
-  font-family: Calibri, sans-serif;
-  color: #1d1d1d; }
+  overflow-x: hidden;
+  background-image: url("/assets/images/body-background.png");
+  /* The image used */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */ }
   body.overflow-hidden {
     overflow: hidden; }
   body.overflow-visible {
@@ -515,111 +518,6 @@ img {
   max-width: 100%;
   height: auto; }
 
-.white-black-btn {
-  background-color: black;
-  color: white;
-  font-size: 16px;
-  padding: 6px 15px;
-  font-weight: bold;
-  border: 2px solid black;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-transition: 0.3s;
-  -moz-transition: 0.3s;
-  -o-transition: 0.3s;
-  -ms-transition: 0.3s;
-  transition: 0.3s; }
-  .white-black-btn:hover {
-    color: black;
-    background-color: white; }
-
-.white-blue-btn {
-  background-color: #679dca;
-  color: white;
-  font-size: 16px;
-  padding: 6px 15px;
-  font-weight: bold;
-  border: 2px solid white;
-  -webkit-transition: 0.3s;
-  -moz-transition: 0.3s;
-  -o-transition: 0.3s;
-  -ms-transition: 0.3s;
-  transition: 0.3s; }
-  .white-blue-btn:hover {
-    color: #679dca;
-    background-color: white; }
-
-.white-blue-rounded-btn {
-  background-color: #679dca;
-  color: white;
-  font-size: 16px;
-  padding: 8px 24px;
-  font-weight: bold;
-  border: 2px solid white;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-transition: 0.3s;
-  -moz-transition: 0.3s;
-  -o-transition: 0.3s;
-  -ms-transition: 0.3s;
-  transition: 0.3s; }
-  .white-blue-rounded-btn:hover {
-    color: #679dca;
-    background-color: white;
-    border: 2px solid #679dca; }
-  @media screen and (max-width: 991px) {
-    .white-blue-rounded-btn {
-      padding: 10px 32px; } }
-
-svg.svg-with-lines {
-  display: none; }
-
-body.home svg.svg-with-lines, body.testimonials svg.svg-with-lines {
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0; }
-  body.home svg.svg-with-lines line, body.testimonials svg.svg-with-lines line {
-    stroke-width: 2px;
-    stroke: black; }
-  @media screen and (max-width: 991px) {
-    body.home svg.svg-with-lines, body.testimonials svg.svg-with-lines {
-      display: none; } }
-
-.custom-dot {
-  display: inline-block;
-  height: 100%; }
-
-.section-title {
-  color: #333333;
-  font-size: 35px;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase; }
-  @media screen and (max-width: 767px) {
-    .section-title {
-      font-size: 22px; } }
-
-.section-subtitle {
-  color: black;
-  font-size: 35px;
-  font-weight: bold; }
-
-.between-sections-description .title {
-  font-size: 34px;
-  font-weight: bold;
-  color: #333333; }
-.between-sections-description .description {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333333;
-  line-height: 16px; }
-
 .visibility-hidden {
   visibility: hidden; }
 
@@ -628,61 +526,6 @@ body.home svg.svg-with-lines, body.testimonials svg.svg-with-lines {
 
 .visibility-visible-important {
   visibility: visible !important; }
-
-.pagination-container {
-  font-size: 0;
-  text-align: center; }
-  .pagination-container ul li {
-    font-size: 16px;
-    text-align: center;
-    background-color: white;
-    border: 2px solid black;
-    color: #3e3e3e;
-    font-family: 'Calibri-Bold';
-    margin: 0 8px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-    -o-transition: 0.3s;
-    -ms-transition: 0.3s;
-    transition: 0.3s; }
-    .pagination-container ul li a {
-      width: 30px;
-      line-height: 30px;
-      height: 30px;
-      display: block;
-      color: #3e3e3e;
-      -webkit-transition: 0.3s;
-      -moz-transition: 0.3s;
-      -o-transition: 0.3s;
-      -ms-transition: 0.3s;
-      transition: 0.3s; }
-    .pagination-container ul li.current, .pagination-container ul li:hover {
-      background-color: black;
-      color: white; }
-      .pagination-container ul li.current a, .pagination-container ul li:hover a {
-        color: white; }
-    .pagination-container ul li.arrow {
-      background-color: transparent;
-      border: 0;
-      color: #3e3e3e;
-      font-size: 21px;
-      line-height: 30px; }
-      .pagination-container ul li.arrow a:hover {
-        color: #3e3e3e; }
-  @media screen and (max-width: 767px) {
-    .pagination-container ul li {
-      margin: 0 3px; }
-      .pagination-container ul li a {
-        width: 20px;
-        line-height: 20px;
-        height: 20px; }
-      .pagination-container ul li.arrow {
-        font-size: 16px;
-        line-height: 20px; } }
 
 @media screen and (max-width: 991px) {
   ::-webkit-scrollbar {
@@ -705,523 +548,6 @@ body.home svg.svg-with-lines, body.testimonials svg.svg-with-lines {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     border-radius: 10px; } }
-.mobile-vertical-line-10 {
-  width: 2px;
-  height: 10px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-11 {
-  width: 2px;
-  height: 11px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-12 {
-  width: 2px;
-  height: 12px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-13 {
-  width: 2px;
-  height: 13px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-14 {
-  width: 2px;
-  height: 14px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-15 {
-  width: 2px;
-  height: 15px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-16 {
-  width: 2px;
-  height: 16px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-17 {
-  width: 2px;
-  height: 17px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-18 {
-  width: 2px;
-  height: 18px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-19 {
-  width: 2px;
-  height: 19px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-20 {
-  width: 2px;
-  height: 20px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-21 {
-  width: 2px;
-  height: 21px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-22 {
-  width: 2px;
-  height: 22px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-23 {
-  width: 2px;
-  height: 23px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-24 {
-  width: 2px;
-  height: 24px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-25 {
-  width: 2px;
-  height: 25px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-26 {
-  width: 2px;
-  height: 26px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-27 {
-  width: 2px;
-  height: 27px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-28 {
-  width: 2px;
-  height: 28px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-29 {
-  width: 2px;
-  height: 29px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-30 {
-  width: 2px;
-  height: 30px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-31 {
-  width: 2px;
-  height: 31px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-32 {
-  width: 2px;
-  height: 32px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-33 {
-  width: 2px;
-  height: 33px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-34 {
-  width: 2px;
-  height: 34px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-35 {
-  width: 2px;
-  height: 35px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-36 {
-  width: 2px;
-  height: 36px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-37 {
-  width: 2px;
-  height: 37px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-38 {
-  width: 2px;
-  height: 38px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-39 {
-  width: 2px;
-  height: 39px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-40 {
-  width: 2px;
-  height: 40px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-41 {
-  width: 2px;
-  height: 41px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-42 {
-  width: 2px;
-  height: 42px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-43 {
-  width: 2px;
-  height: 43px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-44 {
-  width: 2px;
-  height: 44px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-45 {
-  width: 2px;
-  height: 45px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-46 {
-  width: 2px;
-  height: 46px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-47 {
-  width: 2px;
-  height: 47px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-48 {
-  width: 2px;
-  height: 48px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-49 {
-  width: 2px;
-  height: 49px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-50 {
-  width: 2px;
-  height: 50px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-51 {
-  width: 2px;
-  height: 51px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-52 {
-  width: 2px;
-  height: 52px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-53 {
-  width: 2px;
-  height: 53px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-54 {
-  width: 2px;
-  height: 54px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-55 {
-  width: 2px;
-  height: 55px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-56 {
-  width: 2px;
-  height: 56px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-57 {
-  width: 2px;
-  height: 57px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-58 {
-  width: 2px;
-  height: 58px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-59 {
-  width: 2px;
-  height: 59px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-60 {
-  width: 2px;
-  height: 60px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-61 {
-  width: 2px;
-  height: 61px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-62 {
-  width: 2px;
-  height: 62px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-63 {
-  width: 2px;
-  height: 63px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-64 {
-  width: 2px;
-  height: 64px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-65 {
-  width: 2px;
-  height: 65px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-66 {
-  width: 2px;
-  height: 66px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-67 {
-  width: 2px;
-  height: 67px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-68 {
-  width: 2px;
-  height: 68px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-69 {
-  width: 2px;
-  height: 69px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-70 {
-  width: 2px;
-  height: 70px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-71 {
-  width: 2px;
-  height: 71px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-72 {
-  width: 2px;
-  height: 72px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-73 {
-  width: 2px;
-  height: 73px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-74 {
-  width: 2px;
-  height: 74px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-75 {
-  width: 2px;
-  height: 75px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-76 {
-  width: 2px;
-  height: 76px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-77 {
-  width: 2px;
-  height: 77px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-78 {
-  width: 2px;
-  height: 78px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-79 {
-  width: 2px;
-  height: 79px;
-  background: black;
-  margin: 0 auto; }
-
-.mobile-vertical-line-80 {
-  width: 2px;
-  height: 80px;
-  background: black;
-  margin: 0 auto; }
-
-@media screen and (min-width: 1399px) {
-  .container {
-    width: 95%;
-    max-width: 1700px; } }
-.bootbox .bootbox-close-button {
-  font-size: 28px;
-  margin-top: -5px !important;
-  margin-right: 5px; }
-@media screen and (min-width: 991px) {
-  .bootbox {
-    display: flex !important;
-    align-items: center;
-    justify-content: center; } }
-.bootbox.application-popup .modal-dialog {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  width: 70%;
-  max-width: 900px; }
-  .bootbox.application-popup .modal-dialog .modal-content {
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    -ms-border-radius: 25px;
-    border-radius: 25px; }
-  .bootbox.application-popup .modal-dialog .container-fluid {
-    padding-top: 50px;
-    padding-bottom: 50px; }
-    .bootbox.application-popup .modal-dialog .container-fluid .content {
-      padding: 0 30px; }
-      .bootbox.application-popup .modal-dialog .container-fluid .content .logo {
-        width: 40%; }
-      .bootbox.application-popup .modal-dialog .container-fluid .content .title {
-        font-size: 32px;
-        font-family: 'Calibri-Bold';
-        padding-top: 20px;
-        padding-bottom: 10px; }
-      .bootbox.application-popup .modal-dialog .container-fluid .content .description {
-        line-height: 20px;
-        font-size: 16px; }
-        .bootbox.application-popup .modal-dialog .container-fluid .content .description p {
-          padding-bottom: 10px; }
-          .bootbox.application-popup .modal-dialog .container-fluid .content .description p a {
-            margin-top: 10px;
-            display: inline-block; }
-      .bootbox.application-popup .modal-dialog .container-fluid .content .extra-html .extra-title {
-        font-family: 'Calibri-Bold';
-        font-size: 20px;
-        padding-bottom: 10px;
-        padding-top: 20px; }
-      .bootbox.application-popup .modal-dialog .container-fluid .content .extra-html ul li {
-        padding-bottom: 5px;
-        list-style: disc inside none; }
-        .bootbox.application-popup .modal-dialog .container-fluid .content .extra-html ul li a {
-          text-decoration: underline; }
-      .bootbox.application-popup .modal-dialog .container-fluid .content .extra-html .see-all {
-        padding-top: 15px; }
-    .bootbox.application-popup .modal-dialog .container-fluid .gif img {
-      -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
-      -moz-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
-      -ms-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
-      box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2); }
-@media screen and (max-width: 991px) {
-  .bootbox.application-popup .modal-dialog {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto; } }
-@media screen and (max-width: 767px) {
-  .bootbox a.white-blue-rounded-btn {
-    font-size: 14px;
-    padding: 10px 0;
-    width: 100%;
-    max-width: 220px;
-    display: block;
-    text-align: center; }
-  .bootbox .bootbox-close-button {
-    font-size: 32px; }
-  .bootbox.application-popup .modal-dialog .modal-content {
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    border-radius: 6px; }
-  .bootbox.application-popup .modal-dialog .container-fluid {
-    padding-top: 20px;
-    padding-bottom: 20px; }
-    .bootbox.application-popup .modal-dialog .container-fluid .content {
-      padding: 0; }
-    .bootbox.application-popup .modal-dialog .container-fluid .gif {
-      display: none; } }
-
-.modal-backdrop.in {
-  opacity: .3; }
-
 .bootstrap-select {
   width: 100% !important; }
   .bootstrap-select button.btn {
@@ -1245,1374 +571,520 @@ body.home svg.svg-with-lines, body.testimonials svg.svg-with-lines {
       .bootstrap-select .dropdown-menu li:last-child {
         border: 0; }
 
-header {
-  padding-top: 30px; }
-  header .logo-container img {
-    width: 40px; }
+.overlay {
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+  left: 0;
+  top: 0; }
 
-body.home {
-  overflow-x: hidden; }
-  body.home header {
-    top: 0;
-    position: absolute;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%); }
-    @media screen and (max-width: 767px) {
-      body.home header {
-        width: 100%; } }
+.row {
+  display: block !important; }
 
-footer {
-  border-top: 2px solid #aaaaaa; }
-  footer .section-title {
-    padding-top: 30px; }
-  footer .newsletter-register {
-    padding-top: 50px;
-    padding-bottom: 30px; }
-    footer .newsletter-register form .form-row {
-      padding-top: 10px; }
-      footer .newsletter-register form .form-row input[type='email'] {
-        width: 70%;
-        font-size: 20px;
-        padding: 5px 10px;
-        border-top: 1px solid #aaaaaa;
-        border-bottom: 1px solid #aaaaaa;
-        border-left: 1px solid #aaaaaa;
-        border-right: 0;
-        -webkit-border-radius: 4px 0 0 4px;
-        -moz-border-radius: 4px 0 0 4px;
-        -ms-border-radius: 4px 0 0 4px;
-        border-radius: 4px 0 0 4px; }
-      footer .newsletter-register form .form-row input[type='submit'] {
-        width: 30%;
-        font-size: 20px;
-        background-color: #aaaaaa;
-        border: 1px solid #aaaaaa;
-        -webkit-border-radius: 0 4px 4px 0;
-        -moz-border-radius: 0 4px 4px 0;
-        -ms-border-radius: 0 4px 4px 0;
-        border-radius: 0 4px 4px 0; }
-      footer .newsletter-register form .form-row .checkbox-wrapper {
-        width: 20px; }
-      footer .newsletter-register form .form-row label {
-        width: calc(100% - 20px);
-        font-size: 14px;
-        cursor: pointer; }
-        footer .newsletter-register form .form-row label a {
-          text-decoration: underline; }
-      @media screen and (max-width: 767px) {
-        footer .newsletter-register form .form-row input[type='email'] {
-          width: 65%;
-          font-size: 16px;
-          font-family: 'Calibri-Bold'; }
-        footer .newsletter-register form .form-row input[type='submit'] {
-          width: 35%;
-          font-size: 16px;
-          font-family: 'Calibri-Bold'; } }
-    footer .newsletter-register form.not-valid input[type='email'], footer .newsletter-register form.not-valid input[type='submit'] {
-      border-color: red;
-      border-width: 2px; }
-    footer .newsletter-register form.not-valid .alert {
-      margin-top: 5px;
-      margin-bottom: 10px; }
-    @media screen and (max-width: 991px) {
-      footer .newsletter-register {
-        padding-top: 10px; } }
-    @media screen and (max-width: 767px) {
-      footer .newsletter-register {
-        padding-bottom: 10px; } }
-  footer .socials {
-    text-align: center;
-    padding-top: 30px;
-    padding-bottom: 30px; }
-    footer .socials ul li {
-      padding: 0 10px; }
-      footer .socials ul li img {
-        width: 25px; }
-    @media screen and (max-width: 991px) {
-      footer .socials ul li {
-        padding: 0 10px 10px; } }
-    @media screen and (max-width: 767px) {
-      footer .socials {
-        padding-bottom: 20px;
-        padding-top: 20px; }
-        footer .socials ul {
-          font-size: 0; }
-          footer .socials ul li {
-            width: 20%; } }
-  footer .menu {
-    text-align: center;
-    padding-bottom: 30px; }
-    footer .menu ul li {
-      padding: 0 20px; }
-      footer .menu ul li a {
-        color: #3e3e3e;
-        font-size: 20px;
-        font-weight: bold; }
-        footer .menu ul li a:hover {
-          text-decoration: underline; }
-    @media screen and (max-width: 767px) {
-      footer .menu {
-        padding-bottom: 20px; }
-        footer .menu ul li {
-          padding: 3px 10px; }
-          footer .menu ul li a {
-            font-size: 14px; }
-          footer .menu ul li.separator {
-            padding: 3px 0; } }
-  footer .media-inquiries {
-    text-align: center;
-    padding-bottom: 15px;
-    font-family: 'Calibri-Bold'; }
-    footer .media-inquiries a {
-      text-decoration: underline; }
-  footer .all-rights {
-    text-align: center;
-    padding-bottom: 70px;
-    font-size: 14px;
-    color: #3e3e3e; }
-    footer .all-rights a {
-      text-decoration: underline; }
-    @media screen and (max-width: 767px) {
-      footer .all-rights {
-        padding-bottom: 50px; } }
-
-body.home footer {
-  border: 0; }
-
-body.class-404 footer .section-title, body.class-404 footer .newsletter-register {
-  display: none; }
-
-.homepage-container .fullpage-section {
-  height: 100vh; }
-.homepage-container.mobile .fullpage-section {
-  height: auto; }
-.homepage-container.mobile .intro .bg-wrapper .content-wrapper {
-  position: static;
-  -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
-  -o-transform: none;
-  transform: none; }
-.homepage-container.mobile .intro .bg-wrapper .video {
-  text-align: center; }
-  .homepage-container.mobile .intro .bg-wrapper .video .video-wrapper {
-    padding-bottom: 30px; }
-@media screen and (max-width: 767px) {
-  .homepage-container.mobile .intro .bg-wrapper {
-    background-position: left bottom; }
-    .homepage-container.mobile .intro .bg-wrapper .content-wrapper {
-      text-align: center; }
-      .homepage-container.mobile .intro .bg-wrapper .content-wrapper .title {
-        font-size: 45px;
-        line-height: normal; }
-      .homepage-container.mobile .intro .bg-wrapper .content-wrapper .subtitle {
-        line-height: normal;
-        font-size: 20px; }
-      .homepage-container.mobile .intro .bg-wrapper .content-wrapper .description.italic {
-        font-size: 16px; }
-    .homepage-container.mobile .intro .bg-wrapper .video {
-      width: 90%;
-      margin: 0 auto; }
-      .homepage-container.mobile .intro .bg-wrapper .video .video-wrapper .close-video {
-        right: -20px; } }
-.homepage-container.mobile .dentacoin-ecosystem .list {
-  position: static;
-  -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
-  -o-transform: none;
-  transform: none; }
-@media screen and (max-width: 767px) {
-  .homepage-container.mobile .dentacoin-ecosystem {
-    padding-top: 15px;
-    padding-bottom: 30px; }
-    .homepage-container.mobile .dentacoin-ecosystem .btn-container {
-      display: none; }
-    .homepage-container.mobile .dentacoin-ecosystem .rotated-text {
-      position: static;
-      -webkit-transform: none;
-      -moz-transform: none;
-      -ms-transform: none;
-      -o-transform: none;
-      transform: none; }
-      .homepage-container.mobile .dentacoin-ecosystem .rotated-text span {
-        text-align: center;
-        font-size: 22px;
-        padding-top: 15px;
-        padding-bottom: 30px;
-        -webkit-transform: none;
-        -moz-transform: none;
-        -ms-transform: none;
-        -o-transform: none;
-        transform: none; }
-    .homepage-container.mobile .dentacoin-ecosystem .list figure figcaption {
-      padding-top: 10px;
-      font-size: 14px;
-      line-height: 16px; } }
-.homepage-container.mobile .successful-practices .section-title {
-  padding-bottom: 40px;
-  padding-top: 10px; }
-.homepage-container.mobile .successful-practices .content {
-  display: block; }
-  .homepage-container.mobile .successful-practices .content figure {
-    padding-top: 50px;
-    padding-right: 15px;
-    text-align: center; }
-    .homepage-container.mobile .successful-practices .content figure img.desktop-image {
-      display: none; }
-    .homepage-container.mobile .successful-practices .content figure img.mobile-image {
-      display: block; }
-  .homepage-container.mobile .successful-practices .content .content-container {
-    text-align: center; }
-.homepage-container.mobile .successful-practices .dots {
-  height: auto; }
-  .homepage-container.mobile .successful-practices .dots .logo-over-line {
-    position: static;
-    text-align: center;
-    -webkit-transform: none;
-    -moz-transform: none;
-    -ms-transform: none;
-    -o-transform: none;
-    transform: none; }
-    .homepage-container.mobile .successful-practices .dots .logo-over-line img {
-      margin-top: 15px; }
-@media screen and (max-width: 767px) {
-  .homepage-container.mobile .successful-practices .section-title {
-    padding-bottom: 20px; }
-  .homepage-container.mobile .successful-practices .content .content-container .section-subtitle {
-    font-size: 18px;
-    padding: 0 10% 15px;
-    line-height: normal; } }
-.homepage-container.mobile .below-successful-practices {
-  border-top: 2px solid black; }
-  .homepage-container.mobile .below-successful-practices .mobile-title {
-    display: block; }
-    .homepage-container.mobile .below-successful-practices .mobile-title .section-title {
-      padding-top: 10px; }
-  .homepage-container.mobile .below-successful-practices .flex {
-    display: block; }
-    .homepage-container.mobile .below-successful-practices .flex .visibility-hidden {
-      visibility: visible; }
-    .homepage-container.mobile .below-successful-practices .flex .description-over-line {
-      padding-top: 10px;
-      padding-bottom: 20px;
-      border-top: 1px solid black;
-      border-right: 1px solid black;
-      border-left: 1px solid black; }
-      .homepage-container.mobile .below-successful-practices .flex .description-over-line .wrapper {
-        padding-right: 0; }
-        .homepage-container.mobile .below-successful-practices .flex .description-over-line .wrapper .description {
-          padding: 0; }
-          .homepage-container.mobile .below-successful-practices .flex .description-over-line .wrapper .description .wrapper {
-            padding-right: 0; }
-            .homepage-container.mobile .below-successful-practices .flex .description-over-line .wrapper .description .wrapper span {
-              display: block;
-              padding: 0; }
-    .homepage-container.mobile .below-successful-practices .flex .cells {
-      display: flex; }
-      .homepage-container.mobile .below-successful-practices .flex .cells .between-sections-description {
-        width: 50%;
-        border: 1px solid black;
-        padding-top: 10px;
-        text-align: center;
-        padding-bottom: 15px; }
-        .homepage-container.mobile .below-successful-practices .flex .cells .between-sections-description .description {
-          padding: 0 10px; }
-  @media screen and (max-width: 767px) {
-    .homepage-container.mobile .below-successful-practices .flex .description-over-line .wrapper .description .wrapper {
-      font-size: 12px; }
-      .homepage-container.mobile .below-successful-practices .flex .description-over-line .wrapper .description .wrapper span {
-        font-size: 26px; }
-    .homepage-container.mobile .below-successful-practices .flex .cells .between-sections-description .title {
-      font-size: 26px; }
-    .homepage-container.mobile .below-successful-practices .flex .cells .between-sections-description .description {
-      font-size: 12px; } }
-.homepage-container.mobile .testimonials .below-expressions {
-  display: none; }
-.homepage-container.mobile .testimonials .expressions {
-  margin-top: 0;
-  padding-top: 30px;
-  padding-bottom: 20px;
-  -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
-  -o-transform: none;
-  transform: none; }
-  .homepage-container.mobile .testimonials .expressions .circle-wrapper .text .start {
-    position: static;
-    display: inline-block;
-    margin-right: 5px; }
-    .homepage-container.mobile .testimonials .expressions .circle-wrapper .text .start img {
-      vertical-align: top; }
-  .homepage-container.mobile .testimonials .expressions .circle-wrapper .mobile-vertical-line-30 {
-    margin: 0 auto 15px; }
-  .homepage-container.mobile .testimonials .expressions .circle-wrapper:first-child .mobile-vertical-line-30 {
-    display: none; }
-  .homepage-container.mobile .testimonials .expressions .circle-wrapper.active {
-    width: 100%;
-    margin: 0; }
-    .homepage-container.mobile .testimonials .expressions .circle-wrapper.active .text {
-      position: relative;
-      width: 100%;
-      left: auto;
-      text-align: center;
-      padding-top: 10px;
-      padding-bottom: 20px;
-      -webkit-transform: none;
-      -moz-transform: none;
-      -ms-transform: none;
-      -o-transform: none;
-      transform: none; }
-      .homepage-container.mobile .testimonials .expressions .circle-wrapper.active .text .name_job_location .end {
-        display: none; }
-.homepage-container.mobile .testimonials .see-more {
-  padding-bottom: 50px; }
-  .homepage-container.mobile .testimonials .see-more a {
-    font-size: 18px; }
-.homepage-container.mobile .testimonials .token-holders-transactions {
-  display: flex; }
-  .homepage-container.mobile .testimonials .token-holders-transactions .between-sections-description {
-    width: 50%;
-    border: 1px solid black;
-    padding-top: 10px;
-    text-align: center;
-    padding-bottom: 15px; }
-.homepage-container.mobile .testimonials .upper-empty-space {
-  display: none; }
-@media screen and (max-width: 767px) {
-  .homepage-container.mobile .testimonials .token-holders-transactions .between-sections-description .title {
-    font-size: 26px; }
-  .homepage-container.mobile .testimonials .token-holders-transactions .between-sections-description .description {
-    font-size: 12px; } }
-.homepage-container.mobile .buy-dentacoin {
-  border-bottom: 2px solid black; }
-  .homepage-container.mobile .buy-dentacoin .logo .logo-over-line {
-    position: static;
-    text-align: center;
-    -webkit-transform: none;
-    -moz-transform: none;
-    -ms-transform: none;
-    -o-transform: none;
-    transform: none; }
-    .homepage-container.mobile .buy-dentacoin .logo .logo-over-line img {
-      margin-top: 15px; }
-  .homepage-container.mobile .buy-dentacoin .section-title {
-    padding-top: 10px;
-    padding-bottom: 0; }
-  .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif {
-    display: block; }
-    .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .wallet-app {
-      text-align: center; }
-      .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-method {
-        text-align: left;
-        width: 40%; }
-      .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .wallet-app .buy-btn {
-        padding-top: 40px; }
-    .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .gif figure {
-      padding-top: 50px; }
-      .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .gif figure img.mobile-image {
-        display: block;
-        visibility: visible;
-        width: 50%;
-        margin: 0 auto; }
-      .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .gif figure img.desktop-image {
-        display: none; }
-    .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .gif .between-sections-description {
-      display: none; }
-  @media screen and (max-width: 767px) {
-    .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .wallet-app .section-subtitle {
-      font-size: 20px;
-      padding-bottom: 5px; }
-    .homepage-container.mobile .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-method {
-      width: 80%;
-      padding-bottom: 10px; } }
-.homepage-container.mobile .below-buy-dentacoin .container {
-  padding-bottom: 0;
-  padding-top: 0; }
-  .homepage-container.mobile .below-buy-dentacoin .container .logo-over-line {
-    position: static;
-    text-align: center;
-    -webkit-transform: none;
-    -moz-transform: none;
-    -ms-transform: none;
-    -o-transform: none;
-    transform: none; }
-    .homepage-container.mobile .below-buy-dentacoin .container .logo-over-line img {
-      margin-top: 15px; }
-.homepage-container.mobile .below-buy-dentacoin .between-sections-description {
-  display: none; }
-.homepage-container.mobile .awards-and-publications .section-title {
-  padding-top: 10px;
-  padding-bottom: 30px; }
-.homepage-container.mobile .awards-and-publications .awards {
-  padding-bottom: 70px; }
-.homepage-container.mobile .awards-and-publications .no-gutter-sm-down {
-  padding-left: 0;
-  padding-right: 0; }
-  .homepage-container.mobile .awards-and-publications .no-gutter-sm-down .publications-slider-wrapper .publications-slider {
-    height: auto;
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 70px;
-    border-bottom: 2px solid black; }
-  .homepage-container.mobile .awards-and-publications .no-gutter-sm-down .publications-slider-wrapper .logo-over-line {
-    position: static;
-    text-align: center;
-    -webkit-transform: none;
-    -moz-transform: none;
-    -ms-transform: none;
-    -o-transform: none;
-    transform: none; }
-    .homepage-container.mobile .awards-and-publications .no-gutter-sm-down .publications-slider-wrapper .logo-over-line img {
-      margin-top: 15px; }
-@media screen and (max-width: 767px) {
-  .homepage-container.mobile .awards-and-publications .awards {
-    padding-bottom: 40px; }
-    .homepage-container.mobile .awards-and-publications .awards figure {
-      padding-bottom: 25px; }
-  .homepage-container.mobile .awards-and-publications .no-gutter-sm-down {
-    padding-left: 15px;
-    padding-right: 15px; }
-    .homepage-container.mobile .awards-and-publications .no-gutter-sm-down .publications-slider-wrapper .publications-slider .single-slide .wrapper figure {
-      padding: 0 10px; }
-    .homepage-container.mobile .awards-and-publications .no-gutter-sm-down .publications-slider-wrapper .publications-slider .single-slide .wrapper .description {
-      padding: 10px;
-      font-size: 12px; }
-    .homepage-container.mobile .awards-and-publications .no-gutter-sm-down .publications-slider-wrapper .publications-slider .single-slide .wrapper .headline {
-      padding-left: 10px;
-      padding-right: 10px; } }
-.homepage-container.mobile .roadmap .container {
-  padding-top: 10px;
-  padding-bottom: 30px; }
-.homepage-container.mobile .roadmap-timeline {
-  padding-bottom: 40px;
-  border-bottom: 2px solid black; }
-  .homepage-container.mobile .roadmap-timeline .gif figure img.desktop-image {
-    display: none; }
-  .homepage-container.mobile .roadmap-timeline .roadmap-content {
-    text-align: center; }
-    .homepage-container.mobile .roadmap-timeline .roadmap-content .roadmap-cell {
-      text-align: left;
-      width: 30%;
-      min-width: 280px;
-      display: block;
-      margin: 0 auto;
-      opacity: 1; }
-      .homepage-container.mobile .roadmap-timeline .roadmap-content .roadmap-cell .mobile-icon {
-        text-align: center;
-        padding-bottom: 10px; }
-        .homepage-container.mobile .roadmap-timeline .roadmap-content .roadmap-cell .mobile-icon img {
-          width: 80px; }
-  @media screen and (max-width: 767px) {
-    .homepage-container.mobile .roadmap-timeline .roadmap-content .roadmap-cell {
-      width: 80%;
-      min-width: auto; } }
-.homepage-container.mobile .below-roadmap-timeline .wrapper {
-  padding-top: 0; }
-  .homepage-container.mobile .below-roadmap-timeline .wrapper .logo-over-line img {
-    margin-top: 15px; }
-.homepage-container .intro {
-  padding-top: 30px;
-  position: relative; }
-  .homepage-container .intro .bg-wrapper {
-    background-image: url("/assets/images/dentacoin-symbol-background.png");
-    background-position: left center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100%; }
-    .homepage-container .intro .bg-wrapper .btn-container {
-      text-align: right; }
-      .homepage-container .intro .bg-wrapper .btn-container .btn-and-line {
-        text-align: center;
-        width: 90px; }
-        .homepage-container .intro .bg-wrapper .btn-container .btn-and-line a {
-          display: block; }
-    .homepage-container .intro .bg-wrapper .second-dot-parent {
-      text-align: right;
-      bottom: 0;
-      position: absolute;
-      left: 50%;
-      -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-      transform: translateX(-50%); }
-      .homepage-container .intro .bg-wrapper .second-dot-parent .wrapper {
-        text-align: center;
-        min-width: 90px;
-        display: inline-block; }
-    .homepage-container .intro .bg-wrapper .content-wrapper {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%); }
-      .homepage-container .intro .bg-wrapper .content-wrapper .title {
-        font-size: 70px;
-        font-weight: bold;
-        line-height: 70px; }
-      .homepage-container .intro .bg-wrapper .content-wrapper .subtitle {
-        font-size: 30px;
-        font-weight: bold;
-        line-height: 25px; }
-      .homepage-container .intro .bg-wrapper .content-wrapper .description {
-        font-size: 16px;
-        padding-top: 20px;
-        line-height: 18px; }
-        .homepage-container .intro .bg-wrapper .content-wrapper .description.italic {
-          font-size: 18px;
-          font-style: italic; }
-    .homepage-container .intro .bg-wrapper .video {
-      padding-top: 20px; }
-      .homepage-container .intro .bg-wrapper .video .play-btn {
-        display: inline-block; }
-        .homepage-container .intro .bg-wrapper .video .play-btn img {
-          width: 60px;
-          cursor: pointer; }
-      .homepage-container .intro .bg-wrapper .video .video-wrapper {
-        display: none;
-        width: 60px;
-        position: relative; }
-        .homepage-container .intro .bg-wrapper .video .video-wrapper video {
-          width: 100%; }
-        .homepage-container .intro .bg-wrapper .video .video-wrapper .close-video {
-          position: absolute;
-          top: 0;
-          right: -25px;
-          cursor: pointer; }
-          .homepage-container .intro .bg-wrapper .video .video-wrapper .close-video img {
-            width: 14px; }
-.homepage-container .dentacoin-ecosystem {
-  background-image: url("/assets/images/dentacoin-ecosystem-background.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative; }
-  .homepage-container .dentacoin-ecosystem .btn-container {
-    text-align: right;
-    padding-top: 30px; }
-    .homepage-container .dentacoin-ecosystem .btn-container .btn-and-line {
-      text-align: center;
-      min-width: 90px; }
-      .homepage-container .dentacoin-ecosystem .btn-container .btn-and-line a {
-        display: block; }
-  .homepage-container .dentacoin-ecosystem .rotated-text {
-    color: white;
-    font-weight: bold;
-    font-size: 35px;
-    left: -80px;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%); }
-    .homepage-container .dentacoin-ecosystem .rotated-text span {
-      display: block;
-      -webkit-transform: rotate(-90deg);
-      -ms-transform: rotate(-90deg);
-      -o-transform: rotate(-90deg);
-      transform: rotate(-90deg); }
-  .homepage-container .dentacoin-ecosystem .list {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%); }
-    .homepage-container .dentacoin-ecosystem .list button {
-      margin-bottom: 25px; }
-      .homepage-container .dentacoin-ecosystem .list button:focus {
-        outline: 5px auto white;
-        outline-offset: -2px; }
-      .homepage-container .dentacoin-ecosystem .list button figure {
-        text-align: center;
-        cursor: pointer; }
-        .homepage-container .dentacoin-ecosystem .list button figure figcaption {
-          color: white;
-          font-size: 18px;
-          padding-top: 15px; }
-  @media screen and (min-width: 1399px) {
-    .homepage-container .dentacoin-ecosystem .list {
-      width: 100%;
-      max-width: 1300px; } }
-.homepage-container .successful-practices .dots {
-  height: 80px; }
-  .homepage-container .successful-practices .dots .first-dot-wrapper {
-    position: absolute;
-    top: 0;
-    right: 15px;
-    width: 90px;
-    text-align: center;
-    font-size: 0; }
-    .homepage-container .successful-practices .dots .first-dot-wrapper .inline-block {
-      font-size: 14px; }
-  .homepage-container .successful-practices .dots .second-dot-wrapper {
-    position: absolute;
-    bottom: 0;
-    right: 15px;
-    width: 90px;
-    text-align: center;
-    font-size: 0; }
-    .homepage-container .successful-practices .dots .second-dot-wrapper .inline-block {
-      font-size: 14px; }
-  .homepage-container .successful-practices .dots .third-dot {
-    position: absolute;
-    bottom: 0;
-    left: 15px; }
-  .homepage-container .successful-practices .dots .logo-over-line {
-    position: absolute;
-    padding: 0 20px;
-    background: white;
-    top: 80px;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    -webkit-transform: translate(-50%, -100%);
-    -ms-transform: translate(-50%, -100%); }
-    .homepage-container .successful-practices .dots .logo-over-line img {
-      width: 40px; }
-.homepage-container .successful-practices .section-title {
-  padding-top: 30px;
-  padding-bottom: 70px; }
-.homepage-container .successful-practices .content figure {
-  padding-right: 0;
-  order: 1; }
-  .homepage-container .successful-practices .content figure .fourth-dot {
-    position: absolute;
-    bottom: 0;
-    left: 15px; }
-  .homepage-container .successful-practices .content figure .fifth-dot {
-    position: absolute;
-    bottom: 0;
-    right: 0; }
-  .homepage-container .successful-practices .content figure img.desktop-image {
-    visibility: hidden; }
-  .homepage-container .successful-practices .content figure img.active {
-    visibility: visible; }
-  .homepage-container .successful-practices .content figure img.mobile-image {
-    display: none;
-    margin: 0 auto;
-    width: 70%; }
-.homepage-container .successful-practices .content .content-container {
-  order: 2; }
-  .homepage-container .successful-practices .content .content-container .section-subtitle {
-    line-height: 34px;
-    padding-bottom: 15px; }
-  .homepage-container .successful-practices .content .content-container .description {
-    font-size: 16px;
-    line-height: 18px; }
-  .homepage-container .successful-practices .content .content-container .btn-container {
-    padding-top: 30px; }
-    .homepage-container .successful-practices .content .content-container .btn-container .white-blue-rounded-btn {
-      font-size: 18px; }
-@media screen and (min-width: 1399px) {
-  .homepage-container .successful-practices .content .content-container {
-    padding-right: 10%; } }
-.homepage-container .below-successful-practices .mobile-title {
-  display: none; }
-  .homepage-container .below-successful-practices .mobile-title figure img {
-    width: 40px;
-    margin-top: 15px; }
-  .homepage-container .below-successful-practices .mobile-title .section-title {
-    padding-bottom: 20px; }
-.homepage-container .below-successful-practices .cells {
-  font-size: 0;
-  order: 1;
-  text-align: center; }
-  .homepage-container .below-successful-practices .cells .between-sections-description {
-    width: 40%;
-    padding-top: 25px;
-    text-align: left; }
-.homepage-container .below-successful-practices .description-over-line {
+/* ----- Buttons, navigation menu ----- */
+.nav-button {
+  border-radius: 10px;
+  margin: 5px;
+  height: 85%;
   text-align: center;
-  padding-top: 100px;
-  order: 2; }
-  .homepage-container .below-successful-practices .description-over-line .wrapper {
-    position: relative;
-    padding-right: 15px; }
-    .homepage-container .below-successful-practices .description-over-line .wrapper .first-dot {
-      left: -15px;
-      position: absolute;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%); }
-    .homepage-container .below-successful-practices .description-over-line .wrapper .second-dot {
-      right: 0;
-      position: absolute;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%); }
-    .homepage-container .below-successful-practices .description-over-line .wrapper .description {
-      font-size: 16px;
-      font-weight: bold;
-      color: #333333;
-      padding: 0 5px;
-      background: white; }
-      .homepage-container .below-successful-practices .description-over-line .wrapper .description span {
-        font-size: 34px;
-        font-weight: bold;
-        color: #333333;
-        vertical-align: middle;
-        padding: 0 5px; }
-.homepage-container .testimonials .upper-empty-space {
-  height: 200px;
-  position: relative; }
-  .homepage-container .testimonials .upper-empty-space .first-dot {
-    position: absolute;
-    bottom: 0;
-    right: 15px; }
-  .homepage-container .testimonials .upper-empty-space .second-dot {
-    position: absolute;
-    bottom: 0;
-    left: 15px; }
-.homepage-container .testimonials .expressions {
-  margin-top: -10px;
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%); }
-  .homepage-container .testimonials .expressions .circle-wrapper {
-    width: 30px;
-    margin: 0 5px;
-    position: relative; }
-    @media screen and (min-width: 992px) and (max-width: 1199px) {
-      .homepage-container .testimonials .expressions .circle-wrapper {
-        width: 25px; } }
-    .homepage-container .testimonials .expressions .circle-wrapper .circle {
-      width: 25px;
-      height: 25px;
-      border: 3px solid black;
-      margin: 0 auto;
-      background-color: white;
-      background-image: url("/assets/images/no-active-avatar-hover.svg") !important;
-      background-position: center center;
-      background-size: 70% 70%;
-      background-repeat: no-repeat;
-      cursor: pointer;
-      position: relative;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-      border-radius: 50%;
-      -webkit-transition: 0.3s;
-      -moz-transition: 0.3s;
-      -o-transition: 0.3s;
-      -ms-transition: 0.3s;
-      transition: 0.3s; }
-      .homepage-container .testimonials .expressions .circle-wrapper .circle .background {
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        position: absolute;
-        z-index: 5;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        border-radius: 50%; }
-    .homepage-container .testimonials .expressions .circle-wrapper .text {
-      display: none;
-      width: 250px;
-      text-align: left;
-      padding-top: 15px;
-      padding-left: 20px;
-      padding-right: 20px;
-      color: #3e3e3e;
-      position: relative;
-      line-height: 18px;
-      position: absolute;
-      left: 50%;
-      -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-      transform: translateX(-50%); }
-      .homepage-container .testimonials .expressions .circle-wrapper .text .start, .homepage-container .testimonials .expressions .circle-wrapper .text .end {
-        width: 10px; }
-      .homepage-container .testimonials .expressions .circle-wrapper .text .start {
-        top: 10px;
-        left: 0;
-        position: absolute; }
-      .homepage-container .testimonials .expressions .circle-wrapper .text .end {
-        display: inline-block;
-        margin-left: 5px; }
-        .homepage-container .testimonials .expressions .circle-wrapper .text .end img {
-          vertical-align: bottom; }
-      .homepage-container .testimonials .expressions .circle-wrapper .text .name_job_location {
-        padding-top: 5px;
-        line-height: 16px; }
-    .homepage-container .testimonials .expressions .circle-wrapper.active {
-      width: 80px;
-      margin: 0 25px; }
-      .homepage-container .testimonials .expressions .circle-wrapper.active .circle {
-        margin: 0 auto;
-        width: 70px;
-        height: 70px;
-        background-image: none !important; }
-        .homepage-container .testimonials .expressions .circle-wrapper.active .circle .background {
-          opacity: 1; }
-      .homepage-container .testimonials .expressions .circle-wrapper.active .text {
-        display: block; }
-        .homepage-container .testimonials .expressions .circle-wrapper.active .text .name_job {
-          font-family: 'Calibri-Bold'; }
-        .homepage-container .testimonials .expressions .circle-wrapper.active .text .location i {
-          padding-right: 5px;
-          color: #aaaaaa; }
-      @media screen and (min-width: 992px) and (max-width: 1199px) {
-        .homepage-container .testimonials .expressions .circle-wrapper.active {
-          width: 70px;
-          margin: 0 5px; } }
-  @media screen and (min-width: 1399px) {
-    .homepage-container .testimonials .expressions .circle-wrapper .text {
-      width: 290px; }
-    .homepage-container .testimonials .expressions .circle-wrapper.active {
-      width: 100px; }
-      .homepage-container .testimonials .expressions .circle-wrapper.active .circle {
-        width: 100px;
-        height: 100px; } }
-.homepage-container .testimonials .below-expressions {
-  padding-top: 300px; }
-  .homepage-container .testimonials .below-expressions .show-more {
-    position: absolute;
-    left: 0;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%); }
-    .homepage-container .testimonials .below-expressions .show-more p {
-      margin-top: -15px;
-      font-size: 16px;
-      margin-left: -50px;
-      transform-origin: bottom;
-      -webkit-transform: rotate(-90deg);
-      -ms-transform: rotate(-90deg);
-      -o-transform: rotate(-90deg);
-      transform: rotate(-90deg); }
-    .homepage-container .testimonials .below-expressions .show-more figure {
-      border: 2px solid black;
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      background: white;
-      padding: 3px;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-      border-radius: 50%; }
-      .homepage-container .testimonials .below-expressions .show-more figure img {
-        width: 90%;
-        margin: 0 auto; }
-  .homepage-container .testimonials .below-expressions .third-dot {
-    position: absolute;
-    bottom: 0;
-    left: 15px; }
-.homepage-container .buy-dentacoin .logo .logo-over-line {
-  background-color: white;
-  padding: 0 20px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); }
-  .homepage-container .buy-dentacoin .logo .logo-over-line img {
-    width: 40px; }
-.homepage-container .buy-dentacoin .logo .first-dot {
-  position: absolute;
-  top: 0;
-  right: 15px; }
-.homepage-container .buy-dentacoin .section-title {
-  padding-top: 30px;
-  padding-bottom: 60px; }
-.homepage-container .buy-dentacoin .wallet-app-and-gif {
+  font-size: 25px;
+  color: black !important; }
+
+.nav-button li {
+  width: 100%;
+  padding: 50px; }
+
+.nav-button:hover {
+  background-color: #00b7d9;
+  color: white; }
+
+.nav-active {
+  border-radius: 10px;
+  margin: 5px;
+  height: 85%;
+  text-align: center;
+  font-size: 25px;
+  color: black;
+  background-color: #00b7d9;
+  color: white !important; }
+
+.navbar {
+  background: rgba(250, 250, 250, 0); }
+
+.nav-link, .navbar-brand {
+  color: #f4f4f4;
+  cursor: pointer; }
+
+.nav-link {
+  margin-right: 1em !important; }
+
+.nav-link:hover {
+  background: #f4f4f4;
+  color: rgba(250, 250, 250, 0); }
+
+.navbar-collapse {
+  justify-content: flex-end; }
+
+.navbar-toggler {
+  background: #fff !important; }
+
+.navbar-collapse {
+  justify-content: flex-end; }
+
+/* ----- End Buttons, navigation menu ----- */
+.hide-on-desktop {
+  display: none; }
+
+.show-on-desktop {
+  display: initial; }
+
+/* ----- Home page Amount Section ----- */
+.btn-outline {
+  border-color: white; }
+
+.amount-mobile {
+  display: none; }
+
+.amount-desktop {
+  display: initial; }
+
+.amount-in-fiat {
+  font-size: 2em; }
+
+/* ----- End Home page Amount Section ----- */
+/* ----- Buy section Credit card ----- */
+.card-form input[type=text], input[type=tel], input[type=number], select {
+  width: 50%;
+  float: left;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; }
+
+.card-form input[type=submit] {
+  width: 100%;
+  background-color: #00b7d9;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer; }
+
+.credit-card-input {
+  width: 60% !important;
+  margin: 0 auto !important; }
+
+.card-form input[type=submit]:hover {
+  background-color: #45a049; }
+
+.pay-get-field {
+  display: none !important; }
+
+.buy-info-mobile {
+  display: none !important; }
+
+/*input BUY section */
+.form-input-group {
+  padding-right: 0%;
   font-size: 0;
-  display: flex;
-  position: relative; }
-  .homepage-container .buy-dentacoin .wallet-app-and-gif .fifth-dot {
-    position: absolute;
-    bottom: 0;
-    left: 15px; }
-  .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app {
-    font-size: 16px; }
-    .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .section-subtitle {
-      padding-bottom: 20px;
-      padding-top: 20px; }
-    .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .description {
-      color: #3e3e3e;
-      padding-bottom: 20px; }
-    .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets {
-      font-size: 0; }
-      .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets {
-        font-size: 16px;
-        width: 50%;
-        padding: 0 5px; }
-        .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms .title, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets .title {
-          cursor: pointer; }
-          .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms .title .icon, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets .title .icon {
-            width: 15px;
-            height: 15px;
-            background-image: url("/assets/images/plus-black-background-bordered.svg");
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: 100% 100%; }
-          .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms .title span, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets .title span {
-            padding-left: 5px; }
-        .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms ul.list, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets ul.list {
-          display: none; }
-          .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms ul.list li, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets ul.list li {
-            list-style: disc inside none;
-            -webkit-transition: 0.3s;
-            -moz-transition: 0.3s;
-            -o-transition: 0.3s;
-            -ms-transition: 0.3s;
-            transition: 0.3s; }
-            .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms ul.list li:hover, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets ul.list li:hover {
-              font-family: 'Calibri-Bold'; }
-        .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms.active .title .icon, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets.active .title .icon {
-          background-image: url("/assets/images/minus-black-background-bordered.svg"); }
-        .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .exchange-platforms.active .title span, .homepage-container .buy-dentacoin .wallet-app-and-gif .wallet-app .exchange-platforms-and-wallets .wallets.active .title span {
-          text-decoration: underline;
-          font-weight: bold; }
-  .homepage-container .buy-dentacoin .wallet-app-and-gif .gif figure {
-    position: relative; }
-    .homepage-container .buy-dentacoin .wallet-app-and-gif .gif figure img {
-      visibility: hidden; }
-      .homepage-container .buy-dentacoin .wallet-app-and-gif .gif figure img.mobile-image {
-        display: none; }
-      .homepage-container .buy-dentacoin .wallet-app-and-gif .gif figure img.active {
-        visibility: visible; }
-    .homepage-container .buy-dentacoin .wallet-app-and-gif .gif figure .second-dot {
-      position: absolute;
-      right: 0;
-      bottom: 0; }
-    .homepage-container .buy-dentacoin .wallet-app-and-gif .gif figure .third-dot {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      font-size: 16px; }
-  .homepage-container .buy-dentacoin .wallet-app-and-gif .gif .between-sections-description {
-    padding: 25px 20px;
-    position: relative; }
-    .homepage-container .buy-dentacoin .wallet-app-and-gif .gif .between-sections-description .fourth-dot {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      font-size: 16px; }
-  .homepage-container .buy-dentacoin .wallet-app-and-gif .buy-btn {
-    padding-top: 40px; }
-.homepage-container .below-buy-dentacoin .container {
   position: relative;
-  padding-top: 60px;
-  padding-bottom: 60px; }
-  .homepage-container .below-buy-dentacoin .container .logo-over-line {
-    position: absolute;
-    padding: 0 20px;
-    background: white;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%); }
-    .homepage-container .below-buy-dentacoin .container .logo-over-line img {
-      width: 40px; }
-  .homepage-container .below-buy-dentacoin .container .first-dot {
-    position: absolute;
-    left: 15px;
-    bottom: 0; }
-  .homepage-container .below-buy-dentacoin .container .second-dot {
-    position: absolute;
-    right: 15px;
-    bottom: 0; }
-.homepage-container .below-buy-dentacoin .between-sections-description {
-  padding-left: 40px;
-  padding-right: 40px; }
-.homepage-container .awards-and-publications .section-title {
-  padding-top: 40px;
-  padding-bottom: 60px; }
-.homepage-container .awards-and-publications .awards {
-  padding-bottom: 120px; }
-  .homepage-container .awards-and-publications .awards figure {
-    text-align: center; }
-.homepage-container .awards-and-publications .publications-slider-wrapper {
-  position: relative; }
-  .homepage-container .awards-and-publications .publications-slider-wrapper .first-dot {
-    position: absolute;
-    bottom: 0;
-    right: 15px; }
-  .homepage-container .awards-and-publications .publications-slider-wrapper .logo-over-line {
-    position: absolute;
-    padding: 0 20px;
-    background: white;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%); }
-    .homepage-container .awards-and-publications .publications-slider-wrapper .logo-over-line img {
-      width: 40px; }
-  .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider {
-    height: 450px;
-    padding-left: 20px;
+  width: 100%; }
+
+.form-input-control {
+  width: calc(100% - 80px);
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color 0.15s; }
+
+.form-input-append {
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+  width: 80px; }
+
+.form-input-append button {
+  width: 100%;
+  background: #dddddd !important; }
+
+.row-buy {
+  padding-left: 15px !important; }
+
+/*CREDIT CARD PIN CODE INSERT - for the separate page that can be used*/
+.fa-1x {
+  font-size: 1.5rem; }
+
+.navbar.navbar-9 .navbar-toggler-icon {
+  background-image: url("https://mdbootstrap.com/img/svg/hamburger6.svg?color=000"); }
+
+.navbar-toggler.toggler-example {
+  cursor: pointer; }
+
+.dark-blue-text {
+  color: #0A38F5; }
+
+.dark-pink-text {
+  color: #AC003A; }
+
+.dark-amber-text {
+  color: #ff6f00; }
+
+.dark-teal-text {
+  color: #004d40; }
+
+.paddingBetweenCols td {
+  padding: 0 15px 0 15px; }
+
+#containor {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  background-color: #1195bc; }
+
+.field {
+  outline: none;
+  background-color: #1195bc;
+  font-family: "open sans";
+  font-weight: 200;
+  letter-spacing: 10px;
+  border-radius: 8px;
+  width: 220px;
+  font-size: 1.1em;
+  border: 1px solid white;
+  height: 45px;
+  color: white;
+  text-align: center;
+  margin-top: -15px;
+  position: absolute;
+  margin-top: 15px;
+  margin-left: 30px;
+  display: inline-block; }
+
+.number {
+  width: 40px;
+  height: 40px;
+  padding: 0px;
+  font-size: 1.3em;
+  font-weight: 200;
+  color: white;
+  font-family: "open sans";
+  border-radius: 100%;
+  border: 1px solid white;
+  text-align: center;
+  line-height: 43px;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: 0.4s; }
+
+.number:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
+
+.number:active {
+  box-shadow: none; }
+
+/* another class just like number, so the x and check buttons wont interrupt to the javascript */
+.numberS {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  font-size: 1.3em;
+  font-weight: 200;
+  color: white;
+  font-family: "open sans";
+  border-radius: 100%;
+  border: 1px solid white;
+  text-align: center;
+  line-height: 43px;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer; }
+
+#x {
+  width: 40px;
+  height: 40px;
+  padding: 0px;
+  display: inline-block;
+  margin-left: 300px;
+  background: white;
+  border: none;
+  color: black;
+  transition: 0.4s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+
+#x:hover {
+  color: #1195bc;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
+
+#x:active {
+  box-shadow: none; }
+
+#y {
+  font-size: 1.0em;
+  border: none;
+  transition: 0.6s;
+  color: #9E9E9E; }
+
+#y:hover {
+  color: white; }
+
+/* End CREDIT CARD PIN CODE INSERT - for the separate page that can be used*/
+/* ----- End Buy section Credit card ----- */
+.send-address-mobile {
+  display: none; }
+
+.transaction-history {
+  display: initial; }
+
+@media only screen and (max-width: 860px) {
+  /* ----------- TABLETS ------------ */
+  .hide-on-mobile {
+    display: none !important; }
+
+  /* ----- Buttons, navigation menu ----- */
+  .navigation-menu {
+    margin: 0 auto; }
+
+  .navigation-menu ul {
+    display: inline;
+    margin: 0 auto; }
+
+  .navigation-menu ul li {
+    margin: 0 auto;
+    display: inline-block; }
+
+  /* ----- End Buttons, navigation menu ----- */
+  /* ----- Home Page Qr Code ----- */
+  .qr-code {
+    Display: none;
     padding-right: 20px; }
-    .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .slick-track {
-      display: flex; }
-    .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .slick-track .slick-slide {
-      display: flex;
-      height: auto;
-      align-items: center;
-      justify-content: center; }
-    .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide {
-      cursor: -webkit-grab;
-      cursor: grab; }
-      .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide figure {
-        padding: 0 20px; }
-        .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide figure img {
-          margin: 0 auto; }
-      .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide .headline {
-        display: none;
-        padding-top: 10px;
-        padding-right: 25px;
-        padding-left: 25px;
-        text-align: center;
-        line-height: 18px;
-        font-family: 'Calibri-Bold'; }
-      .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide .description {
-        padding: 10px 25px;
-        display: none;
-        line-height: 18px; }
-      .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide .btn-container {
-        font-weight: bold;
-        text-align: center;
-        display: none;
-        padding-left: 15px;
-        padding-right: 15px; }
-        .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide .btn-container a {
-          color: black; }
-          .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide .btn-container a:hover {
-            color: black;
-            text-decoration: underline; }
-      .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide.slick-current {
-        border-left: 2px solid black;
-        border-right: 2px solid black; }
-        .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide.slick-current .description, .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide.slick-current .btn-container, .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide.slick-current .headline {
-          display: block;
-          font-size: 16px; }
-      @media screen and (min-width: 1399px) {
-        .homepage-container .awards-and-publications .publications-slider-wrapper .publications-slider .single-slide figure img {
-          max-width: 250px; } }
-.homepage-container .roadmap .container {
-  padding-top: 40px;
-  padding-bottom: 150px;
-  position: relative; }
-  .homepage-container .roadmap .container .first-dot {
-    position: absolute;
-    top: 0;
-    left: 15px; }
-  .homepage-container .roadmap .container .second-dot {
-    position: absolute;
-    bottom: 0;
-    left: 15px; }
-.homepage-container .roadmap-timeline .gif figure {
-  padding-left: 2px;
-  padding-right: 1px;
-  position: relative; }
-  .homepage-container .roadmap-timeline .gif figure img {
-    visibility: hidden; }
-    .homepage-container .roadmap-timeline .gif figure img.active {
-      visibility: visible; }
-  .homepage-container .roadmap-timeline .gif figure .first-dot {
-    position: absolute;
-    right: 2px;
-    bottom: 0; }
-.homepage-container .roadmap-timeline .roadmap-content .roadmap-cell {
-  width: 18%;
-  padding-top: 5px;
-  margin: 0 1%;
-  font-size: 14px;
-  opacity: 0; }
-  .homepage-container .roadmap-timeline .roadmap-content .roadmap-cell > div {
-    padding-bottom: 5px; }
-    .homepage-container .roadmap-timeline .roadmap-content .roadmap-cell > div i {
-      padding-right: 5px; }
-.homepage-container .below-roadmap-timeline .wrapper {
-  padding-top: 150px; }
-  .homepage-container .below-roadmap-timeline .wrapper .figure-wrapper {
-    position: relative; }
-    .homepage-container .below-roadmap-timeline .wrapper .figure-wrapper .first-dot {
-      position: absolute;
-      top: 50%;
-      right: 2px;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%); }
-    .homepage-container .below-roadmap-timeline .wrapper .figure-wrapper .logo-over-line {
-      padding: 0 20px;
-      background: white;
-      text-align: center;
-      position: relative; }
-      .homepage-container .below-roadmap-timeline .wrapper .figure-wrapper .logo-over-line .second-dot {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%); }
-      .homepage-container .below-roadmap-timeline .wrapper .figure-wrapper .logo-over-line img {
-        width: 40px; }
 
-.container-404 {
-  padding-bottom: 100px;
-  background-image: url("/assets/images/dentacoin-symbol-background.png");
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: contain; }
-  .container-404 figure {
-    padding-top: 70px;
-    padding-bottom: 50px; }
-  .container-404 .ops {
-    font-size: 20px; }
-  .container-404 .homepage-link {
-    padding-top: 20px;
-    font-family: 'Calibri-Bold'; }
-    .container-404 .homepage-link a {
-      font-size: 18px;
-      -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
-      -ms-border-radius: 4px;
-      border-radius: 4px; }
-      .container-404 .homepage-link a:hover {
-        border: 2px solid #679dca; }
-  @media screen and (max-width: 767px) {
-    .container-404 {
-      padding-bottom: 50px; }
-      .container-404 figure {
-        padding-top: 30px; }
-      .container-404 .ops {
-        font-size: 18px; }
-      .container-404 .homepage-link a {
-        font-size: 14px; } }
+  .qr-code-border {
+    position: relative !important;
+    top: 0px !important;
+    left: 0px !important; }
 
-.privacy-policy-container {
+  /* -----End Home Page Qr Code ----- */
+  /* ----- Buy Section Field ----- */
+  .buy-field-desktop {
+    display: block !important; }
+
+  .input-field-desktop {
+    width: 100%;
+    padding: 0px;
+    max-width: 100% !important; }
+
+  /* ----- End Buy Section Field ----- */
+  /* ----- Credit Card Input ----- */
+  .credit-card-input {
+    width: 80% !important;
+    margin: 0 auto !important; }
+
+  .credit-card-card {
+    padding-left: 0px !important;
+    padding-right: 0px !important; }
+
+  /* ----- End Credit Card Input----- */
+  /* ----- Send Section ----- */
+  .send-input-mobile {
+    width: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 0% !important;
+    margin: -10px 0 30px 0; }
+
+  /* -----End Send Section ----- */ }
+@media only screen and (max-width: 767px) {
+  .buy-field-desktop {
+    display: none !important; } }
+@media only screen and (max-width: 600px) {
+  /* ----------- MOBILE ------------ */
+  .input-field-desktop {
+    display: none; }
+
+  .hide-on-mobile {
+    display: none !important; }
+
+  /* ----- Mobile Buttons, Navigation Menu ----- */
+  .menu-background {
+    height: auto !important; }
+
+  .nav-button {
+    border-radius: 10px;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: black; }
+
+  .nav-link {
+    font-size: 18px !important;
+    margin-right: 0 !important; }
+
+  .nav-active {
+    border-radius: 10px;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    text-align: center;
+    font-size: 18px;
+    background-color: #00b7d9;
+    color: white; }
+
+  /* -----End Mobile Buttons, Navigation Menu, My wallet Address ----- */
+  /* ----- Home Page - Qr Code, Amount ----- */
+  .qr-code {
+    float: left; }
+
+  .qr-code-border {
+    position: relative !important;
+    top: 0px !important;
+    left: 0px !important;
+    padding-right: 20px; }
+
+  .amount-in-fiat {
+    font-size: 1em; }
+
+  .amount-desktop {
+    display: none; }
+
+  .amount-mobile {
+    display: initial; }
+
+  .my-wallet-address {
+    font-size: 12px; }
+
+  /* ----- End Home Page - Qr Code, Amount ----- */
+  /* ----- Transaction History - Mobile ----- */
+  .table-transactions tr td ul li {
+    font-size: 12px !important;
+    padding-left: 10px !important; }
+
+  .table-transactions tr td ul, menu, dir {
+    padding: 0px !important; }
+
+  .table-transactions .col {
+    padding: 0px !important; }
+
+  .table-transactions td {
+    padding: 3px !important; }
+
+  /* ----- End Transaction History - Mobile ----- */
+  /* ----- Buy Section ----- */
+  .buy-field-desktop {
+    display: none !important; }
+
+  .pay-with-buy {
+    width: 100%; }
+
+  .you-get-buy {
+    width: 100%; }
+
+  .pay-get-field {
+    display: initial !important; }
+
+  .pay-get-field > tbody > tr > th:nth-child(1) {
+    width: 156px;
+    padding-left: 20px; }
+
+  .pay-get-field > tbody > tr > td:last-child {
+    width: 400px;
+    padding-right: 20px;
+    padding-left: 0px; }
+
+  .pay-get-field > tbody > tr > td > ul {
+    padding-left: 5px; }
+
+  .buy-info-mobile {
+    display: initial !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important; }
+
+  .buy-instructions {
+    display: none; }
+
+  /* -----End Buy Section ----- */
+  /* ----- Buy Section Credit Card Input ----- */
+  .credit-card-card {
+    padding-left: 0px !important;
+    padding-right: 0px !important; }
+
+  .credit-card-input {
+    width: 100% !important;
+    margin: 0 auto !important; }
+
+  /* ----- End Buy Section Credit Card Input ----- */
+  /* ----- Send Section ----- */
+  #send-wallet {
+    font-size: 12px; }
+
+  .edit-icon {
+    max-width: 80px; }
+
+  .send-address .col-lg-5, .col-md-9, .col-sm-9, .col-xs-9, .col-lg-4, .col-md-2, .col-sm-2, .xs-2 {
+    width: 80% !important;
+    float: left;
+    display: inline-block !important; }
+
+  .send-address .col-lg-4, .col-md-2, .col-sm-2, .xs-2 {
+    width: 20% !important;
+    float: left;
+    display: inline-block !important; }
+
+  .send-address-desktop {
+    display: none; }
+
+  .send-address-mobile {
+    display: initial;
+    margin-top: 30px;
+    padding-top: 30px; }
+
+  .send-input-mobile {
+    width: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 7% !important;
+    margin: -10px 0 30px 0; }
+
+  /* -----End Send Section ----- */ }
+.background-white {
+  background-color: white; }
+
+.row-flex {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px; }
+
+.center-content {
+  align-items: center; }
+
+.homepage-container .values-and-qr-code {
   padding-top: 50px;
-  padding-bottom: 70px; }
-  .privacy-policy-container .section-title {
-    font-size: 44px;
-    padding-bottom: 10px; }
-  .privacy-policy-container .section-subtitle {
-    padding-bottom: 50px; }
-  .privacy-policy-container p {
-    padding-bottom: 20px;
-    font-size: 16px; }
-  .privacy-policy-container h5 {
-    font-size: 20px;
-    padding-bottom: 15px;
-    color: #679dca;
-    font-family: 'Calibri-Bold'; }
-  .privacy-policy-container h4 {
-    font-family: 'Calibri-Bold';
-    padding-bottom: 15px;
-    font-size: 26px; }
-  .privacy-policy-container a {
-    text-decoration: underline;
-    color: #679dca; }
-  .privacy-policy-container ul {
-    padding-bottom: 20px; }
-    .privacy-policy-container ul li {
-      line-height: 27px;
-      font-size: 16px;
-      list-style: disc inside none; }
-  @media screen and (max-width: 767px) {
-    .privacy-policy-container {
-      padding-top: 30px;
-      padding-bottom: 50px; }
-      .privacy-policy-container .section-title {
-        font-size: 32px; }
-      .privacy-policy-container .section-subtitle {
-        font-size: 20px;
-        padding-bottom: 30px; }
-      .privacy-policy-container a {
-        word-break: break-all; } }
-
-.testimonials-container {
-  padding-top: 30px;
-  padding-bottom: 100px; }
-  .testimonials-container .section-title {
-    font-size: 44px;
-    padding-bottom: 70px; }
-  .testimonials-container .list .single {
-    padding-bottom: 70px;
-    color: #3e3e3e; }
-    .testimonials-container .list .single .mobile-vertical-line-30 {
-      display: none; }
-    .testimonials-container .list .single .image {
-      width: 80px;
-      height: 80px;
-      position: relative;
-      border: 3px solid black;
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-color: white;
-      position: relative;
-      overflow: hidden;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-      border-radius: 50%; }
-      .testimonials-container .list .single .image .dot {
-        font-size: 16px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%); }
-      .testimonials-container .list .single .image img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%); }
-    .testimonials-container .list .single .content {
-      width: calc(100% - 80px);
-      font-size: 16px;
-      padding-left: 25px; }
-      .testimonials-container .list .single .content .description {
-        padding-bottom: 15px;
-        position: relative;
-        padding-left: 15px; }
-        .testimonials-container .list .single .content .description .start, .testimonials-container .list .single .content .description .end {
-          width: 10px; }
-        .testimonials-container .list .single .content .description .start {
-          left: 0;
-          position: absolute; }
-          .testimonials-container .list .single .content .description .start img {
-            vertical-align: top; }
-        .testimonials-container .list .single .content .description .end {
-          display: inline-block;
-          margin-left: 5px; }
-          .testimonials-container .list .single .content .description .end img {
-            vertical-align: bottom; }
-      .testimonials-container .list .single .content .name_job {
-        font-family: 'Calibri-Bold'; }
-      .testimonials-container .list .single .content .location i {
-        padding-right: 5px;
-        color: #aaaaaa; }
-  @media screen and (max-width: 991px) {
-    .testimonials-container .list .single .content .description {
-      padding-left: 0; }
-      .testimonials-container .list .single .content .description .start {
-        position: static;
-        display: inline-block;
-        margin-right: 5px; } }
-  @media screen and (max-width: 767px) {
-    .testimonials-container {
-      padding-bottom: 50px; }
-      .testimonials-container .section-title {
-        font-size: 30px;
-        padding-bottom: 30px; }
-      .testimonials-container .list .single {
-        padding-bottom: 15px; }
-        .testimonials-container .list .single .mobile-vertical-line-30 {
-          margin: 0 auto 15px;
-          display: block; }
-        .testimonials-container .list .single .image {
-          display: block;
-          margin: 0 auto; }
-        .testimonials-container .list .single .content {
-          padding-top: 15px;
-          padding-left: 10px;
-          padding-right: 10px;
-          text-align: center;
-          width: 100%; } }
-
-.changelly-container {
-  padding-top: 30px; }
-  .changelly-container .section-title {
-    padding-bottom: 20px; }
-  .changelly-container .iframe-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; }
-    .changelly-container .iframe-wrapper iframe.changelly {
-      border: 0;
-      width: 100%;
-      height: 450px;
-      min-width: 600px; }
-  @media screen and (max-width: 991px) {
-    .changelly-container {
-      padding-top: 20px; } }
-
-.partner-network-container {
-  padding-top: 30px; }
-  .partner-network-container .section-title {
-    padding-bottom: 20px; }
-  .partner-network-container .filter {
-    padding-bottom: 40px; }
-    .partner-network-container .filter .wrapper {
-      max-width: 250px;
-      width: 90%;
-      margin: 0 auto;
-      text-align: left; }
-      .partner-network-container .filter .wrapper .title {
-        font-family: 'Calibri-Bold';
-        font-size: 20px; }
-  .partner-network-container .map-canvas {
-    position: relative;
-    overflow: hidden;
-    height: 450px; }
-  .partner-network-container .list-with-locations {
-    padding-top: 50px;
-    padding-bottom: 100px; }
-    .partner-network-container .list-with-locations .section-title {
-      padding-top: 30px; }
-    .partner-network-container .list-with-locations .section-subtitle {
-      font-size: 30px;
-      padding-top: 8px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #3e3e3e;
-      cursor: pointer; }
-      .partner-network-container .list-with-locations .section-subtitle button {
-        width: calc(100% - 25px);
-        vertical-align: middle;
-        display: inline-block; }
-      .partner-network-container .list-with-locations .section-subtitle i {
-        font-size: 24px;
-        width: 25px;
-        text-align: right;
-        padding-right: 5px;
-        vertical-align: middle;
-        display: inline-block;
-        -webkit-transition: 0.3s;
-        -moz-transition: 0.3s;
-        -o-transition: 0.3s;
-        -ms-transition: 0.3s;
-        transition: 0.3s; }
-        .partner-network-container .list-with-locations .section-subtitle i.active {
-          -webkit-transform: rotate(90deg);
-          -ms-transform: rotate(90deg);
-          -o-transform: rotate(90deg);
-          transform: rotate(90deg); }
-    .partner-network-container .list-with-locations .clinics {
-      display: none;
-      padding-left: 20px;
-      padding-right: 20px; }
-      .partner-network-container .list-with-locations .clinics .clinic-title {
-        font-size: 20px;
-        text-align: left;
-        padding-top: 15px;
-        padding-bottom: 5px; }
-      .partner-network-container .list-with-locations .clinics .clinic-link {
-        text-decoration: underline;
-        font-size: 16px;
-        padding-bottom: 5px; }
-      .partner-network-container .list-with-locations .clinics .locations ul li {
-        padding-bottom: 5px;
-        list-style: disc inside none;
-        font-size: 16px; }
-  @media screen and (max-width: 767px) {
-    .partner-network-container .list-with-locations .section-subtitle {
-      font-size: 20px; }
-    .partner-network-container a {
-      word-break: break-all; } }
+  padding-bottom: 50px; }
+.homepage-container .transfer-value figure {
+  width: 30px;
+  vertical-align: bottom; }
+.homepage-container .transfer-value .dcn-value {
+  width: calc(100% - 30px);
+  font-size: 64px;
+  font-weight: 500;
+  padding-left: 15px; }
+.homepage-container .transfer-value .output {
+  font-size: 32px; }
 
 /*# sourceMappingURL=style.css.map */
