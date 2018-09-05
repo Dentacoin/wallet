@@ -153,7 +153,7 @@
   -o-animation-duration: 1s;
   -o-animation-name: fadeIn; }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 576px) {
   .col-xxs-12 {
     width: 100%; }
 
@@ -170,19 +170,21 @@
     width: 16.67%; } }
 body {
   margin: 0;
-  overflow-x: hidden;
   background-image: url("/assets/images/body-background.png");
-  /* The image used */
   background-repeat: no-repeat;
-  /* Do not repeat the image */ }
+  background-size: contain; }
   body.overflow-hidden {
     overflow: hidden; }
   body.overflow-visible {
     overflow: visible !important; }
-  body.padding-right-0 {
-    padding-right: 0 !important; }
   body.modal-open {
     overflow: hidden; }
+  @media screen and (max-width: 991px) {
+    body {
+      background-size: 100% 50%; } }
+  @media screen and (max-width: 767px) {
+    body {
+      background-size: 100% 70%; } }
 
 button, input[type='submit'] {
   background: none;
@@ -439,6 +441,912 @@ button, input[type='submit'] {
 .fs-80 {
   font-size: 80px !important; }
 
+.horizontal-white-line-0 {
+  background-color: white;
+  height: 0px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-1 {
+  background-color: white;
+  height: 1px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-2 {
+  background-color: white;
+  height: 2px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-3 {
+  background-color: white;
+  height: 3px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-4 {
+  background-color: white;
+  height: 4px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-5 {
+  background-color: white;
+  height: 5px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-6 {
+  background-color: white;
+  height: 6px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-7 {
+  background-color: white;
+  height: 7px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-8 {
+  background-color: white;
+  height: 8px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-9 {
+  background-color: white;
+  height: 9px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-10 {
+  background-color: white;
+  height: 10px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-11 {
+  background-color: white;
+  height: 11px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-12 {
+  background-color: white;
+  height: 12px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-13 {
+  background-color: white;
+  height: 13px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-14 {
+  background-color: white;
+  height: 14px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-15 {
+  background-color: white;
+  height: 15px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-16 {
+  background-color: white;
+  height: 16px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-17 {
+  background-color: white;
+  height: 17px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-18 {
+  background-color: white;
+  height: 18px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-19 {
+  background-color: white;
+  height: 19px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-20 {
+  background-color: white;
+  height: 20px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-21 {
+  background-color: white;
+  height: 21px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-22 {
+  background-color: white;
+  height: 22px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-23 {
+  background-color: white;
+  height: 23px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-24 {
+  background-color: white;
+  height: 24px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-25 {
+  background-color: white;
+  height: 25px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-26 {
+  background-color: white;
+  height: 26px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-27 {
+  background-color: white;
+  height: 27px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-28 {
+  background-color: white;
+  height: 28px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-29 {
+  background-color: white;
+  height: 29px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-30 {
+  background-color: white;
+  height: 30px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-31 {
+  background-color: white;
+  height: 31px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-32 {
+  background-color: white;
+  height: 32px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-33 {
+  background-color: white;
+  height: 33px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-34 {
+  background-color: white;
+  height: 34px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-35 {
+  background-color: white;
+  height: 35px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-36 {
+  background-color: white;
+  height: 36px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-37 {
+  background-color: white;
+  height: 37px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-38 {
+  background-color: white;
+  height: 38px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-39 {
+  background-color: white;
+  height: 39px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-40 {
+  background-color: white;
+  height: 40px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-41 {
+  background-color: white;
+  height: 41px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-42 {
+  background-color: white;
+  height: 42px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-43 {
+  background-color: white;
+  height: 43px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-44 {
+  background-color: white;
+  height: 44px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-45 {
+  background-color: white;
+  height: 45px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-46 {
+  background-color: white;
+  height: 46px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-47 {
+  background-color: white;
+  height: 47px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-48 {
+  background-color: white;
+  height: 48px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-49 {
+  background-color: white;
+  height: 49px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-50 {
+  background-color: white;
+  height: 50px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-51 {
+  background-color: white;
+  height: 51px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-52 {
+  background-color: white;
+  height: 52px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-53 {
+  background-color: white;
+  height: 53px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-54 {
+  background-color: white;
+  height: 54px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-55 {
+  background-color: white;
+  height: 55px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-56 {
+  background-color: white;
+  height: 56px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-57 {
+  background-color: white;
+  height: 57px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-58 {
+  background-color: white;
+  height: 58px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-59 {
+  background-color: white;
+  height: 59px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-60 {
+  background-color: white;
+  height: 60px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-61 {
+  background-color: white;
+  height: 61px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-62 {
+  background-color: white;
+  height: 62px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-63 {
+  background-color: white;
+  height: 63px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-64 {
+  background-color: white;
+  height: 64px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-65 {
+  background-color: white;
+  height: 65px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-66 {
+  background-color: white;
+  height: 66px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-67 {
+  background-color: white;
+  height: 67px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-68 {
+  background-color: white;
+  height: 68px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-69 {
+  background-color: white;
+  height: 69px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-70 {
+  background-color: white;
+  height: 70px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-71 {
+  background-color: white;
+  height: 71px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-72 {
+  background-color: white;
+  height: 72px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-73 {
+  background-color: white;
+  height: 73px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-74 {
+  background-color: white;
+  height: 74px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-75 {
+  background-color: white;
+  height: 75px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-76 {
+  background-color: white;
+  height: 76px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-77 {
+  background-color: white;
+  height: 77px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-78 {
+  background-color: white;
+  height: 78px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-79 {
+  background-color: white;
+  height: 79px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-80 {
+  background-color: white;
+  height: 80px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-81 {
+  background-color: white;
+  height: 81px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-82 {
+  background-color: white;
+  height: 82px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-83 {
+  background-color: white;
+  height: 83px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-84 {
+  background-color: white;
+  height: 84px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-85 {
+  background-color: white;
+  height: 85px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-86 {
+  background-color: white;
+  height: 86px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-87 {
+  background-color: white;
+  height: 87px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-88 {
+  background-color: white;
+  height: 88px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-89 {
+  background-color: white;
+  height: 89px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-90 {
+  background-color: white;
+  height: 90px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-91 {
+  background-color: white;
+  height: 91px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-92 {
+  background-color: white;
+  height: 92px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-93 {
+  background-color: white;
+  height: 93px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-94 {
+  background-color: white;
+  height: 94px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-95 {
+  background-color: white;
+  height: 95px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-96 {
+  background-color: white;
+  height: 96px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-97 {
+  background-color: white;
+  height: 97px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-98 {
+  background-color: white;
+  height: 98px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-99 {
+  background-color: white;
+  height: 99px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-100 {
+  background-color: white;
+  height: 100px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-101 {
+  background-color: white;
+  height: 101px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-102 {
+  background-color: white;
+  height: 102px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-103 {
+  background-color: white;
+  height: 103px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-104 {
+  background-color: white;
+  height: 104px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-105 {
+  background-color: white;
+  height: 105px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-106 {
+  background-color: white;
+  height: 106px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-107 {
+  background-color: white;
+  height: 107px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-108 {
+  background-color: white;
+  height: 108px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-109 {
+  background-color: white;
+  height: 109px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-110 {
+  background-color: white;
+  height: 110px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-111 {
+  background-color: white;
+  height: 111px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-112 {
+  background-color: white;
+  height: 112px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-113 {
+  background-color: white;
+  height: 113px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-114 {
+  background-color: white;
+  height: 114px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-115 {
+  background-color: white;
+  height: 115px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-116 {
+  background-color: white;
+  height: 116px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-117 {
+  background-color: white;
+  height: 117px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-118 {
+  background-color: white;
+  height: 118px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-119 {
+  background-color: white;
+  height: 119px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-120 {
+  background-color: white;
+  height: 120px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-121 {
+  background-color: white;
+  height: 121px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-122 {
+  background-color: white;
+  height: 122px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-123 {
+  background-color: white;
+  height: 123px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-124 {
+  background-color: white;
+  height: 124px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-125 {
+  background-color: white;
+  height: 125px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-126 {
+  background-color: white;
+  height: 126px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-127 {
+  background-color: white;
+  height: 127px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-128 {
+  background-color: white;
+  height: 128px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-129 {
+  background-color: white;
+  height: 129px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-130 {
+  background-color: white;
+  height: 130px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-131 {
+  background-color: white;
+  height: 131px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-132 {
+  background-color: white;
+  height: 132px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-133 {
+  background-color: white;
+  height: 133px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-134 {
+  background-color: white;
+  height: 134px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-135 {
+  background-color: white;
+  height: 135px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-136 {
+  background-color: white;
+  height: 136px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-137 {
+  background-color: white;
+  height: 137px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-138 {
+  background-color: white;
+  height: 138px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-139 {
+  background-color: white;
+  height: 139px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-140 {
+  background-color: white;
+  height: 140px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-141 {
+  background-color: white;
+  height: 141px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-142 {
+  background-color: white;
+  height: 142px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-143 {
+  background-color: white;
+  height: 143px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-144 {
+  background-color: white;
+  height: 144px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-145 {
+  background-color: white;
+  height: 145px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-146 {
+  background-color: white;
+  height: 146px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-147 {
+  background-color: white;
+  height: 147px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-148 {
+  background-color: white;
+  height: 148px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-149 {
+  background-color: white;
+  height: 149px;
+  width: 2px;
+  margin: 0 auto; }
+
+.horizontal-white-line-150 {
+  background-color: white;
+  height: 150px;
+  width: 2px;
+  margin: 0 auto; }
+
 .slick-slider .slick-slide:focus {
   outline: -webkit-focus-ring-color auto 5px; }
 
@@ -458,6 +1366,11 @@ button, input[type='submit'] {
 
 @media screen and (max-width: 767px) {
   .no-gutter-xs {
+    padding-right: 0;
+    padding-left: 0; } }
+
+@media screen and (max-width: 576px) {
+  .no-gutter-xxs {
     padding-right: 0;
     padding-left: 0; } }
 
@@ -485,7 +1398,6 @@ button, input[type='submit'] {
   display: flex;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -moz-box;
   display: -ms-flexbox; }
 
 .clearfix:after {
@@ -502,7 +1414,7 @@ button, input[type='submit'] {
 .list-inline {
   margin-left: 0 !important; }
 
-ul, li, h1, h2, h3, h4, h5, h6, p {
+ul, li, h1, h2, h3, h4, h5, h6, p, figure {
   padding: 0;
   margin: 0; }
 
@@ -559,9 +1471,9 @@ img {
   .bootstrap-select .dropdown-menu {
     margin: 0; }
     .bootstrap-select .dropdown-menu.open {
-      border: 1px solid #679dca; }
+      border: 1px solid #00b7d9; }
     .bootstrap-select .dropdown-menu li {
-      border-bottom: 1px solid #679dca; }
+      border-bottom: 1px solid #00b7d9; }
       .bootstrap-select .dropdown-menu li a {
         outline: none !important; }
         .bootstrap-select .dropdown-menu li a:focus {
@@ -598,16 +1510,6 @@ img {
   background-color: #00b7d9;
   color: white; }
 
-.nav-active {
-  border-radius: 10px;
-  margin: 5px;
-  height: 85%;
-  text-align: center;
-  font-size: 25px;
-  color: black;
-  background-color: #00b7d9;
-  color: white !important; }
-
 .navbar {
   background: rgba(250, 250, 250, 0); }
 
@@ -621,6 +1523,18 @@ img {
 .nav-link:hover {
   background: #f4f4f4;
   color: rgba(250, 250, 250, 0); }
+
+.nav-active {
+  border-radius: 10px;
+  margin: 5px;
+  height: 85%;
+  text-align: center;
+  font-size: 25px;
+  background-color: #00b7d9;
+  color: white !important; }
+  .nav-active.nav-link:hover {
+    background-color: #00b7d9;
+    color: white; }
 
 .navbar-collapse {
   justify-content: flex-end; }
@@ -764,7 +1678,6 @@ img {
   height: 45px;
   color: white;
   text-align: center;
-  margin-top: -15px;
   position: absolute;
   margin-top: 15px;
   margin-left: 30px;
@@ -773,7 +1686,7 @@ img {
 .number {
   width: 40px;
   height: 40px;
-  padding: 0px;
+  padding: 0;
   font-size: 1.3em;
   font-weight: 200;
   color: white;
@@ -814,7 +1727,7 @@ img {
 #x {
   width: 40px;
   height: 40px;
-  padding: 0px;
+  padding: 0;
   display: inline-block;
   margin-left: 300px;
   background: white;
@@ -844,9 +1757,6 @@ img {
 .send-address-mobile {
   display: none; }
 
-.transaction-history {
-  display: initial; }
-
 @media only screen and (max-width: 860px) {
   /* ----------- TABLETS ------------ */
   .hide-on-mobile {
@@ -866,10 +1776,6 @@ img {
 
   /* ----- End Buttons, navigation menu ----- */
   /* ----- Home Page Qr Code ----- */
-  .qr-code {
-    Display: none;
-    padding-right: 20px; }
-
   .qr-code-border {
     position: relative !important;
     top: 0px !important;
@@ -944,9 +1850,6 @@ img {
 
   /* -----End Mobile Buttons, Navigation Menu, My wallet Address ----- */
   /* ----- Home Page - Qr Code, Amount ----- */
-  .qr-code {
-    float: left; }
-
   .qr-code-border {
     position: relative !important;
     top: 0px !important;
@@ -1060,7 +1963,26 @@ img {
 
   /* -----End Send Section ----- */ }
 .background-white {
-  background-color: white; }
+  background-color: white;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+  .background-white nav {
+    text-align: center; }
+    .background-white nav ul li {
+      display: inline-block; }
+      .background-white nav ul li a {
+        margin: 0 !important;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        border-radius: 4px; }
+  @media screen and (max-width: 767px) {
+    .background-white {
+      padding-top: 0;
+      padding-bottom: 0; }
+      .background-white nav ul li a {
+        padding-top: 5px;
+        padding-bottom: 5px; } }
 
 .row-flex {
   display: -ms-flexbox;
@@ -1073,18 +1995,217 @@ img {
 .center-content {
   align-items: center; }
 
+.transaction-history {
+  padding-bottom: 30px; }
+  .transaction-history strong.transaction-id {
+    color: #00b7d9; }
+  .transaction-history td.icon {
+    width: 50px;
+    padding-left: 0;
+    padding-right: 10px; }
+    .transaction-history td.icon a {
+      width: 40px;
+      display: block; }
+  .transaction-history .value-dcn {
+    font-weight: 500; }
+    .transaction-history .value-dcn.send-to {
+      color: #d0796e; }
+    .transaction-history .value-dcn.payed-to {
+      color: #55a2d7; }
+    .transaction-history .value-dcn.received-from {
+      color: #5ccb92; }
+  @media screen and (max-width: 767px) {
+    .transaction-history td.icon {
+      width: 40px; }
+      .transaction-history td.icon a {
+        width: 30px; }
+    .transaction-history td:first-child {
+      padding-left: 15px !important; }
+    .transaction-history td:last-child {
+      padding-right: 15px !important; } }
+
+header .logo {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+  header .logo img {
+    width: 50px; }
+
+footer {
+  padding-bottom: 20px;
+  padding-top: 20px;
+  font-size: 13px; }
+  footer a {
+    text-decoration: underline; }
+
+.homepage-container .your-dcn-wallet {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold; }
+  .homepage-container .your-dcn-wallet .subtitle {
+    padding-bottom: 5px; }
+  .homepage-container .your-dcn-wallet .address figure {
+    padding-right: 10px; }
+    .homepage-container .your-dcn-wallet .address figure img {
+      width: 40px; }
 .homepage-container .values-and-qr-code {
   padding-top: 50px;
   padding-bottom: 50px; }
-.homepage-container .transfer-value figure {
-  width: 30px;
-  vertical-align: bottom; }
-.homepage-container .transfer-value .dcn-value {
-  width: calc(100% - 30px);
-  font-size: 64px;
-  font-weight: 500;
-  padding-left: 15px; }
-.homepage-container .transfer-value .output {
-  font-size: 32px; }
+  .homepage-container .values-and-qr-code .transfer-value figure {
+    width: 30px;
+    vertical-align: bottom; }
+  .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value {
+    width: calc(100% - 30px);
+    font-size: 54px;
+    line-height: 60px;
+    font-weight: 500;
+    padding-left: 15px; }
+    .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value .mobile-symbol {
+      display: none;
+      font-size: 20px;
+      line-height: 20px; }
+  .homepage-container .values-and-qr-code .transfer-value .transferred-value .output {
+    font-size: 32px;
+    padding-top: 15px; }
+    .homepage-container .values-and-qr-code .transfer-value .transferred-value .output .mobile-symbol {
+      display: none; }
+    .homepage-container .values-and-qr-code .transfer-value .transferred-value .output button {
+      border: 0; }
+  .homepage-container .values-and-qr-code .qr-code a {
+    display: block;
+    max-width: 220px;
+    background-image: url("/assets/images/qr-border.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 10px; }
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value {
+    font-size: 50px; } }
+@media screen and (max-width: 767px) {
+  .homepage-container .your-dcn-wallet .address {
+    font-size: 12px; }
+  .homepage-container .values-and-qr-code {
+    display: block;
+    font-size: 0; }
+    .homepage-container .values-and-qr-code .transfer-value {
+      display: inline-block;
+      vertical-align: middle; }
+      .homepage-container .values-and-qr-code .transfer-value .current-value figure {
+        width: 25px; }
+      .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value {
+        font-size: 40px;
+        line-height: 40px;
+        padding-left: 10px; }
+    .homepage-container .values-and-qr-code .qr-code {
+      display: inline-block;
+      vertical-align: middle; } }
+@media screen and (max-width: 576px) {
+  .homepage-container .values-and-qr-code {
+    padding-top: 20px;
+    padding-bottom: 0; }
+    .homepage-container .values-and-qr-code .transfer-value .current-value figure {
+      width: 20px;
+      display: block; }
+    .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value {
+      padding-left: 0;
+      padding-top: 10px;
+      font-size: 38px;
+      width: 100%; }
+      .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value .mobile-symbol {
+        display: block; }
+      .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value .desktop-symbol {
+        display: none; }
+    .homepage-container .values-and-qr-code .transfer-value .transferred-value .output {
+      font-size: 22px;
+      padding-top: 10px; }
+      .homepage-container .values-and-qr-code .transfer-value .transferred-value .output .mobile-symbol {
+        display: inline-block; }
+      .homepage-container .values-and-qr-code .transfer-value .transferred-value .output .desktop-symbol {
+        display: none; }
+    .homepage-container .values-and-qr-code .qr-code {
+      padding-left: 0; }
+      .homepage-container .values-and-qr-code .qr-code a {
+        padding: 0; } }
+
+.buy-container {
+  padding-top: 30px;
+  padding-bottom: 50px; }
+  .buy-container .row-flex {
+    align-items: center; }
+  .buy-container .refresh-icon {
+    font-size: 40px;
+    color: white;
+    text-align: center; }
+  .buy-container .input-container .title {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 5px; }
+  .buy-container .input-container .wrapper input {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: calc(100% - 80px);
+    font-size: 16px;
+    border: 0;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    -ms-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px; }
+  .buy-container .input-container .wrapper button.dropdown-toggle {
+    background-color: #ddd;
+    width: 80px;
+    font-size: 16px;
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    -ms-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0; }
+  .buy-container .line {
+    margin-top: 20px; }
+  .buy-container .choose-the-currency {
+    padding-top: 20px; }
+  @media screen and (max-width: 767px) {
+    .buy-container {
+      padding-top: 20px;
+      padding-bottom: 0; }
+      .buy-container .refresh-icon, .buy-container .line {
+        display: none !important; }
+      .buy-container .input-container .title {
+        padding-bottom: 0;
+        font-size: 13px; } }
+
+.send-container {
+  padding-top: 30px;
+  padding-bottom: 50px; }
+  .send-container .wallet-address input {
+    width: calc(100% - 80px);
+    font-size: 16px;
+    padding: 7px 12px;
+    border: 0;
+    vertical-align: middle;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px; }
+  .send-container .wallet-address figure {
+    width: 80px;
+    padding-left: 15px;
+    vertical-align: middle; }
+  .send-container .line {
+    margin-bottom: 20px; }
+  .send-container .fill-the-address {
+    padding-top: 20px; }
+  @media screen and (max-width: 767px) {
+    .send-container {
+      padding-top: 20px;
+      padding-bottom: 0; }
+      .send-container .wallet-address input {
+        width: calc(100% - 60px); }
+      .send-container .wallet-address figure {
+        width: 60px; }
+      .send-container .line {
+        display: none !important; } }
 
 /*# sourceMappingURL=style.css.map */

@@ -24,7 +24,7 @@ class Controller extends BaseController
     }
 
     protected function getMetaData()    {
-        return PageMetaData::where(array('slug' => Route::getCurrentRoute()->getName()))->get()->first();
+        //  return PageMetaData::where(array('slug' => Route::getCurrentRoute()->getName()))->get()->first();
     }
 
     protected function isMobile()   {

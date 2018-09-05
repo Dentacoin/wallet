@@ -312,64 +312,63 @@ function stopMaliciousInspect() {
 // ========== DANIEL ==========
 // Setup
 //import { Connect } from './node_modules/uport-connect/dist/uport-connect.js';
-var uportconnect = window.uportconnect;
-var appName = 'Dentacoin Wallet';
-var connect = new uportconnect.Connect(appName, { network: 'rinkeby' });
-var web3 = connect.getWeb3();
+/*var uportconnect = window.uportconnect;
+const appName = 'Dentacoin Wallet';
+const connect = new uportconnect.Connect(appName, {network: 'rinkeby'});
+const web3 = connect.getWeb3();
 
 // Setup the simple Status contract - allows you to set and read a status string
-var abi = [{ "constant": false, "inputs": [{ "name": "status", "type": "string" }], "name": "updateStatus", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [{ "name": "addr", "type": "address" }], "name": "getStatus", "outputs": [{ "name": "", "type": "string" }], "payable": false, "type": "function" }];
+const abi = [{"constant":false,"inputs":[{"name":"status","type":"string"}],"name":"updateStatus","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"getStatus","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"}];
 
-var StatusContract = web3.eth.contract(abi);
-var statusInstance = StatusContract.at('0x70A804cCE17149deB6030039798701a38667ca3B');
+const StatusContract = web3.eth.contract(abi);
+const statusInstance = StatusContract.at('0x70A804cCE17149deB6030039798701a38667ca3B');
 
 // uPort connect
-var uportConnect = function uportConnect() {
+const uportConnect = function () {
 
-    web3.eth.getCoinbase(function (error, address) {
-        if (error) {
-            throw error;
-        }
+    web3.eth.getCoinbase((error, address) => {
+        if (error) { throw error }
         globalState.ethAddress = address;
 
         // This one is for display purposes - MNID encoding includes network
-        globalState.uportId = window.uportconnect.MNID.encode({ network: '0x4', address: address });
+        globalState.uportId = window.uportconnect.MNID.encode({network: '0x4', address: address});
 
-        statusInstance.getStatus.call(globalState.ethAddress, function (err, st) {
-            globalState.currentStatus = st;
-            web3.eth.getBalance(globalState.ethAddress, function (err, bal) {
+        statusInstance.getStatus.call(globalState.ethAddress, (err, st) => {
+            globalState.currentStatus = st
+            web3.eth.getBalance(globalState.ethAddress, (err, bal) => {
                 globalState.ethBalance = web3.fromWei(bal);
                 render();
-            });
-        });
-    });
-};
+            })
+        })
+    })
+}
 
 // Send ether
-var sendEther = function sendEther() {
-    var value = parseFloat(globalState.sendToVal) * 1.0e18;
-    web3.eth.sendTransaction({
-        to: globalState.sendToAddr,
-        value: value
-    }, function (error, txHash) {
-        if (error) {
-            throw error;
+const sendEther = () => {
+    const value = parseFloat(globalState.sendToVal) * 1.0e18
+    web3.eth.sendTransaction(
+        {
+            to: globalState.sendToAddr,
+            value: value
+        },
+        (error, txHash) => {
+            if (error) { throw error }
+            globalState.txHashSentEth = txHash
+            render()
         }
-        globalState.txHashSentEth = txHash;
-        render();
-    });
-};
+    )
+}
 
 // Set Status
 
-var setStatus = function setStatus() {
-    var newStatusMessage = globalState.statusInput;
-    statusInstance.updateStatus(newStatusMessage, function (error, txHash) {
-        if (error) {
-            throw error;
-        }
-        globalState.txHashSetStatus = txHash;
-        render();
-    });
-};
+const setStatus = () => {
+    const newStatusMessage = globalState.statusInput
+    statusInstance.updateStatus(newStatusMessage,
+        (error, txHash) => {
+            if (error) { throw error }
+            globalState.txHashSetStatus = txHash
+            render()
+        })
+
+};*/
 // ========== /DANIEL ==========
