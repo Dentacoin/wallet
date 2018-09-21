@@ -3,9 +3,9 @@
     <div class="send-container">
         <div class="container">
             <div class="row-flex fs-0">
-                <div class="col-12 col-sm-10 offset-sm-1 wallet-address">
-                    <input type="text" placeholder="Input wallet address or Clinic's name"/>
-                    <figure class="inline-block"><a href=""><img src="{{URL::asset('assets/images/copy.svg') }}" class="Copy address to clipboard icon"/></a></figure>
+                <div class="col-12 col-sm-10 offset-sm-1 wallet-address input-with-button left-side">
+                    <input type="text" placeholder="Input wallet address or Clinic's name" maxlength="42"/>
+                    <div class="inline-block btn-container next"><a href="javascript:void(0);" class="gray-btn">NEXT</a></div>
                 </div>
             </div>
         </div>

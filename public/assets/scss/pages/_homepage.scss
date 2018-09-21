@@ -10,11 +10,14 @@
             padding-bottom: 5px;
         }
         .address {
-            figure {
-                padding-right: 10px;
+            .copy-address {
+                display: none;
                 img {
                     width: 40px;
                 }
+            }
+            span {
+                padding-left: 10px;
             }
         }
     }
@@ -54,6 +57,7 @@
             }
         }
         .qr-code {
+            display: none;
             a {
                 display: block;
                 max-width: 220px;

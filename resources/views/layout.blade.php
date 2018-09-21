@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <link rel="shortcut icon" href="{{URL::asset('assets/images/favicon.png') }}" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     @if(!empty($meta_data))
         <title>{{$meta_data->title}}</title>
         <meta name="description" content="{{$meta_data->description}}"/>
@@ -43,13 +44,13 @@
                     <nav>
                         <ul>
                             <li class="col-4">
-                                <a class="nav-link nav-button @if(Route::current()->getName() == "buy")nav-active @endif" href="{{route('buy')}}">BUY</a>
+                                <a class="nav-link nav-button buy-temporally @if(Route::current()->getName() == "buy")nav-active @endif" href="{{--{{route('buy')}}--}}">BUY</a>
                             </li>
                             <li class="col-4">
                                 <a class="nav-link nav-button @if(Route::current()->getName() == "home")nav-active @endif" href="{{route('home')}}">WALLET</a>
                             </li>
                             <li class="col-4">
-                                <a class="nav-link nav-button @if(Route::current()->getName() == "send")nav-active @endif" href="{{route('send')}}">SEND</a>
+                                <a class="nav-link nav-button @if(Route::current()->getName() == "send" || Route::current()->getName() == "amount-to")nav-active @endif" href="{{route('send')}}">SEND</a>
                             </li>
                         </ul>
                     </nav>
@@ -170,8 +171,8 @@
             </div>
         </div>
     </footer>
-    <script src="/assets/js/basic.js"></script>
     <script src="/dist/js/front-libs-script.js"></script>
+    <script src="/assets/js/basic.js"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
     <script src="/assets/js/index.js"></script>

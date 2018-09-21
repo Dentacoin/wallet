@@ -15,7 +15,13 @@
 Route::group(['prefix' => '/'/*, 'middleware' => 'frontEndMiddleware'*/], function () {
     Route::get('/', 'HomeController@getView')->name('home');
 
-    Route::get('/buy', 'BuyController@getView')->name('buy');
+    Route::post('/get-qr-code-from-address', 'HomeController@generateQrImage')->name('get-qr-code-from-address');
 
-    Route::get('/send', 'SendController@getView')->name('send');
+    //Route::get('/buy', 'BuyController@getView')->name('buy');
+
+    Route::group(['prefix' => '/send'], function () {
+        Route::get('/', 'SendController@getView')->name('send');
+
+        Route::get('/amount-to/{address}', 'SendController@getAmountToView')->name('amount-to');
+    });
 });

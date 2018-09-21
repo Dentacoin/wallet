@@ -1,0 +1,40 @@
+.amount-to-container {
+    .wallet-address {
+        text-align: center;
+        color: white;
+        padding-top: 20px;
+        padding-bottom: 40px;
+        .address {
+            font-size: 18px;
+            .value-to-edit {
+                display: none;
+                width: 100%;
+            }
+            &.editing {
+                width: calc(100% - 80px);
+            }
+        }
+        .btn-container {
+            width: 80px;
+            padding-left: 15px;
+        }
+    }
+    .exchange-inputs {
+        .equal-icon {
+            img {
+                @include vertical-horizontal-align(absolute);
+            }
+        }
+        .helper-label {
+            padding-top: 20px;
+            font-size: 16px;
+        }
+        .btn-container {
+            padding-top: 50px;
+            padding-bottom: 30px;
+            a {
+                padding: 10px 120px;
+            }
+        }
+    }
+}

@@ -172,16 +172,14 @@ body {
   margin: 0;
   background-image: url("/assets/images/body-background.png");
   background-repeat: no-repeat;
-  background-size: contain; }
+  background-size: 100% 50%;
+  color: #212529; }
   body.overflow-hidden {
     overflow: hidden; }
   body.overflow-visible {
     overflow: visible !important; }
   body.modal-open {
     overflow: hidden; }
-  @media screen and (max-width: 991px) {
-    body {
-      background-size: 100% 50%; } }
   @media screen and (max-width: 767px) {
     body {
       background-size: 100% 70%; } }
@@ -1630,7 +1628,7 @@ img {
 
 .form-input-append button {
   width: 100%;
-  background: #dddddd !important; }
+  background: #ddd !important; }
 
 .row-buy {
   padding-left: 15px !important; }
@@ -2024,6 +2022,145 @@ img {
     .transaction-history td:last-child {
       padding-right: 15px !important; } }
 
+.gray-btn {
+  background-color: #ddd;
+  border-color: white;
+  font-size: 16px;
+  padding: 6px 12px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s; }
+  .gray-btn:focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
+    -moz-box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
+    -ms-box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5); }
+  .gray-btn.active {
+    background-color: #00b7d9;
+    color: white;
+    font-weight: bold; }
+
+.bluegreen-white-btn {
+  background-color: #17a2b8;
+  color: white;
+  font-size: 16px;
+  padding: 6px 12px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s; }
+  .bluegreen-white-btn:hover {
+    color: white;
+    background-color: #10707f; }
+
+.input-with-exchange input {
+  padding-left: 12px;
+  padding-right: 12px;
+  width: calc(100% - 80px);
+  font-size: 16px;
+  border: 0; }
+.input-with-exchange button.dropdown-toggle {
+  background-color: #ddd;
+  border-color: white;
+  width: 80px;
+  font-size: 16px; }
+.input-with-exchange.left-side input {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  -ms-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px; }
+.input-with-exchange.left-side button.dropdown-toggle {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0; }
+.input-with-exchange.right-side input {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0; }
+.input-with-exchange.right-side button.dropdown-toggle {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  -ms-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px; }
+
+.input-with-button input {
+  width: calc(100% - 80px);
+  font-size: 16px;
+  padding: 7px 12px;
+  border: 0;
+  vertical-align: middle; }
+.input-with-button .btn-container {
+  width: 80px;
+  vertical-align: middle;
+  height: 100%; }
+  .input-with-button .btn-container a {
+    display: block;
+    height: 100%;
+    text-align: center;
+    border: 1px solid white; }
+.input-with-button.left-side input {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  -ms-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px; }
+.input-with-button.left-side .btn-container a {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0; }
+
+input.module-field {
+  padding: 7px 12px;
+  font-size: 16px;
+  border: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px; }
+
+.input-with-label input {
+  padding: 7px 12px;
+  width: calc(100% - 80px);
+  font-size: 16px;
+  border: 0;
+  margin: 0;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  -ms-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px; }
+.input-with-label .label {
+  width: 80px;
+  display: inline-block;
+  background-color: #ddd;
+  border-color: white;
+  font-size: 16px;
+  font-family: "OpenSans-SemiBold";
+  position: relative;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0; }
+  .input-with-label .label span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+
 header .logo {
   padding-top: 10px;
   padding-bottom: 10px; }
@@ -2046,10 +2183,12 @@ footer {
   font-weight: bold; }
   .homepage-container .your-dcn-wallet .subtitle {
     padding-bottom: 5px; }
-  .homepage-container .your-dcn-wallet .address figure {
-    padding-right: 10px; }
-    .homepage-container .your-dcn-wallet .address figure img {
+  .homepage-container .your-dcn-wallet .address .copy-address {
+    display: none; }
+    .homepage-container .your-dcn-wallet .address .copy-address img {
       width: 40px; }
+  .homepage-container .your-dcn-wallet .address span {
+    padding-left: 10px; }
 .homepage-container .values-and-qr-code {
   padding-top: 50px;
   padding-bottom: 50px; }
@@ -2073,14 +2212,16 @@ footer {
       display: none; }
     .homepage-container .values-and-qr-code .transfer-value .transferred-value .output button {
       border: 0; }
-  .homepage-container .values-and-qr-code .qr-code a {
-    display: block;
-    max-width: 220px;
-    background-image: url("/assets/images/qr-border.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    padding: 10px; }
+  .homepage-container .values-and-qr-code .qr-code {
+    display: none; }
+    .homepage-container .values-and-qr-code .qr-code a {
+      display: block;
+      max-width: 220px;
+      background-image: url("/assets/images/qr-border.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      padding: 10px; }
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value {
     font-size: 50px; } }
@@ -2144,24 +2285,6 @@ footer {
     font-weight: bold;
     font-size: 16px;
     padding-bottom: 5px; }
-  .buy-container .input-container .wrapper input {
-    padding-left: 12px;
-    padding-right: 12px;
-    width: calc(100% - 80px);
-    font-size: 16px;
-    border: 0;
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    -ms-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px; }
-  .buy-container .input-container .wrapper button.dropdown-toggle {
-    background-color: #ddd;
-    width: 80px;
-    font-size: 16px;
-    -webkit-border-radius: 0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0;
-    -ms-border-radius: 0 4px 4px 0;
-    border-radius: 0 4px 4px 0; }
   .buy-container .line {
     margin-top: 20px; }
   .buy-container .choose-the-currency {
@@ -2179,33 +2302,47 @@ footer {
 .send-container {
   padding-top: 30px;
   padding-bottom: 50px; }
-  .send-container .wallet-address input {
-    width: calc(100% - 80px);
-    font-size: 16px;
-    padding: 7px 12px;
-    border: 0;
-    vertical-align: middle;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    border-radius: 4px; }
-  .send-container .wallet-address figure {
-    width: 80px;
-    padding-left: 15px;
-    vertical-align: middle; }
   .send-container .line {
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    margin-top: 20px; }
   .send-container .fill-the-address {
     padding-top: 20px; }
   @media screen and (max-width: 767px) {
     .send-container {
       padding-top: 20px;
       padding-bottom: 0; }
-      .send-container .wallet-address input {
-        width: calc(100% - 60px); }
-      .send-container .wallet-address figure {
-        width: 60px; }
       .send-container .line {
         display: none !important; } }
+
+.amount-to-container .wallet-address {
+  text-align: center;
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 40px; }
+  .amount-to-container .wallet-address .address {
+    font-size: 18px; }
+    .amount-to-container .wallet-address .address .value-to-edit {
+      display: none;
+      width: 100%; }
+    .amount-to-container .wallet-address .address.editing {
+      width: calc(100% - 80px); }
+  .amount-to-container .wallet-address .btn-container {
+    width: 80px;
+    padding-left: 15px; }
+.amount-to-container .exchange-inputs .equal-icon img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+.amount-to-container .exchange-inputs .helper-label {
+  padding-top: 20px;
+  font-size: 16px; }
+.amount-to-container .exchange-inputs .btn-container {
+  padding-top: 50px;
+  padding-bottom: 30px; }
+  .amount-to-container .exchange-inputs .btn-container a {
+    padding: 10px 120px; }
 
 /*# sourceMappingURL=style.css.map */

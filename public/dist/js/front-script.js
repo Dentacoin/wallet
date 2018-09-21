@@ -3,11 +3,8 @@ var basic = {
         alert: null
     },
     init: function init(opt) {
-        basic.options = $.extend({
-            alert: function alert(message) {
-                basic.showAlert(message);
-            }
-        }, opt);
+        basic.addCsrfTokenToAllAjax();
+        //basic.stopMaliciousInspect();
     },
     cookies: {
         set: function set(name, value) {
@@ -265,50 +262,58 @@ var basic = {
         var viewportTop = $(window).scrollTop();
         var viewportBottom = viewportTop + $(window).height();
         return elementBottom > viewportTop && elementTop < viewportBottom;
+    },
+    isMobile: function isMobile() {
+        var isMobile = false; //initiate as false
+        // device detection
+        if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0, 4))) {
+            isMobile = true;
+        }
+        return isMobile;
+    },
+    addCsrfTokenToAllAjax: function addCsrfTokenToAllAjax() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    },
+    isAddress: function isAddress(address) {
+        if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+            // check if it has the basic requirements of an address
+            return false;
+        } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
+            // If it's all small caps or all all caps, return true
+            return true;
+        } else {
+            // Otherwise check each case
+            return isChecksumAddress(address);
+        }
+    },
+    stopMaliciousInspect: function stopMaliciousInspect() {
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.onkeydown = function (e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        };
     }
 };
-var isMobile = false; //initiate as false
-// device detection
-if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0, 4))) isMobile = true;
-
-$(document).ready(function () {
-    $('.body').height($(window).height());
-});
-
-$(window).on('beforeunload', function () {});
-
-$(window).on("load", function () {});
-
-$(window).on('resize', function () {});
-
-$(window).on('scroll', function () {});
-
-function stopMaliciousInspect() {
-    document.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-    });
-
-    document.onkeydown = function (e) {
-        if (event.keyCode == 123) {
-            return false;
-        }
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-            return false;
-        }
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-            return false;
-        }
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-            return false;
-        }
-        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-            return false;
-        }
-    };
-}
-//stopMaliciousInspect();
-
-
 // ========== DANIEL ==========
 // Setup
 //import { Connect } from './node_modules/uport-connect/dist/uport-connect.js';
@@ -372,3 +377,105 @@ const setStatus = () => {
 
 };*/
 // ========== /DANIEL ==========
+
+
+basic.init();
+
+$(document).ready(function () {
+    console.log("( ͡° ͜ʖ ͡°) I see you.");
+});
+
+$(window).on('beforeunload', function () {});
+
+$(window).on("load", function () {});
+
+$(window).on('resize', function () {});
+
+$(window).on('scroll', function () {});
+
+window.addEventListener('load', function () {
+    var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    var meta_mask = typeof web3 !== 'undefined' && web3.currentProvider.isMetaMask === true;
+    console.log('chrome', is_chrome);
+    console.log('meta_mask', meta_mask);
+    console.log('is_mobile', basic.isMobile());
+    //return previous transactions for adress
+    //http://api.etherscan.io/api?module=account&action=txlist&address=0x0673fae9d1d64d12d92d31b87a3d0c08425719b5&sort=asc
+});
+
+var App = {
+    web3Provider: null,
+    contracts: {},
+    loading: false,
+    init: function init() {
+        return App.initWeb3();
+    },
+    initWeb3: function initWeb3() {
+        // initialize web3
+        if (typeof web3 !== 'undefined') {
+            //reuse the provider of the Web3 object injected by Metamask
+            App.web3Provider = web3.currentProvider;
+        } else {
+            //create a new provider and plug it directly into our local node
+            App.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545');
+        }
+        web3 = new Web3(App.web3Provider);
+        return App.initContract();
+    },
+
+    initContract: function initContract() {
+        $.getJSON('/assets/contracts/DCNWallet.json', function (DCNWalletArtifact) {
+            // get the contract artifact file and use it to instantiate a truffle contract abstraction
+            App.contracts.DCNWallet = TruffleContract(DCNWalletArtifact);
+            // set the provider for our contracts
+            App.contracts.DCNWallet.setProvider(App.web3Provider);
+        });
+    },
+    getDCNWallet: function getDCNWallet(vin_code) {},
+    events: {}
+};
+App.init();
+
+//PAGES
+if ($('body').hasClass('home')) {
+    onAccountSwitch();
+    web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
+
+    $('.homepage-container .copy-address').click(function () {
+        var this_el = $(this);
+        var str_to_copy = $('.homepage-container .address span');
+        if (str_to_copy.data('valid-address')) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(str_to_copy.html()).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            this_el.tooltip('show');
+            setTimeout(function () {
+                this_el.tooltip('hide');
+            }, 1000);
+        }
+    });
+
+    $('.homepage-container .copy-address').tooltip({
+        trigger: 'click'
+    });
+} else if ($('body').hasClass('send')) {
+    $('.send-container .next a').click(function () {
+        if (basic.isAddress($('.send-container .wallet-address input').val().trim())) {
+            console.log('step-2');
+        } else {
+            basic.showAlert('Please enter valid address.');
+        }
+    });
+}
+
+function onAccountSwitch() {
+    if (typeof web3.eth.defaultAccount != 'undefined') {
+        $('.homepage-container .address span').html(web3.eth.defaultAccount);
+        $('.homepage-container .address span').data('valid-address', true);
+    } else {
+        $('.homepage-container .address span').html($('.homepage-container .address span').attr('data-log-metamask'));
+    }
+}

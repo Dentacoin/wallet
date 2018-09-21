@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
+use bb\Sha3\Sha3;
 
 
 class Controller extends BaseController
@@ -21,6 +22,27 @@ class Controller extends BaseController
     public function __construct() {
         View::share('mobile', $this->isMobile());
         View::share('meta_data', $this->getMetaData());
+        View::share('dcn_in_usd', $this->getCurrentDcnUsdRate());
+    }
+
+    public function getCurrentDcnUsdRate()  {
+        //API connection
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => "https://api.coingecko.com/api/v3/coins/dentacoin",
+            CURLOPT_SSL_VERIFYPEER => 0
+        ));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $resp = json_decode(curl_exec($curl));
+        curl_close($curl);
+        if(!empty($resp))   {
+            if(!empty($resp->market_data->current_price->usd))  {
+                return $resp->market_data->current_price->usd;
+            }else {
+                return 0;
+            }
+        }
     }
 
     protected function getMetaData()    {

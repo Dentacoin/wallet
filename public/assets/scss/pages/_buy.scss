@@ -17,20 +17,6 @@
             padding-bottom: 5px;
         }
         .wrapper {
-            input {
-                padding-left: 12px;
-                padding-right: 12px;
-                width: calc(100% - 80px);
-                font-size: 16px;
-                border: 0;
-                @include rounded(4px 0 0 4px);
-            }
-            button.dropdown-toggle {
-                background-color: #ddd;
-                width: 80px;
-                font-size: 16px;
-                @include rounded(0 4px 4px 0);
-            }
         }
     }
     .line {

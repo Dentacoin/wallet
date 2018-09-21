@@ -5,8 +5,11 @@
             <div class="container">
                 <div class="row-flex">
                     <div class="col-12 text-center">
-                        <div class="subtitle">Your Dentacoin wallet:</div>
-                        <div class="address"><figure class="inline-block"><a href=""><img src="{{URL::asset('assets/images/copy.svg') }}" class="Copy address to clipboard icon"/></a></figure><span>7182730uasdnmasndasu902183901jksdjkls</span></div>
+                        <div class="subtitle">Your Dentacoin address:</div>
+                        <div class="address">
+                            <figure class="inline-block"><a href="javascript:void(0)" class="copy-address" data-toggle="tooltip" title="Copied."><img src="{{URL::asset('assets/images/copy.svg') }}" class="Copy address to clipboard icon"/></a></figure>
+                            <span data-log-metamask="Please log in with MetaMask."></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -20,17 +23,17 @@
                     </div>
                     <div class="transferred-value">
                         <div class="output">= <span class="mobile-symbol">USD</span><span> 50 <span class="desktop-symbol">USD</span></span>
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            {{--<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Euro</a>
                                 <a class="dropdown-item" href="#">Bitcoin</a>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                 </div>
                 <figure class="col-4 col-sm-4 col-md-3 qr-code">
-                    <a href="">
-                        <img src="{{URL::asset('assets/images/qrcode.png') }}" alt="qr code"/>
+                    <a href="javascript:void(0)">
+                        <img src="" alt="qr code"/>
                     </a>
                 </figure>
             </div>

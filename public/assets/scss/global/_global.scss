@@ -2,7 +2,8 @@ body {
     margin: 0;
     background-image: url('/assets/images/body-background.png');
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 100% 50%;
+    color: $main_text_color;
     &.overflow-hidden {
         overflow: hidden;
     }
@@ -11,9 +12,6 @@ body {
     }
     &.modal-open {
         overflow: hidden;
-    }
-    @include breakpoint($sm-down)    {
-        background-size: 100% 50%;
     }
     @include breakpoint($xs)    {
         background-size: 100% 70%;
@@ -380,7 +378,7 @@ img {
 }
 .form-input-append button{
     width:100%;
-    background: #dddddd!important;
+    background: $light_gray!important;
 
 }
 .row-buy{
@@ -815,6 +813,128 @@ img {
             &:last-child {
                 padding-right: 15px !important;
             }
+        }
+    }
+}
+
+.gray-btn {
+    background-color: $light_gray;
+    border-color: white;
+    font-size: 16px;
+    padding: 6px 12px;
+    @include rounded(4px);
+    @include simple_transition(.3s);
+    &:focus {
+        @include box-shadow(0 0 0 0.2rem rgba(248,249,250,.5));
+    }
+    &.active {
+        background-color: $light_blue;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.bluegreen-white-btn {
+    background-color: $bluegreen;
+    color: white;
+    font-size: 16px;
+    padding: 6px 12px;
+    @include rounded(4px);
+    @include simple_transition(.3s);
+    &:hover {
+        color: white;
+        background-color: $bluegreen_hover;
+    }
+}
+
+.input-with-exchange {
+    input {
+        padding-left: 12px;
+        padding-right: 12px;
+        width: calc(100% - 80px);
+        font-size: 16px;
+        border: 0;
+    }
+    button.dropdown-toggle {
+        background-color: $light_gray;
+        border-color: white;
+        width: 80px;
+        font-size: 16px;
+    }
+    &.left-side {
+        input {
+            @include rounded(4px 0 0 4px);
+        }
+        button.dropdown-toggle {
+            @include rounded(0 4px 4px 0);
+        }
+    }
+    &.right-side {
+        input {
+            @include rounded(0 4px 4px 0);
+        }
+        button.dropdown-toggle {
+            @include rounded(4px 0 0 4px);
+        }
+    }
+}
+
+.input-with-button {
+    input {
+        width: calc(100% - 80px);
+        font-size: 16px;
+        padding: 7px 12px;
+        border: 0;
+        vertical-align: middle;
+    }
+    .btn-container {
+        width: 80px;
+        vertical-align: middle;
+        height: 100%;
+        a {
+            display: block;
+            height: 100%;
+            text-align: center;
+            border: 1px solid white;
+        }
+    }
+    &.left-side {
+        input {
+            @include rounded(4px 0 0 4px);
+        }
+        .btn-container a {
+            @include rounded(0 4px 4px 0);
+        }
+    }
+}
+
+input.module-field {
+    padding: 7px 12px;
+    font-size: 16px;
+    border: 0;
+    @include rounded(4px);
+}
+
+.input-with-label {
+    input {
+        padding: 7px 12px;
+        width: calc(100% - 80px);
+        font-size: 16px;
+        border: 0;
+        margin: 0;
+        @include rounded(4px 0 0 4px);
+    }
+    .label {
+        width: 80px;
+        display: inline-block;
+        background-color: $light_gray;
+        border-color: white;
+        font-size: 16px;
+        font-family: "OpenSans-SemiBold";
+        position: relative;
+        @include rounded(0 4px 4px 0);
+        span {
+            @include vertical-horizontal-align(absolute);
         }
     }
 }
