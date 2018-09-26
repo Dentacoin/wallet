@@ -25,7 +25,7 @@
         var HOME_URL = '{{ route("home") }}';
     </script>
 </head>
-<body data-current="one" class="@if(!empty(Route::current())) {{Route::current()->getName()}} @else class-404 @endif">
+<body data-current="one" class="@if(!empty(Route::current())) {{Route::current()->getName()}} @else class-404 @endif" data-current-dcn-in-usd="{{$dcn_in_usd}}">
     <header>
         <div class="container">
             <div class="row">
@@ -64,99 +64,19 @@
             <!--Transaction History-->
             <div class="row text-left mt-5">
                 <div class="col">
-                    <h5 class="text-left">Transaction History</h5>
+                    <h5 class="text-center">Transaction History</h5>
                 </div>
                 <div class="col table-responsive mt-4 no-gutter-xxs">
                     <table class=" table table-transactions">
-                        <tbody>
+                        <tbody class="visible-tbody">
                             <tr>
-                                <td class="align-middle icon">
-                                    <figure>
-                                        <a class="align-middle" href="#">
-                                            <img src="{{URL::asset('assets/images/send-icon.svg') }}" alt="Send icon"/>
-                                        </a>
-                                    </figure>
-                                </td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li> 01/15/2018</li>
-                                        <li> 12:06 Am</li>
-                                    </ul>
-                                </td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li> <span> <strong>Send to:</strong> 0x7osadmnaops890312dnaso8123192j</span></li>
-                                        <li><a href="#"><strong class="transaction-id">Transaction ID</strong></a></li>
-                                    </ul>
-                                </td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li class="value-dcn send-to">-100DCN</li>
-                                        <li> 2 USD</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle icon">
-                                    <figure>
-                                        <a class="align-middle" href="#">
-                                            <img src="{{URL::asset('assets/images/pay-icon.svg') }}" alt="Pay icon"/>
-                                        </a>
-                                    </figure>
-                                </td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li> 01/15/2018</li>
-                                        <li> 12:06 Am</li>
-                                    </ul>
-                                </td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li> <span> <strong>Payed to:</strong><a href="#"> Dentaprime City</a> (0x7osadmnaops890312dnaso8123192j)</span></li>
-                                        <li><a href="#"><strong class="transaction-id">Transaction ID</strong></a></li>
-                                    </ul>
-                                </td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li class="value-dcn payed-to">-100DCN</li>
-                                        <li> 2 USD</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle icon">
-                                    <figure>
-                                        <a class="align-middle" href="#">
-                                            <img class="img-responsive" src="{{URL::asset('assets/images/receive-icon.svg') }}" alt="Receive icon"/>
-                                        </a>
-                                    </figure>
-                                </td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li> 01/15/2018</li>
-                                        <li> 12:06 Am</li>
-                                    </ul></td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li> <span> <strong>Received from:</strong> 0x7osadmnaops890312dnaso8123192j</span></li>
-                                        <li><a href="#"><strong class="transaction-id">Transaction ID</strong></a></li>
-                                    </ul>
-                                </td>
-                                <td class="align-middle">
-                                    <ul class="align-middle">
-                                        <li class="value-dcn received-from">+100DCN</li>
-                                        <li> 2 USD</li>
-                                    </ul>
-                                </td>
+                                <td class="text-center">No previous transactions found.</td>
                             </tr>
                         </tbody>
+                        <tbody class="hidden-tbody fade-in-animation"></tbody>
                     </table>
                 </div>
-                <div class="mt-2">
-                    <div class="col text-center">
-                        <a href="#" > <strong>Show more</strong></a> </div> <div class="col-lg-4">
-                    </div>
-                </div>
+                <div class="mt-2 show-more-holder"></div>
             </div> <!--End Transaction History-->
         </section>
     </main>

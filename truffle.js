@@ -1,4 +1,4 @@
-const fullPathBuildDirectory = `${__dirname}/public/assets/contracts`;
+const fullPathBuildDirectory = `${__dirname}/public/assets/jsons`;
 module.exports = {
     contracts_build_directory: fullPathBuildDirectory,
     networks: {

@@ -778,40 +778,79 @@ img {
     strong.transaction-id {
         color: $light_blue;
     }
-    td.icon {
-        width: 50px;
-        padding-left: 0;
-        padding-right: 10px;
-        a {
-            width: 40px;
-            display: block;
-        }
-    }
-    .value-dcn {
+    .api-clinic, .show-more-holder a {
         font-weight: 500;
-        &.send-to {
-            color: #d0796e;
-        }
-        &.payed-to {
-            color: #55a2d7;
-        }
-        &.received-from {
-            color: #5ccb92;
+        color: $dark_blue;
+    }
+    table {
+        tbody {
+            @include simple_transition(.3s);
+            &.hidden-tbody {
+                display: none;
+                border-top: 0;
+            }
+            tr {
+                .icon {
+                    background-repeat: no-repeat;
+                    background-size: calc(100% - 10px);
+                    background-position: left center;
+                }
+                &.sent_to {
+                    .icon {
+                        background-image: url('/assets/images/sent-icon.svg');
+                    }
+                    .value-dcn {
+                        font-weight: 500;
+                        color: #d0796e;
+                    }
+                }
+                &.payed_to {
+                    .icon {
+                        background-image: url('/assets/images/pay-icon.svg');
+                    }
+                    .value-dcn {
+                        font-weight: 500;
+                        color: #55a2d7;
+                    }
+                }
+                &.received_from {
+                    .icon {
+                        background-image: url('/assets/images/receive-icon.svg');
+                    }
+                    .value-dcn {
+                        font-weight: 500;
+                        color: #5ccb92;
+                    }
+                }
+            }
+            td.icon {
+                width: 50px;
+                padding-left: 0;
+                padding-right: 10px;
+                a {
+                    width: 40px;
+                    display: block;
+                }
+            }
         }
     }
     @include breakpoint($xs)    {
-        td {
-            &.icon {
-                width: 40px;
-                a {
-                    width: 30px;
+        table {
+            tbody {
+                td {
+                    &.icon {
+                        width: 40px;
+                        a {
+                            width: 30px;
+                        }
+                    }
+                    &:first-child {
+                        padding-left: 15px !important;
+                    }
+                    &:last-child {
+                        padding-right: 15px !important;
+                    }
                 }
-            }
-            &:first-child {
-                padding-left: 15px !important;
-            }
-            &:last-child {
-                padding-right: 15px !important;
             }
         }
     }

@@ -25,7 +25,7 @@ class Controller extends BaseController
         View::share('dcn_in_usd', $this->getCurrentDcnUsdRate());
     }
 
-    public function getCurrentDcnUsdRate()  {
+    protected function getCurrentDcnUsdRate()  {
         //API connection
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -43,6 +43,10 @@ class Controller extends BaseController
                 return 0;
             }
         }
+    }
+
+    protected function buildTransactionHistory()    {
+
     }
 
     protected function getMetaData()    {

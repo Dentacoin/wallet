@@ -17,6 +17,8 @@ Route::group(['prefix' => '/'/*, 'middleware' => 'frontEndMiddleware'*/], functi
 
     Route::post('/get-qr-code-from-address', 'HomeController@generateQrImage')->name('get-qr-code-from-address');
 
+    Route::post('/build-transaction-history', 'HomeController@buildTransactionHistory')->name('build-transaction-history');
+
     //Route::get('/buy', 'BuyController@getView')->name('buy');
 
     Route::group(['prefix' => '/send'], function () {

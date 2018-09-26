@@ -1,10 +1,10 @@
 @extends("layout")
 @section("content")
-    <div class="amount-to-container" data-current-dcn-in-usd="{{$dcn_in_usd}}">
+    <div class="amount-to-container">
         <div class="container">
             <div class="row-flex fs-0">
                 <div class="col-12 col-sm-8 offset-sm-2 wallet-address">
-                    <div class="inline-block address">
+                    <div class="inline-block address-container">
                         <span class="label">Send to:</span>
                         <span class="address">{{$address}}</span>
                         <input type="text" value="{{$address}}" class="value-to-edit module-field" maxlength="42"/>

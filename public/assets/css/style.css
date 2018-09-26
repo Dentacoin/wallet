@@ -1997,29 +1997,52 @@ img {
   padding-bottom: 30px; }
   .transaction-history strong.transaction-id {
     color: #00b7d9; }
-  .transaction-history td.icon {
-    width: 50px;
-    padding-left: 0;
-    padding-right: 10px; }
-    .transaction-history td.icon a {
-      width: 40px;
-      display: block; }
-  .transaction-history .value-dcn {
-    font-weight: 500; }
-    .transaction-history .value-dcn.send-to {
+  .transaction-history .api-clinic, .transaction-history .show-more-holder a {
+    font-weight: 500;
+    color: #007bff; }
+  .transaction-history table tbody {
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s; }
+    .transaction-history table tbody.hidden-tbody {
+      display: none;
+      border-top: 0; }
+    .transaction-history table tbody tr .icon {
+      background-repeat: no-repeat;
+      background-size: calc(100% - 10px);
+      background-position: left center; }
+    .transaction-history table tbody tr.sent_to .icon {
+      background-image: url("/assets/images/sent-icon.svg"); }
+    .transaction-history table tbody tr.sent_to .value-dcn {
+      font-weight: 500;
       color: #d0796e; }
-    .transaction-history .value-dcn.payed-to {
+    .transaction-history table tbody tr.payed_to .icon {
+      background-image: url("/assets/images/pay-icon.svg"); }
+    .transaction-history table tbody tr.payed_to .value-dcn {
+      font-weight: 500;
       color: #55a2d7; }
-    .transaction-history .value-dcn.received-from {
+    .transaction-history table tbody tr.received_from .icon {
+      background-image: url("/assets/images/receive-icon.svg"); }
+    .transaction-history table tbody tr.received_from .value-dcn {
+      font-weight: 500;
       color: #5ccb92; }
+    .transaction-history table tbody td.icon {
+      width: 50px;
+      padding-left: 0;
+      padding-right: 10px; }
+      .transaction-history table tbody td.icon a {
+        width: 40px;
+        display: block; }
   @media screen and (max-width: 767px) {
-    .transaction-history td.icon {
+    .transaction-history table tbody td.icon {
       width: 40px; }
-      .transaction-history td.icon a {
+      .transaction-history table tbody td.icon a {
         width: 30px; }
-    .transaction-history td:first-child {
+    .transaction-history table tbody td:first-child {
       padding-left: 15px !important; }
-    .transaction-history td:last-child {
+    .transaction-history table tbody td:last-child {
       padding-right: 15px !important; } }
 
 .gray-btn {
@@ -2197,7 +2220,7 @@ footer {
     vertical-align: bottom; }
   .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value {
     width: calc(100% - 30px);
-    font-size: 54px;
+    font-size: 50px;
     line-height: 60px;
     font-weight: 500;
     padding-left: 15px; }
@@ -2319,12 +2342,12 @@ footer {
   color: white;
   padding-top: 20px;
   padding-bottom: 40px; }
-  .amount-to-container .wallet-address .address {
+  .amount-to-container .wallet-address .address-container {
     font-size: 18px; }
-    .amount-to-container .wallet-address .address .value-to-edit {
+    .amount-to-container .wallet-address .address-container .value-to-edit {
       display: none;
       width: 100%; }
-    .amount-to-container .wallet-address .address.editing {
+    .amount-to-container .wallet-address .address-container.editing {
       width: calc(100% - 80px); }
   .amount-to-container .wallet-address .btn-container {
     width: 80px;
