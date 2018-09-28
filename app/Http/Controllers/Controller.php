@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 use bb\Sha3\Sha3;
 
 
-class Controller extends BaseController
-{
+class Controller extends BaseController {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function __construct() {

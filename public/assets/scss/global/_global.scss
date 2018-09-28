@@ -873,6 +873,16 @@ img {
     }
 }
 
+.white-aqua-btn {
+    color: white;
+    background-color: $site_aqua;
+    padding: 5px 15px;
+    @include rounded(6px);
+    &:hover {
+        color: white;
+    }
+}
+
 .bluegreen-white-btn {
     background-color: $bluegreen;
     color: white;
@@ -974,6 +984,131 @@ input.module-field {
         @include rounded(0 4px 4px 0);
         span {
             @include vertical-horizontal-align(absolute);
+        }
+    }
+}
+
+.validation-popup {
+    .modal-dialog {
+        width: 95%;
+        max-width: 700px;
+        margin: 30px auto;
+        .title {
+            font-family: 'OpenSans-Bold';
+            font-size: 24px;
+        }
+        .subtitle {
+            color: #777;
+            font-weight: 500;
+        }
+        .separator {
+            height: 1px;
+            background-color: #D0D0D0;
+            margin-top: 20px;
+        }
+        .btns-container {
+            text-align: center;
+            padding-bottom: 30px;
+            a {
+                margin: 0 5px;
+                display: block;
+                white-space: nowrap;
+            }
+        }
+    }
+    &.download-desktop-browser {
+        .bootbox-close-button.close {
+            display: none;
+        }
+        .modal-dialog {
+            figure.image {
+                padding-top: 30px;
+                padding-bottom: 50px;
+                text-align: center;
+                img {
+                    width: 50%;
+                }
+            }
+            .btns-container {
+                @include breakpoint($xs)    {
+                    figure {
+                        display: block;
+                        a {
+                            width: 150px;
+                            margin: 0 auto 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.download-metamask-desktop {
+        .modal-dialog {
+            figure.image {
+                padding-top: 30px;
+                padding-bottom: 50px;
+                text-align: center;
+                img {
+                    width: 50%;
+                }
+            }
+            .additional-text {
+                text-align: center;
+                padding: 0 20px 20px;
+            }
+            .btns-container {
+                a {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+    .login-metamask-desktop {
+        .modal-dialog {
+            figure.gif {
+                padding-top: 50px;
+                padding-bottom: 50px;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    &.download-mobile-browser {
+        .bootbox-close-button.close {
+            display: none;
+        }
+        .modal-dialog {
+            figure.image {
+                padding-top: 30px;
+                padding-bottom: 30px;
+                text-align: center;
+                img {
+                    width: 50%;
+                }
+            }
+            .btns-container {
+                figure {
+                    padding-bottom: 10px;
+                    text-align: center;
+                    .app-store {
+                        width: 200px;
+                        margin: 0 auto;
+                        display: block;
+                    }
+                    .white-aqua-btn {
+                        width: 200px;
+                        margin: 0 auto;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
+                        font-size: 18px;
+                        font-weight: 500;
+                        img {
+                            width: 30px;
+                        }
+                    }
+                }
+            }
         }
     }
 }

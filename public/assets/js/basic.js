@@ -93,8 +93,8 @@ var basic = {
             jQuery('.bootbox').last().css({'z-index': last_z+2}).next('.modal-backdrop').css({'z-index': last_z+1});
         }
     },
-    showAlert: function(message, class_name) {
-        basic.realShowDialog(message, "alert", class_name);
+    showAlert: function(message, class_name, vertical_center) {
+        basic.realShowDialog(message, "alert", class_name, null, null, vertical_center);
     },
     showConfirm: function(message, class_name, params) {
         basic.realShowDialog(message, "confirm", class_name, params);
@@ -105,12 +105,15 @@ var basic = {
         }
         basic.realShowDialog(message, "dialog", class_name, null, type);
     },
-    realShowDialog: function(message, dialog_type, class_name, params, type) {
+    realShowDialog: function(message, dialog_type, class_name, params, type, vertical_center) {
         if(class_name === undefined){
             class_name = "";
         }
         if(type === undefined){
             type = null;
+        }
+        if(vertical_center === undefined){
+            vertical_center = null;
         }
 
         var atrs = {
@@ -146,7 +149,9 @@ var basic = {
             }
         });
         dialog.on('shown.bs.modal', function(){
-            basic.verticalAlignModal();
+            if(vertical_center != null) {
+                basic.verticalAlignModal();
+            }
             basic.fixZIndexBackdrop();
         });
         dialog.modal('show');

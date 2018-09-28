@@ -20,16 +20,81 @@ $(window).on('scroll', function()  {
 
 });
 
-web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
+var meta_mask_installed = false;
+var meta_mask_logged = false;
+var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+var is_firefox = !(window.mozInnerScreenX == null);
+var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") == -1;
+if(typeof(web3) !== 'undefined' && web3.currentProvider.isMetaMask === true) {
+    meta_mask_installed = true;
+    web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
+    if(typeof(web3.eth.defaultAccount) != 'undefined')  {
+        meta_mask_logged = true;
+    }
+}
+
+function mobileDownloadMetaMaskPopup()  {
+    var button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
+    var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
+    basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup', null);
+}
+
+function mobileLoginMetaMaskPopup()  {
+    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup', null);
+}
+
+function desktopDownloadMetaMaskPopup() {
+    var button_html = '';
+    if(!is_opera)   {
+        //link for download opera metamask extention
+        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.opera.com/en/extensions/details/metamask/" target="_blank">Get from Opera Addons</a></div>';
+    }else if(is_chrome)   {
+        //link for download chrome metamask extention
+        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank">Get from Chrome Web Store</a></div>';
+    }else if(is_firefox)   {
+        //link for download firefox metamask extention
+        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
+    }
+    var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
+    basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup', null);
+}
+
+function desktopLoginMetaMaskPopup()    {
+    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup', null);
+}
+
+if(basic.isMobile())    {
+    //MOBILE
+    if(!is_firefox)    {
+        //popup for download mozilla browser OR trust wallet
+        basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup', null);
+    }else {
+        if(!meta_mask_installed)    {
+            //popup for download metamask
+            mobileDownloadMetaMaskPopup();
+        }else if(!meta_mask_logged) {
+            //popup for login in metamask
+            mobileLoginMetaMaskPopup();
+        }
+    }
+}else {
+    //DESKTOP
+    if(!is_chrome && !is_firefox && is_opera) {
+        //IF NOT CHROME OR MOZILLA OR OPERA
+        basic.showDialog('<div class="popup-body"> <div class="title">Download Desktop Browser</div><div class="subtitle">You can use Dentacoin Wallet on a desktop browser like Chrome, Firefox Brave or Opera.</div><div class="separator"></div><figure class="image"><img src="/assets/images/computer.svg" alt="Computer icon"/> </figure> <div class="btns-container"> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.google.com/chrome/" target="_blank"><img src="/assets/images/chrome.png" alt=""/> Chrome</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank"><img src="/assets/images/firefox.png" alt=""/> Firefox</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.opera.com/" target="_blank"><img src="/assets/images/opera.png" alt=""/> Opera</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://brave.com/download/" target="_blank"><img src="/assets/images/brave.png" alt=""/> Brave</a></figure> </div></div>', 'download-desktop-browser validation-popup', null);
+    }else {
+        if(!meta_mask_installed)    {
+            //popup for download metamask
+            desktopDownloadMetaMaskPopup();
+        }else if(!meta_mask_logged) {
+            //popup for login in metamask
+            desktopLoginMetaMaskPopup();
+        }
+    }
+}
 
 window.addEventListener('load', function() {
-    var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    var meta_mask = typeof web3 !== 'undefined' && web3.currentProvider.isMetaMask === true;
-    console.log('chrome', is_chrome);
-    console.log('meta_mask', meta_mask);
-    console.log('is_mobile', basic.isMobile());
-    //return previous transactions for adress
-    //http://api.etherscan.io/api?module=account&action=txlist&address=0x0673fae9d1d64d12d92d31b87a3d0c08425719b5&sort=asc
+
 });
 
 var global_state = {};
@@ -307,90 +372,189 @@ if($('body').hasClass('home'))  {
 }else if($('body').hasClass('send')) {
     //on input and if valid address add active class to 'next' button for UI
     $('.send-container .wallet-address input').on('input', function()   {
-        if(innerAddressCheck($(this).val().trim()))   {
-            $('.send-container .next a').addClass('active');
-        }else if($('.send-container .next a').hasClass('active')){
-            $('.send-container .next a').removeClass('active');
+        if(!meta_mask_installed || !meta_mask_logged)   {
+            $(this).val('');
+            if(basic.isMobile())    {
+                if(!meta_mask_installed)   {
+                    mobileDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    mobileLoginMetaMaskPopup();
+                }
+            }else {
+                if(!meta_mask_installed)   {
+                    desktopDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
+        }else {
+            if(innerAddressCheck($(this).val().trim()))   {
+                $('.send-container .next a').addClass('active');
+            }else if($('.send-container .next a').hasClass('active')){
+                $('.send-container .next a').removeClass('active');
+            }
         }
     });
 
     $('.send-container .next a').click(function()  {
-        if(innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
-            window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
+        if(!meta_mask_installed || !meta_mask_logged)   {
+            if(basic.isMobile())    {
+                if(!meta_mask_installed)   {
+                    mobileDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    mobileLoginMetaMaskPopup();
+                }
+            }else {
+                if(!meta_mask_installed)   {
+                    desktopDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
         }else {
-            basic.showAlert('Please enter valid address.');
+            if(innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
+                window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
+            }else {
+                basic.showAlert('Please enter valid address.');
+            }
         }
     });
 }else if($('body').hasClass('amount-to')) {
     var curr_addr = window.location.href.split('/')[window.location.href.split('/').length-1];
     //redirect to /send if the address it not valid or using the same address as the owner
-    if(!web3.isAddress(curr_addr) || curr_addr == global_state.account)   {
+    if(!meta_mask_logged || !meta_mask_installed || !web3.isAddress(curr_addr) || curr_addr == global_state.account)   {
         window.location = HOME_URL + '/send';
     }
 
     //editing the address logic
     $('.amount-to-container .edit-address').click(function()    {
-        if($(this).hasClass('ready-to-edit'))   {
-            var editing_address = $('.amount-to-container .value-to-edit').val().trim();
-            if(innerAddressCheck(editing_address))   {
-                $(this).find('img').attr('src', $(this).find('img').attr('data-default-src'));
-                $('.amount-to-container .wallet-address span.address').html(editing_address);
-                $('.amount-to-container .value-to-edit').hide();
-                $('.amount-to-container .address-container span').show();
-                $('.amount-to-container .address-container').removeClass('editing');
-                $(this).removeClass('ready-to-edit');
-                window.history.pushState(null, null, HOME_URL+'/send/amount-to/'+editing_address);
+        if(!meta_mask_installed || !meta_mask_logged)   {
+            if(basic.isMobile())    {
+                if(!meta_mask_installed)   {
+                    mobileDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    mobileLoginMetaMaskPopup();
+                }
             }else {
-                basic.showAlert('Please enter valid address.');
+                if(!meta_mask_installed)   {
+                    desktopDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    desktopLoginMetaMaskPopup();
+                }
             }
         }else {
-            $(this).addClass('ready-to-edit');
-            $(this).find('img').attr('src', $(this).find('img').attr('data-check-src'));
-            $(this).closest('.wallet-address').find('.address-container').addClass('editing');
-            $('.amount-to-container .address-container span').hide();
-            $('.amount-to-container .address-container .value-to-edit').show().select();
+            if ($(this).hasClass('ready-to-edit')) {
+                var editing_address = $('.amount-to-container .value-to-edit').val().trim();
+                if (innerAddressCheck(editing_address)) {
+                    $(this).find('img').attr('src', $(this).find('img').attr('data-default-src'));
+                    $('.amount-to-container .wallet-address span.address').html(editing_address);
+                    $('.amount-to-container .value-to-edit').hide();
+                    $('.amount-to-container .address-container span').show();
+                    $('.amount-to-container .address-container').removeClass('editing');
+                    $(this).removeClass('ready-to-edit');
+                    window.history.pushState(null, null, HOME_URL + '/send/amount-to/' + editing_address);
+                } else {
+                    basic.showAlert('Please enter valid address.');
+                }
+            } else {
+                $(this).addClass('ready-to-edit');
+                $(this).find('img').attr('src', $(this).find('img').attr('data-check-src'));
+                $(this).closest('.wallet-address').find('.address-container').addClass('editing');
+                $('.amount-to-container .address-container span').hide();
+                $('.amount-to-container .address-container .value-to-edit').show().select();
+            }
         }
     });
 
     //on input in dcn input change usd input
     $('.amount-to-container input#dcn').on('input', function()  {
-        $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(4));
+        if(!meta_mask_installed || !meta_mask_logged)   {
+            $(this).val('');
+            if(basic.isMobile())    {
+                if(!meta_mask_installed)   {
+                    mobileDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    mobileLoginMetaMaskPopup();
+                }
+            }else {
+                if(!meta_mask_installed)   {
+                    desktopDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
+        }else {
+            $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(4));
+        }
     });
 
     //on input in usd input change dcn input
     $('.amount-to-container input#usd').on('input', function()  {
-        $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
+        if(!meta_mask_installed || !meta_mask_logged)   {
+            $(this).val('');
+            if(basic.isMobile())    {
+                if(!meta_mask_installed)   {
+                    mobileDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    mobileLoginMetaMaskPopup();
+                }
+            }else {
+                if(!meta_mask_installed)   {
+                    desktopDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
+        }else {
+            $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
+        }
     });
 
     function sendValue()    {
-        var dcn_val = $('.amount-to-container input#dcn').val().trim();
-        var usd_val = $('.amount-to-container input#usd').val().trim();
-        if(isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0)  {
-            //checking if not a number or empty values
-            basic.showAlert('Please make sure all values are numbers.');
-        }else if(dcn_val < 0 || usd_val < 0)  {
-            //checking if negative numbers
-            basic.showAlert('Please make sure all values are more than 0.');
-        }else if(dcn_val < 10)  {
-            //checking if dcn value is lesser than 10 (contract condition)
-            basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.');
-        }else if(dcn_val > global_state.curr_address_balance)  {
-            //checking if current balance is lower than the desired value to send
-            basic.showAlert('The value you want to send is higher than your balance.');
-        }else if($('.amount-to-container .address-container').hasClass('editing'))  {
-            //checking if editing address is done
-            basic.showAlert('Please make sure you are done with address editing.');
-        }else if(!innerAddressCheck($('.amount-to-container .wallet-address span.address').html()))  {
-            //checking again if valid address
-            basic.showAlert('Please make sure you are sending to valid address.');
-        }else {
-            var callback_obj = {};
-            callback_obj.callback = function(result) {
-                if(result)  {
-                    App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
+        if(!meta_mask_installed || !meta_mask_logged)   {
+            if(basic.isMobile())    {
+                if(!meta_mask_installed)   {
+                    mobileDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    mobileLoginMetaMaskPopup();
                 }
-            };
-            basic.showConfirm('Are you sure you want to continue?', '', callback_obj);
+            }else {
+                if(!meta_mask_installed)   {
+                    desktopDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged)   {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
+        }else {
+            var dcn_val = $('.amount-to-container input#dcn').val().trim();
+            var usd_val = $('.amount-to-container input#usd').val().trim();
+            if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
+                //checking if not a number or empty values
+                basic.showAlert('Please make sure all values are numbers.');
+            } else if (dcn_val < 0 || usd_val < 0) {
+                //checking if negative numbers
+                basic.showAlert('Please make sure all values are more than 0.');
+            } else if (dcn_val < 10) {
+                //checking if dcn value is lesser than 10 (contract condition)
+                basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.');
+            } else if (dcn_val > global_state.curr_address_balance) {
+                //checking if current balance is lower than the desired value to send
+                basic.showAlert('The value you want to send is higher than your balance.');
+            } else if ($('.amount-to-container .address-container').hasClass('editing')) {
+                //checking if editing address is done
+                basic.showAlert('Please make sure you are done with address editing.');
+            } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
+                //checking again if valid address
+                basic.showAlert('Please make sure you are sending to valid address.');
+            } else {
+                var callback_obj = {};
+                callback_obj.callback = function (result) {
+                    if (result) {
+                        App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
+                    }
+                };
+                basic.showConfirm('Are you sure you want to continue?', '', callback_obj);
+            }
         }
     }
 }
