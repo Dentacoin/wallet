@@ -131,10 +131,6 @@ var App = {
     },
     initContract: function() {
         $.getJSON('/assets/jsons/DentacoinToken.json', async function(DCNArtifact) {
-            // TEMPORALLY
-
-            // TEMPORALLY
-
             // get the contract artifact file and use it to instantiate a truffle contract abstraction
             App.contracts.DentacoinToken = TruffleContract(DCNArtifact);
             // set the provider for our contracts
