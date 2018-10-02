@@ -96,8 +96,8 @@ var basic = {
     showAlert: function(message, class_name, vertical_center) {
         basic.realShowDialog(message, "alert", class_name, null, null, vertical_center);
     },
-    showConfirm: function(message, class_name, params) {
-        basic.realShowDialog(message, "confirm", class_name, params);
+    showConfirm: function(message, class_name, params, vertical_center) {
+        basic.realShowDialog(message, "confirm", class_name, params, null, vertical_center);
     },
     showDialog: function(message, class_name, type) {
         if(type === undefined){

@@ -74,7 +74,7 @@
             .transfer-value {
                 .current-value {
                     .dcn-value {
-                        font-size: 50px;
+                        font-size: 38px;
                     }
                 }
             }
@@ -83,7 +83,9 @@
     @include breakpoint($xs)    {
         .your-dcn-wallet {
             .address {
-                font-size: 12px;
+                span {
+                    padding-left: 0;
+                }
             }
         }
         .values-and-qr-code {
@@ -97,19 +99,20 @@
                         width: 25px;
                     }
                     .dcn-value {
-                        font-size: 40px;
+                        font-size: 36px;
                         line-height: 40px;
                         padding-left: 10px;
                     }
                 }
             }
-            .qr-code {
-                display: inline-block;
-                vertical-align: middle;
-            }
         }
     }
     @include breakpoint($xxs)   {
+        .your-dcn-wallet {
+            .address {
+                font-size: 12px;
+            }
+        }
         .values-and-qr-code {
             padding-top: 20px;
             padding-bottom: 0;

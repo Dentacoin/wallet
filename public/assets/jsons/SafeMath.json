@@ -116,7 +116,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 938,
+                        "referencedDeclaration": 995,
                         "src": "311:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -202,7 +202,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 938,
+                        "referencedDeclaration": 995,
                         "src": "371:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -2473,7 +2473,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "3798:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -2736,7 +2736,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "3950:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -2878,7 +2878,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "4033:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -3271,7 +3271,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 938,
+                              "referencedDeclaration": 995,
                               "src": "4391:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -3713,7 +3713,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "4662:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -4195,7 +4195,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "5015:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -4289,7 +4289,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "5065:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4873,10 +4873,10 @@
           }
         ],
         "contractDependencies": [
-          193,
-          40,
+          129,
           385,
-          129
+          193,
+          40
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -5007,7 +5007,7 @@
               "name": "this",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 959,
+              "referencedDeclaration": 1016,
               "src": "5756:4:0",
               "typeDescriptions": {
                 "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -5441,7 +5441,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "7093:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -6555,7 +6555,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "8490:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -6808,7 +6808,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "8765:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -7052,7 +7052,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "8916:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -7113,7 +7113,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 938,
+                                    "referencedDeclaration": 995,
                                     "src": "8947:3:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -7238,7 +7238,7 @@
                                   "name": "msg",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 938,
+                                  "referencedDeclaration": 995,
                                   "src": "9022:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_message",
@@ -7398,7 +7398,7 @@
                                     "name": "this",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 959,
+                                    "referencedDeclaration": 1016,
                                     "src": "9502:4:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -7443,7 +7443,7 @@
                                         "name": "this",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 959,
+                                        "referencedDeclaration": 1016,
                                         "src": "9527:4:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -7739,7 +7739,7 @@
                                       "name": "msg",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 938,
+                                      "referencedDeclaration": 995,
                                       "src": "9730:3:0",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_magic_message",
@@ -7906,7 +7906,7 @@
                                       "name": "msg",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 938,
+                                      "referencedDeclaration": 995,
                                       "src": "9860:3:0",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_magic_message",
@@ -8015,7 +8015,7 @@
                                               "name": "msg",
                                               "nodeType": "Identifier",
                                               "overloadedDeclarations": [],
-                                              "referencedDeclaration": 938,
+                                              "referencedDeclaration": 995,
                                               "src": "9931:3:0",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_magic_message",
@@ -8423,7 +8423,7 @@
                                       "name": "msg",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 938,
+                                      "referencedDeclaration": 995,
                                       "src": "9316:3:0",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_magic_message",
@@ -8743,7 +8743,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "10412:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -8843,7 +8843,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "10526:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -8929,7 +8929,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "10645:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -9010,7 +9010,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "10752:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -9071,7 +9071,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 938,
+                              "referencedDeclaration": 995,
                               "src": "10783:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -9193,7 +9193,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "10866:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -9238,7 +9238,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 959,
+                            "referencedDeclaration": 1016,
                             "src": "10891:4:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -9326,7 +9326,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "10985:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -9341,7 +9341,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "10991:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -9662,7 +9662,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "11372:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -9847,7 +9847,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 959,
+                            "referencedDeclaration": 1016,
                             "src": "11614:4:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -9993,7 +9993,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "11754:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -10082,7 +10082,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 959,
+                              "referencedDeclaration": 1016,
                               "src": "12024:4:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -10127,7 +10127,7 @@
                                   "name": "this",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 959,
+                                  "referencedDeclaration": 1016,
                                   "src": "12049:4:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -10237,7 +10237,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "12140:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -10298,7 +10298,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 938,
+                                    "referencedDeclaration": 995,
                                     "src": "12171:3:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -10400,7 +10400,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 959,
+                              "referencedDeclaration": 1016,
                               "src": "12262:4:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -10415,7 +10415,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "12268:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -10771,7 +10771,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "12655:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -10840,7 +10840,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 959,
+                              "referencedDeclaration": 1016,
                               "src": "12924:4:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -10855,7 +10855,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "12930:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -10986,7 +10986,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "13057:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -11067,7 +11067,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "13164:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -11128,7 +11128,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 938,
+                              "referencedDeclaration": 995,
                               "src": "13195:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -11250,7 +11250,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "13278:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -11295,7 +11295,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 959,
+                            "referencedDeclaration": 1016,
                             "src": "13303:4:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -11383,7 +11383,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "13396:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -11398,7 +11398,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "13402:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -11605,7 +11605,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 938,
+                        "referencedDeclaration": 995,
                         "src": "13659:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -11879,7 +11879,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 938,
+                        "referencedDeclaration": 995,
                         "src": "311:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -11965,7 +11965,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 938,
+                        "referencedDeclaration": 995,
                         "src": "371:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -14236,7 +14236,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "3798:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -14499,7 +14499,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "3950:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -14641,7 +14641,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "4033:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -15034,7 +15034,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 938,
+                              "referencedDeclaration": 995,
                               "src": "4391:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -15476,7 +15476,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "4662:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -15958,7 +15958,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "5015:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -16052,7 +16052,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "5065:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -16636,10 +16636,10 @@
           }
         ],
         "contractDependencies": [
-          193,
-          40,
+          129,
           385,
-          129
+          193,
+          40
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -16770,7 +16770,7 @@
               "name": "this",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 959,
+              "referencedDeclaration": 1016,
               "src": "5756:4:0",
               "typeDescriptions": {
                 "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -17204,7 +17204,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "7093:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -18318,7 +18318,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "8490:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -18571,7 +18571,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "8765:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -18815,7 +18815,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "8916:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -18876,7 +18876,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 938,
+                                    "referencedDeclaration": 995,
                                     "src": "8947:3:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -19001,7 +19001,7 @@
                                   "name": "msg",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 938,
+                                  "referencedDeclaration": 995,
                                   "src": "9022:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_message",
@@ -19161,7 +19161,7 @@
                                     "name": "this",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 959,
+                                    "referencedDeclaration": 1016,
                                     "src": "9502:4:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -19206,7 +19206,7 @@
                                         "name": "this",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 959,
+                                        "referencedDeclaration": 1016,
                                         "src": "9527:4:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -19502,7 +19502,7 @@
                                       "name": "msg",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 938,
+                                      "referencedDeclaration": 995,
                                       "src": "9730:3:0",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_magic_message",
@@ -19669,7 +19669,7 @@
                                       "name": "msg",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 938,
+                                      "referencedDeclaration": 995,
                                       "src": "9860:3:0",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_magic_message",
@@ -19778,7 +19778,7 @@
                                               "name": "msg",
                                               "nodeType": "Identifier",
                                               "overloadedDeclarations": [],
-                                              "referencedDeclaration": 938,
+                                              "referencedDeclaration": 995,
                                               "src": "9931:3:0",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_magic_message",
@@ -20186,7 +20186,7 @@
                                       "name": "msg",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 938,
+                                      "referencedDeclaration": 995,
                                       "src": "9316:3:0",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_magic_message",
@@ -20506,7 +20506,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "10412:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -20606,7 +20606,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "10526:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -20692,7 +20692,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "10645:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -20773,7 +20773,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "10752:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -20834,7 +20834,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 938,
+                              "referencedDeclaration": 995,
                               "src": "10783:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -20956,7 +20956,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "10866:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -21001,7 +21001,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 959,
+                            "referencedDeclaration": 1016,
                             "src": "10891:4:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -21089,7 +21089,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "10985:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -21104,7 +21104,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "10991:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -21425,7 +21425,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "11372:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -21610,7 +21610,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 959,
+                            "referencedDeclaration": 1016,
                             "src": "11614:4:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -21756,7 +21756,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "11754:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -21845,7 +21845,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 959,
+                              "referencedDeclaration": 1016,
                               "src": "12024:4:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -21890,7 +21890,7 @@
                                   "name": "this",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 959,
+                                  "referencedDeclaration": 1016,
                                   "src": "12049:4:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -22000,7 +22000,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "12140:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -22061,7 +22061,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 938,
+                                    "referencedDeclaration": 995,
                                     "src": "12171:3:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -22163,7 +22163,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 959,
+                              "referencedDeclaration": 1016,
                               "src": "12262:4:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -22178,7 +22178,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "12268:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -22534,7 +22534,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 938,
+                            "referencedDeclaration": 995,
                             "src": "12655:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -22603,7 +22603,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 959,
+                              "referencedDeclaration": 1016,
                               "src": "12924:4:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -22618,7 +22618,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 938,
+                                "referencedDeclaration": 995,
                                 "src": "12930:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -22749,7 +22749,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "13057:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -22830,7 +22830,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "13164:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -22891,7 +22891,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 938,
+                              "referencedDeclaration": 995,
                               "src": "13195:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -23013,7 +23013,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "13278:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -23058,7 +23058,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 959,
+                            "referencedDeclaration": 1016,
                             "src": "13303:4:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -23146,7 +23146,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 959,
+                        "referencedDeclaration": 1016,
                         "src": "13396:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DentacoinToken_$923",
@@ -23161,7 +23161,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 938,
+                          "referencedDeclaration": 995,
                           "src": "13402:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -23368,7 +23368,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 938,
+                        "referencedDeclaration": 995,
                         "src": "13659:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -23539,5 +23539,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-25T11:33:31.021Z"
+  "updatedAt": "2018-10-01T14:48:25.253Z"
 }

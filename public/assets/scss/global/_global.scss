@@ -836,10 +836,13 @@ img {
     }
     @include breakpoint($xs)    {
         table {
+            width: 768px;
             tbody {
                 td {
+                    padding: 10px 3px !important;
                     &.icon {
                         width: 40px;
+                        background-position: center;
                         a {
                             width: 30px;
                         }

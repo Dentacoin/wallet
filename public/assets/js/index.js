@@ -1,6 +1,10 @@
 basic.init();
 
 $(document).ready(function() {
+    initChecker();
+    if($('body').hasClass('amount-to')) {
+        pageAmountToLogic();
+    }
     console.log("( ͡° ͜ʖ ͡°) I see you.");
 });
 
@@ -25,22 +29,15 @@ var meta_mask_logged = false;
 var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var is_firefox = !(window.mozInnerScreenX == null);
 var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") == -1;
-if(typeof(web3) !== 'undefined' && web3.currentProvider.isMetaMask === true) {
-    meta_mask_installed = true;
-    web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
-    if(typeof(web3.eth.defaultAccount) != 'undefined')  {
-        meta_mask_logged = true;
-    }
-}
 
 function mobileDownloadMetaMaskPopup()  {
     var button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
     var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
-    basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup', null);
+    basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
 
 function mobileLoginMetaMaskPopup()  {
-    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup', null);
+    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup');
 }
 
 function desktopDownloadMetaMaskPopup() {
@@ -56,39 +53,49 @@ function desktopDownloadMetaMaskPopup() {
         button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
     }
     var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
-    basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup', null);
+    basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
 
 function desktopLoginMetaMaskPopup()    {
-    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup', null);
+    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup');
 }
 
-if(basic.isMobile())    {
-    //MOBILE
-    if(!is_firefox)    {
-        //popup for download mozilla browser OR trust wallet
-        basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup', null);
-    }else {
-        if(!meta_mask_installed)    {
-            //popup for download metamask
-            mobileDownloadMetaMaskPopup();
-        }else if(!meta_mask_logged) {
-            //popup for login in metamask
-            mobileLoginMetaMaskPopup();
+function initChecker()  {
+    if(typeof(web3) !== 'undefined' && web3.currentProvider.isMetaMask === true) {
+        meta_mask_installed = true;
+        web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
+        if(typeof(web3.eth.defaultAccount) != 'undefined')  {
+            meta_mask_logged = true;
         }
     }
-}else {
-    //DESKTOP
-    if(!is_chrome && !is_firefox && is_opera) {
-        //IF NOT CHROME OR MOZILLA OR OPERA
-        basic.showDialog('<div class="popup-body"> <div class="title">Download Desktop Browser</div><div class="subtitle">You can use Dentacoin Wallet on a desktop browser like Chrome, Firefox Brave or Opera.</div><div class="separator"></div><figure class="image"><img src="/assets/images/computer.svg" alt="Computer icon"/> </figure> <div class="btns-container"> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.google.com/chrome/" target="_blank"><img src="/assets/images/chrome.png" alt=""/> Chrome</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank"><img src="/assets/images/firefox.png" alt=""/> Firefox</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.opera.com/" target="_blank"><img src="/assets/images/opera.png" alt=""/> Opera</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://brave.com/download/" target="_blank"><img src="/assets/images/brave.png" alt=""/> Brave</a></figure> </div></div>', 'download-desktop-browser validation-popup', null);
+
+    if(basic.isMobile())    {
+        //MOBILE
+        if(!is_firefox)    {
+            //popup for download mozilla browser OR trust wallet
+            basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
+        }else {
+            if(!meta_mask_installed)    {
+                //popup for download metamask
+                mobileDownloadMetaMaskPopup();
+            }else if(!meta_mask_logged) {
+                //popup for login in metamask
+                mobileLoginMetaMaskPopup();
+            }
+        }
     }else {
-        if(!meta_mask_installed)    {
-            //popup for download metamask
-            desktopDownloadMetaMaskPopup();
-        }else if(!meta_mask_logged) {
-            //popup for login in metamask
-            desktopLoginMetaMaskPopup();
+        //DESKTOP
+        if(!is_chrome && !is_firefox && is_opera) {
+            //IF NOT CHROME OR MOZILLA OR OPERA
+            basic.showDialog('<div class="popup-body"> <div class="title">Download Desktop Browser</div><div class="subtitle">You can use Dentacoin Wallet on a desktop browser like Chrome, Firefox Brave or Opera.</div><div class="separator"></div><figure class="image"><img src="/assets/images/computer.svg" alt="Computer icon"/> </figure> <div class="btns-container"> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.google.com/chrome/" target="_blank"><img src="/assets/images/chrome.png" alt=""/> Chrome</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank"><img src="/assets/images/firefox.png" alt=""/> Firefox</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.opera.com/" target="_blank"><img src="/assets/images/opera.png" alt=""/> Opera</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://brave.com/download/" target="_blank"><img src="/assets/images/brave.png" alt=""/> Brave</a></figure> </div></div>', 'download-desktop-browser validation-popup');
+        }else {
+            if(!meta_mask_installed)    {
+                //popup for download metamask
+                desktopDownloadMetaMaskPopup();
+            }else if(!meta_mask_logged) {
+                //popup for login in metamask
+                desktopLoginMetaMaskPopup();
+            }
         }
     }
 }
@@ -124,10 +131,17 @@ var App = {
     },
     initContract: function() {
         $.getJSON('/assets/jsons/DentacoinToken.json', async function(DCNArtifact) {
+            // TEMPORALLY
+
+            // TEMPORALLY
+
             // get the contract artifact file and use it to instantiate a truffle contract abstraction
             App.contracts.DentacoinToken = TruffleContract(DCNArtifact);
             // set the provider for our contracts
             App.contracts.DentacoinToken.setProvider(App.web3Provider);
+
+            //refresh the current dentacoin value
+            App.updateBalance();
 
             //save current block number into state
             App.helper.getBlockNum();
@@ -143,13 +157,19 @@ var App = {
             onAccountSwitch();
         });
     },
-    updateBalance: function()  {
+    updateBalance: function(homepage)  {
         App.contracts.DentacoinToken.deployed().then(function(instance) {
             return instance.balanceOf.call(global_state.account);
         }).then(function(result) {
+            if(homepage === undefined){
+                homepage = null;
+            }
+
             global_state.curr_address_balance = result.toNumber();
-            $('.homepage-container .dcn-value .value').html(result.toNumber());
-            $('.homepage-container .output .value').html((result.toNumber() * global_state.curr_dcn_in_usd).toFixed(4));
+            if(homepage != null)    {
+                $('.homepage-container .dcn-value .value').html(result.toNumber());
+                $('.homepage-container .output .value').html((result.toNumber() * global_state.curr_dcn_in_usd).toFixed(4));
+            }
         }).catch(function(err) {
             console.error(err);
         });
@@ -286,7 +306,7 @@ var App = {
                 instance.Transfer().watch(function(error, result){
                     if(!error) {
                         if(send_event && $('body').hasClass('amount-to'))   {
-                            basic.showAlert('Your transaction was confirmed.');
+                            basic.showAlert('Your transaction was confirmed.', '', true);
                             $('.amount-to-container input#dcn').val('');
                             $('.amount-to-container input#usd').val('');
                         }
@@ -323,7 +343,7 @@ App.init();
 function commonDataForAllPages()    {
     $('nav .buy-temporally').click(function(e) {
         e.preventDefault();
-        basic.showAlert('<div class="text-center">Coming soon!</div>');
+        basic.showAlert('<div class="text-center">Coming soon!</div>', '', true);
     });
 }
 commonDataForAllPages();
@@ -415,11 +435,13 @@ if($('body').hasClass('home'))  {
             if(innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
                 window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
             }else {
-                basic.showAlert('Please enter valid address.');
+                basic.showAlert('Please enter valid address.', '', true);
             }
         }
     });
-}else if($('body').hasClass('amount-to')) {
+}
+
+function pageAmountToLogic()    {
     var curr_addr = window.location.href.split('/')[window.location.href.split('/').length-1];
     //redirect to /send if the address it not valid or using the same address as the owner
     if(!meta_mask_logged || !meta_mask_installed || !web3.isAddress(curr_addr) || curr_addr == global_state.account)   {
@@ -454,7 +476,7 @@ if($('body').hasClass('home'))  {
                     $(this).removeClass('ready-to-edit');
                     window.history.pushState(null, null, HOME_URL + '/send/amount-to/' + editing_address);
                 } else {
-                    basic.showAlert('Please enter valid address.');
+                    basic.showAlert('Please enter valid address.', '', true);
                 }
             } else {
                 $(this).addClass('ready-to-edit');
@@ -509,52 +531,54 @@ if($('body').hasClass('home'))  {
             $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
         }
     });
+}
 
-    function sendValue()    {
-        if(!meta_mask_installed || !meta_mask_logged)   {
-            if(basic.isMobile())    {
-                if(!meta_mask_installed)   {
-                    mobileDownloadMetaMaskPopup();
-                }else if(!meta_mask_logged)   {
-                    mobileLoginMetaMaskPopup();
-                }
-            }else {
-                if(!meta_mask_installed)   {
-                    desktopDownloadMetaMaskPopup();
-                }else if(!meta_mask_logged)   {
-                    desktopLoginMetaMaskPopup();
-                }
+
+
+function sendValue()    {
+    if(!meta_mask_installed || !meta_mask_logged)   {
+        if(basic.isMobile())    {
+            if(!meta_mask_installed)   {
+                mobileDownloadMetaMaskPopup();
+            }else if(!meta_mask_logged)   {
+                mobileLoginMetaMaskPopup();
             }
         }else {
-            var dcn_val = $('.amount-to-container input#dcn').val().trim();
-            var usd_val = $('.amount-to-container input#usd').val().trim();
-            if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
-                //checking if not a number or empty values
-                basic.showAlert('Please make sure all values are numbers.');
-            } else if (dcn_val < 0 || usd_val < 0) {
-                //checking if negative numbers
-                basic.showAlert('Please make sure all values are more than 0.');
-            } else if (dcn_val < 10) {
-                //checking if dcn value is lesser than 10 (contract condition)
-                basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.');
-            } else if (dcn_val > global_state.curr_address_balance) {
-                //checking if current balance is lower than the desired value to send
-                basic.showAlert('The value you want to send is higher than your balance.');
-            } else if ($('.amount-to-container .address-container').hasClass('editing')) {
-                //checking if editing address is done
-                basic.showAlert('Please make sure you are done with address editing.');
-            } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
-                //checking again if valid address
-                basic.showAlert('Please make sure you are sending to valid address.');
-            } else {
-                var callback_obj = {};
-                callback_obj.callback = function (result) {
-                    if (result) {
-                        App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
-                    }
-                };
-                basic.showConfirm('Are you sure you want to continue?', '', callback_obj);
+            if(!meta_mask_installed)   {
+                desktopDownloadMetaMaskPopup();
+            }else if(!meta_mask_logged)   {
+                desktopLoginMetaMaskPopup();
             }
+        }
+    }else {
+        var dcn_val = $('.amount-to-container input#dcn').val().trim();
+        var usd_val = $('.amount-to-container input#usd').val().trim();
+        if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
+            //checking if not a number or empty values
+            basic.showAlert('Please make sure all values are numbers.', '', true);
+        } else if (dcn_val < 0 || usd_val < 0) {
+            //checking if negative numbers
+            basic.showAlert('Please make sure all values are more than 0.', '', true);
+        } else if (dcn_val < 10) {
+            //checking if dcn value is lesser than 10 (contract condition)
+            basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
+        } else if (dcn_val > global_state.curr_address_balance) {
+            //checking if current balance is lower than the desired value to send
+            basic.showAlert('The value you want to send is higher than your balance.', '', true);
+        } else if ($('.amount-to-container .address-container').hasClass('editing')) {
+            //checking if editing address is done
+            basic.showAlert('Please make sure you are done with address editing.', '', true);
+        } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
+            //checking again if valid address
+            basic.showAlert('Please make sure you are sending to valid address.', '', true);
+        } else {
+            var callback_obj = {};
+            callback_obj.callback = function (result) {
+                if (result) {
+                    App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
+                }
+            };
+            basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
         }
     }
 }
@@ -591,7 +615,7 @@ function initHomepageUserData() {
         getQrCode();
 
         //refresh the current dentacoin value
-        App.updateBalance();
+        App.updateBalance(true);
     }
 }
 

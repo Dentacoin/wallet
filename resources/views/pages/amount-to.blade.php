@@ -3,7 +3,7 @@
     <div class="amount-to-container">
         <div class="container">
             <div class="row-flex fs-0">
-                <div class="col-12 col-sm-8 offset-sm-2 wallet-address">
+                <div class="col-12 col-md-10 offset-sm-1 col-lg-8 offset-lg-2 wallet-address">
                     <div class="inline-block address-container">
                         <span class="label">Send to:</span>
                         <span class="address">{{$address}}</span>
