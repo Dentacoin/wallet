@@ -29,6 +29,7 @@ var blocks_for_month_n_half = 263000;
 var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var is_firefox = !(window.mozInnerScreenX == null);
 var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") == -1;
+var called_transactions_first_time = false;
 function mobileDownloadMetaMaskPopup()  {
     var button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
     var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
@@ -41,7 +42,7 @@ function mobileLoginMetaMaskPopup()  {
 
 function desktopDownloadMetaMaskPopup() {
     var button_html = '';
-    if(!is_opera)   {
+    /*if(!is_opera)   {
         //link for download opera metamask extention
         button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.opera.com/en/extensions/details/metamask/" target="_blank">Get from Opera Addons</a></div>';
     }else if(is_chrome)   {
@@ -50,7 +51,8 @@ function desktopDownloadMetaMaskPopup() {
     }else if(is_firefox)   {
         //link for download firefox metamask extention
         button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
-    }
+    }*/
+    button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://metamask.io/" target="_blank">Get from MetaMask</a></div>';
     var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
     basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
@@ -75,17 +77,19 @@ function initChecker()  {
     }
 
     if(basic.isMobile())    {
-        //MOBILE
-        if(!is_firefox)    {
-            //popup for download mozilla browser OR trust wallet
-            basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
-        }else {
-            if(!meta_mask_installed)    {
-                //popup for download metamask
-                mobileDownloadMetaMaskPopup();
-            }else if(!meta_mask_logged) {
-                //popup for login in metamask
-                mobileLoginMetaMaskPopup();
+        if(typeof(web3) === 'undefined')   {
+            //MOBILE
+            if(!is_firefox)    {
+                //popup for download mozilla browser OR trust wallet
+                basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
+            }else {
+                if(!meta_mask_installed)    {
+                    //popup for download metamask
+                    mobileDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged) {
+                    //popup for login in metamask
+                    mobileLoginMetaMaskPopup();
+                }
             }
         }
     }else {
@@ -185,11 +189,13 @@ var App = {
     },
     sendValue: function(send_addr, value)  {
         App.contracts.DentacoinToken.deployed().then(function(instance) {
+            console.log('sent');
             return instance.transfer(send_addr, value, {
                 from: global_state.account,
                 gas: 65000
             });
         }).then(function(result) {
+            console.log(result, 'result');
             send_event = true;
         }).catch(function(err) {
             console.error(err);
@@ -248,7 +254,7 @@ var App = {
     buildTransactionsHistory: async function(num)    {
         if(num === undefined){
             num = 1;
-            var called_transactions_first_time = false;
+            called_transactions_first_time = false;
             $('.transaction-history table tbody.visible-tbody').html('<tr class="loader-animation"> <td class="text-center"> <figure class="inline-block rotate-animation"><a href=""><img src="/assets/images/exchange-icon.png\" alt="Exchange icon"/></a></figure> </td></tr>');
             $('.transaction-history .show-more-holder').html('');
         }
@@ -321,8 +327,10 @@ var App = {
             if(!called_transactions_first_time) {
                 called_transactions_first_time = true;
                 $('.transaction-history table tbody.visible-tbody').html(table_html);
+                console.log('clearing html');
             }else {
                 $('.transaction-history table tbody.visible-tbody').append(table_html);
+                console.log('append html');
             }
 
             //checking if current transactions are more then 3 and then display the show more button
@@ -638,13 +646,17 @@ function innerAddressCheck(address)    {
 
 async function onAccountSwitch() {
     if(typeof(global_state.account) != 'undefined')   {
-        global_state.account = web3.eth.defaultAccount;
+        if(global_state.account != web3.eth.defaultAccount) {
+            //doing this check because metamask fire the change event randomly, this way we detect real account switch
+            //global_state.account = web3.eth.defaultAccount;
 
-        $('.values-and-qr-code .animation').addClass('rotate-animation');
-        App.updateBalance(true);
+            //$('.values-and-qr-code .animation').addClass('rotate-animation');
+            //App.updateBalance(true);
 
-        //build transactions history from previous events on the blockchain
-        App.buildTransactionsHistory();
+            //build transactions history from previous events on the blockchain
+            //App.buildTransactionsHistory();
+            window.location.reload();
+        }
     }else {
         if($('.homepage-container').length > 0) {
             $('.homepage-container .address span').html($('.homepage-container .address span').attr('data-log-metamask'));
