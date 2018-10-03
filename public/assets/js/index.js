@@ -22,8 +22,6 @@ $(window).on('scroll', function()  {
 
 });
 
-initChecker();
-
 var meta_mask_installed = false;
 var meta_mask_logged = false;
 var blocks_for_month_n_half = 263000;
@@ -79,9 +77,7 @@ function initChecker()  {
 
     if(basic.isMobile())    {
         if(typeof(web3) === 'undefined')   {
-            console.log('web3 undefined');
             //MOBILE
-            console.log(is_firefox, 'firefox');
             if(!is_firefox)    {
                 //popup for download mozilla browser OR trust wallet
                 basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
@@ -125,6 +121,7 @@ var App = {
     contracts: {},
     loading: false,
     init: function() {
+        initChecker();
         return App.initWeb3();
     },
     initWeb3: function() {
@@ -360,7 +357,6 @@ var App = {
                     $('.transaction-history table tbody tr').addClass('display_row');
                 });
             }
-
         }
 
         //if from block timestamp is lower than DCN release timestamp stop the loop for calling more events
