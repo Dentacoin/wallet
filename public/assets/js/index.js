@@ -323,7 +323,12 @@ var App = {
                 //first 3 are visible, rest are going to hidden tbody
                 table_html+='<tr class="'+class_name+' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>'+(date_obj.getUTCMonth() + 1) + '/' + date_obj.getUTCDate() + '/' + date_obj.getUTCFullYear()+'</li><li>'+new Date(array[i].timestamp*1000).getHours()+':'+new Date(array[i].timestamp*1000).getMinutes()+'</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>'+label+': </strong>'+json_clinic+' ('+other_address+')</span></li><li><a href="https://etherscan.io/tx/'+array[i].transactionHash+'" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">'+dcn_amount+'</li><li>'+usd_amount+' USD</li></ul></td></tr>';
             }
-            $('.transaction-history table tbody .loader-animation').hide();
+            $('.transaction-history table tbody .loader-animation').hide()
+
+            if(!$('.transaction-history table').hasClass('full-width-responsive'))   {
+                $('.transaction-history table').addClass('full-width-responsive');
+            }
+
             if(!called_transactions_first_time) {
                 called_transactions_first_time = true;
                 $('.transaction-history table tbody.visible-tbody').html(table_html);

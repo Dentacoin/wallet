@@ -13,9 +13,6 @@ body {
     &.modal-open {
         overflow: hidden;
     }
-    @include breakpoint($xs)    {
-        background-size: 100% 70%;
-    }
 }
 
 button, input[type='submit'] {
@@ -786,6 +783,7 @@ img {
         color: $dark_blue;
     }
     table {
+        width: 100%;
         tbody {
             @include simple_transition(.3s);
             &.hidden-tbody {
@@ -794,6 +792,7 @@ img {
             }
             tr {
                 display: none;
+                border-top: 1px solid #dee2e6;
                 &:nth-child(-n+3){
                     display: table-row;
                 }
@@ -833,6 +832,9 @@ img {
                     }
                 }
             }
+            td {
+                padding: 10px 0;
+            }
             td.icon {
                 width: 50px;
                 padding-left: 0;
@@ -845,9 +847,14 @@ img {
         }
     }
     @include breakpoint($xs)    {
+        .table-parent {
+            overflow: scroll;
+        }
         table {
-            width: 768px;
-            tbody {
+            &.full-width-responsive {
+                width: 768px;
+            }
+            tbody { 
                 td {
                     padding: 10px 3px !important;
                     &.icon {

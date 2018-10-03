@@ -66,8 +66,8 @@
                 <div class="col">
                     <h5 class="text-center">Transaction History</h5>
                 </div>
-                <div class="col table-responsive mt-4 no-gutter-xxs">
-                    <table class=" table table-transactions">
+                <div class="col mt-4 no-gutter-xxs table-parent">
+                    <table class="">
                         <tbody class="visible-tbody">
 
                         </tbody>
