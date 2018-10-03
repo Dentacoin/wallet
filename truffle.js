@@ -14,6 +14,12 @@ module.exports = {
             from: "0x80481B5E38AF5A8d516c76f9146DE5FEb5781449", // default address to use for any transaction Truffle makes during migrations
             network_id: 4,
             gas: 4000000 // Gas limit used for deploys
+        },
+        mainnet: {
+            provider: mainNetProvider,
+            gas: 4600000,
+            gasPrice: web3.toWei("20", "gwei"),
+            network_id: "1",
         }
     }
 };

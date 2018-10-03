@@ -14,11 +14,11 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row-flex center-content values-and-qr-code">
+        <div class="container values-and-qr-code">
+            <div class="row-flex center-content">
                 <div class="col-8 col-sm-8 offset-0 col-md-7 col-lg-6 col-xl-6 offset-md-1 offset-lg-2 offset-xl-1 transfer-value">
                     <div class="fs-0 current-value">
-                        <figure class="inline-block"><a href=""><img src="{{URL::asset('assets/images/exchange-icon.png') }}" alt="Exchange icon"/></a></figure>
+                        <figure class="inline-block rotate-animation animation"><a href=""><img src="{{URL::asset('assets/images/exchange-icon.png') }}" alt="Exchange icon"/></a></figure>
                         <div class="dcn-value inline-block"><div class="mobile-symbol">DCN</div><span class="value">0</span><span class="desktop-symbol"> DCN</span></div>
                     </div>
                     <div class="transferred-value">
@@ -33,7 +33,7 @@
                 </div>
                 <figure class="col-4 col-sm-4 col-md-3 qr-code">
                     <a href="javascript:void(0)">
-                        <img src="" alt="qr code"/>
+                        <img src="{{URL::asset('assets/images/dentacoin-rocks.jpg') }}" alt="qr code"/>
                     </a>
                 </figure>
             </div>

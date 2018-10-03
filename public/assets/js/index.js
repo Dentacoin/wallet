@@ -1,7 +1,6 @@
 basic.init();
 
 $(document).ready(function() {
-    initChecker();
     if($('body').hasClass('amount-to')) {
         pageAmountToLogic();
     }
@@ -26,10 +25,10 @@ $(window).on('scroll', function()  {
 
 var meta_mask_installed = false;
 var meta_mask_logged = false;
+var blocks_for_month_n_half = 263000;
 var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var is_firefox = !(window.mozInnerScreenX == null);
 var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") == -1;
-
 function mobileDownloadMetaMaskPopup()  {
     var button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
     var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
@@ -61,6 +60,12 @@ function desktopLoginMetaMaskPopup()    {
 }
 
 function initChecker()  {
+    if(typeof(web3) !== 'undefined' && web3.eth.defaultAccount === undefined)   {
+        setInterval(function()  {
+            initCheckIfMetaMaskIsLogged();
+        }, 500);
+    }
+
     if(typeof(web3) !== 'undefined' && web3.currentProvider.isMetaMask === true) {
         meta_mask_installed = true;
         web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
@@ -125,30 +130,33 @@ var App = {
             App.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545');
         }
         web3 = new Web3(App.web3Provider);
-        global_state.account = web3.eth.defaultAccount;
 
         return App.initContract();
     },
     initContract: function() {
         $.getJSON('/assets/jsons/DentacoinToken.json', async function(DCNArtifact) {
+            initChecker();
             // get the contract artifact file and use it to instantiate a truffle contract abstraction
             App.contracts.DentacoinToken = TruffleContract(DCNArtifact);
             // set the provider for our contracts
             App.contracts.DentacoinToken.setProvider(App.web3Provider);
 
+            global_state.account = web3.eth.defaultAccount;
+
             //refresh the current dentacoin value
-            App.updateBalance();
+            if($('.homepage-container').length > 0) {
+                App.updateBalance(true);
+            }else {
+                App.updateBalance();
+            }
 
             //save current block number into state
-            App.helper.getBlockNum();
+            await App.helper.getBlockNum();
 
             //set Transfer event watcher
             App.events.logTransfer();
 
-            //build transactions history from previous events on the blockchain
-            await App.getFromTransactionsEvents();
-            await App.getToTransactionsEvents();
-            App.buildTransactionsHistory(global_state.from_transactions.concat(global_state.to_transactions));
+            App.buildTransactionsHistory();
 
             onAccountSwitch();
         });
@@ -163,8 +171,13 @@ var App = {
 
             global_state.curr_address_balance = result.toNumber();
             if(homepage != null)    {
-                $('.homepage-container .dcn-value .value').html(result.toNumber());
-                $('.homepage-container .output .value').html((result.toNumber() * global_state.curr_dcn_in_usd).toFixed(4));
+                setTimeout(function()   {
+                    initHomepageUserData();
+                    $('.values-and-qr-code .animation').removeClass('rotate-animation');
+                    $('.homepage-container .dcn-value .value').html(result.toNumber());
+                    $('.homepage-container .output .value').html((result.toNumber() * global_state.curr_dcn_in_usd).toFixed(2));
+                    $('.homepage-container .values-and-qr-code').show();
+                }, 300);
             }
         }).catch(function(err) {
             console.error(err);
@@ -174,7 +187,7 @@ var App = {
         App.contracts.DentacoinToken.deployed().then(function(instance) {
             return instance.transfer(send_addr, value, {
                 from: global_state.account,
-                gas: 200000
+                gas: 65000
             });
         }).then(function(result) {
             send_event = true;
@@ -182,15 +195,21 @@ var App = {
             console.error(err);
         });
     },
-    getFromTransactionsEvents: function()    {
+    getFromTransactionsEvents: function(from_num, to)    {
+        if(to === undefined){
+            to = 'latest';
+        }
         return new Promise(function(resolve, reject) {
             App.contracts.DentacoinToken.deployed().then(function(instance) {
                 global_state.from_transactions = [];
-
-                var from_transfer = instance.Transfer({_from: global_state.account}, {
-                    fromBlock: 0,
-                    toBlock: 'latest'
-                });
+                var event_obj = {
+                    fromBlock: global_state.curr_block - from_num,
+                    toBlock: to
+                };
+                if(global_state.curr_block - from_num < 0)    {
+                    event_obj.fromBlock = 0;
+                }
+                var from_transfer = instance.Transfer({_from: global_state.account}, event_obj);
                 from_transfer.get(function (error, logs) {
                     if (error !== null) {
                         reject(error);
@@ -201,15 +220,21 @@ var App = {
             });
         });
     },
-    getToTransactionsEvents: function()    {
+    getToTransactionsEvents: function(from_num, to)    {
+        if(to === undefined){
+            to = 'latest';
+        }
         return new Promise(function(resolve, reject) {
             App.contracts.DentacoinToken.deployed().then(function(instance) {
                 global_state.to_transactions = [];
-
-                var to_transfer = instance.Transfer({_to: global_state.account}, {
-                    fromBlock: 0,
-                    toBlock: 'latest'
-                });
+                var event_obj = {
+                    fromBlock: global_state.curr_block - from_num,
+                    toBlock: to
+                };
+                if(global_state.curr_block - from_num < 0)    {
+                    event_obj.fromBlock = 0;
+                }
+                var to_transfer = instance.Transfer({_to: global_state.account}, event_obj);
                 to_transfer.get(function (error, logs) {
                     if (error !== null) {
                         reject(error);
@@ -220,12 +245,29 @@ var App = {
             });
         });
     },
-    buildTransactionsHistory: async function(array)    {
+    buildTransactionsHistory: async function(num)    {
+        if(num === undefined){
+            num = 1;
+            var called_transactions_first_time = false;
+            $('.transaction-history table tbody.visible-tbody').html('<tr class="loader-animation"> <td class="text-center"> <figure class="inline-block rotate-animation"><a href=""><img src="/assets/images/exchange-icon.png\" alt="Exchange icon"/></a></figure> </td></tr>');
+            $('.transaction-history .show-more-holder').html('');
+        }
+
+        if(num > 1) {
+            //build transactions history from previous events on the blockchain
+            await App.getFromTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - (blocks_for_month_n_half * (num - 1)));
+            await App.getToTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - (blocks_for_month_n_half * (num - 1)));
+        }else {
+            //build transactions history from previous events on the blockchain
+            await App.getFromTransactionsEvents(num * blocks_for_month_n_half);
+            await App.getToTransactionsEvents(num * blocks_for_month_n_half);
+        }
+
+        var array = global_state.from_transactions.concat(global_state.to_transactions);
         if(array.length > 0)    {
             //getting the clinics from the api cached json
             var api_clinics = await $.getJSON('/assets/jsons/clinics.json');
             var table_html = '';
-            var hidden_table_html = '';
             //looping for adding timestamp property for each object in the array
             for(var i = 0, len = array.length; i < len; i+=1) {
                 array[i].timestamp = await App.helper.addBlockTimestampToTransaction(array[i]);
@@ -238,14 +280,6 @@ var App = {
 
             //if transactions in the history are more than 3 the rest are hidden so we add show more button and bind show event
             $('.transaction-history .show-more-holder').html('');
-            $('.transaction-history table tbody.hidden-tbody').hide();
-            if(array.length > 3)    {
-                $('.transaction-history .show-more-holder').html('<div class="col text-center"><a href="javascript:void(0)" ><strong>Show more</strong></a></div>');
-                $('.transaction-history .show-more-holder a').click(function()  {
-                    $(this).closest('.show-more-holder').html('');
-                    $('.transaction-history table tbody.hidden-tbody').show();
-                });
-            }
 
             //looping to build the transaction history section
             for(var i = 0, len = array.length; i < len; i+=1)   {
@@ -256,7 +290,7 @@ var App = {
                 var class_name = '';
                 var label = '';
                 var dcn_amount = '';
-                var usd_amount = (array[i].args._value.toNumber() * global_state.curr_dcn_in_usd).toFixed(4);
+                var usd_amount = (array[i].args._value.toNumber() * global_state.curr_dcn_in_usd).toFixed(2);
                 if(array[i].args._to == global_state.account)    {
                     //IF THE CURRENT ACCOUNT IS RECEIVER
                     other_address = array[i].args._from;
@@ -281,20 +315,35 @@ var App = {
                 }
 
                 //first 3 are visible, rest are going to hidden tbody
-                if(i < 3)   {
-                    table_html+='<tr class="'+class_name+'"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>'+(date_obj.getUTCMonth() + 1) + '/' + date_obj.getUTCDate() + '/' + date_obj.getUTCFullYear()+'</li><li>'+new Date(array[i].timestamp*1000).getHours()+':'+new Date(array[i].timestamp*1000).getMinutes()+'</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>'+label+': </strong>'+json_clinic+' ('+other_address+')</span></li><li><a href="https://etherscan.io/tx/'+array[i].transactionHash+'" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">'+dcn_amount+'</li><li>'+usd_amount+' USD</li></ul></td></tr>';
-                }else {
-                    hidden_table_html+='<tr class="'+class_name+'"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>'+(date_obj.getUTCMonth() + 1) + '/' + date_obj.getUTCDate() + '/' + date_obj.getUTCFullYear()+'</li><li>'+new Date(array[i].timestamp*1000).getHours()+':'+new Date(array[i].timestamp*1000).getMinutes()+'</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>'+label+': </strong>'+json_clinic+' ('+other_address+')</span></li><li><a href="https://etherscan.io/tx/'+array[i].transactionHash+'" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">'+dcn_amount+'</li><li>'+usd_amount+' USD</li></ul></td></tr>';
-                }
+                table_html+='<tr class="'+class_name+' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>'+(date_obj.getUTCMonth() + 1) + '/' + date_obj.getUTCDate() + '/' + date_obj.getUTCFullYear()+'</li><li>'+new Date(array[i].timestamp*1000).getHours()+':'+new Date(array[i].timestamp*1000).getMinutes()+'</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>'+label+': </strong>'+json_clinic+' ('+other_address+')</span></li><li><a href="https://etherscan.io/tx/'+array[i].transactionHash+'" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">'+dcn_amount+'</li><li>'+usd_amount+' USD</li></ul></td></tr>';
             }
-            $('.transaction-history table tbody.visible-tbody').html(table_html);
-            $('.transaction-history table tbody.hidden-tbody').html(hidden_table_html);
-        }else {
-            //display no previous transaction history
-            $('.transaction-history table tbody.visible-tbody').html('<tr><td class="text-center">No previous transactions found.</td></tr>');
-            $('.transaction-history table tbody.hidden-tbody').html('');
+            $('.transaction-history table tbody .loader-animation').hide();
+            if(!called_transactions_first_time) {
+                called_transactions_first_time = true;
+                $('.transaction-history table tbody.visible-tbody').html(table_html);
+            }else {
+                $('.transaction-history table tbody.visible-tbody').append(table_html);
+            }
+
+            //checking if current transactions are more then 3 and then display the show more button
+            if($('.transaction-history table tbody tr').length > 3) {
+                $('.transaction-history .show-more-holder').html('<div class="col text-center"><a href="javascript:void(0)" ><strong>Show more</strong></a></div>');
+                $('.transaction-history .show-more-holder a').click(function()  {
+                    $(this).closest('.show-more-holder').html('');
+                    $('.transaction-history table tbody tr').addClass('display_row');
+                });
+            }
+
         }
-        return false;
+
+        //if from block timestamp is lower than DCN release timestamp stop the loop for calling more events
+        if(await App.helper.getLoopingTransactionFromBlockTimestamp(global_state.curr_block - (num * blocks_for_month_n_half)) > new Date('2017.01.01').getTime() / 1000)   {
+            App.buildTransactionsHistory(num+=1);
+        }else {
+            if($('.transaction-history table tbody tr.single-transaction').length == 0) {
+                $('.transaction-history table tbody.visible-tbody').html('<tr><td class="text-center">No previous transactions found.</td></tr>');
+            }
+        }
     },
     events: {
         logTransfer: function() {
@@ -325,24 +374,29 @@ var App = {
                 });
             });
         },
+        getLoopingTransactionFromBlockTimestamp: function(block_num)    {
+            return new Promise(function(resolve, reject) {
+                web3.eth.getBlock(block_num, function(error, result) {
+                    if (error !== null) {
+                        reject(error);
+                    }
+                    resolve(result.timestamp);
+                });
+            });
+        },
         getBlockNum: function()  {
-            web3.eth.getBlockNumber(function(error, result) {
-                if(!error){
-                    global_state.curr_block = result;
-                }
+            return new Promise(function(resolve, reject) {
+                web3.eth.getBlockNumber(function(error, result) {
+                    if(!error){
+                        global_state.curr_block = result;
+                        resolve(global_state.curr_block);
+                    }
+                });
             });
         }
     }
 };
 App.init();
-
-function commonDataForAllPages()    {
-    $('nav .buy-temporally').click(function(e) {
-        e.preventDefault();
-        basic.showAlert('<div class="text-center">Coming soon!</div>', '', true);
-    });
-}
-commonDataForAllPages();
 
 function getQrCode()    {
     if(global_state.account != undefined)   {
@@ -356,7 +410,6 @@ function getQrCode()    {
             success: function (response) {
                 if(response.success)    {
                     $('.homepage-container .values-and-qr-code .qr-code img').attr('src', response.success);
-                    $('.homepage-container .values-and-qr-code .qr-code').addClass('inline-block-important');
                 }
             }
         });
@@ -440,7 +493,7 @@ if($('body').hasClass('home'))  {
 function pageAmountToLogic()    {
     var curr_addr = window.location.href.split('/')[window.location.href.split('/').length-1];
     //redirect to /send if the address it not valid or using the same address as the owner
-    if(!meta_mask_logged || !meta_mask_installed || !web3.isAddress(curr_addr) || curr_addr == global_state.account)   {
+    if(typeof(web3.eth.defaultAccount) == 'undefined' || (typeof(web3) == 'undefined' && web3.currentProvider.isMetaMask !== true) || !web3.isAddress(curr_addr) || curr_addr == global_state.account)   {
         window.location = HOME_URL + '/send';
     }
 
@@ -502,7 +555,7 @@ function pageAmountToLogic()    {
                 }
             }
         }else {
-            $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(4));
+            $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2));
         }
     });
 
@@ -586,12 +639,12 @@ function innerAddressCheck(address)    {
 async function onAccountSwitch() {
     if(typeof(global_state.account) != 'undefined')   {
         global_state.account = web3.eth.defaultAccount;
-        initHomepageUserData();
+
+        $('.values-and-qr-code .animation').addClass('rotate-animation');
+        App.updateBalance(true);
 
         //build transactions history from previous events on the blockchain
-        await App.getFromTransactionsEvents();
-        await App.getToTransactionsEvents();
-        App.buildTransactionsHistory(global_state.from_transactions.concat(global_state.to_transactions));
+        App.buildTransactionsHistory();
     }else {
         if($('.homepage-container').length > 0) {
             $('.homepage-container .address span').html($('.homepage-container .address span').attr('data-log-metamask'));
@@ -609,9 +662,6 @@ function initHomepageUserData() {
 
         //init new qr code
         getQrCode();
-
-        //refresh the current dentacoin value
-        App.updateBalance(true);
     }
 }
 
@@ -635,4 +685,22 @@ function sortByKey(array, key) {
 
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
+}
+
+function hidePopupOnBackdropClick() {
+    $(document).on('click', '.bootbox', function(){
+        var classname = event.target.className;
+        classname = classname.replace(/ /g, '.');
+
+        if(classname && !$('.' + classname).parents('.modal-dialog').length) {
+            bootbox.hideAll();
+        }
+    });
+}
+hidePopupOnBackdropClick();
+
+function initCheckIfMetaMaskIsLogged()  {
+    if(web3.eth.defaultAccount !== undefined)    {
+        window.location.reload();
+    }
 }
