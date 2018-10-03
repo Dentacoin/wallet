@@ -2062,7 +2062,7 @@ img {
           display: block; }
   @media screen and (max-width: 767px) {
     .transaction-history .table-parent {
-      overflow-y: scroll; }
+      overflow-x: scroll; }
     .transaction-history table.full-width-responsive {
       width: 768px; }
     .transaction-history table tbody td {

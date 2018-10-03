@@ -76,8 +76,6 @@ function initChecker()  {
     }
 
     if(basic.isMobile())    {
-        alert(meta_mask_installed);
-        alert(meta_mask_logged);
         if(typeof(web3) === 'undefined')   {
             //MOBILE
             if(!is_firefox)    {
