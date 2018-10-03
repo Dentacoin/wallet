@@ -2,7 +2,7 @@ body {
     margin: 0;
     background-image: url('/assets/images/body-background.png');
     background-repeat: no-repeat;
-    background-size: 100% 50%;
+    background-size: 100% 400px;
     color: $main_text_color;
     &.overflow-hidden {
         overflow: hidden;
@@ -775,6 +775,9 @@ img {
 
 .transaction-history {
     padding-bottom: 30px;
+    .rotate-animation {
+        margin-top: 30px;
+    }
     strong.transaction-id {
         color: $light_blue;
     }
@@ -790,6 +793,13 @@ img {
                 border-top: 0;
             }
             tr {
+                display: none;
+                &:nth-child(-n+3){
+                    display: table-row;
+                }
+                &.display_row {
+                    display: table-row;
+                }
                 .icon {
                     background-repeat: no-repeat;
                     background-size: calc(100% - 10px);
@@ -1111,6 +1121,41 @@ input.module-field {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+.container-404 {
+    padding-top: 80px;
+    padding-bottom: 50px;
+    .row-flex {
+        align-items: center;
+        .text {
+            font-size: 180px;
+            font-family: "OpenSans-Bold";
+        }
+        &.no-found-text {
+            padding-top: 50px;
+            font-size: 35px;
+            text-align: center;
+        }
+    }
+    @include breakpoint($xs)    {
+        .row-flex {
+            .text {
+                font-size: 100px;
+            }
+        }
+    }
+    @include breakpoint($xxs)    {
+        .row-flex {
+            .text {
+                font-size: 100px;
+                text-align: center;
+            }
+            &.no-found-text {
+                padding-top: 0;
             }
         }
     }

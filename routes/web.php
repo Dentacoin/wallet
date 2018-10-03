@@ -19,7 +19,7 @@ Route::group(['prefix' => '/'/*, 'middleware' => 'frontEndMiddleware'*/], functi
 
     Route::post('/build-transaction-history', 'HomeController@buildTransactionHistory')->name('build-transaction-history');
 
-    //Route::get('/buy', 'BuyController@getView')->name('buy');
+    Route::get('/buy', 'BuyController@getView')->name('buy');
 
     Route::group(['prefix' => '/send'], function () {
         Route::get('/', 'SendController@getView')->name('send');

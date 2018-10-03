@@ -25,7 +25,7 @@
         var HOME_URL = '{{ route("home") }}';
     </script>
 </head>
-<body data-current="one" class="@if(!empty(Route::current())) {{Route::current()->getName()}} @else class-404 @endif" data-current-dcn-in-usd="{{$dcn_in_usd}}">
+<body data-current="one" class="@if(!empty(Route::current())) {{Route::current()->getName()}} @else class-404 @endif" @if(isset($dcn_in_usd)) data-current-dcn-in-usd="{{$dcn_in_usd}}" @endif>
     <header>
         <div class="container">
             <div class="row">
@@ -44,13 +44,13 @@
                     <nav>
                         <ul>
                             <li class="col-4">
-                                <a class="nav-link nav-button buy-temporally @if(Route::current()->getName() == "buy")nav-active @endif" href="{{--{{route('buy')}}--}}">BUY</a>
+                                <a class="nav-link nav-button @if(!empty(Route::current()) && Route::current()->getName() == "buy")nav-active @endif" href="{{route('buy')}}">BUY</a>
                             </li>
                             <li class="col-4">
-                                <a class="nav-link nav-button @if(Route::current()->getName() == "home")nav-active @endif" href="{{route('home')}}">WALLET</a>
+                                <a class="nav-link nav-button @if(!empty(Route::current()) && Route::current()->getName() == "home")nav-active @endif" href="{{route('home')}}">WALLET</a>
                             </li>
                             <li class="col-4">
-                                <a class="nav-link nav-button @if(Route::current()->getName() == "send" || Route::current()->getName() == "amount-to")nav-active @endif" href="{{route('send')}}">SEND</a>
+                                <a class="nav-link nav-button @if((!empty(Route::current()) && Route::current()->getName() == "send") || (!empty(Route::current()) && Route::current()->getName() == "amount-to"))nav-active @endif" href="{{route('send')}}">SEND</a>
                             </li>
                         </ul>
                     </nav>
@@ -69,11 +69,8 @@
                 <div class="col table-responsive mt-4 no-gutter-xxs">
                     <table class=" table table-transactions">
                         <tbody class="visible-tbody">
-                            <tr>
-                                <td class="text-center">No previous transactions found.</td>
-                            </tr>
+
                         </tbody>
-                        <tbody class="hidden-tbody fade-in-animation"></tbody>
                     </table>
                 </div>
                 <div class="mt-2 show-more-holder"></div>
