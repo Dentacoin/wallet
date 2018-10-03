@@ -1,5 +1,4 @@
 basic.init();
-
 $(document).ready(function() {
     if($('body').hasClass('amount-to')) {
         pageAmountToLogic();
@@ -22,6 +21,8 @@ $(window).on('resize', function(){
 $(window).on('scroll', function()  {
 
 });
+
+initChecker();
 
 var meta_mask_installed = false;
 var meta_mask_logged = false;
@@ -78,7 +79,9 @@ function initChecker()  {
 
     if(basic.isMobile())    {
         if(typeof(web3) === 'undefined')   {
+            console.log('web3 undefined');
             //MOBILE
+            console.log(is_firefox, 'firefox');
             if(!is_firefox)    {
                 //popup for download mozilla browser OR trust wallet
                 basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
@@ -139,7 +142,6 @@ var App = {
     },
     initContract: function() {
         $.getJSON('/assets/jsons/DentacoinToken.json', async function(DCNArtifact) {
-            initChecker();
             // get the contract artifact file and use it to instantiate a truffle contract abstraction
             App.contracts.DentacoinToken = TruffleContract(DCNArtifact);
             // set the provider for our contracts
@@ -320,8 +322,20 @@ var App = {
                     dcn_amount = '-'+array[i].args._value.toString()+' DCN';
                 }
 
+                if(new Date(array[i].timestamp*1000).getMinutes() < 10) {
+                    var minutes = '0'+new Date(array[i].timestamp*1000).getMinutes();
+                }else {
+                    var minutes = new Date(array[i].timestamp*1000).getMinutes();
+                }
+
+                if(new Date(array[i].timestamp*1000).getHours() < 10) {
+                    var hours = '0'+new Date(array[i].timestamp*1000).getHours();
+                }else {
+                    var hours = new Date(array[i].timestamp*1000).getHours();
+                }
+
                 //first 3 are visible, rest are going to hidden tbody
-                table_html+='<tr class="'+class_name+' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>'+(date_obj.getUTCMonth() + 1) + '/' + date_obj.getUTCDate() + '/' + date_obj.getUTCFullYear()+'</li><li>'+new Date(array[i].timestamp*1000).getHours()+':'+new Date(array[i].timestamp*1000).getMinutes()+'</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>'+label+': </strong>'+json_clinic+' ('+other_address+')</span></li><li><a href="https://etherscan.io/tx/'+array[i].transactionHash+'" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">'+dcn_amount+'</li><li>'+usd_amount+' USD</li></ul></td></tr>';
+                table_html+='<tr class="'+class_name+' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>'+(date_obj.getUTCMonth() + 1) + '/' + date_obj.getUTCDate() + '/' + date_obj.getUTCFullYear()+'</li><li>'+hours+':'+minutes+'</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>'+label+': </strong>'+json_clinic+' ('+other_address+')</span></li><li><a href="https://etherscan.io/tx/'+array[i].transactionHash+'" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">'+dcn_amount+'</li><li>'+usd_amount+' USD</li></ul></td></tr>';
             }
             $('.transaction-history table tbody .loader-animation').hide()
 
