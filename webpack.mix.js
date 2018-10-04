@@ -56,29 +56,6 @@ if(mix.inProduction()) {
 
 /* ===== ADMIN =====*/
 
-/*mix.scripts([
-    'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js',
-    'node_modules/bootbox.js/bootbox.min.js',
-    'node_modules/datatables.net/js/jquery.dataTables.min.js',
-    'node_modules/datatables.net-rowreorder/js/dataTables.rowReorder.min.js',
-    'public/assets/libs/ckeditor-full/ckeditor.js',
-    'node_modules/admin-lte/dist/js/app.min.js'
-], 'public/dist/js/admin-libs-script.js');
-
-mix.scripts([
-    'public/assets/js/basic.js',
-    'public/assets/js/admin/index.js'
-], 'public/dist/js/admin-script.js');
-
-
-mix.styles([
-    'node_modules/bootstrap/dist/css/bootstrap.min.css',
-    'public/assets/libs/font-awesome/css/font-awesome.min.css',
-    'node_modules/admin-lte/dist/css/AdminLTE.min.css',
-    'node_modules/datatables.net-rowreorder-bs/css/rowReorder.bootstrap.min.css',
-    'node_modules/admin-lte/dist/css/skins/_all-skins.min.css',
-], 'public/dist/css/admin-libs-style.css');*/
 
 /* ===== /ADMIN =====*/
 

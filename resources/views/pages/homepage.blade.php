@@ -40,3 +40,12 @@
         </div>
     </div>
 @endsection
+
+@section("meta_block")
+    <title>Dentacoin Wallet App: Buy, Store & Manage Your DCN Tokens</title>
+    <meta name="description" content="Dentacoin Wallet allows users to easily and securely store, send, receive DCN tokens, as well as to buy DCN with credit card and other cryptocurrencies."/>
+    <meta name="keywords" content="buy dentacoin, store dentacoin, dentacoin wallet, pay with dentacoin"/>
+    <meta property="og:url" content="{{Request::url()}}"/>
+    <meta property="og:title" content="Dentacoin Wallet App: Buy, Store & Manage Your DCN Tokens"/>
+    <meta property="og:description" content="Dentacoin Wallet allows users to easily and securely store, send, receive DCN tokens, as well as to buy DCN with credit card and other cryptocurrencies."/>
+@endsection

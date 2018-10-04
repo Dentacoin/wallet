@@ -19,3 +19,12 @@
         </div>
     </div>
 @endsection
+
+@section("meta_block")
+    <title>Send Dentacoin (DCN) via Dentacoin Wallet App</title>
+    <meta name="description" content="Dentacoin Wallet App enables sending DCN tokens to any valid Ethereum address. Fast, secure and easier than ever!"/>
+    <meta name="keywords" content="send dentacoin, store dentacoin, dentacoin wallet, pay with dentacoin"/>
+    <meta property="og:url" content="{{Request::url()}}"/>
+    <meta property="og:title" content="Send Dentacoin (DCN) via Dentacoin Wallet App"/>
+    <meta property="og:description" content="Dentacoin Wallet App enables sending DCN tokens to any valid Ethereum address. Fast, secure and easier than ever!"/>
+@endsection

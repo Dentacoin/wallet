@@ -1,3 +1,45 @@
+import _regeneratorRuntime from "babel-runtime/regenerator";
+
+var onAccountSwitch = function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
+        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+                switch (_context3.prev = _context3.next) {
+                    case 0:
+                        if (typeof global_state.account != 'undefined') {
+                            if (global_state.account != web3.eth.defaultAccount) {
+                                //doing this check because metamask fire the change event randomly, this way we detect real account switch
+                                //global_state.account = web3.eth.defaultAccount;
+
+                                //$('.values-and-qr-code .animation').addClass('rotate-animation');
+                                //App.updateBalance(true);
+
+                                //build transactions history from previous events on the blockchain
+                                //App.buildTransactionsHistory();
+                                window.location.reload();
+                            }
+                        } else {
+                            if ($('.homepage-container').length > 0) {
+                                $('.homepage-container .address span').html($('.homepage-container .address span').attr('data-log-metamask'));
+                                $('.homepage-container .address .copy-address').hide();
+                            }
+                        }
+
+                    case 1:
+                    case "end":
+                        return _context3.stop();
+                }
+            }
+        }, _callee3, this);
+    }));
+
+    return function onAccountSwitch() {
+        return _ref3.apply(this, arguments);
+    };
+}();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 var basic = {
     options: {
         alert: null
@@ -94,11 +136,11 @@ var basic = {
             jQuery('.bootbox').last().css({ 'z-index': last_z + 2 }).next('.modal-backdrop').css({ 'z-index': last_z + 1 });
         }
     },
-    showAlert: function showAlert(message, class_name) {
-        basic.realShowDialog(message, "alert", class_name);
+    showAlert: function showAlert(message, class_name, vertical_center) {
+        basic.realShowDialog(message, "alert", class_name, null, null, vertical_center);
     },
-    showConfirm: function showConfirm(message, class_name, params) {
-        basic.realShowDialog(message, "confirm", class_name, params);
+    showConfirm: function showConfirm(message, class_name, params, vertical_center) {
+        basic.realShowDialog(message, "confirm", class_name, params, null, vertical_center);
     },
     showDialog: function showDialog(message, class_name, type) {
         if (type === undefined) {
@@ -106,12 +148,15 @@ var basic = {
         }
         basic.realShowDialog(message, "dialog", class_name, null, type);
     },
-    realShowDialog: function realShowDialog(message, dialog_type, class_name, params, type) {
+    realShowDialog: function realShowDialog(message, dialog_type, class_name, params, type, vertical_center) {
         if (class_name === undefined) {
             class_name = "";
         }
         if (type === undefined) {
             type = null;
+        }
+        if (vertical_center === undefined) {
+            vertical_center = null;
         }
 
         var atrs = {
@@ -124,11 +169,11 @@ var basic = {
         if (dialog_type == "confirm" && params != undefined && params.buttons == undefined) {
             atrs.buttons = {
                 confirm: {
-                    label: 'Ð”Ð°',
+                    label: 'Yes',
                     className: 'btn-success'
                 },
                 cancel: {
-                    label: 'ÐÐµ',
+                    label: 'No',
                     className: 'btn-danger'
                 }
             };
@@ -147,9 +192,17 @@ var basic = {
             }
         });
         dialog.on('shown.bs.modal', function () {
+            if (vertical_center != null) {
+                basic.verticalAlignModal();
+            }
             basic.fixZIndexBackdrop();
         });
         dialog.modal('show');
+    },
+    verticalAlignModal: function verticalAlignModal(message) {
+        $("body .modal-dialog").each(function () {
+            $(this).css("margin-top", Math.max(20, ($(window).height() - $(this).height()) / 2));
+        });
     },
     closeDialog: function closeDialog() {
         bootbox.hideAll();
@@ -278,18 +331,6 @@ var basic = {
             }
         });
     },
-    isAddress: function isAddress(address) {
-        if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
-            // check if it has the basic requirements of an address
-            return false;
-        } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
-            // If it's all small caps or all all caps, return true
-            return true;
-        } else {
-            // Otherwise check each case
-            return isChecksumAddress(address);
-        }
-    },
     stopMaliciousInspect: function stopMaliciousInspect() {
         document.addEventListener('contextmenu', function (e) {
             e.preventDefault();
@@ -314,74 +355,11 @@ var basic = {
         };
     }
 };
-// ========== DANIEL ==========
-// Setup
-//import { Connect } from './node_modules/uport-connect/dist/uport-connect.js';
-/*var uportconnect = window.uportconnect;
-const appName = 'Dentacoin Wallet';
-const connect = new uportconnect.Connect(appName, {network: 'rinkeby'});
-const web3 = connect.getWeb3();
-
-// Setup the simple Status contract - allows you to set and read a status string
-const abi = [{"constant":false,"inputs":[{"name":"status","type":"string"}],"name":"updateStatus","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"getStatus","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"}];
-
-const StatusContract = web3.eth.contract(abi);
-const statusInstance = StatusContract.at('0x70A804cCE17149deB6030039798701a38667ca3B');
-
-// uPort connect
-const uportConnect = function () {
-
-    web3.eth.getCoinbase((error, address) => {
-        if (error) { throw error }
-        globalState.ethAddress = address;
-
-        // This one is for display purposes - MNID encoding includes network
-        globalState.uportId = window.uportconnect.MNID.encode({network: '0x4', address: address});
-
-        statusInstance.getStatus.call(globalState.ethAddress, (err, st) => {
-            globalState.currentStatus = st
-            web3.eth.getBalance(globalState.ethAddress, (err, bal) => {
-                globalState.ethBalance = web3.fromWei(bal);
-                render();
-            })
-        })
-    })
-}
-
-// Send ether
-const sendEther = () => {
-    const value = parseFloat(globalState.sendToVal) * 1.0e18
-    web3.eth.sendTransaction(
-        {
-            to: globalState.sendToAddr,
-            value: value
-        },
-        (error, txHash) => {
-            if (error) { throw error }
-            globalState.txHashSentEth = txHash
-            render()
-        }
-    )
-}
-
-// Set Status
-
-const setStatus = () => {
-    const newStatusMessage = globalState.statusInput
-    statusInstance.updateStatus(newStatusMessage,
-        (error, txHash) => {
-            if (error) { throw error }
-            globalState.txHashSetStatus = txHash
-            render()
-        })
-
-};*/
-// ========== /DANIEL ==========
-
-
 basic.init();
-
 $(document).ready(function () {
+    if ($('body').hasClass('amount-to')) {
+        pageAmountToLogic();
+    }
     console.log("( ͡° ͜ʖ ͡°) I see you.");
 });
 
@@ -393,21 +371,112 @@ $(window).on('resize', function () {});
 
 $(window).on('scroll', function () {});
 
-window.addEventListener('load', function () {
-    var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    var meta_mask = typeof web3 !== 'undefined' && web3.currentProvider.isMetaMask === true;
-    console.log('chrome', is_chrome);
-    console.log('meta_mask', meta_mask);
-    console.log('is_mobile', basic.isMobile());
-    //return previous transactions for adress
-    //http://api.etherscan.io/api?module=account&action=txlist&address=0x0673fae9d1d64d12d92d31b87a3d0c08425719b5&sort=asc
-});
+var meta_mask_installed = false;
+var meta_mask_logged = false;
+var blocks_for_month_n_half = 263000;
+var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+var is_firefox = !(window.mozInnerScreenX == null);
+var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") == -1;
+var called_transactions_first_time = false;
+function mobileDownloadMetaMaskPopup() {
+    var button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
+    var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>' + button_html + '</div>';
+    basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
+}
 
+function mobileLoginMetaMaskPopup() {
+    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup');
+}
+
+function desktopDownloadMetaMaskPopup() {
+    var button_html = '';
+    /*if(!is_opera)   {
+        //link for download opera metamask extention
+        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.opera.com/en/extensions/details/metamask/" target="_blank">Get from Opera Addons</a></div>';
+    }else if(is_chrome)   {
+        //link for download chrome metamask extention
+        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank">Get from Chrome Web Store</a></div>';
+    }else if(is_firefox)   {
+        //link for download firefox metamask extention
+        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
+    }*/
+    button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://metamask.io/" target="_blank">Get from MetaMask</a></div>';
+    var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>' + button_html + '</div>';
+    basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
+}
+
+function desktopLoginMetaMaskPopup() {
+    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup');
+}
+
+function initChecker() {
+    if (typeof web3 !== 'undefined' && web3.eth.defaultAccount === undefined) {
+        setInterval(function () {
+            initCheckIfMetaMaskIsLogged();
+        }, 500);
+    }
+
+    if (typeof web3 !== 'undefined' && web3.currentProvider.isMetaMask === true) {
+        meta_mask_installed = true;
+        web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
+        if (typeof web3.eth.defaultAccount != 'undefined') {
+            meta_mask_logged = true;
+        }
+    }
+
+    if (basic.isMobile()) {
+        if (typeof web3 === 'undefined') {
+            //MOBILE
+            if (!is_firefox) {
+                //popup for download mozilla browser OR trust wallet
+                basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
+            } else {
+                if (!meta_mask_installed) {
+                    //popup for download metamask
+                    mobileDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    //popup for login in metamask
+                    mobileLoginMetaMaskPopup();
+                }
+            }
+        } else {
+            if (!meta_mask_installed) {
+                //popup for download metamask
+                mobileDownloadMetaMaskPopup();
+            } else if (!meta_mask_logged) {
+                //popup for login in metamask
+                mobileLoginMetaMaskPopup();
+            }
+        }
+    } else {
+        //DESKTOP
+        if (!is_chrome && !is_firefox && is_opera) {
+            //IF NOT CHROME OR MOZILLA OR OPERA
+            basic.showDialog('<div class="popup-body"> <div class="title">Download Desktop Browser</div><div class="subtitle">You can use Dentacoin Wallet on a desktop browser like Chrome, Firefox Brave or Opera.</div><div class="separator"></div><figure class="image"><img src="/assets/images/computer.svg" alt="Computer icon"/> </figure> <div class="btns-container"> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.google.com/chrome/" target="_blank"><img src="/assets/images/chrome.png" alt=""/> Chrome</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank"><img src="/assets/images/firefox.png" alt=""/> Firefox</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.opera.com/" target="_blank"><img src="/assets/images/opera.png" alt=""/> Opera</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://brave.com/download/" target="_blank"><img src="/assets/images/brave.png" alt=""/> Brave</a></figure> </div></div>', 'download-desktop-browser validation-popup');
+        } else {
+            if (!meta_mask_installed) {
+                //popup for download metamask
+                desktopDownloadMetaMaskPopup();
+            } else if (!meta_mask_logged) {
+                //popup for login in metamask
+                desktopLoginMetaMaskPopup();
+            }
+        }
+    }
+}
+
+window.addEventListener('load', function () {});
+
+var global_state = {};
+var temporally_timestamp = 0;
+var send_event = false;
+global_state.curr_dcn_in_usd = parseFloat($('body').attr('data-current-dcn-in-usd'));
 var App = {
     web3Provider: null,
     contracts: {},
     loading: false,
     init: function init() {
+        initChecker();
         return App.initWeb3();
     },
     initWeb3: function initWeb3() {
@@ -420,27 +489,409 @@ var App = {
             App.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545');
         }
         web3 = new Web3(App.web3Provider);
+
         return App.initContract();
     },
-
     initContract: function initContract() {
-        $.getJSON('/assets/contracts/DCNWallet.json', function (DCNWalletArtifact) {
-            // get the contract artifact file and use it to instantiate a truffle contract abstraction
-            App.contracts.DCNWallet = TruffleContract(DCNWalletArtifact);
-            // set the provider for our contracts
-            App.contracts.DCNWallet.setProvider(App.web3Provider);
+        $.getJSON('/assets/jsons/DentacoinToken.json', function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(DCNArtifact) {
+                return _regeneratorRuntime.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                // get the contract artifact file and use it to instantiate a truffle contract abstraction
+                                App.contracts.DentacoinToken = TruffleContract(DCNArtifact);
+                                // set the provider for our contracts
+                                App.contracts.DentacoinToken.setProvider(App.web3Provider);
+
+                                global_state.account = web3.eth.defaultAccount;
+
+                                //refresh the current dentacoin value
+                                if ($('.homepage-container').length > 0) {
+                                    App.updateBalance(true);
+                                } else {
+                                    App.updateBalance();
+                                }
+
+                                //save current block number into state
+                                _context.next = 6;
+                                return App.helper.getBlockNum();
+
+                            case 6:
+
+                                //set Transfer event watcher
+                                App.events.logTransfer();
+
+                                App.buildTransactionsHistory();
+
+                                onAccountSwitch();
+
+                            case 9:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            return function (_x) {
+                return _ref.apply(this, arguments);
+            };
+        }());
+    },
+    updateBalance: function updateBalance(homepage) {
+        App.contracts.DentacoinToken.deployed().then(function (instance) {
+            return instance.balanceOf.call(global_state.account);
+        }).then(function (result) {
+            if (homepage === undefined) {
+                homepage = null;
+            }
+
+            global_state.curr_address_balance = result.toNumber();
+            if (homepage != null) {
+                setTimeout(function () {
+                    initHomepageUserData();
+                    $('.values-and-qr-code .animation').removeClass('rotate-animation');
+                    $('.homepage-container .dcn-value .value').html(result.toNumber());
+                    $('.homepage-container .output .value').html((result.toNumber() * global_state.curr_dcn_in_usd).toFixed(2));
+                    $('.homepage-container .values-and-qr-code').show();
+                }, 300);
+            }
+        }).catch(function (err) {
+            console.error(err);
         });
     },
-    getDCNWallet: function getDCNWallet(vin_code) {},
-    events: {}
+    sendValue: function sendValue(send_addr, value) {
+        App.contracts.DentacoinToken.deployed().then(function (instance) {
+            var transfer = instance.transfer(send_addr, value, {
+                from: global_state.account,
+                gas: 65000
+            }).then(function (result) {
+                basic.showAlert('Your transaction is pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/' + result.tx + '">Etherscan</a>.', '', true);
+            }).catch(function (err) {
+                console.error(err);
+            });
+
+            basic.showAlert('Your transaction is about to get mined.', '', true);
+            return transfer;
+        });
+    },
+    getFromTransactionsEvents: function getFromTransactionsEvents(from_num, to) {
+        if (to === undefined) {
+            to = 'latest';
+        }
+        return new Promise(function (resolve, reject) {
+            App.contracts.DentacoinToken.deployed().then(function (instance) {
+                global_state.from_transactions = [];
+                var event_obj = {
+                    fromBlock: global_state.curr_block - from_num,
+                    toBlock: to
+                };
+                if (global_state.curr_block - from_num < 0) {
+                    event_obj.fromBlock = 0;
+                }
+                var from_transfer = instance.Transfer({ _from: global_state.account }, event_obj);
+                from_transfer.get(function (error, logs) {
+                    if (error !== null) {
+                        reject(error);
+                    }
+                    global_state.from_transactions = logs;
+                    resolve(global_state.from_transactions);
+                });
+            });
+        });
+    },
+    getToTransactionsEvents: function getToTransactionsEvents(from_num, to) {
+        if (to === undefined) {
+            to = 'latest';
+        }
+        return new Promise(function (resolve, reject) {
+            App.contracts.DentacoinToken.deployed().then(function (instance) {
+                global_state.to_transactions = [];
+                var event_obj = {
+                    fromBlock: global_state.curr_block - from_num,
+                    toBlock: to
+                };
+                if (global_state.curr_block - from_num < 0) {
+                    event_obj.fromBlock = 0;
+                }
+                var to_transfer = instance.Transfer({ _to: global_state.account }, event_obj);
+                to_transfer.get(function (error, logs) {
+                    if (error !== null) {
+                        reject(error);
+                    }
+                    global_state.to_transactions = logs;
+                    resolve(global_state.to_transactions);
+                });
+            });
+        });
+    },
+    buildTransactionsHistory: function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee2(num) {
+            var array, api_clinics, table_html, i, len, date_obj, json_clinic, other_address, class_name, label, dcn_amount, usd_amount, minutes, hours;
+            return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            if (num === undefined) {
+                                num = 1;
+                                called_transactions_first_time = false;
+                                $('.transaction-history table tbody.visible-tbody').html('<tr class="loader-animation"> <td class="text-center"> <figure class="inline-block rotate-animation"><a href=""><img src="/assets/images/exchange-icon.png\" alt="Exchange icon"/></a></figure> </td></tr>');
+                                $('.transaction-history .show-more-holder').html('');
+                            }
+
+                            if (!(num > 1)) {
+                                _context2.next = 8;
+                                break;
+                            }
+
+                            _context2.next = 4;
+                            return App.getFromTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - blocks_for_month_n_half * (num - 1));
+
+                        case 4:
+                            _context2.next = 6;
+                            return App.getToTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - blocks_for_month_n_half * (num - 1));
+
+                        case 6:
+                            _context2.next = 12;
+                            break;
+
+                        case 8:
+                            _context2.next = 10;
+                            return App.getFromTransactionsEvents(num * blocks_for_month_n_half);
+
+                        case 10:
+                            _context2.next = 12;
+                            return App.getToTransactionsEvents(num * blocks_for_month_n_half);
+
+                        case 12:
+                            array = global_state.from_transactions.concat(global_state.to_transactions);
+
+                            if (!(array.length > 0)) {
+                                _context2.next = 34;
+                                break;
+                            }
+
+                            _context2.next = 16;
+                            return $.getJSON('/assets/jsons/clinics.json');
+
+                        case 16:
+                            api_clinics = _context2.sent;
+                            table_html = '';
+                            //looping for adding timestamp property for each object in the array
+
+                            i = 0, len = array.length;
+
+                        case 19:
+                            if (!(i < len)) {
+                                _context2.next = 26;
+                                break;
+                            }
+
+                            _context2.next = 22;
+                            return App.helper.addBlockTimestampToTransaction(array[i]);
+
+                        case 22:
+                            array[i].timestamp = _context2.sent;
+
+                        case 23:
+                            i += 1;
+                            _context2.next = 19;
+                            break;
+
+                        case 26:
+
+                            //sorting the array of objects by timestamp property
+                            sortByKey(array, 'timestamp');
+                            //reversing to get desc order
+                            array = array.reverse();
+
+                            //if transactions in the history are more than 3 the rest are hidden so we add show more button and bind show event
+                            $('.transaction-history .show-more-holder').html('');
+
+                            //looping to build the transaction history section
+                            for (i = 0, len = array.length; i < len; i += 1) {
+                                //timestamp*1000 because blockchain return unix timestamp
+                                date_obj = new Date(array[i].timestamp * 1000);
+                                json_clinic = '';
+                                other_address = '';
+                                class_name = '';
+                                label = '';
+                                dcn_amount = '';
+                                usd_amount = (array[i].args._value.toNumber() * global_state.curr_dcn_in_usd).toFixed(2);
+
+                                if (array[i].args._to == global_state.account) {
+                                    //IF THE CURRENT ACCOUNT IS RECEIVER
+                                    other_address = array[i].args._from;
+                                    label = 'Received from';
+                                    class_name = 'received_from';
+                                    dcn_amount = '+' + array[i].args._value.toString() + ' DCN';
+                                    if (has(api_clinics.clinics, array[i].args._from)) {
+                                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">' + api_clinics.clinics[array[i].args._from].name + '</a>';
+                                    }
+                                } else if (array[i].args._from == global_state.account) {
+                                    //IF THE CURRENT ACCOUNT IS SENDER
+                                    other_address = array[i].args._to;
+                                    if (has(api_clinics.clinics, array[i].args._to)) {
+                                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">' + api_clinics.clinics[array[i].args._to].name + '</a>';
+                                        label = 'Payed to';
+                                        class_name = 'payed_to';
+                                    } else {
+                                        label = 'Sent to';
+                                        class_name = 'sent_to';
+                                    }
+                                    dcn_amount = '-' + array[i].args._value.toString() + ' DCN';
+                                }
+
+                                if (new Date(array[i].timestamp * 1000).getMinutes() < 10) {
+                                    minutes = '0' + new Date(array[i].timestamp * 1000).getMinutes();
+                                } else {
+                                    minutes = new Date(array[i].timestamp * 1000).getMinutes();
+                                }
+
+                                if (new Date(array[i].timestamp * 1000).getHours() < 10) {
+                                    hours = '0' + new Date(array[i].timestamp * 1000).getHours();
+                                } else {
+                                    hours = new Date(array[i].timestamp * 1000).getHours();
+                                }
+
+                                //first 3 are visible, rest are going to hidden tbody
+                                table_html += '<tr class="' + class_name + ' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>' + (date_obj.getUTCMonth() + 1) + '/' + date_obj.getUTCDate() + '/' + date_obj.getUTCFullYear() + '</li><li>' + hours + ':' + minutes + '</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>' + label + ': </strong>' + json_clinic + ' (' + other_address + ')</span></li><li><a href="https://etherscan.io/tx/' + array[i].transactionHash + '" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">' + dcn_amount + '</li><li>' + usd_amount + ' USD</li></ul></td></tr>';
+                            }
+                            $('.transaction-history table tbody .loader-animation').hide();
+
+                            if (!$('.transaction-history table').hasClass('full-width-responsive')) {
+                                $('.transaction-history table').addClass('full-width-responsive');
+                            }
+
+                            if (!called_transactions_first_time) {
+                                called_transactions_first_time = true;
+                                $('.transaction-history table tbody.visible-tbody').html(table_html);
+                            } else {
+                                $('.transaction-history table tbody.visible-tbody').append(table_html);
+                            }
+
+                            //checking if current transactions are more then 3 and then display the show more button
+                            if ($('.transaction-history table tbody tr').length > 3) {
+                                $('.transaction-history .show-more-holder').html('<div class="col text-center"><a href="javascript:void(0)" ><strong>Show more</strong></a></div>');
+                                $('.transaction-history .show-more-holder a').click(function () {
+                                    $(this).closest('.show-more-holder').html('');
+                                    $('.transaction-history table tbody tr').addClass('display_row');
+                                });
+                            }
+
+                        case 34:
+                            _context2.next = 36;
+                            return App.helper.getLoopingTransactionFromBlockTimestamp(global_state.curr_block - num * blocks_for_month_n_half);
+
+                        case 36:
+                            _context2.t0 = _context2.sent;
+                            _context2.t1 = new Date('2017.01.01').getTime() / 1000;
+
+                            if (!(_context2.t0 > _context2.t1)) {
+                                _context2.next = 42;
+                                break;
+                            }
+
+                            App.buildTransactionsHistory(num += 1);
+                            _context2.next = 43;
+                            break;
+
+                        case 42:
+                            if ($('.transaction-history table tbody tr.single-transaction').length == 0) {
+                                $('.transaction-history table tbody.visible-tbody').html('<tr><td class="text-center">No previous transactions found.</td></tr>');
+                            }
+
+                        case 43:
+                        case "end":
+                            return _context2.stop();
+                    }
+                }
+            }, _callee2, this);
+        }));
+
+        function buildTransactionsHistory(_x2) {
+            return _ref2.apply(this, arguments);
+        }
+
+        return buildTransactionsHistory;
+    }(),
+    events: {
+        logTransfer: function logTransfer() {
+            var transactions_hash_arr = [];
+            App.contracts.DentacoinToken.deployed().then(function (instance) {
+                instance.Transfer({}, { fromBlock: global_state.curr_block, toBlock: 'latest' }).watch(function (error, result) {
+                    if (!error) {
+                        if (!isInArray(result.transactionHash, transactions_hash_arr) && $('body').hasClass('amount-to')) {
+                            transactions_hash_arr.push(result.transactionHash);
+                            basic.closeDialog();
+                            basic.showAlert('Your transaction was confirmed. Check here  <a href="https://etherscan.io/tx/' + result.transactionHash + '">Etherscan</a>', '', true);
+                            $('.amount-to-container input#dcn').val('');
+                            $('.amount-to-container input#usd').val('');
+                        }
+                    } else {
+                        console.log(error);
+                    }
+                });
+            });
+        }
+    },
+    helper: {
+        addBlockTimestampToTransaction: function addBlockTimestampToTransaction(transaction) {
+            return new Promise(function (resolve, reject) {
+                web3.eth.getBlock(transaction.blockNumber, function (error, result) {
+                    if (error !== null) {
+                        reject(error);
+                    }
+                    temporally_timestamp = result.timestamp;
+                    resolve(temporally_timestamp);
+                });
+            });
+        },
+        getLoopingTransactionFromBlockTimestamp: function getLoopingTransactionFromBlockTimestamp(block_num) {
+            return new Promise(function (resolve, reject) {
+                web3.eth.getBlock(block_num, function (error, result) {
+                    if (error !== null) {
+                        reject(error);
+                    }
+                    resolve(result.timestamp);
+                });
+            });
+        },
+        getBlockNum: function getBlockNum() {
+            return new Promise(function (resolve, reject) {
+                web3.eth.getBlockNumber(function (error, result) {
+                    if (!error) {
+                        global_state.curr_block = result;
+                        resolve(global_state.curr_block);
+                    }
+                });
+            });
+        }
+    }
 };
 App.init();
 
+function getQrCode() {
+    if (global_state.account != undefined) {
+        $.ajax({
+            type: 'POST',
+            url: HOME_URL + '/get-qr-code-from-address',
+            data: {
+                'address': global_state.account
+            },
+            dataType: 'json',
+            success: function success(response) {
+                if (response.success) {
+                    $('.homepage-container .values-and-qr-code .qr-code img').attr('src', response.success);
+                }
+            }
+        });
+    }
+}
+
 //PAGES
 if ($('body').hasClass('home')) {
-    onAccountSwitch();
-    web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
-
     $('.homepage-container .copy-address').click(function () {
         var this_el = $(this);
         var str_to_copy = $('.homepage-container .address span');
@@ -462,20 +913,251 @@ if ($('body').hasClass('home')) {
         trigger: 'click'
     });
 } else if ($('body').hasClass('send')) {
-    $('.send-container .next a').click(function () {
-        if (basic.isAddress($('.send-container .wallet-address input').val().trim())) {
-            console.log('step-2');
+    //on input and if valid address add active class to 'next' button for UI
+    $('.send-container .wallet-address input').on('input', function () {
+        if (!meta_mask_installed || !meta_mask_logged) {
+            $(this).val('');
+            if (basic.isMobile()) {
+                if (!meta_mask_installed) {
+                    mobileDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    mobileLoginMetaMaskPopup();
+                }
+            } else {
+                if (!meta_mask_installed) {
+                    desktopDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
         } else {
-            basic.showAlert('Please enter valid address.');
+            if (innerAddressCheck($(this).val().trim())) {
+                $('.send-container .next a').addClass('active');
+            } else if ($('.send-container .next a').hasClass('active')) {
+                $('.send-container .next a').removeClass('active');
+            }
+        }
+    });
+
+    $('.send-container .next a').click(function () {
+        if (!meta_mask_installed || !meta_mask_logged) {
+            if (basic.isMobile()) {
+                if (!meta_mask_installed) {
+                    mobileDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    mobileLoginMetaMaskPopup();
+                }
+            } else {
+                if (!meta_mask_installed) {
+                    desktopDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
+        } else {
+            if (innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
+                window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
+            } else {
+                basic.showAlert('Please enter valid address.', '', true);
+            }
         }
     });
 }
 
-function onAccountSwitch() {
-    if (typeof web3.eth.defaultAccount != 'undefined') {
-        $('.homepage-container .address span').html(web3.eth.defaultAccount);
-        $('.homepage-container .address span').data('valid-address', true);
-    } else {
-        $('.homepage-container .address span').html($('.homepage-container .address span').attr('data-log-metamask'));
+function pageAmountToLogic() {
+    var curr_addr = window.location.href.split('/')[window.location.href.split('/').length - 1];
+    //redirect to /send if the address it not valid or using the same address as the owner
+    if (typeof web3.eth.defaultAccount == 'undefined' || typeof web3 == 'undefined' && web3.currentProvider.isMetaMask !== true || !web3.isAddress(curr_addr) || curr_addr == global_state.account) {
+        window.location = HOME_URL + '/send';
     }
+
+    //editing the address logic
+    $('.amount-to-container .edit-address').click(function () {
+        if (!meta_mask_installed || !meta_mask_logged) {
+            if (basic.isMobile()) {
+                if (!meta_mask_installed) {
+                    mobileDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    mobileLoginMetaMaskPopup();
+                }
+            } else {
+                if (!meta_mask_installed) {
+                    desktopDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
+        } else {
+            if ($(this).hasClass('ready-to-edit')) {
+                var editing_address = $('.amount-to-container .value-to-edit').val().trim();
+                if (innerAddressCheck(editing_address)) {
+                    $(this).find('img').attr('src', $(this).find('img').attr('data-default-src'));
+                    $('.amount-to-container .wallet-address span.address').html(editing_address);
+                    $('.amount-to-container .value-to-edit').hide();
+                    $('.amount-to-container .address-container span').show();
+                    $('.amount-to-container .address-container').removeClass('editing');
+                    $(this).removeClass('ready-to-edit');
+                    window.history.pushState(null, null, HOME_URL + '/send/amount-to/' + editing_address);
+                } else {
+                    basic.showAlert('Please enter valid address.', '', true);
+                }
+            } else {
+                $(this).addClass('ready-to-edit');
+                $(this).find('img').attr('src', $(this).find('img').attr('data-check-src'));
+                $(this).closest('.wallet-address').find('.address-container').addClass('editing');
+                $('.amount-to-container .address-container span').hide();
+                $('.amount-to-container .address-container .value-to-edit').show().select();
+            }
+        }
+    });
+
+    //on input in dcn input change usd input
+    $('.amount-to-container input#dcn').on('input', function () {
+        if (!meta_mask_installed || !meta_mask_logged) {
+            $(this).val('');
+            if (basic.isMobile()) {
+                if (!meta_mask_installed) {
+                    mobileDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    mobileLoginMetaMaskPopup();
+                }
+            } else {
+                if (!meta_mask_installed) {
+                    desktopDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
+        } else {
+            $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2));
+        }
+    });
+
+    //on input in usd input change dcn input
+    $('.amount-to-container input#usd').on('input', function () {
+        if (!meta_mask_installed || !meta_mask_logged) {
+            $(this).val('');
+            if (basic.isMobile()) {
+                if (!meta_mask_installed) {
+                    mobileDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    mobileLoginMetaMaskPopup();
+                }
+            } else {
+                if (!meta_mask_installed) {
+                    desktopDownloadMetaMaskPopup();
+                } else if (!meta_mask_logged) {
+                    desktopLoginMetaMaskPopup();
+                }
+            }
+        } else {
+            $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
+        }
+    });
+}
+
+function sendValue() {
+    if (!meta_mask_installed || !meta_mask_logged) {
+        if (basic.isMobile()) {
+            if (!meta_mask_installed) {
+                mobileDownloadMetaMaskPopup();
+            } else if (!meta_mask_logged) {
+                mobileLoginMetaMaskPopup();
+            }
+        } else {
+            if (!meta_mask_installed) {
+                desktopDownloadMetaMaskPopup();
+            } else if (!meta_mask_logged) {
+                desktopLoginMetaMaskPopup();
+            }
+        }
+    } else {
+        var dcn_val = $('.amount-to-container input#dcn').val().trim();
+        var usd_val = $('.amount-to-container input#usd').val().trim();
+        if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
+            //checking if not a number or empty values
+            basic.showAlert('Please make sure all values are numbers.', '', true);
+        } else if (dcn_val < 0 || usd_val < 0) {
+            //checking if negative numbers
+            basic.showAlert('Please make sure all values are more than 0.', '', true);
+        } else if (dcn_val < 10) {
+            //checking if dcn value is lesser than 10 (contract condition)
+            basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
+        } else if (dcn_val > global_state.curr_address_balance) {
+            //checking if current balance is lower than the desired value to send
+            basic.showAlert('The value you want to send is higher than your balance.', '', true);
+        } else if ($('.amount-to-container .address-container').hasClass('editing')) {
+            //checking if editing address is done
+            basic.showAlert('Please make sure you are done with address editing.', '', true);
+        } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
+            //checking again if valid address
+            basic.showAlert('Please make sure you are sending to valid address.', '', true);
+        } else {
+            var callback_obj = {};
+            callback_obj.callback = function (result) {
+                if (result) {
+                    App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
+                }
+            };
+            basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
+        }
+    }
+}
+
+function innerAddressCheck(address) {
+    return web3.isAddress(address) && address != global_state.account;
+}
+
+function initHomepageUserData() {
+    if ($('.homepage-container').length > 0) {
+        //change the address html and show the copy address button
+        $('.homepage-container .address span').html(global_state.account);
+        $('.homepage-container .address span').data('valid-address', true);
+        $('.homepage-container .address .copy-address').show();
+
+        //init new qr code
+        getQrCode();
+    }
+}
+
+function has(object, key) {
+    return object ? hasOwnProperty.call(object, key) : false;
+}
+
+function sortByKey(array, key) {
+    return array.sort(function (a, b) {
+        var x = a[key];
+        var y = b[key];
+
+        if (typeof x == "string") {
+            x = ("" + x).toLowerCase();
+        }
+        if (typeof y == "string") {
+            y = ("" + y).toLowerCase();
+        }
+
+        return x < y ? -1 : x > y ? 1 : 0;
+    });
+}
+
+function hidePopupOnBackdropClick() {
+    $(document).on('click', '.bootbox', function () {
+        var classname = event.target.className;
+        classname = classname.replace(/ /g, '.');
+
+        if (classname && !$('.' + classname).parents('.modal-dialog').length) {
+            bootbox.hideAll();
+        }
+    });
+}
+hidePopupOnBackdropClick();
+
+function initCheckIfMetaMaskIsLogged() {
+    if (web3.eth.defaultAccount !== undefined) {
+        window.location.reload();
+    }
+}
+
+function isInArray(value, array) {
+    return array.indexOf(value) > -1;
 }

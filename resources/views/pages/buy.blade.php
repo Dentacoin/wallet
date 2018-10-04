@@ -53,3 +53,13 @@
         </div>
     </div>
 @endsection
+
+
+@section("meta_block")
+    <title>Buy Dentacoin (DCN) via Dentacoin Wallet App</title>
+    <meta name="description" content="Dentacoin Wallet App allows users to easily and securely buy Dentacoin (DCN) with USD, Ether (ETH), Bitcoin (BTC) and 100+ other cryptocurrencies."/>
+    <meta name="keywords" content="buy dentacoin, how to buy dentacoin, buy dentacoin with usd"/>
+    <meta property="og:url" content="{{Request::url()}}"/>
+    <meta property="og:title" content="Buy Dentacoin (DCN) via Dentacoin Wallet App"/>
+    <meta property="og:description" content="Dentacoin Wallet App allows users to easily and securely buy Dentacoin (DCN) with USD, Ether (ETH), Bitcoin (BTC) and 100+ other cryptocurrencies."/>
+@endsection
