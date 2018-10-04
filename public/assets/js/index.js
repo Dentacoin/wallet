@@ -76,6 +76,7 @@ function initChecker()  {
     }
 
     if(basic.isMobile())    {
+        alert(typeof(web3));
         if(typeof(web3) === 'undefined')   {
             //MOBILE
             alert(is_firefox);
