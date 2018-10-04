@@ -24,7 +24,6 @@ $(window).on('scroll', function()  {
 
 var meta_mask_installed = false;
 var meta_mask_logged = false;
-var web3_provider = false;
 var blocks_for_month_n_half = 263000;
 var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var is_firefox = !(window.mozInnerScreenX == null);
@@ -78,7 +77,6 @@ function initChecker()  {
 
     if(basic.isMobile())    {
         if(typeof(web3) === 'undefined')   {
-            web3_provider = true;
             //MOBILE
             if(!is_firefox)    {
                 //popup for download mozilla browser OR trust wallet
@@ -468,9 +466,7 @@ if($('body').hasClass('home'))  {
     //on input and if valid address add active class to 'next' button for UI
     $('.send-container .wallet-address input').on('input', function()   {
         if(basic.isMobile())    {
-            alert(is_firefox);
-            alert(web3_provider);
-            if(!is_firefox && !web3_provider) {
+            if(!is_firefox && typeof(web3) === 'undefined') {
                 $(this).val('');
                 mobileDownloadMetaMaskPopup();
                 return false;
@@ -507,7 +503,7 @@ if($('body').hasClass('home'))  {
 
     $('.send-container .next a').click(function()  {
         if(basic.isMobile())    {
-            if(!is_firefox && !web3_provider ) {
+            if(!is_firefox && typeof(web3) === 'undefined') {
                 mobileDownloadMetaMaskPopup();
                 return false;
             }else {
