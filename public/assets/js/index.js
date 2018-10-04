@@ -259,8 +259,6 @@ var App = {
         if(num === undefined){
             num = 1;
             called_transactions_first_time = false;
-            $('.transaction-history table tbody.visible-tbody').html('<tr class="loader-animation"> <td class="text-center"> <figure class="inline-block rotate-animation"><a href=""><img src="/assets/images/exchange-icon.png\" alt="Exchange icon"/></a></figure> </td></tr>');
-            $('.transaction-history .show-more-holder').html('');
         }
 
         if(num > 1) {

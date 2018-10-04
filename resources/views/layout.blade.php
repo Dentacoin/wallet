@@ -71,7 +71,7 @@
                 <div class="col mt-4 no-gutter-xxs table-parent">
                     <table class="">
                         <tbody class="visible-tbody">
-
+                            <tr class="loader-animation"> <td class="text-center"> <figure class="inline-block rotate-animation"><a href=""><img src="/assets/images/exchange-icon.png" alt="Exchange icon"/></a></figure> </td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -91,10 +91,10 @@
             </div>
         </div>
     </footer>
-    <script src="/dist/js/front-libs-script.js?v=1.0.12"></script>
-    <script src="/assets/js/basic.js?v=1.0.12"></script>
+    <script src="/dist/js/front-libs-script.js?v=1.0.13"></script>
+    <script src="/assets/js/basic.js?v=1.0.13"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index.js?v=1.0.12"></script>
+    <script src="/assets/js/index.js?v=1.0.13"></script>
 </body>
 </html>
