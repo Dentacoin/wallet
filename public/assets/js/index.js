@@ -76,16 +76,12 @@ function initChecker()  {
     }
 
     if(basic.isMobile())    {
-        alert(typeof(web3));
         if(typeof(web3) === 'undefined')   {
             //MOBILE
-            alert(is_firefox);
             if(!is_firefox)    {
                 //popup for download mozilla browser OR trust wallet
                 basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
             }else {
-                alert(meta_mask_installed);
-                alert(meta_mask_logged);
                 if(!meta_mask_installed)    {
                     //popup for download metamask
                     mobileDownloadMetaMaskPopup();
@@ -93,6 +89,11 @@ function initChecker()  {
                     //popup for login in metamask
                     mobileLoginMetaMaskPopup();
                 }
+            }
+        }else {
+            if(is_firefox && !meta_mask_logged) {
+                //popup for login in metamask
+                mobileLoginMetaMaskPopup();
             }
         }
     }else {
