@@ -90,14 +90,6 @@ function initChecker()  {
                     mobileLoginMetaMaskPopup();
                 }
             }
-        }else {
-            if(!meta_mask_installed)    {
-                //popup for download metamask
-                mobileDownloadMetaMaskPopup();
-            }else if(!meta_mask_logged) {
-                //popup for login in metamask
-                mobileLoginMetaMaskPopup();
-            }
         }
     }else {
         //DESKTOP
@@ -122,7 +114,6 @@ window.addEventListener('load', function() {
 
 var global_state = {};
 var temporally_timestamp = 0;
-var send_event = false;
 global_state.curr_dcn_in_usd = parseFloat($('body').attr('data-current-dcn-in-usd'));
 var App = {
     web3Provider: null,
