@@ -549,136 +549,159 @@ function pageAmountToLogic()    {
 
     //editing the address logic
     $('.amount-to-container .edit-address').click(function()    {
-        if(!meta_mask_installed || !meta_mask_logged)   {
-            if(basic.isMobile())    {
+        if(basic.isMobile())    {
+            if(!is_firefox && typeof(web3) === 'undefined') {
+                mobileDownloadMetaMaskPopup();
+                return false;
+            }else if(is_firefox) {
                 if(!meta_mask_installed)   {
                     mobileDownloadMetaMaskPopup();
+                    return false;
                 }else if(!meta_mask_logged)   {
                     mobileLoginMetaMaskPopup();
-                }
-            }else {
-                if(!meta_mask_installed)   {
-                    desktopDownloadMetaMaskPopup();
-                }else if(!meta_mask_logged)   {
-                    desktopLoginMetaMaskPopup();
+                    return false;
                 }
             }
         }else {
-            if ($(this).hasClass('ready-to-edit')) {
-                var editing_address = $('.amount-to-container .value-to-edit').val().trim();
-                if (innerAddressCheck(editing_address)) {
-                    $(this).find('img').attr('src', $(this).find('img').attr('data-default-src'));
-                    $('.amount-to-container .wallet-address span.address').html(editing_address);
-                    $('.amount-to-container .value-to-edit').hide();
-                    $('.amount-to-container .address-container span').show();
-                    $('.amount-to-container .address-container').removeClass('editing');
-                    $(this).removeClass('ready-to-edit');
-                    window.history.pushState(null, null, HOME_URL + '/send/amount-to/' + editing_address);
-                } else {
-                    basic.showAlert('Please enter valid address.', '', true);
-                }
-            } else {
-                $(this).addClass('ready-to-edit');
-                $(this).find('img').attr('src', $(this).find('img').attr('data-check-src'));
-                $(this).closest('.wallet-address').find('.address-container').addClass('editing');
-                $('.amount-to-container .address-container span').hide();
-                $('.amount-to-container .address-container .value-to-edit').show().select();
+            if(!meta_mask_installed)   {
+                desktopDownloadMetaMaskPopup();
+                return false;
+            }else if(!meta_mask_logged)   {
+                desktopLoginMetaMaskPopup();
+                return false;
             }
+        }
+        if ($(this).hasClass('ready-to-edit')) {
+            var editing_address = $('.amount-to-container .value-to-edit').val().trim();
+            if (innerAddressCheck(editing_address)) {
+                $(this).find('img').attr('src', $(this).find('img').attr('data-default-src'));
+                $('.amount-to-container .wallet-address span.address').html(editing_address);
+                $('.amount-to-container .value-to-edit').hide();
+                $('.amount-to-container .address-container span').show();
+                $('.amount-to-container .address-container').removeClass('editing');
+                $(this).removeClass('ready-to-edit');
+                window.history.pushState(null, null, HOME_URL + '/send/amount-to/' + editing_address);
+            } else {
+                basic.showAlert('Please enter valid address.', '', true);
+            }
+        } else {
+            $(this).addClass('ready-to-edit');
+            $(this).find('img').attr('src', $(this).find('img').attr('data-check-src'));
+            $(this).closest('.wallet-address').find('.address-container').addClass('editing');
+            $('.amount-to-container .address-container span').hide();
+            $('.amount-to-container .address-container .value-to-edit').show().select();
         }
     });
 
     //on input in dcn input change usd input
     $('.amount-to-container input#dcn').on('input', function()  {
-        if(!meta_mask_installed || !meta_mask_logged)   {
-            $(this).val('');
-            if(basic.isMobile())    {
+        if(basic.isMobile())    {
+            if(!is_firefox && typeof(web3) === 'undefined') {
+                mobileDownloadMetaMaskPopup();
+                return false;
+            }else if(is_firefox) {
                 if(!meta_mask_installed)   {
                     mobileDownloadMetaMaskPopup();
+                    return false;
                 }else if(!meta_mask_logged)   {
                     mobileLoginMetaMaskPopup();
-                }
-            }else {
-                if(!meta_mask_installed)   {
-                    desktopDownloadMetaMaskPopup();
-                }else if(!meta_mask_logged)   {
-                    desktopLoginMetaMaskPopup();
+                    return false;
                 }
             }
         }else {
-            $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2));
+            if(!meta_mask_installed)   {
+                desktopDownloadMetaMaskPopup();
+                return false;
+            }else if(!meta_mask_logged)   {
+                desktopLoginMetaMaskPopup();
+                return false;
+            }
         }
+        $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2));
+
     });
 
     //on input in usd input change dcn input
     $('.amount-to-container input#usd').on('input', function()  {
-        if(!meta_mask_installed || !meta_mask_logged)   {
-            $(this).val('');
-            if(basic.isMobile())    {
+        if(basic.isMobile())    {
+            if(!is_firefox && typeof(web3) === 'undefined') {
+                mobileDownloadMetaMaskPopup();
+                return false;
+            }else if(is_firefox) {
                 if(!meta_mask_installed)   {
                     mobileDownloadMetaMaskPopup();
+                    return false;
                 }else if(!meta_mask_logged)   {
                     mobileLoginMetaMaskPopup();
-                }
-            }else {
-                if(!meta_mask_installed)   {
-                    desktopDownloadMetaMaskPopup();
-                }else if(!meta_mask_logged)   {
-                    desktopLoginMetaMaskPopup();
+                    return false;
                 }
             }
         }else {
-            $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
+            if(!meta_mask_installed)   {
+                desktopDownloadMetaMaskPopup();
+                return false;
+            }else if(!meta_mask_logged)   {
+                desktopLoginMetaMaskPopup();
+                return false;
+            }
         }
+        $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
     });
 }
 
 
 
 function sendValue()    {
-    if(!meta_mask_installed || !meta_mask_logged)   {
-        if(basic.isMobile())    {
+    if(basic.isMobile())    {
+        if(!is_firefox && typeof(web3) === 'undefined') {
+            mobileDownloadMetaMaskPopup();
+            return false;
+        }else if(is_firefox) {
             if(!meta_mask_installed)   {
                 mobileDownloadMetaMaskPopup();
+                return false;
             }else if(!meta_mask_logged)   {
                 mobileLoginMetaMaskPopup();
-            }
-        }else {
-            if(!meta_mask_installed)   {
-                desktopDownloadMetaMaskPopup();
-            }else if(!meta_mask_logged)   {
-                desktopLoginMetaMaskPopup();
+                return false;
             }
         }
     }else {
-        var dcn_val = $('.amount-to-container input#dcn').val().trim();
-        var usd_val = $('.amount-to-container input#usd').val().trim();
-        if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
-            //checking if not a number or empty values
-            basic.showAlert('Please make sure all values are numbers.', '', true);
-        } else if (dcn_val < 0 || usd_val < 0) {
-            //checking if negative numbers
-            basic.showAlert('Please make sure all values are more than 0.', '', true);
-        } else if (dcn_val < 10) {
-            //checking if dcn value is lesser than 10 (contract condition)
-            basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
-        } else if (dcn_val > global_state.curr_address_balance) {
-            //checking if current balance is lower than the desired value to send
-            basic.showAlert('The value you want to send is higher than your balance.', '', true);
-        } else if ($('.amount-to-container .address-container').hasClass('editing')) {
-            //checking if editing address is done
-            basic.showAlert('Please make sure you are done with address editing.', '', true);
-        } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
-            //checking again if valid address
-            basic.showAlert('Please make sure you are sending to valid address.', '', true);
-        } else {
-            var callback_obj = {};
-            callback_obj.callback = function (result) {
-                if (result) {
-                    App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
-                }
-            };
-            basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
+        if(!meta_mask_installed)   {
+            desktopDownloadMetaMaskPopup();
+            return false;
+        }else if(!meta_mask_logged)   {
+            desktopLoginMetaMaskPopup();
+            return false;
         }
+    }
+    var dcn_val = $('.amount-to-container input#dcn').val().trim();
+    var usd_val = $('.amount-to-container input#usd').val().trim();
+    if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
+        //checking if not a number or empty values
+        basic.showAlert('Please make sure all values are numbers.', '', true);
+    } else if (dcn_val < 0 || usd_val < 0) {
+        //checking if negative numbers
+        basic.showAlert('Please make sure all values are more than 0.', '', true);
+    } else if (dcn_val < 10) {
+        //checking if dcn value is lesser than 10 (contract condition)
+        basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
+    } else if (dcn_val > global_state.curr_address_balance) {
+        //checking if current balance is lower than the desired value to send
+        basic.showAlert('The value you want to send is higher than your balance.', '', true);
+    } else if ($('.amount-to-container .address-container').hasClass('editing')) {
+        //checking if editing address is done
+        basic.showAlert('Please make sure you are done with address editing.', '', true);
+    } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
+        //checking again if valid address
+        basic.showAlert('Please make sure you are sending to valid address.', '', true);
+    } else {
+        var callback_obj = {};
+        callback_obj.callback = function (result) {
+            if (result) {
+                App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
+            }
+        };
+        basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
     }
 }
 
