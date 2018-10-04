@@ -470,9 +470,7 @@ if($('body').hasClass('home'))  {
                 $(this).val('');
                 mobileDownloadMetaMaskPopup();
                 return false;
-            }else {
-                alert(meta_mask_installed);
-                alert(meta_mask_logged);
+            }else if(is_firefox) {
                 if(!meta_mask_installed)   {
                     $(this).val('');
                     mobileDownloadMetaMaskPopup();
@@ -504,13 +502,16 @@ if($('body').hasClass('home'))  {
     $('.send-container .next a').click(function()  {
         if(basic.isMobile())    {
             if(!is_firefox && typeof(web3) === 'undefined') {
+                $(this).val('');
                 mobileDownloadMetaMaskPopup();
                 return false;
-            }else {
+            }else if(is_firefox) {
                 if(!meta_mask_installed)   {
+                    $(this).val('');
                     mobileDownloadMetaMaskPopup();
                     return false;
                 }else if(!meta_mask_logged)   {
+                    $(this).val('');
                     mobileLoginMetaMaskPopup();
                     return false;
                 }
