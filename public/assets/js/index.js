@@ -468,11 +468,15 @@ if($('body').hasClass('home'))  {
     //on input and if valid address add active class to 'next' button for UI
     $('.send-container .wallet-address input').on('input', function()   {
         if(basic.isMobile())    {
-            if(!is_firefox && !web3_provider ) {
+            alert(is_firefox);
+            alert(web3_provider);
+            if(!is_firefox && !web3_provider) {
                 $(this).val('');
                 mobileDownloadMetaMaskPopup();
                 return false;
             }else {
+                alert(meta_mask_installed);
+                alert(meta_mask_logged);
                 if(!meta_mask_installed)   {
                     $(this).val('');
                     mobileDownloadMetaMaskPopup();

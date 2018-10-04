@@ -91,10 +91,10 @@
             </div>
         </div>
     </footer>
-    <script src="/dist/js/front-libs-script.js?v=1.0.4"></script>
-    <script src="/assets/js/basic.js?v=1.0.4"></script>
+    <script src="/dist/js/front-libs-script.js?v=1.0.5"></script>
+    <script src="/assets/js/basic.js?v=1.0.5"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index.js?v=1.0.4"></script>
+    <script src="/assets/js/index.js?v=1.0.5"></script>
 </body>
 </html>
