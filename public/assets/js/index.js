@@ -24,6 +24,7 @@ $(window).on('scroll', function()  {
 
 var meta_mask_installed = false;
 var meta_mask_logged = false;
+var web3_provider = false;
 var blocks_for_month_n_half = 263000;
 var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var is_firefox = !(window.mozInnerScreenX == null);
@@ -77,6 +78,7 @@ function initChecker()  {
 
     if(basic.isMobile())    {
         if(typeof(web3) === 'undefined')   {
+            web3_provider = true;
             //MOBILE
             if(!is_firefox)    {
                 //popup for download mozilla browser OR trust wallet
@@ -465,52 +467,70 @@ if($('body').hasClass('home'))  {
 }else if($('body').hasClass('send')) {
     //on input and if valid address add active class to 'next' button for UI
     $('.send-container .wallet-address input').on('input', function()   {
-        if(!meta_mask_installed || !meta_mask_logged)   {
-            $(this).val('');
-            if(basic.isMobile())    {
-                if(!meta_mask_installed)   {
-                    mobileDownloadMetaMaskPopup();
-                }else if(!meta_mask_logged)   {
-                    mobileLoginMetaMaskPopup();
-                }
+        if(basic.isMobile())    {
+            if(!is_firefox && !web3_provider ) {
+                $(this).val('');
+                mobileDownloadMetaMaskPopup();
+                return false;
             }else {
                 if(!meta_mask_installed)   {
-                    desktopDownloadMetaMaskPopup();
+                    $(this).val('');
+                    mobileDownloadMetaMaskPopup();
+                    return false;
                 }else if(!meta_mask_logged)   {
-                    desktopLoginMetaMaskPopup();
+                    $(this).val('');
+                    mobileLoginMetaMaskPopup();
+                    return false;
                 }
             }
         }else {
-            if(innerAddressCheck($(this).val().trim()))   {
-                $('.send-container .next a').addClass('active');
-            }else if($('.send-container .next a').hasClass('active')){
-                $('.send-container .next a').removeClass('active');
+            if(!meta_mask_installed)   {
+                desktopDownloadMetaMaskPopup();
+                $(this).val('');
+                return false;
+            }else if(!meta_mask_logged)   {
+                desktopLoginMetaMaskPopup();
+                $(this).val('');
+                return false;
             }
+        }
+        if(innerAddressCheck($(this).val().trim()))   {
+            $('.send-container .next a').addClass('active');
+        }else if($('.send-container .next a').hasClass('active')){
+            $('.send-container .next a').removeClass('active');
         }
     });
 
     $('.send-container .next a').click(function()  {
-        if(!meta_mask_installed || !meta_mask_logged)   {
-            if(basic.isMobile())    {
-                if(!meta_mask_installed)   {
-                    mobileDownloadMetaMaskPopup();
-                }else if(!meta_mask_logged)   {
-                    mobileLoginMetaMaskPopup();
-                }
+        if(basic.isMobile())    {
+            if(!is_firefox && !web3_provider ) {
+                mobileDownloadMetaMaskPopup();
+                return false;
             }else {
                 if(!meta_mask_installed)   {
-                    desktopDownloadMetaMaskPopup();
+                    mobileDownloadMetaMaskPopup();
+                    return false;
                 }else if(!meta_mask_logged)   {
-                    desktopLoginMetaMaskPopup();
+                    mobileLoginMetaMaskPopup();
+                    return false;
                 }
             }
         }else {
-            if(innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
-                window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
-            }else {
-                basic.showAlert('Please enter valid address.', '', true);
+            if(!meta_mask_installed)   {
+                desktopDownloadMetaMaskPopup();
+                return false;
+            }else if(!meta_mask_logged)   {
+                desktopLoginMetaMaskPopup();
+                return false;
             }
         }
+
+        if(innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
+            window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
+        }else {
+            basic.showAlert('Please enter valid address.', '', true);
+        }
+
     });
 }
 

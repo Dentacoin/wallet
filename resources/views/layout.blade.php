@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     @yield("meta_block")
-    <meta property="og:image" content="{{URL::asset('assets/uploads/dentacoin-facebook-thumb.jpg') }}"/>
+    <meta property="og:image" content="{{URL::asset('assets/images/dentacoin-facebook-thumb.jpg') }}"/>
     <style>
         /*!
  * Bootstrap v4.1.0 (https://getbootstrap.com/)
@@ -91,10 +91,10 @@
             </div>
         </div>
     </footer>
-    <script src="/dist/js/front-libs-script.js?v=1.0.3"></script>
-    <script src="/assets/js/basic.js?v=1.0.3"></script>
+    <script src="/dist/js/front-libs-script.js?v=1.0.4"></script>
+    <script src="/assets/js/basic.js?v=1.0.4"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index.js?v=1.0.3"></script>
+    <script src="/assets/js/index.js?v=1.0.4"></script>
 </body>
 </html>
