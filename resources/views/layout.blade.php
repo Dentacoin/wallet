@@ -42,15 +42,15 @@
             <div class="container">
                 <div class="row fs-0">
                     <nav>
-                        <ul>
+                        <ul itemtype="http://schema.org/SiteNavigationElement">
                             <li class="col-4">
-                                <a class="nav-link nav-button @if(!empty(Route::current()) && Route::current()->getName() == "buy")nav-active @endif" href="{{route('buy')}}">BUY</a>
+                                <a class="nav-link nav-button @if(!empty(Route::current()) && Route::current()->getName() == "buy")nav-active @endif" href="{{route('buy')}}" itemprop="url"><span itemprop="name">BUY</span></a>
                             </li>
                             <li class="col-4">
-                                <a class="nav-link nav-button @if(!empty(Route::current()) && Route::current()->getName() == "home")nav-active @endif" href="{{route('home')}}">WALLET</a>
+                                <a class="nav-link nav-button @if(!empty(Route::current()) && Route::current()->getName() == "home")nav-active @endif" href="{{route('home')}}" itemprop="url"><span itemprop="name">WALLET</span></a>
                             </li>
                             <li class="col-4">
-                                <a class="nav-link nav-button @if((!empty(Route::current()) && Route::current()->getName() == "send") || (!empty(Route::current()) && Route::current()->getName() == "amount-to"))nav-active @endif" href="{{route('send')}}">SEND</a>
+                                <a class="nav-link nav-button @if((!empty(Route::current()) && Route::current()->getName() == "send") || (!empty(Route::current()) && Route::current()->getName() == "amount-to"))nav-active @endif" href="{{route('send')}}" itemprop="url"><span itemprop="name">SEND</span></a>
                             </li>
                         </ul>
                     </nav>
@@ -80,6 +80,7 @@
     <footer class="text-center container">
         <div class="row">
             <div class="col-12">
+                <div class="privacy-policy-link text-center"><a href="https://dentacoin.com/privacy-policy" target="_blank">Privacy policy</a></div>
                 <div>© Dentacoin Foundation. All rights reserved.</div>
                 <div>
                     <a href="https://dentacoin.com/assets/docs/dentacoin-foundation.pdf" target="_Blank">The Netherlands Chamber of Commerce Business Register extract</a>

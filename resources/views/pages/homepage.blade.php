@@ -7,7 +7,7 @@
                     <div class="col-12 text-center">
                         <div class="subtitle">Your Dentacoin address:</div>
                         <div class="address">
-                            <figure class="inline-block"><a href="javascript:void(0)" class="copy-address" data-toggle="tooltip" title="Copied."><img src="{{URL::asset('assets/images/copy.svg') }}" class="Copy address to clipboard icon"/></a></figure>
+                            <figure class="inline-block" itemscope="" itemtype="http://schema.org/ImageObject"><a href="javascript:void(0)" class="copy-address" data-toggle="tooltip" title="Copied."><img src="{{URL::asset('assets/images/copy.svg') }}" class="Copy address to clipboard icon" itemprop="contentUrl"/></a></figure>
                             <span data-log-metamask="Please log in with MetaMask."></span>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
             <div class="row-flex center-content">
                 <div class="col-8 col-sm-8 offset-0 col-md-7 col-lg-6 col-xl-6 offset-md-1 offset-lg-2 offset-xl-1 transfer-value">
                     <div class="fs-0 current-value">
-                        <figure class="inline-block rotate-animation animation"><a href=""><img src="{{URL::asset('assets/images/exchange-icon.png') }}" alt="Exchange icon"/></a></figure>
+                        <figure class="inline-block rotate-animation animation" itemscope="" itemtype="http://schema.org/ImageObject"><a href=""><img src="{{URL::asset('assets/images/exchange-icon.png') }}" alt="Exchange icon" itemprop="contentUrl"/></a></figure>
                         <div class="dcn-value inline-block"><div class="mobile-symbol">DCN</div><span class="value">0</span><span class="desktop-symbol"> DCN</span></div>
                     </div>
                     <div class="transferred-value">
@@ -31,9 +31,9 @@
                         </div>
                     </div>
                 </div>
-                <figure class="col-4 col-sm-4 col-md-3 qr-code">
+                <figure class="col-4 col-sm-4 col-md-3 qr-code" itemscope="" itemtype="http://schema.org/ImageObject">
                     <a href="javascript:void(0)">
-                        <img src="{{URL::asset('assets/images/dentacoin-rocks.jpg') }}" alt="qr code"/>
+                        <img src="{{URL::asset('assets/images/dentacoin-rocks.jpg') }}" alt="qr code" itemprop="contentUrl"/>
                     </a>
                 </figure>
             </div>

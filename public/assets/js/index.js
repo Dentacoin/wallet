@@ -196,17 +196,18 @@ var App = {
     },
     sendValue: function(send_addr, value)  {
         App.contracts.DentacoinToken.deployed().then(function(instance) {
-            console.log('sent');
-            return instance.transfer(send_addr, value, {
+            var transfer = instance.transfer(send_addr, value, {
                 from: global_state.account,
                 gas: 65000
+            }).then(function (result){
+                basic.showAlert('Your transaction is pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+result.tx+'">Etherscan</a>.', '', true);
+            }).catch(function(err) {
+                console.error(err);
             });
-        }).then(function(result) {
-            console.log(result, 'result');
-            send_event = true;
-        }).catch(function(err) {
-            console.error(err);
-        });
+
+            basic.showAlert('Your transaction is about to get mined.', '', true);
+            return transfer;
+        })
     },
     getFromTransactionsEvents: function(from_num, to)    {
         if(to === undefined){
@@ -376,11 +377,14 @@ var App = {
     },
     events: {
         logTransfer: function() {
+            var transactions_hash_arr = [];
             App.contracts.DentacoinToken.deployed().then(function(instance) {
-                instance.Transfer().watch(function(error, result){
+                instance.Transfer({}, {fromBlock: global_state.curr_block, toBlock: 'latest'}).watch(function(error, result){
                     if(!error) {
-                        if(send_event && $('body').hasClass('amount-to'))   {
-                            basic.showAlert('Your transaction was confirmed.', '', true);
+                        if(!isInArray(result.transactionHash, transactions_hash_arr) && $('body').hasClass('amount-to')) {
+                            transactions_hash_arr.push(result.transactionHash);
+                            basic.closeDialog();
+                            basic.showAlert('Your transaction was confirmed. Check here  <a href="https://etherscan.io/tx/'+result.transactionHash+'">Etherscan</a>', '', true);
                             $('.amount-to-container input#dcn').val('');
                             $('.amount-to-container input#usd').val('');
                         }
@@ -736,4 +740,8 @@ function initCheckIfMetaMaskIsLogged()  {
     if(web3.eth.defaultAccount !== undefined)    {
         window.location.reload();
     }
+}
+
+function isInArray(value, array) {
+    return array.indexOf(value) > -1;
 }

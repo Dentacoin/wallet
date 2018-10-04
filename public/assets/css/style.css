@@ -2325,6 +2325,10 @@ input.module-field {
     .container-404 .row-flex.no-found-text {
       padding-top: 0; } }
 
+.privacy-policy-link {
+  font-weight: bold;
+  font-size: 14px; }
+
 header .logo {
   padding-top: 10px;
   padding-bottom: 10px; }

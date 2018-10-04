@@ -9,8 +9,8 @@
                         <span class="address">{{$address}}</span>
                         <input type="text" value="{{$address}}" class="value-to-edit module-field" maxlength="42"/>
                     </div>
-                    <figure class="inline-block btn-container">
-                        <a href="javascript:void(0)" class="edit-address"><img src="{{URL::asset('assets/images/edit.png') }}" data-check-src="{{URL::asset('assets/images/check.png') }}" data-default-src="{{URL::asset('assets/images/edit.png') }}" alt=""/></a>
+                    <figure class="inline-block btn-container" itemscope="" itemtype="http://schema.org/ImageObject">
+                        <a href="javascript:void(0)" class="edit-address"><img src="{{URL::asset('assets/images/edit.png') }}" data-check-src="{{URL::asset('assets/images/check.png') }}" data-default-src="{{URL::asset('assets/images/edit.png') }}" alt="" itemprop="contentUrl"/></a>
                     </figure>
                 </div>
             </div>
@@ -22,8 +22,8 @@
                         <div class="label"><span>DCN</span></div>
                     </div>
                 </div>
-                <figure class="col-md-2 equal-icon">
-                    <img src="{{URL::asset('assets/images/equal.png') }}" alt=""/>
+                <figure class="col-md-2 equal-icon" itemscope="" itemtype="http://schema.org/ImageObject">
+                    <img src="{{URL::asset('assets/images/equal.png') }}" alt="Equal icon" itemprop="contentUrl"/>
                 </figure>
                 <div class="col-12 col-md-5 input-container">
                     <div class="title">You get:</div>

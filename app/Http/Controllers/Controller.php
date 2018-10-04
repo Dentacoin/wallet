@@ -57,36 +57,13 @@ class Controller extends BaseController {
     }
 
     protected function getSitemap() {
-        $sitemap = App::make('sitemap');
-        // set cache (key (string), duration in minutes (Carbon|Datetime|int), turn on/off (boolean))
-        // by default cache is disabled
-        //$sitemap->setCache('laravel.sitemap', 3600);
+        $sitemap = App::make("sitemap");
 
-        // check if there is cached sitemap and build new only if is not
-        //if(!$sitemap->isCached())  {
-        // add item to the sitemap (url, date, priority, freq)
+        $sitemap->add(URL::to('/'), '2018-09-25T20:10:00+02:00', '1.0', 'weekly');
+        //$sitemap->add(URL::to('publications'), '2012-08-25T20:10:00+02:00', '0.6', 'weekly');
+        $sitemap->add(URL::to('buy'), '2018-09-25T20:10:00+02:00', '0.8', 'weekly');
+        $sitemap->add(URL::to('send'), '2018-09-25T20:10:00+02:00', '1.0', 'weekly');
 
-        /*$sitemap->add(URL::to('/'), '2012-08-25T20:10:00+02:00', '1.0', 'daily');
-        $sitemap->add(URL::to('publications'), '2012-08-25T20:10:00+02:00', '0.6', 'weekly');
-        $sitemap->add(URL::to('privacy-policy'), '2012-08-25T20:10:00+02:00', '0.4', 'monthly');
-        $sitemap->add(URL::to('changelly'), '2012-08-25T20:10:00+02:00', '1.0', 'monthly');
-        $sitemap->add(URL::to('partner-network'), '2012-08-25T20:10:00+02:00', '8.0', 'daily');*/
-
-        //getting all pagination pages for testimonials
-        /*for($i = 1, $length = (new UserExpressionsController())->getPagesCount(); $i <= $length; $i+=1) {
-            $sitemap->add(URL::to('testimonials/page/'.$i), '2012-08-25T20:10:00+02:00', '8.0', 'daily');
-        }*/
-
-        // get all posts from db
-        //$posts = DB::table('posts')->orderBy('created_at', 'desc')->get();
-        //
-        //// add every post to the sitemap
-        //foreach ($posts as $post)
-        //{
-        //   $sitemap->add($post->slug, $post->modified, $post->priority, $post->freq);
-        //}
-        //}
-        // show your sitemap (options: 'xml' (default), 'html', 'txt', 'ror-rss', 'ror-rdf')
         return $sitemap->render('xml');
     }
 

@@ -12,7 +12,7 @@
 */
 
 
-Route::group(['prefix' => '/'/*, 'middleware' => 'frontEndMiddleware'*/], function () {
+Route::group(['prefix' => '/', 'middleware' => 'frontEndMiddleware'], function () {
     Route::get('/', 'HomeController@getView')->name('home');
 
     Route::post('/get-qr-code-from-address', 'HomeController@generateQrImage')->name('get-qr-code-from-address');
@@ -26,4 +26,6 @@ Route::group(['prefix' => '/'/*, 'middleware' => 'frontEndMiddleware'*/], functi
 
         Route::get('/amount-to/{address}', 'SendController@getAmountToView')->name('amount-to');
     });
+
+    Route::get('sitemap.xml', 'Controller@getSitemap')->name('sitemap');
 });
