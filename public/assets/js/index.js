@@ -156,8 +156,6 @@ var App = {
                 App.updateBalance();
             }
 
-            console.log(global_state, 'global_state');
-
             //save current block number into state
             await App.helper.getBlockNum();
 
@@ -423,15 +421,7 @@ var App = {
                     }
                 });
             });
-        }/*,
-        getTrans: function()  {
-            return new Promise(function(resolve, reject) {
-                web3.eth.getTransactionCount("0xfEe49F39CdE2df3136f5A312cf74EadeeABEf357", function(txCount, result, test) {
-                    console.log(result);
-                    console.log(test);
-                });
-            });
-        }*/
+        }
     }
 };
 App.init();
