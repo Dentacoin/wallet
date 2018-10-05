@@ -20,5 +20,8 @@
     "lodash": "^4.17.4",
     "truffle-contract": "^3.0.6",
     "vue": "^2.1.10"
+  },
+  "dependencies": {
+    "web3": "^1.0.0-beta.36"
   }
 }

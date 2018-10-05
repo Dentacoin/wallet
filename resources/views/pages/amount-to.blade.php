@@ -36,7 +36,7 @@
                     Input the amount that you want to send to the wallet address above.
                 </div>
                 <div class="col-12 btn-container text-center">
-                    <a href="javascript:sendValue()" class="bluegreen-white-btn">Send</a>
+                    <a href="javascript:void(0)" class="bluegreen-white-btn send-value-btn">Send</a>
                 </div>
             </div>
         </div>

@@ -355,6 +355,11 @@ var basic = {
         };
     }
 };
+
+var _require = require('./helper'),
+    getWeb3 = _require.getWeb3,
+    getContractInstance = _require.getContractInstance;
+
 basic.init();
 $(document).ready(function () {
     if ($('body').hasClass('amount-to')) {
@@ -440,10 +445,7 @@ function initChecker() {
                 }
             }
         } else {
-            if (!meta_mask_installed) {
-                //popup for download metamask
-                mobileDownloadMetaMaskPopup();
-            } else if (!meta_mask_logged) {
+            if (is_firefox && !meta_mask_logged) {
                 //popup for login in metamask
                 mobileLoginMetaMaskPopup();
             }
@@ -469,7 +471,6 @@ window.addEventListener('load', function () {});
 
 var global_state = {};
 var temporally_timestamp = 0;
-var send_event = false;
 global_state.curr_dcn_in_usd = parseFloat($('body').attr('data-current-dcn-in-usd'));
 var App = {
     web3Provider: null,
@@ -481,14 +482,21 @@ var App = {
     },
     initWeb3: function initWeb3() {
         // initialize web3
-        if (typeof web3 !== 'undefined') {
-            //reuse the provider of the Web3 object injected by Metamask
-            App.web3Provider = web3.currentProvider;
-        } else {
-            //create a new provider and plug it directly into our local node
-            App.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545');
-        }
-        web3 = new Web3(App.web3Provider);
+        //if(typeof web3 !== 'undefined') {
+        //    //reuse the provider of the Web3 object injected by Metamask
+        //    App.web3Provider = web3.currentProvider;
+        //} else {
+        //    //create a new provider and plug it directly into our local node
+        //    App.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545');
+        //}
+        //web3 = new Web3(App.web3Provider);
+
+        var web3 = getWeb3();
+        var getInstance = getContractInstance(web3);
+        var myContract = getInstance("DentacoinToken");
+
+        console.log(web3);
+        return false;
 
         return App.initContract();
     },
@@ -523,6 +531,8 @@ var App = {
                                 App.events.logTransfer();
 
                                 App.buildTransactionsHistory();
+
+                                //App.helper.getTrans();
 
                                 onAccountSwitch();
 
@@ -636,8 +646,6 @@ var App = {
                             if (num === undefined) {
                                 num = 1;
                                 called_transactions_first_time = false;
-                                $('.transaction-history table tbody.visible-tbody').html('<tr class="loader-animation"> <td class="text-center"> <figure class="inline-block rotate-animation"><a href=""><img src="/assets/images/exchange-icon.png\" alt="Exchange icon"/></a></figure> </td></tr>');
-                                $('.transaction-history .show-more-holder').html('');
                             }
 
                             if (!(num > 1)) {
@@ -818,9 +826,16 @@ var App = {
     }(),
     events: {
         logTransfer: function logTransfer() {
+            /*var options = {fromBlock : global_state.curr_block, toBlock: 'latest', address: '0x0e85a0d1363f373fcf54a4be320ed149eed25ccc'};
+            var filter = web3.eth.filter('pending');
+            filter.watch(function(error, result){
+                if(!error) {
+                    console.log(result);
+                }
+            });*/
             var transactions_hash_arr = [];
             App.contracts.DentacoinToken.deployed().then(function (instance) {
-                instance.Transfer({}, { fromBlock: global_state.curr_block, toBlock: 'latest' }).watch(function (error, result) {
+                instance.Transfer({ _from: global_state.account }, { fromBlock: global_state.curr_block, toBlock: 'latest' }).watch(function (error, result) {
                     if (!error) {
                         if (!isInArray(result.transactionHash, transactions_hash_arr) && $('body').hasClass('amount-to')) {
                             transactions_hash_arr.push(result.transactionHash);
@@ -867,7 +882,15 @@ var App = {
                     }
                 });
             });
-        }
+        } /*,
+          getTrans: function()  {
+             return new Promise(function(resolve, reject) {
+                 web3.eth.getTransactionCount("0xfEe49F39CdE2df3136f5A312cf74EadeeABEf357", function(txCount, result, test) {
+                     console.log(result);
+                     console.log(test);
+                 });
+             });
+          }*/
     }
 };
 App.init();
@@ -915,51 +938,71 @@ if ($('body').hasClass('home')) {
 } else if ($('body').hasClass('send')) {
     //on input and if valid address add active class to 'next' button for UI
     $('.send-container .wallet-address input').on('input', function () {
-        if (!meta_mask_installed || !meta_mask_logged) {
-            $(this).val('');
-            if (basic.isMobile()) {
+        if (basic.isMobile()) {
+            if (!is_firefox && typeof web3 === 'undefined') {
+                $(this).val('');
+                mobileDownloadMetaMaskPopup();
+                return false;
+            } else if (is_firefox) {
                 if (!meta_mask_installed) {
+                    $(this).val('');
                     mobileDownloadMetaMaskPopup();
+                    return false;
                 } else if (!meta_mask_logged) {
+                    $(this).val('');
                     mobileLoginMetaMaskPopup();
-                }
-            } else {
-                if (!meta_mask_installed) {
-                    desktopDownloadMetaMaskPopup();
-                } else if (!meta_mask_logged) {
-                    desktopLoginMetaMaskPopup();
+                    return false;
                 }
             }
         } else {
-            if (innerAddressCheck($(this).val().trim())) {
-                $('.send-container .next a').addClass('active');
-            } else if ($('.send-container .next a').hasClass('active')) {
-                $('.send-container .next a').removeClass('active');
+            if (!meta_mask_installed) {
+                desktopDownloadMetaMaskPopup();
+                $(this).val('');
+                return false;
+            } else if (!meta_mask_logged) {
+                desktopLoginMetaMaskPopup();
+                $(this).val('');
+                return false;
             }
+        }
+        if (innerAddressCheck($(this).val().trim())) {
+            $('.send-container .next a').addClass('active');
+        } else if ($('.send-container .next a').hasClass('active')) {
+            $('.send-container .next a').removeClass('active');
         }
     });
 
     $('.send-container .next a').click(function () {
-        if (!meta_mask_installed || !meta_mask_logged) {
-            if (basic.isMobile()) {
+        if (basic.isMobile()) {
+            if (!is_firefox && typeof web3 === 'undefined') {
+                $(this).val('');
+                mobileDownloadMetaMaskPopup();
+                return false;
+            } else if (is_firefox) {
                 if (!meta_mask_installed) {
+                    $(this).val('');
                     mobileDownloadMetaMaskPopup();
+                    return false;
                 } else if (!meta_mask_logged) {
+                    $(this).val('');
                     mobileLoginMetaMaskPopup();
-                }
-            } else {
-                if (!meta_mask_installed) {
-                    desktopDownloadMetaMaskPopup();
-                } else if (!meta_mask_logged) {
-                    desktopLoginMetaMaskPopup();
+                    return false;
                 }
             }
         } else {
-            if (innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
-                window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
-            } else {
-                basic.showAlert('Please enter valid address.', '', true);
+            if (!meta_mask_installed) {
+                desktopDownloadMetaMaskPopup();
+                return false;
+            } else if (!meta_mask_logged) {
+                desktopLoginMetaMaskPopup();
+                return false;
             }
+        }
+
+        if (innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
+            window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
+        } else {
+            basic.showAlert('Please enter valid address.', '', true);
         }
     });
 }
@@ -973,134 +1016,156 @@ function pageAmountToLogic() {
 
     //editing the address logic
     $('.amount-to-container .edit-address').click(function () {
-        if (!meta_mask_installed || !meta_mask_logged) {
-            if (basic.isMobile()) {
+        if (basic.isMobile()) {
+            if (!is_firefox && typeof web3 === 'undefined') {
+                mobileDownloadMetaMaskPopup();
+                return false;
+            } else if (is_firefox) {
                 if (!meta_mask_installed) {
                     mobileDownloadMetaMaskPopup();
+                    return false;
                 } else if (!meta_mask_logged) {
                     mobileLoginMetaMaskPopup();
-                }
-            } else {
-                if (!meta_mask_installed) {
-                    desktopDownloadMetaMaskPopup();
-                } else if (!meta_mask_logged) {
-                    desktopLoginMetaMaskPopup();
+                    return false;
                 }
             }
         } else {
-            if ($(this).hasClass('ready-to-edit')) {
-                var editing_address = $('.amount-to-container .value-to-edit').val().trim();
-                if (innerAddressCheck(editing_address)) {
-                    $(this).find('img').attr('src', $(this).find('img').attr('data-default-src'));
-                    $('.amount-to-container .wallet-address span.address').html(editing_address);
-                    $('.amount-to-container .value-to-edit').hide();
-                    $('.amount-to-container .address-container span').show();
-                    $('.amount-to-container .address-container').removeClass('editing');
-                    $(this).removeClass('ready-to-edit');
-                    window.history.pushState(null, null, HOME_URL + '/send/amount-to/' + editing_address);
-                } else {
-                    basic.showAlert('Please enter valid address.', '', true);
-                }
-            } else {
-                $(this).addClass('ready-to-edit');
-                $(this).find('img').attr('src', $(this).find('img').attr('data-check-src'));
-                $(this).closest('.wallet-address').find('.address-container').addClass('editing');
-                $('.amount-to-container .address-container span').hide();
-                $('.amount-to-container .address-container .value-to-edit').show().select();
+            if (!meta_mask_installed) {
+                desktopDownloadMetaMaskPopup();
+                return false;
+            } else if (!meta_mask_logged) {
+                desktopLoginMetaMaskPopup();
+                return false;
             }
+        }
+        if ($(this).hasClass('ready-to-edit')) {
+            var editing_address = $('.amount-to-container .value-to-edit').val().trim();
+            if (innerAddressCheck(editing_address)) {
+                $(this).find('img').attr('src', $(this).find('img').attr('data-default-src'));
+                $('.amount-to-container .wallet-address span.address').html(editing_address);
+                $('.amount-to-container .value-to-edit').hide();
+                $('.amount-to-container .address-container span').show();
+                $('.amount-to-container .address-container').removeClass('editing');
+                $(this).removeClass('ready-to-edit');
+                window.history.pushState(null, null, HOME_URL + '/send/amount-to/' + editing_address);
+            } else {
+                basic.showAlert('Please enter valid address.', '', true);
+            }
+        } else {
+            $(this).addClass('ready-to-edit');
+            $(this).find('img').attr('src', $(this).find('img').attr('data-check-src'));
+            $(this).closest('.wallet-address').find('.address-container').addClass('editing');
+            $('.amount-to-container .address-container span').hide();
+            $('.amount-to-container .address-container .value-to-edit').show().select();
         }
     });
 
     //on input in dcn input change usd input
     $('.amount-to-container input#dcn').on('input', function () {
-        if (!meta_mask_installed || !meta_mask_logged) {
-            $(this).val('');
-            if (basic.isMobile()) {
-                if (!meta_mask_installed) {
-                    mobileDownloadMetaMaskPopup();
-                } else if (!meta_mask_logged) {
-                    mobileLoginMetaMaskPopup();
-                }
-            } else {
-                if (!meta_mask_installed) {
-                    desktopDownloadMetaMaskPopup();
-                } else if (!meta_mask_logged) {
-                    desktopLoginMetaMaskPopup();
-                }
-            }
-        } else {
-            $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2));
-        }
-    });
-
-    //on input in usd input change dcn input
-    $('.amount-to-container input#usd').on('input', function () {
-        if (!meta_mask_installed || !meta_mask_logged) {
-            $(this).val('');
-            if (basic.isMobile()) {
-                if (!meta_mask_installed) {
-                    mobileDownloadMetaMaskPopup();
-                } else if (!meta_mask_logged) {
-                    mobileLoginMetaMaskPopup();
-                }
-            } else {
-                if (!meta_mask_installed) {
-                    desktopDownloadMetaMaskPopup();
-                } else if (!meta_mask_logged) {
-                    desktopLoginMetaMaskPopup();
-                }
-            }
-        } else {
-            $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
-        }
-    });
-}
-
-function sendValue() {
-    if (!meta_mask_installed || !meta_mask_logged) {
         if (basic.isMobile()) {
-            if (!meta_mask_installed) {
+            if (!is_firefox && typeof web3 === 'undefined') {
                 mobileDownloadMetaMaskPopup();
-            } else if (!meta_mask_logged) {
-                mobileLoginMetaMaskPopup();
+                return false;
+            } else if (is_firefox) {
+                if (!meta_mask_installed) {
+                    mobileDownloadMetaMaskPopup();
+                    return false;
+                } else if (!meta_mask_logged) {
+                    mobileLoginMetaMaskPopup();
+                    return false;
+                }
             }
         } else {
             if (!meta_mask_installed) {
                 desktopDownloadMetaMaskPopup();
+                return false;
             } else if (!meta_mask_logged) {
                 desktopLoginMetaMaskPopup();
+                return false;
+            }
+        }
+        $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2));
+    });
+
+    //on input in usd input change dcn input
+    $('.amount-to-container input#usd').on('input', function () {
+        if (basic.isMobile()) {
+            if (!is_firefox && typeof web3 === 'undefined') {
+                mobileDownloadMetaMaskPopup();
+                return false;
+            } else if (is_firefox) {
+                if (!meta_mask_installed) {
+                    mobileDownloadMetaMaskPopup();
+                    return false;
+                } else if (!meta_mask_logged) {
+                    mobileLoginMetaMaskPopup();
+                    return false;
+                }
+            }
+        } else {
+            if (!meta_mask_installed) {
+                desktopDownloadMetaMaskPopup();
+                return false;
+            } else if (!meta_mask_logged) {
+                desktopLoginMetaMaskPopup();
+                return false;
+            }
+        }
+        $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
+    });
+}
+
+function sendValue() {
+    if (basic.isMobile()) {
+        if (!is_firefox && typeof web3 === 'undefined') {
+            mobileDownloadMetaMaskPopup();
+            return false;
+        } else if (is_firefox) {
+            if (!meta_mask_installed) {
+                mobileDownloadMetaMaskPopup();
+                return false;
+            } else if (!meta_mask_logged) {
+                mobileLoginMetaMaskPopup();
+                return false;
             }
         }
     } else {
-        var dcn_val = $('.amount-to-container input#dcn').val().trim();
-        var usd_val = $('.amount-to-container input#usd').val().trim();
-        if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
-            //checking if not a number or empty values
-            basic.showAlert('Please make sure all values are numbers.', '', true);
-        } else if (dcn_val < 0 || usd_val < 0) {
-            //checking if negative numbers
-            basic.showAlert('Please make sure all values are more than 0.', '', true);
-        } else if (dcn_val < 10) {
-            //checking if dcn value is lesser than 10 (contract condition)
-            basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
-        } else if (dcn_val > global_state.curr_address_balance) {
-            //checking if current balance is lower than the desired value to send
-            basic.showAlert('The value you want to send is higher than your balance.', '', true);
-        } else if ($('.amount-to-container .address-container').hasClass('editing')) {
-            //checking if editing address is done
-            basic.showAlert('Please make sure you are done with address editing.', '', true);
-        } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
-            //checking again if valid address
-            basic.showAlert('Please make sure you are sending to valid address.', '', true);
-        } else {
-            var callback_obj = {};
-            callback_obj.callback = function (result) {
-                if (result) {
-                    App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
-                }
-            };
-            basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
+        if (!meta_mask_installed) {
+            desktopDownloadMetaMaskPopup();
+            return false;
+        } else if (!meta_mask_logged) {
+            desktopLoginMetaMaskPopup();
+            return false;
         }
+    }
+    var dcn_val = $('.amount-to-container input#dcn').val().trim();
+    var usd_val = $('.amount-to-container input#usd').val().trim();
+    if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
+        //checking if not a number or empty values
+        basic.showAlert('Please make sure all values are numbers.', '', true);
+    } else if (dcn_val < 0 || usd_val < 0) {
+        //checking if negative numbers
+        basic.showAlert('Please make sure all values are more than 0.', '', true);
+    } else if (dcn_val < 10) {
+        //checking if dcn value is lesser than 10 (contract condition)
+        basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
+    } else if (dcn_val > global_state.curr_address_balance) {
+        //checking if current balance is lower than the desired value to send
+        basic.showAlert('The value you want to send is higher than your balance.', '', true);
+    } else if ($('.amount-to-container .address-container').hasClass('editing')) {
+        //checking if editing address is done
+        basic.showAlert('Please make sure you are done with address editing.', '', true);
+    } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
+        //checking again if valid address
+        basic.showAlert('Please make sure you are sending to valid address.', '', true);
+    } else {
+        var callback_obj = {};
+        callback_obj.callback = function (result) {
+            if (result) {
+                App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
+            }
+        };
+        basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
     }
 }
 

@@ -2329,6 +2329,10 @@ input.module-field {
   font-weight: bold;
   font-size: 14px; }
 
+.etherscan-link {
+  text-decoration: underline;
+  font-weight: bold; }
+
 header .logo {
   padding-top: 10px;
   padding-bottom: 10px; }

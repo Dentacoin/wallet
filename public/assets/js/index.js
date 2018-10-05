@@ -1,3 +1,5 @@
+var {getWeb3, getContractInstance} = require('./helper');
+
 basic.init();
 $(document).ready(function() {
     if($('body').hasClass('amount-to')) {
@@ -31,7 +33,7 @@ var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") == -1;
 var called_transactions_first_time = false;
 function mobileDownloadMetaMaskPopup()  {
     var button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
-    var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
+    var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are you ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>'+button_html+'</div>';
     basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
 
@@ -120,35 +122,32 @@ window.addEventListener('load', function() {
 var global_state = {};
 var temporally_timestamp = 0;
 global_state.curr_dcn_in_usd = parseFloat($('body').attr('data-current-dcn-in-usd'));
+var getInstance;
+var myContract;
 var App = {
     web3Provider: null,
+    curr_web3: null,
+    defaultAccount: null,
     contracts: {},
     loading: false,
     init: function() {
         initChecker();
         return App.initWeb3();
     },
-    initWeb3: function() {
-        // initialize web3
+    initWeb3: async function()    {
         if(typeof web3 !== 'undefined') {
             //reuse the provider of the Web3 object injected by Metamask
-            App.web3Provider = web3.currentProvider;
-        } else {
-            //create a new provider and plug it directly into our local node
-            App.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545');
+            App.curr_web3 = web3;
+            global_state.account = web3.eth.defaultAccount;
+            web3 = getWeb3(web3.currentProvider);
         }
-        web3 = new Web3(App.web3Provider);
-
         return App.initContract();
     },
     initContract: function() {
         $.getJSON('/assets/jsons/DentacoinToken.json', async function(DCNArtifact) {
             // get the contract artifact file and use it to instantiate a truffle contract abstraction
-            App.contracts.DentacoinToken = TruffleContract(DCNArtifact);
-            // set the provider for our contracts
-            App.contracts.DentacoinToken.setProvider(App.web3Provider);
-
-            global_state.account = web3.eth.defaultAccount;
+            getInstance = getContractInstance(web3);
+            myContract = getInstance(DCNArtifact, "0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6");
 
             //refresh the current dentacoin value
             if($('.homepage-container').length > 0) {
@@ -157,11 +156,13 @@ var App = {
                 App.updateBalance();
             }
 
+            console.log(global_state, 'global_state');
+
             //save current block number into state
             await App.helper.getBlockNum();
 
             //set Transfer event watcher
-            App.events.logTransfer();
+            //App.events.logTransfer();
 
             App.buildTransactionsHistory();
 
@@ -169,64 +170,57 @@ var App = {
         });
     },
     updateBalance: function(homepage)  {
-        App.contracts.DentacoinToken.deployed().then(function(instance) {
-            return instance.balanceOf.call(global_state.account);
-        }).then(function(result) {
-            if(homepage === undefined){
-                homepage = null;
+        return myContract.methods.balanceOf(global_state.account).call({ from: global_state.account }, function(error, result)   {
+            if(!error)  {
+                if(homepage === undefined){
+                    homepage = null;
+                }
+                global_state.curr_address_balance = result;
+                if(homepage != null)    {
+                    setTimeout(function()   {
+                        initHomepageUserData();
+                        $('.values-and-qr-code .animation').removeClass('rotate-animation');
+                        $('.homepage-container .dcn-value .value').html(result);
+                        $('.homepage-container .output .value').html((parseInt(result) * global_state.curr_dcn_in_usd).toFixed(2));
+                        $('.homepage-container .values-and-qr-code').show();
+                    }, 300);
+                }
+            }else {
+                console.error(error);
             }
-
-            global_state.curr_address_balance = result.toNumber();
-            if(homepage != null)    {
-                setTimeout(function()   {
-                    initHomepageUserData();
-                    $('.values-and-qr-code .animation').removeClass('rotate-animation');
-                    $('.homepage-container .dcn-value .value').html(result.toNumber());
-                    $('.homepage-container .output .value').html((result.toNumber() * global_state.curr_dcn_in_usd).toFixed(2));
-                    $('.homepage-container .values-and-qr-code').show();
-                }, 300);
-            }
-        }).catch(function(err) {
-            console.error(err);
         });
     },
     sendValue: function(send_addr, value)  {
-        App.contracts.DentacoinToken.deployed().then(function(instance) {
-            var transfer = instance.transfer(send_addr, value, {
-                from: global_state.account,
-                gas: 65000
-            }).then(function (result){
-                basic.showAlert('Your transaction is pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+result.tx+'">Etherscan</a>.', '', true);
-            }).catch(function(err) {
-                console.error(err);
-            });
-
-            basic.showAlert('Your transaction is about to get mined.', '', true);
-            return transfer;
-        })
+        return myContract.methods.transfer(send_addr, value).send({
+            from: global_state.account,
+            gas: 65000
+        }).on('transactionHash', function(hash){
+            $('.amount-to-container input#dcn').val('');
+            $('.amount-to-container input#usd').val('');
+            basic.showAlert('Your transaction is about to get mined. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+hash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
+        }).then(function (result){
+            basic.closeDialog();
+            basic.showAlert('Your transaction is now pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+result.transactionHash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
+        }).catch(function(err) {
+            console.error(err);
+        });
     },
     getFromTransactionsEvents: function(from_num, to)    {
         if(to === undefined){
             to = 'latest';
         }
         return new Promise(function(resolve, reject) {
-            App.contracts.DentacoinToken.deployed().then(function(instance) {
-                global_state.from_transactions = [];
-                var event_obj = {
-                    fromBlock: global_state.curr_block - from_num,
-                    toBlock: to
-                };
-                if(global_state.curr_block - from_num < 0)    {
-                    event_obj.fromBlock = 0;
-                }
-                var from_transfer = instance.Transfer({_from: global_state.account}, event_obj);
-                from_transfer.get(function (error, logs) {
-                    if (error !== null) {
-                        reject(error);
-                    }
-                    global_state.from_transactions = logs;
-                    resolve(global_state.from_transactions);
-                });
+            global_state.from_transactions = [];
+            var event_obj = {
+                filter: {_from: global_state.account},
+                fromBlock: global_state.curr_block - from_num,
+                toBlock: to
+            };
+            if(global_state.curr_block - from_num < 0)    {
+                event_obj.fromBlock = 0;
+            }
+            myContract.getPastEvents('Transfer', event_obj, function(error, event){
+                resolve(event);
             });
         });
     },
@@ -235,23 +229,17 @@ var App = {
             to = 'latest';
         }
         return new Promise(function(resolve, reject) {
-            App.contracts.DentacoinToken.deployed().then(function(instance) {
-                global_state.to_transactions = [];
-                var event_obj = {
-                    fromBlock: global_state.curr_block - from_num,
-                    toBlock: to
-                };
-                if(global_state.curr_block - from_num < 0)    {
-                    event_obj.fromBlock = 0;
-                }
-                var to_transfer = instance.Transfer({_to: global_state.account}, event_obj);
-                to_transfer.get(function (error, logs) {
-                    if (error !== null) {
-                        reject(error);
-                    }
-                    global_state.to_transactions = logs;
-                    resolve(global_state.to_transactions);
-                });
+            global_state.from_transactions = [];
+            var event_obj = {
+                filter: {_to: global_state.account},
+                fromBlock: global_state.curr_block - from_num,
+                toBlock: to
+            };
+            if (global_state.curr_block - from_num < 0) {
+                event_obj.fromBlock = 0;
+            }
+            myContract.getPastEvents('Transfer', event_obj, function (error, event) {
+                resolve(event);
             });
         });
     },
@@ -263,15 +251,15 @@ var App = {
 
         if(num > 1) {
             //build transactions history from previous events on the blockchain
-            await App.getFromTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - (blocks_for_month_n_half * (num - 1)));
-            await App.getToTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - (blocks_for_month_n_half * (num - 1)));
+            var from_events = await App.getFromTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - (blocks_for_month_n_half * (num - 1)));
+            var to_events = await App.getToTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - (blocks_for_month_n_half * (num - 1)));
         }else {
             //build transactions history from previous events on the blockchain
-            await App.getFromTransactionsEvents(num * blocks_for_month_n_half);
-            await App.getToTransactionsEvents(num * blocks_for_month_n_half);
+            var from_events = await App.getFromTransactionsEvents(num * blocks_for_month_n_half);
+            var to_events = await App.getToTransactionsEvents(num * blocks_for_month_n_half);
         }
 
-        var array = global_state.from_transactions.concat(global_state.to_transactions);
+        var array = from_events.concat(to_events);
         if(array.length > 0)    {
             //getting the clinics from the api cached json
             var api_clinics = await $.getJSON('/assets/jsons/clinics.json');
@@ -298,28 +286,28 @@ var App = {
                 var class_name = '';
                 var label = '';
                 var dcn_amount = '';
-                var usd_amount = (array[i].args._value.toNumber() * global_state.curr_dcn_in_usd).toFixed(2);
-                if(array[i].args._to == global_state.account)    {
+                var usd_amount = (parseInt(array[i].returnValues._value) * global_state.curr_dcn_in_usd).toFixed(2);
+                if(array[i].returnValues._to.toLowerCase() == global_state.account.toLowerCase())    {
                     //IF THE CURRENT ACCOUNT IS RECEIVER
-                    other_address = array[i].args._from;
+                    other_address = array[i].returnValues._from;
                     label = 'Received from';
                     class_name = 'received_from';
-                    dcn_amount = '+'+array[i].args._value.toString()+' DCN';
-                    if(has(api_clinics.clinics, array[i].args._from)) {
-                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">'+api_clinics.clinics[array[i].args._from].name+'</a>';
+                    dcn_amount = '+'+array[i].returnValues._value+' DCN';
+                    if(has(api_clinics.clinics, array[i].returnValues._from)) {
+                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">'+api_clinics.clinics[array[i].returnValues._from].name+'</a>';
                     }
-                }else if(array[i].args._from == global_state.account) {
+                }else if(array[i].returnValues._from.toLowerCase() == global_state.account.toLowerCase()) {
                     //IF THE CURRENT ACCOUNT IS SENDER
-                    other_address = array[i].args._to;
-                    if(has(api_clinics.clinics, array[i].args._to)) {
-                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">'+api_clinics.clinics[array[i].args._to].name+'</a>';
+                    other_address = array[i].returnValues._to;
+                    if(has(api_clinics.clinics, array[i].returnValues._to)) {
+                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">'+api_clinics.clinics[array[i].returnValues._to].name+'</a>';
                         label = 'Payed to';
                         class_name = 'payed_to';
                     }else {
                         label = 'Sent to';
                         class_name = 'sent_to';
                     }
-                    dcn_amount = '-'+array[i].args._value.toString()+' DCN';
+                    dcn_amount = '-'+array[i].returnValues._value+' DCN';
                 }
 
                 if(new Date(array[i].timestamp*1000).getMinutes() < 10) {
@@ -371,22 +359,37 @@ var App = {
     },
     events: {
         logTransfer: function() {
+            /*var options = {fromBlock : global_state.curr_block, toBlock: 'latest', address: '0x0e85a0d1363f373fcf54a4be320ed149eed25ccc'};
+            var filter = web3.eth.filter('pending');
+            filter.watch(function(error, result){
+                if(!error) {
+                    console.log(result);
+                }
+            });*/
             var transactions_hash_arr = [];
-            App.contracts.DentacoinToken.deployed().then(function(instance) {
-                instance.Transfer({}, {fromBlock: global_state.curr_block, toBlock: 'latest'}).watch(function(error, result){
-                    if(!error) {
-                        if(!isInArray(result.transactionHash, transactions_hash_arr) && $('body').hasClass('amount-to')) {
-                            transactions_hash_arr.push(result.transactionHash);
-                            basic.closeDialog();
-                            basic.showAlert('Your transaction was confirmed. Check here  <a href="https://etherscan.io/tx/'+result.transactionHash+'">Etherscan</a>', '', true);
-                            $('.amount-to-container input#dcn').val('');
-                            $('.amount-to-container input#usd').val('');
-                        }
-                    }else {
-                        console.log(error);
+            var transfer_event_obj = {
+                filter: {_from: global_state.account},
+                fromBlock: global_state.curr_block,
+                toBlock: 'latest'
+            };
+            myContract.events.Transfer(transfer_event_obj, function(error, result){
+                if(!error) {
+                    if(!isInArray(result.transactionHash, transactions_hash_arr) && $('body').hasClass('amount-to')) {
+                        transactions_hash_arr.push(result.transactionHash);
+                        basic.closeDialog();
+                        basic.showAlert('Your transaction was confirmed. Check here  <a href="https://etherscan.io/tx/'+result.transactionHash+'" class="etherscan-link">Etherscan</a>', '', true);
                     }
-                });
-            });
+                }else {
+                    console.log(error);
+                }
+            }).on('data', function(event){
+                console.log(event, 'data'); // same results as the optional callback above
+            })
+            .on('changed', function(event){
+                // remove event from local database
+                console.log(event, 'changed'); // same results as the optional callback above
+            })
+            .on('error', console.error);
         }
     },
     helper: {
@@ -420,7 +423,15 @@ var App = {
                     }
                 });
             });
-        }
+        }/*,
+        getTrans: function()  {
+            return new Promise(function(resolve, reject) {
+                web3.eth.getTransactionCount("0xfEe49F39CdE2df3136f5A312cf74EadeeABEf357", function(txCount, result, test) {
+                    console.log(result);
+                    console.log(test);
+                });
+            });
+        }*/
     }
 };
 App.init();
@@ -541,7 +552,7 @@ if($('body').hasClass('home'))  {
 function pageAmountToLogic()    {
     var curr_addr = window.location.href.split('/')[window.location.href.split('/').length-1];
     //redirect to /send if the address it not valid or using the same address as the owner
-    if(typeof(web3.eth.defaultAccount) == 'undefined' || (typeof(web3) == 'undefined' && web3.currentProvider.isMetaMask !== true) || !web3.isAddress(curr_addr) || curr_addr == global_state.account)   {
+    if(typeof(global_state.account) == 'undefined' || (typeof(web3) == 'undefined' && web3.currentProvider.isMetaMask !== true) || !innerAddressCheck(curr_addr) || curr_addr == global_state.account)   {
         window.location = HOME_URL + '/send';
     }
 
@@ -645,71 +656,70 @@ function pageAmountToLogic()    {
         }
         $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
     });
-}
 
-
-
-function sendValue()    {
-    if(basic.isMobile())    {
-        if(!is_firefox && typeof(web3) === 'undefined') {
-            mobileDownloadMetaMaskPopup();
-            return false;
-        }else if(is_firefox) {
-            if(!meta_mask_installed)   {
+    $('.amount-to-container .send-value-btn').click(function()  {
+        if(basic.isMobile())    {
+            if(!is_firefox && typeof(web3) === 'undefined') {
                 mobileDownloadMetaMaskPopup();
                 return false;
+            }else if(is_firefox) {
+                if(!meta_mask_installed)   {
+                    mobileDownloadMetaMaskPopup();
+                    return false;
+                }else if(!meta_mask_logged)   {
+                    mobileLoginMetaMaskPopup();
+                    return false;
+                }
+            }
+        }else {
+            if(!meta_mask_installed)   {
+                desktopDownloadMetaMaskPopup();
+                return false;
             }else if(!meta_mask_logged)   {
-                mobileLoginMetaMaskPopup();
+                desktopLoginMetaMaskPopup();
                 return false;
             }
         }
-    }else {
-        if(!meta_mask_installed)   {
-            desktopDownloadMetaMaskPopup();
-            return false;
-        }else if(!meta_mask_logged)   {
-            desktopLoginMetaMaskPopup();
-            return false;
+        var dcn_val = $('.amount-to-container input#dcn').val().trim();
+        var usd_val = $('.amount-to-container input#usd').val().trim();
+        if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
+            //checking if not a number or empty values
+            basic.showAlert('Please make sure all values are numbers.', '', true);
+        } else if (dcn_val < 0 || usd_val < 0) {
+            //checking if negative numbers
+            basic.showAlert('Please make sure all values are more than 0.', '', true);
+        } else if (dcn_val < 10) {
+            //checking if dcn value is lesser than 10 (contract condition)
+            basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
+        } else if (dcn_val > parseInt(global_state.curr_address_balance)) {
+            //checking if current balance is lower than the desired value to send
+            basic.showAlert('The value you want to send is higher than your balance.', '', true);
+        } else if ($('.amount-to-container .address-container').hasClass('editing')) {
+            //checking if editing address is done
+            basic.showAlert('Please make sure you are done with address editing.', '', true);
+        } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
+            //checking again if valid address
+            basic.showAlert('Please make sure you are sending to valid address.', '', true);
+        } else {
+            var callback_obj = {};
+            callback_obj.callback = function (result) {
+                if (result) {
+                    App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
+                }
+            };
+            basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
         }
-    }
-    var dcn_val = $('.amount-to-container input#dcn').val().trim();
-    var usd_val = $('.amount-to-container input#usd').val().trim();
-    if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
-        //checking if not a number or empty values
-        basic.showAlert('Please make sure all values are numbers.', '', true);
-    } else if (dcn_val < 0 || usd_val < 0) {
-        //checking if negative numbers
-        basic.showAlert('Please make sure all values are more than 0.', '', true);
-    } else if (dcn_val < 10) {
-        //checking if dcn value is lesser than 10 (contract condition)
-        basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
-    } else if (dcn_val > global_state.curr_address_balance) {
-        //checking if current balance is lower than the desired value to send
-        basic.showAlert('The value you want to send is higher than your balance.', '', true);
-    } else if ($('.amount-to-container .address-container').hasClass('editing')) {
-        //checking if editing address is done
-        basic.showAlert('Please make sure you are done with address editing.', '', true);
-    } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
-        //checking again if valid address
-        basic.showAlert('Please make sure you are sending to valid address.', '', true);
-    } else {
-        var callback_obj = {};
-        callback_obj.callback = function (result) {
-            if (result) {
-                App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
-            }
-        };
-        basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
-    }
+    });
 }
 
+
 function innerAddressCheck(address)    {
-    return web3.isAddress(address) && address != global_state.account;
+    return App.curr_web3.isAddress(address) && address != global_state.account;
 }
 
 async function onAccountSwitch() {
     if(typeof(global_state.account) != 'undefined')   {
-        if(global_state.account != web3.eth.defaultAccount) {
+        if(global_state.account != App.curr_web3.eth.defaultAccount) {
             //doing this check because metamask fire the change event randomly, this way we detect real account switch
             //global_state.account = web3.eth.defaultAccount;
 
