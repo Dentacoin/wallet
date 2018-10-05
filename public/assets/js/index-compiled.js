@@ -25556,13 +25556,11 @@ var App = {
                                     App.updateBalance();
                                 }
 
-                                console.log(global_state, 'global_state');
-
                                 //save current block number into state
-                                _context2.next = 6;
+                                _context2.next = 5;
                                 return App.helper.getBlockNum();
 
-                            case 6:
+                            case 5:
 
                                 //set Transfer event watcher
                                 //App.events.logTransfer();
@@ -25571,7 +25569,7 @@ var App = {
 
                                 onAccountSwitch();
 
-                            case 8:
+                            case 7:
                             case 'end':
                                 return _context2.stop();
                         }
@@ -25916,15 +25914,7 @@ var App = {
                     }
                 });
             });
-        } /*,
-          getTrans: function()  {
-             return new Promise(function(resolve, reject) {
-                 web3.eth.getTransactionCount("0xfEe49F39CdE2df3136f5A312cf74EadeeABEf357", function(txCount, result, test) {
-                     console.log(result);
-                     console.log(test);
-                 });
-             });
-          }*/
+        }
     }
 };
 App.init();
