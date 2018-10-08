@@ -22,6 +22,7 @@ class Controller extends BaseController {
         View::share('mobile', $this->isMobile());
         View::share('meta_data', $this->getMetaData());
         View::share('dcn_in_usd', $this->getCurrentDcnUsdRate());
+        View::share('privacy_policy_cookie', $this->checkIfPrivacyPolicyCookie());
     }
 
     protected function getCurrentDcnUsdRate()  {
@@ -44,8 +45,13 @@ class Controller extends BaseController {
         }
     }
 
-    protected function buildTransactionHistory()    {
-
+    protected function checkIfPrivacyPolicyCookie()    {
+        $bool = empty($_COOKIE['privacy_policy']);
+        if($bool) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     protected function getMetaData()    {
@@ -93,5 +99,9 @@ class Controller extends BaseController {
         $response->setContent($buffer);
         ini_set('zlib.output_compression', 'On'); // If you like to enable GZip, too!
         return $response;
+    }
+
+    public function getCookie($cookie){
+        return request()->cookie($cookie);
     }
 }

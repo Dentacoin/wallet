@@ -25358,6 +25358,7 @@ var onAccountSwitch = function () {
 
                                 //build transactions history from previous events on the blockchain
                                 //App.buildTransactionsHistory();
+
                                 window.location.reload();
                             }
                         } else {
@@ -25380,6 +25381,36 @@ var onAccountSwitch = function () {
     };
 }();
 
+var initCheckIfUserLoggingMetaMask = function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5() {
+        var accounts;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+            while (1) {
+                switch (_context5.prev = _context5.next) {
+                    case 0:
+                        _context5.next = 2;
+                        return App.helper.getAccounts();
+
+                    case 2:
+                        accounts = _context5.sent;
+
+                        if (accounts.length > 0) {
+                            window.location.reload();
+                        }
+
+                    case 4:
+                    case 'end':
+                        return _context5.stop();
+                }
+            }
+        }, _callee5, this);
+    }));
+
+    return function initCheckIfUserLoggingMetaMask() {
+        return _ref5.apply(this, arguments);
+    };
+}();
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var _require = __webpack_require__(115),
@@ -25387,10 +25418,16 @@ var _require = __webpack_require__(115),
     getContractInstance = _require.getContractInstance;
 
 basic.init();
+
+initComboxes();
+
+checkIfCookie();
+
 $(document).ready(function () {
     if ($('body').hasClass('amount-to')) {
         pageAmountToLogic();
     }
+
     console.log("( ͡° ͜ʖ ͡°) I see you.");
 });
 
@@ -25411,7 +25448,7 @@ var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") == -1;
 var called_transactions_first_time = false;
 function mobileDownloadMetaMaskPopup() {
     var button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
-    var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are you ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>' + button_html + '</div>';
+    var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Just a simple step away...</div><div class="subtitle">Dentacoin Wallet is still in beta and requires external support.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">Install MetaMask to easily and securely sign in to your Dentacoin wallet and manage your tokens! No extra password needed.</div>' + button_html + '</div>';
     basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
 
@@ -25443,7 +25480,7 @@ function desktopLoginMetaMaskPopup() {
 function initChecker() {
     if (typeof web3 !== 'undefined' && web3.eth.defaultAccount === undefined) {
         setInterval(function () {
-            initCheckIfMetaMaskIsLogged();
+            initCheckIfUserLoggingMetaMask();
         }, 500);
     }
 
@@ -25610,11 +25647,11 @@ var App = {
         }).on('transactionHash', function (hash) {
             $('.amount-to-container input#dcn').val('');
             $('.amount-to-container input#usd').val('');
-            basic.showAlert('Your transaction is about to get mined. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/' + hash + '" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
-        }).then(function (result) {
-            basic.closeDialog();
-            basic.showAlert('Your transaction is now pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/' + result.transactionHash + '" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
-        }).catch(function (err) {
+            basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/' + hash + '" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
+        }) /*.then(function (result){
+             basic.closeDialog();
+             basic.showAlert('Your transaction is now pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+result.transactionHash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
+           })*/.catch(function (err) {
             console.error(err);
         });
     },
@@ -25790,7 +25827,7 @@ var App = {
                                 }
 
                                 //first 3 are visible, rest are going to hidden tbody
-                                table_html += '<tr class="' + class_name + ' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>' + (date_obj.getUTCMonth() + 1) + '/' + date_obj.getUTCDate() + '/' + date_obj.getUTCFullYear() + '</li><li>' + hours + ':' + minutes + '</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>' + label + ': </strong>' + json_clinic + ' (' + other_address + ')</span></li><li><a href="https://etherscan.io/tx/' + array[i].transactionHash + '" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">' + dcn_amount + '</li><li>' + usd_amount + ' USD</li></ul></td></tr>';
+                                table_html += '<tr class="' + class_name + ' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>' + (date_obj.getMonth() + 1) + '/' + date_obj.getDay() + '/' + date_obj.getFullYear() + '</li><li>' + hours + ':' + minutes + '</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>' + label + ': </strong>' + json_clinic + ' (' + other_address + ')</span></li><li><a href="https://etherscan.io/tx/' + array[i].transactionHash + '" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">' + dcn_amount + '</li><li>' + usd_amount + ' USD</li></ul></td></tr>';
                             }
                             $('.transaction-history table tbody .loader-animation').hide();
 
@@ -25914,6 +25951,15 @@ var App = {
                     }
                 });
             });
+        },
+        getAccounts: function getAccounts() {
+            return new Promise(function (resolve, reject) {
+                web3.eth.getAccounts(function (error, result) {
+                    if (!error) {
+                        resolve(result);
+                    }
+                });
+            });
         }
     }
 };
@@ -25960,8 +26006,16 @@ if ($('body').hasClass('home')) {
         trigger: 'click'
     });
 } else if ($('body').hasClass('send')) {
+    $('select.combobox.combobox-input').on('change', function () {
+        if (innerAddressCheck($(this).val())) {
+            $('.send-container .next a').addClass('active');
+        } else {
+            $('.send-container .next a').removeClass('active');
+        }
+    });
+
     //on input and if valid address add active class to 'next' button for UI
-    $('.send-container .wallet-address input').on('input', function () {
+    $('.send-container .wallet-address input.combobox-input').on('input', function () {
         if (basic.isMobile()) {
             if (!is_firefox && typeof web3 === 'undefined') {
                 $(this).val('');
@@ -26024,9 +26078,9 @@ if ($('body').hasClass('home')) {
         }
 
         if (innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
-            window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address input').val().trim();
+            window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address .combobox-input').val().trim();
         } else {
-            basic.showAlert('Please enter valid address.', '', true);
+            basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
         }
     });
 }
@@ -26063,24 +26117,24 @@ function pageAmountToLogic() {
             }
         }
         if ($(this).hasClass('ready-to-edit')) {
-            var editing_address = $('.amount-to-container .value-to-edit').val().trim();
+            var editing_address = $('.amount-to-container input.value-to-edit').val().trim();
             if (innerAddressCheck(editing_address)) {
                 $(this).find('img').attr('src', $(this).find('img').attr('data-default-src'));
                 $('.amount-to-container .wallet-address span.address').html(editing_address);
-                $('.amount-to-container .value-to-edit').hide();
+                $('.amount-to-container input.value-to-edit').hide();
                 $('.amount-to-container .address-container span').show();
                 $('.amount-to-container .address-container').removeClass('editing');
                 $(this).removeClass('ready-to-edit');
                 window.history.pushState(null, null, HOME_URL + '/send/amount-to/' + editing_address);
             } else {
-                basic.showAlert('Please enter valid address.', '', true);
+                basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
             }
         } else {
             $(this).addClass('ready-to-edit');
             $(this).find('img').attr('src', $(this).find('img').attr('data-check-src'));
             $(this).closest('.wallet-address').find('.address-container').addClass('editing');
             $('.amount-to-container .address-container span').hide();
-            $('.amount-to-container .address-container .value-to-edit').show().select();
+            $('.amount-to-container .address-container input.value-to-edit').show().select();
         }
     });
 
@@ -26163,6 +26217,7 @@ function pageAmountToLogic() {
         }
         var dcn_val = $('.amount-to-container input#dcn').val().trim();
         var usd_val = $('.amount-to-container input#usd').val().trim();
+        var sending_to_address = $('.amount-to-container .wallet-address span.address').html();
         if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
             //checking if not a number or empty values
             basic.showAlert('Please make sure all values are numbers.', '', true);
@@ -26178,14 +26233,25 @@ function pageAmountToLogic() {
         } else if ($('.amount-to-container .address-container').hasClass('editing')) {
             //checking if editing address is done
             basic.showAlert('Please make sure you are done with address editing.', '', true);
-        } else if (!innerAddressCheck($('.amount-to-container .wallet-address span.address').html())) {
+        } else if (!innerAddressCheck(sending_to_address)) {
             //checking again if valid address
-            basic.showAlert('Please make sure you are sending to valid address.', '', true);
+            basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
         } else {
             var callback_obj = {};
             callback_obj.callback = function (result) {
                 if (result) {
-                    App.sendValue($('.amount-to-container .wallet-address span.address').html(), dcn_val);
+                    //setup cookie with all used address for sending so we can display then dropdown at address inserting into field
+                    if (basic.cookies.get('prev_used_addresses') == '') {
+                        basic.cookies.set('prev_used_addresses', JSON.stringify([sending_to_address]));
+                    } else {
+                        var addresses = JSON.parse(basic.cookies.get('prev_used_addresses'));
+                        if (!isInArray(sending_to_address, addresses)) {
+                            addresses.push(sending_to_address);
+                            addresses = JSON.stringify(addresses);
+                            basic.cookies.set('prev_used_addresses', addresses);
+                        }
+                    }
+                    App.sendValue(sending_to_address, dcn_val);
                 }
             };
             basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
@@ -26241,15 +26307,47 @@ function hidePopupOnBackdropClick() {
 }
 hidePopupOnBackdropClick();
 
-function initCheckIfMetaMaskIsLogged() {
-    if (web3.eth.defaultAccount !== undefined) {
-        window.location.reload();
-    }
-}
-
 function isInArray(value, array) {
     return array.indexOf(value) > -1;
 }
+
+function initComboxes() {
+    if ($('select.combobox').length > 0) {
+        $('select.combobox').each(function () {
+            $(this).combobox();
+        });
+    }
+}
+
+function checkIfCookie() {
+    if ($('.privacy-policy-cookie').length > 0) {
+        $('.privacy-policy-cookie .accept').click(function () {
+            basic.cookies.set('privacy_policy', 1);
+            $('.privacy-policy-cookie').hide();
+        });
+    }
+}
+
+function initMobileFooterEvent() {
+    if (basic.isMobile()) {
+        $('.go-next > a').click(function () {
+            if ($(this).attr('data-position') == 'right') {
+                $('footer ul li').hide();
+                $('footer ul li.hide-on-mobile-device').css('display', 'inline-block');
+                $(this).parent().css('display', 'inline-block');
+                $(this).attr('data-position', 'left');
+                $(this).find('i').removeClass('fa-arrow-right').addClass('fa-arrow-left');
+            } else if ($(this).attr('data-position') == 'left') {
+                $('footer ul li').css('display', 'inline-block');
+                $('footer ul li.hide-on-mobile-device').hide();
+                $(this).parent().css('display', 'inline-block');
+                $(this).attr('data-position', 'right');
+                $(this).find('i').removeClass('fa-arrow-left').addClass('fa-arrow-right');
+            }
+        });
+    }
+}
+initMobileFooterEvent();
 
 /***/ }),
 /* 112 */

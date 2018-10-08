@@ -2068,8 +2068,9 @@ img {
     .transaction-history table tbody td {
       padding: 10px 3px !important; }
       .transaction-history table tbody td.icon {
-        width: 40px;
-        background-position: center; }
+        width: 70px;
+        background-position: center;
+        background-size: calc(100% - 30px); }
         .transaction-history table tbody td.icon a {
           width: 30px; }
       .transaction-history table tbody td:first-child {
@@ -2161,32 +2162,6 @@ img {
   -moz-border-radius: 4px 0 0 4px;
   -ms-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px; }
-
-.input-with-button input {
-  width: calc(100% - 80px);
-  font-size: 16px;
-  padding: 7px 12px;
-  border: 0;
-  vertical-align: middle; }
-.input-with-button .btn-container {
-  width: 80px;
-  vertical-align: middle;
-  height: 100%; }
-  .input-with-button .btn-container a {
-    display: block;
-    height: 100%;
-    text-align: center;
-    border: 1px solid white; }
-.input-with-button.left-side input {
-  -webkit-border-radius: 4px 0 0 4px;
-  -moz-border-radius: 4px 0 0 4px;
-  -ms-border-radius: 4px 0 0 4px;
-  border-radius: 4px 0 0 4px; }
-.input-with-button.left-side .btn-container a {
-  -webkit-border-radius: 0 4px 4px 0;
-  -moz-border-radius: 0 4px 4px 0;
-  -ms-border-radius: 0 4px 4px 0;
-  border-radius: 0 4px 4px 0; }
 
 input.module-field {
   padding: 7px 12px;
@@ -2333,6 +2308,31 @@ input.module-field {
   text-decoration: underline;
   font-weight: bold; }
 
+.privacy-policy-cookie {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgba(10, 10, 10, 0.7);
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  font-size: 0; }
+  .privacy-policy-cookie .text {
+    font-size: 16px;
+    width: calc(100% - 100px); }
+    .privacy-policy-cookie .text .link {
+      color: #00b7d9;
+      font-weight: bold;
+      text-decoration: underline; }
+  .privacy-policy-cookie .button {
+    width: 100px; }
+    .privacy-policy-cookie .button a {
+      display: block;
+      text-align: center;
+      font-size: 16px; }
+
 header .logo {
   padding-top: 10px;
   padding-bottom: 10px; }
@@ -2340,11 +2340,62 @@ header .logo {
     width: 50px; }
 
 footer {
-  padding-bottom: 20px;
+  /*padding-bottom: 60px;
   padding-top: 20px;
-  font-size: 13px; }
-  footer a {
-    text-decoration: underline; }
+  font-size: 13px;
+  a {
+      text-decoration: underline;
+  }*/
+  background-image: url("/assets/images/footer-background.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: white;
+  padding-top: 70px; }
+  footer ul {
+    font-size: 0;
+    padding-top: 30px;
+    padding-bottom: 20px; }
+    footer ul li {
+      width: 25%;
+      text-align: center;
+      font-size: 22px;
+      padding: 0 10px; }
+      footer ul li.go-next {
+        display: none;
+        color: white;
+        font-size: 40px; }
+      footer ul li a {
+        color: white;
+        font-family: "OpenSans-SemiBold"; }
+        footer ul li a figure {
+          padding-bottom: 10px; }
+          footer ul li a figure img {
+            width: 70px; }
+      footer ul li:hover a {
+        color: white;
+        text-decoration: underline; }
+  footer .copyright {
+    padding-bottom: 20px;
+    font-size: 14px; }
+    footer .copyright a {
+      color: white;
+      text-decoration: underline; }
+  @media screen and (max-width: 991px) {
+    footer ul li {
+      font-size: 16px; } }
+  @media screen and (max-width: 767px) {
+    footer {
+      padding-top: 20px; }
+      footer ul {
+        padding-bottom: 10px; }
+        footer ul li {
+          width: 33.33333333%; }
+          footer ul li.go-next {
+            display: inline-block; }
+          footer ul li.hide-on-mobile-device {
+            display: none; }
+      footer .copyright {
+        font-size: 12px; } }
 
 .homepage-container .your-dcn-wallet {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -2482,12 +2533,61 @@ footer {
     margin-top: 20px; }
   .send-container .fill-the-address {
     padding-top: 20px; }
+  .send-container .input-with-button .combobox-container {
+    width: calc(100% - 80px);
+    font-size: 16px;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative; }
+    .send-container .input-with-button .combobox-container input {
+      padding: 7px 12px;
+      border: 0;
+      display: block;
+      width: 100%; }
+    .send-container .input-with-button .combobox-container .dropdown-toggle {
+      right: 15px;
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%); }
+  .send-container .input-with-button input.combobox-input.input {
+    width: calc(100% - 80px);
+    font-size: 16px;
+    vertical-align: middle;
+    display: inline-block;
+    padding: 7px 12px;
+    border: 0; }
+  .send-container .input-with-button .btn-container {
+    width: 80px;
+    vertical-align: middle;
+    height: 100%; }
+    .send-container .input-with-button .btn-container a {
+      display: block;
+      height: 100%;
+      text-align: center;
+      border: 1px solid white; }
+  .send-container .input-with-button.left-side input {
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    -ms-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px; }
+  .send-container .input-with-button.left-side .btn-container a {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    -ms-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0; }
   @media screen and (max-width: 767px) {
     .send-container {
       padding-top: 20px;
       padding-bottom: 0; }
+      .send-container .dropdown-item {
+        padding: 5px;
+        font-size: 12px; }
       .send-container .line {
-        display: none !important; } }
+        display: none !important; }
+      .send-container .input-with-button .combobox-container input {
+        padding: 7px 30px 7px 12px; } }
 
 .amount-to-container .wallet-address {
   text-align: center;
@@ -2499,8 +2599,42 @@ footer {
     .amount-to-container .wallet-address .address-container .value-to-edit {
       display: none;
       width: 100%; }
+    .amount-to-container .wallet-address .address-container .combobox-container {
+      display: none;
+      position: relative; }
+      .amount-to-container .wallet-address .address-container .combobox-container .combobox-input {
+        width: 100%;
+        font-size: 16px;
+        padding: 7px 12px;
+        border: 0;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        border-radius: 4px; }
+      .amount-to-container .wallet-address .address-container .combobox-container .dropdown-toggle {
+        right: 15px;
+        display: block !important;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%); }
+        .amount-to-container .wallet-address .address-container .combobox-container .dropdown-toggle:after {
+          display: inline-block;
+          width: 0;
+          height: 0;
+          margin-left: .255em;
+          vertical-align: .255em;
+          content: "";
+          border-top: .3em solid;
+          border-right: .3em solid transparent;
+          border-bottom: 0;
+          border-left: .3em solid transparent;
+          color: black; }
     .amount-to-container .wallet-address .address-container.editing {
       width: calc(100% - 80px); }
+      .amount-to-container .wallet-address .address-container.editing .combobox-container {
+        display: block; }
   .amount-to-container .wallet-address .btn-container {
     width: 80px;
     padding-left: 15px; }
@@ -2520,8 +2654,13 @@ footer {
   .amount-to-container .exchange-inputs .btn-container a {
     padding: 10px 120px; }
 @media screen and (max-width: 767px) {
+  .amount-to-container .dropdown-item {
+    padding: 5px;
+    font-size: 12px; }
   .amount-to-container .wallet-address {
     padding-bottom: 20px; }
+    .amount-to-container .wallet-address .address-container .combobox-container .combobox-input {
+      padding: 7px 30px 7px 12px; }
     .amount-to-container .wallet-address .address-container .address {
       font-size: 13px; }
   .amount-to-container .exchange-inputs .input-container {

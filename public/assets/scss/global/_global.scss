@@ -858,8 +858,9 @@ img {
                 td {
                     padding: 10px 3px !important;
                     &.icon {
-                        width: 40px;
+                        width: 70px;
                         background-position: center;
+                        background-size: calc(100% - 30px);
                         a {
                             width: 30px;
                         }
@@ -944,35 +945,6 @@ img {
         }
         button.dropdown-toggle {
             @include rounded(4px 0 0 4px);
-        }
-    }
-}
-
-.input-with-button {
-    input {
-        width: calc(100% - 80px);
-        font-size: 16px;
-        padding: 7px 12px;
-        border: 0;
-        vertical-align: middle;
-    }
-    .btn-container {
-        width: 80px;
-        vertical-align: middle;
-        height: 100%;
-        a {
-            display: block;
-            height: 100%;
-            text-align: center;
-            border: 1px solid white;
-        }
-    }
-    &.left-side {
-        input {
-            @include rounded(4px 0 0 4px);
-        }
-        .btn-container a {
-            @include rounded(0 4px 4px 0);
         }
     }
 }
@@ -1176,4 +1148,34 @@ input.module-field {
 .etherscan-link {
     text-decoration: underline;
     font-weight: bold;
+}
+
+.privacy-policy-cookie {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: rgba(10, 10, 10, .7);
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    font-size: 0;
+    .text {
+        font-size: 16px;
+        width: calc(100% - 100px);
+        .link {
+            color: $light_blue;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+    .button {
+        width: 100px;
+        a {
+            display: block;
+            text-align: center;
+            font-size: 16px;
+        }
+    }
 }

@@ -26,7 +26,6 @@ var basic = {
             document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         },
         get: function(name) {
-
             if(name == undefined){
                 var name = "cookieLaw";
             }
@@ -37,7 +36,6 @@ var basic = {
                 while (c.charAt(0)==' ') c = c.substring(1);
                 if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
             }
-
             return "";
         }
     },

@@ -19,6 +19,7 @@ mix.js('public/assets/js/index.js', 'public/assets/js/index-compiled.js');
 /* ===== PUBLIC =====*/
 mix.styles([
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
+    'public/assets/libs/combobox/combobox.css',
     'public/assets/libs/font-awesome/css/font-awesome.min.css'
 ], 'public/dist/css/front-libs-style.css');
 
@@ -30,6 +31,7 @@ mix.babel([
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
     'node_modules/bootbox.js/bootbox.min.js',
+    'public/assets/libs/combobox/combobox.js',
     'public/assets/js/require-libs-compiled.js'
 ], 'public/dist/js/front-libs-script.js');
 

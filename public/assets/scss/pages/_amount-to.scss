@@ -10,8 +10,40 @@
                 display: none;
                 width: 100%;
             }
+            .combobox-container {
+                display: none;
+                position: relative;
+                .combobox-input {
+                    width: 100%;
+                    font-size: 16px;
+                    padding: 7px 12px;
+                    border: 0;
+                    @include rounded(4px);
+                }
+                .dropdown-toggle {
+                    right: 15px;
+                    display: block !important;
+                    @include vertical-align(absolute);
+                    &:after {
+                        display: inline-block;
+                        width: 0;
+                        height: 0;
+                        margin-left: .255em;
+                        vertical-align: .255em;
+                        content: "";
+                        border-top: .3em solid;
+                        border-right: .3em solid transparent;
+                        border-bottom: 0;
+                        border-left: .3em solid transparent;
+                        color: black;
+                    }
+                }
+            }
             &.editing {
                 width: calc(100% - 80px);
+                .combobox-container {
+                    display: block;
+                }
             }
         }
         .btn-container {
@@ -38,9 +70,18 @@
         }
     }
     @include breakpoint($xs)    {
+        .dropdown-item {
+            padding: 5px;
+            font-size: 12px;
+        }
         .wallet-address {
             padding-bottom: 20px;
             .address-container {
+                .combobox-container {
+                    .combobox-input {
+                        padding: 7px 30px 7px 12px;
+                    }
+                }
                 .address {
                     font-size: 13px;
                 }

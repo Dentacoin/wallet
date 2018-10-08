@@ -8,11 +8,68 @@
     .fill-the-address {
         padding-top: 20px;
     }
+    .input-with-button {
+        .combobox-container {
+            width: calc(100% - 80px);
+            font-size: 16px;
+            vertical-align: middle;
+            display: inline-block;
+            position: relative;
+            input {
+                padding: 7px 12px;
+                border: 0;
+                display: block;
+                width: 100%;
+            }
+            .dropdown-toggle {
+                right: 15px;
+                @include vertical-align(absolute);
+            }
+        }
+        input.combobox-input.input {
+            width: calc(100% - 80px);
+            font-size: 16px;
+            vertical-align: middle;
+            display: inline-block;
+            padding: 7px 12px;
+            border: 0;
+        }
+        .btn-container {
+            width: 80px;
+            vertical-align: middle;
+            height: 100%;
+            a {
+                display: block;
+                height: 100%;
+                text-align: center;
+                border: 1px solid white;
+            }
+        }
+        &.left-side {
+            input {
+                @include rounded(4px 0 0 4px);
+            }
+            .btn-container a {
+                @include rounded(0 4px 4px 0);
+            }
+        }
+    }
     @include breakpoint($xs)    {
         padding-top: 20px;
         padding-bottom: 0;
+        .dropdown-item {
+            padding: 5px;
+            font-size: 12px;
+        }
         .line {
             display: none !important;
+        }
+        .input-with-button {
+            .combobox-container {
+                input {
+                    padding: 7px 30px 7px 12px;
+                }
+            }
         }
     }
 }

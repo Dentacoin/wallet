@@ -4,7 +4,16 @@
         <div class="container">
             <div class="row-flex fs-0">
                 <div class="col-12 col-sm-10 offset-sm-1 wallet-address input-with-button left-side">
-                    <input type="text" placeholder="Input wallet address or Clinic's name" maxlength="42"/>
+                    @if(!empty($addresses))
+                        <select class="combobox combobox-input">
+                            <option></option>
+                            @foreach($addresses as $address)
+                                <option value="{{$address}}">{{$address}}</option>
+                            @endforeach
+                        </select>
+                    @else
+                        <input type="text" class="combobox-input input" placeholder="Type the Receiver's wallet address OR your Dentist's name" maxlength="42"/>
+                    @endif
                     <div class="inline-block btn-container next"><a href="javascript:void(0);" class="gray-btn">NEXT</a></div>
                 </div>
             </div>
@@ -13,7 +22,7 @@
             <div class="row-flex">
                 <div class="col-12">
                     <div class="horizontal-white-line-120 line"></div>
-                    <div class="text-center fill-the-address">Fill the address or the name of the clinic that you want to Send DCN, in the field above.</div>
+                    <div class="text-center fill-the-address">Enter the Receiver's Dentacoin wallet address. If you want to pay for your treatment to a Dentacoin Partner Dentist or Clinic, just type their name in the field above (Feature not supported yet).</div>
                 </div>
             </div>
         </div>

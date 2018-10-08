@@ -6,8 +6,19 @@
                 <div class="col-12 col-md-10 offset-sm-1 col-lg-8 offset-lg-2 wallet-address">
                     <div class="inline-block address-container">
                         <span class="label">Send to:</span>
-                        <span class="address">{{$address}}</span>
-                        <input type="text" value="{{$address}}" class="value-to-edit module-field" maxlength="42"/>
+                        <span class="address">{{$url_address}}</span>
+                        @if(!empty($addresses))
+                            <select class="combobox combobox-input value-to-edit">
+                                <option value="{{$url_address}}" selected>{{$url_address}}</option>
+                                @foreach($addresses as $address)
+                                    @if($url_address != $address)
+                                        <option value="{{$address}}">{{$address}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        @else
+                            <input type="text" value="{{$url_address}}" class="value-to-edit module-field" maxlength="42"/>
+                        @endif
                     </div>
                     <figure class="inline-block btn-container" itemscope="" itemtype="http://schema.org/ImageObject">
                         <a href="javascript:void(0)" class="edit-address"><img src="{{URL::asset('assets/images/edit.png') }}" data-check-src="{{URL::asset('assets/images/check.png') }}" data-default-src="{{URL::asset('assets/images/edit.png') }}" alt="" itemprop="contentUrl"/></a>
@@ -33,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col-12 helper-label text-center">
-                    Input the amount that you want to send to the wallet address above.
+                    Please verify the Receiver's wallet address once again and enter the amount of Dentacoin tokens you want to send.
                 </div>
                 <div class="col-12 btn-container text-center">
                     <a href="javascript:void(0)" class="bluegreen-white-btn send-value-btn">Send</a>
