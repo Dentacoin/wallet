@@ -2382,10 +2382,8 @@ footer {
       footer ul li a {
         color: white;
         font-family: "OpenSans-SemiBold"; }
-        footer ul li a figure {
-          padding-bottom: 10px; }
-          footer ul li a figure img {
-            width: 70px; }
+        footer ul li a figure img {
+          width: 70px; }
       footer ul li:hover a {
         color: white;
         text-decoration: underline; }
@@ -2431,8 +2429,7 @@ footer {
   padding-top: 50px;
   padding-bottom: 50px; }
   .homepage-container .values-and-qr-code .transfer-value figure {
-    width: 30px;
-    vertical-align: bottom; }
+    width: 30px; }
   .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value {
     width: calc(100% - 30px);
     font-size: 50px;
@@ -2515,6 +2512,8 @@ footer {
     font-size: 40px;
     color: white;
     text-align: center; }
+  .buy-container .input-container #paying-with-amount.error-field {
+    color: #e10b16; }
   .buy-container .input-container .title {
     color: white;
     font-weight: bold;

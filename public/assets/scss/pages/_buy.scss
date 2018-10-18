@@ -10,6 +10,9 @@
         text-align: center;
     }
     .input-container {
+        #paying-with-amount.error-field {
+            color: #e10b16;
+        }
         .title {
             color: white;
             font-weight: bold;

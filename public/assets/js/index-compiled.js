@@ -25424,6 +25424,7 @@ initComboxes();
 checkIfCookie();
 
 $(document).ready(function () {
+    App.init();
     if ($('body').hasClass('amount-to')) {
         pageAmountToLogic();
     }
@@ -25515,6 +25516,7 @@ function initChecker() {
                 desktopDownloadMetaMaskPopup();
             } else if (!meta_mask_logged) {
                 //popup for login in metamask
+                console.log('DESKTOP LOGIN META MASK POPUP 123456');
                 desktopLoginMetaMaskPopup();
             }
         }
@@ -25536,7 +25538,9 @@ var App = {
     loading: false,
     init: function init() {
         //doing checks before overwrite web3 0.2 with web3 1.0 (some methods are not available in web3 1.0)
-        initChecker();
+        if (!$('body').hasClass('buy')) {
+            initChecker();
+        }
         return App.initWeb3();
     },
     initWeb3: function () {
@@ -25824,7 +25828,7 @@ var App = {
                                 }
 
                                 //first 3 are visible, rest are going to hidden tbody
-                                table_html += '<tr class="' + class_name + ' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>' + (date_obj.getMonth() + 1) + '/' + date_obj.getDay() + '/' + date_obj.getFullYear() + '</li><li>' + hours + ':' + minutes + '</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>' + label + ': </strong>' + json_clinic + ' (' + other_address + ')</span></li><li><a href="https://etherscan.io/tx/' + array[i].transactionHash + '" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">' + dcn_amount + '</li><li>' + usd_amount + ' USD</li></ul></td></tr>';
+                                table_html += '<tr class="' + class_name + ' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>' + (date_obj.getMonth() + 1) + '/' + date_obj.getDay() + '/' + date_obj.getFullYear() + '</li><li>' + hours + ':' + minutes + '</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>' + label + ': </strong>' + json_clinic + ' ' + other_address + '</span></li><li><a href="https://etherscan.io/tx/' + array[i].transactionHash + '" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">' + dcn_amount + '</li><li>' + usd_amount + ' USD</li></ul></td></tr>';
                             }
                             $('.transaction-history table tbody .loader-animation').hide();
 
@@ -25953,7 +25957,6 @@ var App = {
         }
     }
 };
-App.init();
 
 function getQrCode() {
     if (global_state.account != undefined) {
@@ -26001,6 +26004,12 @@ if ($('body').hasClass('home')) {
     $('.buy-container #dcn-amount').val(dcn_for_one_usd * parseFloat($('.buy-container #paying-with-amount').val().trim()));
 
     $('.buy-container #paying-with-amount').on('input', function () {
+        if ($(this).val().trim() < 50) {
+            $(this).addClass('error-field');
+        } else {
+            $(this).removeClass('error-field');
+        }
+
         if ($(this).val().trim() < 0) {
             $('.buy-container #paying-with-amount').val(50);
         } else if ($(this).val().trim() > 3000) {
@@ -26037,7 +26046,6 @@ if ($('body').hasClass('home')) {
     });
 } else if ($('body').hasClass('send')) {
     $('select.combobox.combobox-input').on('change', function () {
-        console.log($(this).val(), 'combobox CHANGE');
         if (innerAddressCheck($(this).val())) {
             $('.send-container .next a').addClass('active');
         } else {
@@ -26193,7 +26201,12 @@ function pageAmountToLogic() {
                 return false;
             }
         }
-        $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2));
+
+        var to_fixed_num = 2;
+        if (($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2) < 0.01) {
+            to_fixed_num = 4;
+        }
+        $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(to_fixed_num));
     });
 
     //on input in usd input change dcn input
