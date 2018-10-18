@@ -26203,7 +26203,7 @@ function pageAmountToLogic() {
         }
 
         var to_fixed_num = 2;
-        if (($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(2) < 0.01) {
+        if ($(this).val().trim() * global_state.curr_dcn_in_usd < 0.01) {
             to_fixed_num = 4;
         }
         $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(to_fixed_num));
