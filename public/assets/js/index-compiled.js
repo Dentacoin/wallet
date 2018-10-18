@@ -25349,7 +25349,7 @@ var onAccountSwitch = function () {
                 switch (_context4.prev = _context4.next) {
                     case 0:
                         if (typeof global_state.account != 'undefined') {
-                            if (global_state.account != App.curr_web3.eth.defaultAccount) {
+                            if (global_state.account != App.web3_0_2.eth.defaultAccount) {
                                 //doing this check because metamask fire the change event randomly, this way we detect real account switch
                                 //global_state.account = web3.eth.defaultAccount;
 
@@ -25427,7 +25427,6 @@ $(document).ready(function () {
     if ($('body').hasClass('amount-to')) {
         pageAmountToLogic();
     }
-
     console.log("( ͡° ͜ʖ ͡°) I see you.");
 });
 
@@ -25438,6 +25437,8 @@ $(window).on("load", function () {});
 $(window).on('resize', function () {});
 
 $(window).on('scroll', function () {});
+
+window.addEventListener('load', function () {});
 
 var meta_mask_installed = false;
 var meta_mask_logged = false;
@@ -25458,16 +25459,6 @@ function mobileLoginMetaMaskPopup() {
 
 function desktopDownloadMetaMaskPopup() {
     var button_html = '';
-    /*if(!is_opera)   {
-        //link for download opera metamask extention
-        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.opera.com/en/extensions/details/metamask/" target="_blank">Get from Opera Addons</a></div>';
-    }else if(is_chrome)   {
-        //link for download chrome metamask extention
-        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank">Get from Chrome Web Store</a></div>';
-    }else if(is_firefox)   {
-        //link for download firefox metamask extention
-        button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
-    }*/
     button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://metamask.io/" target="_blank">Get from MetaMask</a></div>';
     var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Are your ready to use Dentacoin Wallet?</div><div class="subtitle">You\'ll need a safe place to store all of your Dentacoin tokens.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">The perfect place is in a secure wallet like MetaMask. This will also act as your login to your wallet (no extra password needed).</div>' + button_html + '</div>';
     basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
@@ -25530,8 +25521,6 @@ function initChecker() {
     }
 }
 
-window.addEventListener('load', function () {});
-
 var global_state = {};
 var temporally_timestamp = 0;
 global_state.curr_dcn_in_usd = parseFloat($('body').attr('data-current-dcn-in-usd'));
@@ -25539,11 +25528,14 @@ var getInstance;
 var myContract;
 var App = {
     web3Provider: null,
-    curr_web3: null,
+    web3_0_2: null,
+    web3_1_0: null,
+    web3_in_use: null,
     defaultAccount: null,
     contracts: {},
     loading: false,
     init: function init() {
+        //doing checks before overwrite web3 0.2 with web3 1.0 (some methods are not available in web3 1.0)
         initChecker();
         return App.initWeb3();
     },
@@ -25555,9 +25547,14 @@ var App = {
                         case 0:
                             if (typeof web3 !== 'undefined') {
                                 //reuse the provider of the Web3 object injected by Metamask
-                                App.curr_web3 = web3;
+                                App.web3_0_2 = web3;
                                 global_state.account = web3.eth.defaultAccount;
+                                //overwrite web3 0.2 with web 1.0
                                 web3 = getWeb3(web3.currentProvider);
+                                App.web3_in_use = web3;
+                            } else {
+                                App.web3_1_0 = getWeb3();
+                                App.web3_in_use = App.web3_1_0;
                             }
                             return _context.abrupt('return', App.initContract());
 
@@ -25583,7 +25580,7 @@ var App = {
                         switch (_context2.prev = _context2.next) {
                             case 0:
                                 // get the contract artifact file and use it to instantiate a truffle contract abstraction
-                                getInstance = getContractInstance(web3);
+                                getInstance = getContractInstance(App.web3_in_use);
                                 myContract = getInstance(DCNArtifact, "0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6");
 
                                 //refresh the current dentacoin value
@@ -25889,13 +25886,6 @@ var App = {
     }(),
     events: {
         logTransfer: function logTransfer() {
-            /*var options = {fromBlock : global_state.curr_block, toBlock: 'latest', address: '0x0e85a0d1363f373fcf54a4be320ed149eed25ccc'};
-            var filter = web3.eth.filter('pending');
-            filter.watch(function(error, result){
-                if(!error) {
-                    console.log(result);
-                }
-            });*/
             var transactions_hash_arr = [];
             var transfer_event_obj = {
                 filter: { _from: global_state.account },
@@ -25923,7 +25913,7 @@ var App = {
     helper: {
         addBlockTimestampToTransaction: function addBlockTimestampToTransaction(transaction) {
             return new Promise(function (resolve, reject) {
-                web3.eth.getBlock(transaction.blockNumber, function (error, result) {
+                App.web3_in_use.eth.getBlock(transaction.blockNumber, function (error, result) {
                     if (error !== null) {
                         reject(error);
                     }
@@ -25934,7 +25924,7 @@ var App = {
         },
         getLoopingTransactionFromBlockTimestamp: function getLoopingTransactionFromBlockTimestamp(block_num) {
             return new Promise(function (resolve, reject) {
-                web3.eth.getBlock(block_num, function (error, result) {
+                App.web3_in_use.eth.getBlock(block_num, function (error, result) {
                     if (error !== null) {
                         reject(error);
                     }
@@ -25944,7 +25934,7 @@ var App = {
         },
         getBlockNum: function getBlockNum() {
             return new Promise(function (resolve, reject) {
-                web3.eth.getBlockNumber(function (error, result) {
+                App.web3_in_use.eth.getBlockNumber(function (error, result) {
                     if (!error) {
                         global_state.curr_block = result;
                         resolve(global_state.curr_block);
@@ -25954,7 +25944,7 @@ var App = {
         },
         getAccounts: function getAccounts() {
             return new Promise(function (resolve, reject) {
-                web3.eth.getAccounts(function (error, result) {
+                App.web3_in_use.eth.getAccounts(function (error, result) {
                     if (!error) {
                         resolve(result);
                     }
@@ -26005,8 +25995,49 @@ if ($('body').hasClass('home')) {
     $('.homepage-container .copy-address').tooltip({
         trigger: 'click'
     });
+} else if ($('body').hasClass('buy')) {
+    var dcn_for_one_usd = parseFloat($('.buy-container').attr('data-dcn-for-one-usd'));
+    var dcn_starting_amount = dcn_for_one_usd * parseFloat($('.buy-container #paying-with-amount').val().trim());
+    $('.buy-container #dcn-amount').val(dcn_for_one_usd * parseFloat($('.buy-container #paying-with-amount').val().trim()));
+
+    $('.buy-container #paying-with-amount').on('input', function () {
+        if ($(this).val().trim() < 0) {
+            $('.buy-container #paying-with-amount').val(50);
+        } else if ($(this).val().trim() > 3000) {
+            $('.buy-container #paying-with-amount').val(3000);
+        }
+        $('.buy-container #dcn-amount').val(dcn_for_one_usd * parseFloat($(this).val().trim()));
+    });
+
+    $('.buy-container #dcn-amount').on('input', function () {
+        if (parseFloat($(this).val().trim()) / dcn_for_one_usd > 3000) {
+            $(this).val(dcn_for_one_usd * 3000);
+        }
+        $('.buy-container #paying-with-amount').val(parseFloat($(this).val().trim()) / dcn_for_one_usd);
+    });
+
+    $('.buy-dcn-btn').click(function () {
+        if (parseFloat($('.buy-container #paying-with-amount').val().trim()) < 50) {
+            basic.showAlert('The minimum transaction limit is 50 USD.', '', true);
+        } else if (parseFloat($('.buy-container #paying-with-amount').val().trim()) > 3000) {
+            basic.showAlert('The maximum transaction limit is 3000 USD.', '', true);
+        } else if (parseFloat($('.buy-container #dcn-amount').val().trim()) < dcn_for_one_usd * 50) {
+            basic.showAlert('The minimum transaction limit is 50 USD in DCN.', '', true);
+        } else if (parseFloat($('.buy-container #dcn-amount').val().trim()) > dcn_for_one_usd * 3000) {
+            basic.showAlert('The maximum transaction limit is 3000 USD in DCN.', '', true);
+        } else if (!innerAddressCheck($('.buy-container .address-field').val().trim())) {
+            basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
+        } else if (!basic.validateEmail($('.buy-container .email-field').val().trim())) {
+            basic.showAlert('Please enter a valid email.', '', true);
+        } else if (!$('#privacy-policy-agree').is(':checked')) {
+            basic.showAlert('Please agree with our Privacy Policy.', '', true);
+        } else {
+            window.location = 'https://indacoin.com/gw/payment_form?partner=dentacoin&cur_from=USD&cur_to=DCN&amount=' + $('.buy-container #paying-with-amount').val().trim() + '&address=' + $('.buy-container .address-field').val().trim() + '&user_id=' + $('.buy-container .email-field').val().trim();
+        }
+    });
 } else if ($('body').hasClass('send')) {
     $('select.combobox.combobox-input').on('change', function () {
+        console.log($(this).val(), 'combobox CHANGE');
         if (innerAddressCheck($(this).val())) {
             $('.send-container .next a').addClass('active');
         } else {
@@ -26077,7 +26108,7 @@ if ($('body').hasClass('home')) {
             }
         }
 
-        if (innerAddressCheck($('.send-container .wallet-address input').val().trim())) {
+        if (innerAddressCheck($('.send-container .wallet-address input.combobox-input').val().trim())) {
             window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address .combobox-input').val().trim();
         } else {
             basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
@@ -26260,7 +26291,11 @@ function pageAmountToLogic() {
 }
 
 function innerAddressCheck(address) {
-    return App.curr_web3.isAddress(address) && address != global_state.account;
+    if (App.web3_0_2 != null) {
+        return App.web3_0_2.isAddress(address) && address != global_state.account;
+    } else if (App.web3_1_0 != null) {
+        return App.web3_1_0.utils.isAddress(address) && address != global_state.account;
+    }
 }
 
 function initHomepageUserData() {
@@ -26290,7 +26325,6 @@ function sortByKey(array, key) {
         if (typeof y == "string") {
             y = ("" + y).toLowerCase();
         }
-
         return x < y ? -1 : x > y ? 1 : 0;
     });
 }
@@ -27138,6 +27172,9 @@ var Web3 = __webpack_require__(116); // import web3 v1.0 constructor
 
 // use globally injected web3 to find the currentProvider and wrap with web3 v1.0
 var getWeb3 = function getWeb3(provider) {
+    if (provider === undefined) {
+        provider = null;
+    }
     var myWeb3 = new Web3(provider);
     return myWeb3;
 };

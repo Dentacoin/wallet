@@ -13,6 +13,9 @@ body {
     &.modal-open {
         overflow: hidden;
     }
+    &.buy {
+        background-size: 100% 500px;
+    }
 }
 
 button, input[type='submit'] {
@@ -1178,4 +1181,16 @@ input.module-field {
             font-size: 16px;
         }
     }
+}
+
+.single-input {
+    font-size: 16px;
+    border: 0;
+    margin: 0;
+    padding: 7px 12px;
+    @include rounded(4px);
+}
+
+.margin-0-auto {
+    margin: 0 auto;
 }

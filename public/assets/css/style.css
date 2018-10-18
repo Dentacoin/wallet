@@ -195,6 +195,8 @@ body {
     overflow: visible !important; }
   body.modal-open {
     overflow: hidden; }
+  body.buy {
+    background-size: 100% 500px; }
 
 button, input[type='submit'] {
   background: none;
@@ -2333,6 +2335,19 @@ input.module-field {
       text-align: center;
       font-size: 16px; }
 
+.single-input {
+  font-size: 16px;
+  border: 0;
+  margin: 0;
+  padding: 7px 12px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px; }
+
+.margin-0-auto {
+  margin: 0 auto; }
+
 header .logo {
   padding-top: 10px;
   padding-bottom: 10px; }
@@ -2492,7 +2507,8 @@ footer {
         padding: 0; } }
 
 .buy-container {
-  padding-bottom: 50px; }
+  padding-bottom: 50px;
+  padding-top: 30px; }
   .buy-container .row-flex {
     align-items: center; }
   .buy-container .refresh-icon {
@@ -2503,11 +2519,43 @@ footer {
     color: white;
     font-weight: bold;
     font-size: 16px;
+    line-height: 16px; }
+  .buy-container .input-container .subtitle {
+    color: white;
+    font-size: 16px;
     padding-bottom: 5px; }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      .buy-container .input-container .subtitle {
+        font-size: 12px; } }
   .buy-container .line {
     margin-top: 20px; }
   .buy-container .choose-the-currency {
-    padding-top: 20px; }
+    padding-top: 50px; }
+    .buy-container .choose-the-currency .padding-top {
+      padding-top: 15px; }
+  .buy-container .form-row.address {
+    padding-top: 35px;
+    padding-bottom: 15px; }
+  .buy-container .form-row input {
+    width: 100%; }
+  .buy-container .form-row.btn-container {
+    padding-top: 30px;
+    text-align: center; }
+    .buy-container .form-row.btn-container a {
+      padding: 10px 30px; }
+  .buy-container .form-row .privacy-policy {
+    padding-top: 5px; }
+    .buy-container .form-row .privacy-policy .checkbox {
+      width: 25px;
+      margin-top: 5px; }
+    .buy-container .form-row .privacy-policy label {
+      width: calc(100% - 25px);
+      font-size: 14px;
+      cursor: pointer; }
+      .buy-container .form-row .privacy-policy label a {
+        color: #007bff;
+        font-weight: 500;
+        text-decoration: underline; }
   .buy-container .iframe-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; }
@@ -2521,9 +2569,12 @@ footer {
       padding-bottom: 0; }
       .buy-container .refresh-icon, .buy-container .line {
         display: none !important; }
-      .buy-container .input-container .title {
-        padding-bottom: 0;
-        font-size: 13px; } }
+      .buy-container .input-container .subtitle {
+        font-size: 13px; }
+      .buy-container .input-container.dcn-amount {
+        padding-top: 15px; }
+      .buy-container .form-row.address {
+        padding-top: 15px; } }
 
 .send-container {
   padding-top: 30px;
