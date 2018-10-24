@@ -25447,7 +25447,6 @@ var blocks_for_month_n_half = 263000;
 var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var is_firefox = !(window.mozInnerScreenX == null);
 var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") == -1;
-var called_transactions_first_time = false;
 function mobileDownloadMetaMaskPopup() {
     var button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank">Get from Firefox Addons</a></div>';
     var meta_mask_download_popup_html = '<div class="popup-body"> <div class="title">Just a simple step away...</div><div class="subtitle">Dentacoin Wallet is still in beta and requires external support.</div><div class="separator"></div><figure class="image"><img src="/assets/images/metamask.png" alt="Metamask"/> </figure><div class="additional-text">Install MetaMask to easily and securely sign in to your Dentacoin wallet and manage your tokens! No extra password needed.</div>' + button_html + '</div>';
@@ -25516,7 +25515,6 @@ function initChecker() {
                 desktopDownloadMetaMaskPopup();
             } else if (!meta_mask_logged) {
                 //popup for login in metamask
-                console.log('DESKTOP LOGIN META MASK POPUP 123456');
                 desktopLoginMetaMaskPopup();
             }
         }
@@ -25534,6 +25532,7 @@ var App = {
     web3_1_0: null,
     web3_in_use: null,
     defaultAccount: null,
+    clinics_holder: null,
     contracts: {},
     loading: false,
     init: function init() {
@@ -25552,17 +25551,23 @@ var App = {
                             if (typeof web3 !== 'undefined') {
                                 //reuse the provider of the Web3 object injected by Metamask
                                 App.web3_0_2 = web3;
-                                global_state.account = web3.eth.defaultAccount;
+                                global_state.account = App.web3_0_2.eth.defaultAccount;
                                 //overwrite web3 0.2 with web 1.0
-                                web3 = getWeb3(web3.currentProvider);
+                                web3 = getWeb3(App.web3_0_2.currentProvider);
                                 App.web3_in_use = web3;
                             } else {
                                 App.web3_1_0 = getWeb3();
                                 App.web3_in_use = App.web3_1_0;
                             }
+
+                            if (!(typeof global_state.account != 'undefined')) {
+                                _context.next = 3;
+                                break;
+                            }
+
                             return _context.abrupt('return', App.initContract());
 
-                        case 2:
+                        case 3:
                         case 'end':
                             return _context.stop();
                     }
@@ -25594,20 +25599,55 @@ var App = {
                                     App.updateBalance();
                                 }
 
-                                //save current block number into state
-                                _context2.next = 5;
+                                //getting current eth balance for current public address
+
+                                if (!(App.web3_0_2 != null)) {
+                                    _context2.next = 11;
+                                    break;
+                                }
+
+                                _context2.t0 = App.web3_0_2;
+                                _context2.next = 7;
+                                return App.getAddressETHBalance(global_state.account);
+
+                            case 7:
+                                _context2.t1 = _context2.sent;
+                                global_state.curr_addr_eth_balance = _context2.t0.fromWei.call(_context2.t0, _context2.t1);
+                                _context2.next = 17;
+                                break;
+
+                            case 11:
+                                if (!(App.web3_1_0 != null)) {
+                                    _context2.next = 17;
+                                    break;
+                                }
+
+                                _context2.t2 = App.web3_1_0.utils;
+                                _context2.next = 15;
+                                return App.getAddressETHBalance(global_state.account);
+
+                            case 15:
+                                _context2.t3 = _context2.sent;
+                                global_state.curr_addr_eth_balance = _context2.t2.fromWei.call(_context2.t2, _context2.t3);
+
+                            case 17:
+                                _context2.next = 19;
                                 return App.helper.getBlockNum();
 
-                            case 5:
+                            case 19:
+                                _context2.next = 21;
+                                return $.getJSON('/assets/jsons/clinics.json');
 
-                                //set Transfer event watcher
-                                //App.events.logTransfer();
+                            case 21:
+                                App.clinics_holder = _context2.sent;
 
+
+                                //get transactions history in footer
                                 App.buildTransactionsHistory();
 
                                 onAccountSwitch();
 
-                            case 7:
+                            case 24:
                             case 'end':
                                 return _context2.stop();
                         }
@@ -25626,7 +25666,7 @@ var App = {
                 if (homepage === undefined) {
                     homepage = null;
                 }
-                global_state.curr_address_balance = result;
+                global_state.curr_addr_dcn_balance = result;
                 if (homepage != null) {
                     setTimeout(function () {
                         initHomepageUserData();
@@ -25656,9 +25696,12 @@ var App = {
             console.error(err);
         });
     },
-    getFromTransactionsEvents: function getFromTransactionsEvents(from_num, to) {
+    getFromTransactionsEvents: function getFromTransactionsEvents(from_num, to, no_sub) {
         if (to === undefined) {
             to = 'latest';
+        }
+        if (no_sub === undefined) {
+            no_sub = false;
         }
         return new Promise(function (resolve, reject) {
             global_state.from_transactions = [];
@@ -25667,111 +25710,213 @@ var App = {
                 fromBlock: global_state.curr_block - from_num,
                 toBlock: to
             };
-            if (global_state.curr_block - from_num < 0) {
-                event_obj.fromBlock = 0;
+
+            if (no_sub) {
+                event_obj.fromBlock = from_num;
+            } else {
+                event_obj.fromBlock = global_state.curr_block - from_num;
+
+                if (global_state.curr_block - from_num < 0) {
+                    event_obj.fromBlock = 0;
+                }
             }
+
             myContract.getPastEvents('Transfer', event_obj, function (error, event) {
                 resolve(event);
             });
         });
     },
-    getToTransactionsEvents: function getToTransactionsEvents(from_num, to) {
+    getToTransactionsEvents: function getToTransactionsEvents(from_num, to, no_sub) {
         if (to === undefined) {
             to = 'latest';
+        }
+        if (no_sub === undefined) {
+            no_sub = false;
         }
         return new Promise(function (resolve, reject) {
             global_state.from_transactions = [];
             var event_obj = {
                 filter: { _to: global_state.account },
-                fromBlock: global_state.curr_block - from_num,
                 toBlock: to
             };
-            if (global_state.curr_block - from_num < 0) {
-                event_obj.fromBlock = 0;
+
+            if (no_sub) {
+                event_obj.fromBlock = from_num;
+            } else {
+                event_obj.fromBlock = global_state.curr_block - from_num;
+
+                if (global_state.curr_block - from_num < 0) {
+                    event_obj.fromBlock = 0;
+                }
             }
             myContract.getPastEvents('Transfer', event_obj, function (error, event) {
                 resolve(event);
             });
         });
     },
+    getAddressETHBalance: function getAddressETHBalance(address) {
+        return new Promise(function (resolve, reject) {
+            resolve(web3.eth.getBalance(address));
+        });
+    },
     buildTransactionsHistory: function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(num) {
-            var from_events, to_events, array, api_clinics, table_html, i, len, date_obj, json_clinic, other_address, class_name, label, dcn_amount, usd_amount, minutes, hours;
+            var stop_query_more_obj, local_history_obj, local_history_html, symbol, from_events, to_events, array, table_html, i, len, json_clinic, other_address, class_name, label, dcn_amount_symbol, usd_amount, dcn_amount, timestamp_javascript, date_obj, minutes, hours, hideLoader, initShowMoreBtn, local_storage_obj, single_transaction;
             return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                 while (1) {
                     switch (_context3.prev = _context3.next) {
                         case 0:
+                            initShowMoreBtn = function initShowMoreBtn() {
+                                //checking if current transactions are more then 3 and then display the show more button
+                                if ($('.transaction-history table tbody tr').length > 3) {
+                                    $('.transaction-history .show-more-holder').html('<div class="col text-center"><a href="javascript:void(0)" ><strong>Show more</strong></a></div>');
+                                    $('.transaction-history .show-more-holder a').click(function () {
+                                        $(this).closest('.show-more-holder').html('');
+                                        $('.transaction-history table tbody tr').addClass('display_row');
+                                    });
+                                }
+                            };
+
+                            hideLoader = function hideLoader() {
+                                $('.transaction-history table tbody .loader-animation').remove();
+                            };
+
+                            stop_query_more_obj = false;
+
                             if (num === undefined) {
                                 num = 1;
-                                called_transactions_first_time = false;
                             }
 
-                            if (!(num > 1)) {
-                                _context3.next = 10;
+                            if (!(localStorage.getItem('latest-covered-block') != null)) {
+                                _context3.next = 21;
                                 break;
                             }
 
-                            _context3.next = 4;
-                            return App.getFromTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - blocks_for_month_n_half * (num - 1));
+                            stop_query_more_obj = true;
+                            local_history_obj = JSON.parse(localStorage.getItem('transactions-history'));
+                            local_history_html = '';
+                            symbol = '';
 
-                        case 4:
+
+                            Object.keys(local_history_obj).sort().reverse().forEach(function (key) {
+                                var timestamp_javascript = key * 1000;
+                                var date_obj = new Date(timestamp_javascript);
+
+                                if (new Date(timestamp_javascript).getMinutes() < 10) {
+                                    var minutes = '0' + new Date(timestamp_javascript).getMinutes();
+                                } else {
+                                    var minutes = new Date(timestamp_javascript).getMinutes();
+                                }
+
+                                if (new Date(timestamp_javascript).getHours() < 10) {
+                                    var hours = '0' + new Date(timestamp_javascript).getHours();
+                                } else {
+                                    var hours = new Date(timestamp_javascript).getHours();
+                                }
+                                var usd_amount = (parseInt(local_history_obj[key].dcn_amount) * global_state.curr_dcn_in_usd).toFixed(2);
+                                var json_clinic = '';
+
+                                if (has(App.clinics_holder.clinics, local_history_obj[key].address)) {
+                                    json_clinic = '<a href="javascript:void(0)" class="api-clinic">' + App.clinics_holder.clinics[array[i].returnValues._from].name + '</a>';
+                                }
+
+                                if (local_history_obj[key].type == 'received_from') {
+                                    symbol = '+';
+                                } else {
+                                    symbol = '-';
+                                }
+
+                                // check if the property/key is defined in the object itself, not in parent
+                                local_history_html += '<tr class="' + local_history_obj[key].type + ' single-transaction" data-block-number="' + local_history_obj[key].block_num + '"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>' + (date_obj.getMonth() + 1) + '/' + date_obj.getDate() + '/' + date_obj.getFullYear() + '</li><li>' + hours + ':' + minutes + '</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>' + local_history_obj[key].label + ': </strong>' + json_clinic + ' ' + local_history_obj[key].address + '</span></li><li><a href="https://etherscan.io/tx/' + local_history_obj[key].tx_id + '" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">' + symbol + local_history_obj[key].dcn_amount + ' DCN</li><li>' + usd_amount + ' USD</li></ul></td></tr>';
+                            });
+                            $('.transaction-history table tbody.visible-tbody').append(local_history_html);
+
+                            initShowMoreBtn();
+
+                            // fromBlock parseInt(localStorage.getItem('latest-covered-block')) + 1 because we don't want to query again the latest transaction
+                            _context3.next = 14;
+                            return App.getFromTransactionsEvents(parseInt(localStorage.getItem('latest-covered-block')) + 1, undefined, true);
+
+                        case 14:
                             from_events = _context3.sent;
-                            _context3.next = 7;
-                            return App.getToTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - blocks_for_month_n_half * (num - 1));
+                            _context3.next = 17;
+                            return App.getToTransactionsEvents(parseInt(localStorage.getItem('latest-covered-block')) + 1, undefined, true);
 
-                        case 7:
+                        case 17:
                             to_events = _context3.sent;
-                            _context3.next = 16;
+
+
+                            if (from_events.length == 0 && to_events.length == 0) {
+                                hideLoader();
+                            }
+                            _context3.next = 36;
                             break;
 
-                        case 10:
-                            _context3.next = 12;
+                        case 21:
+                            if (!(num > 1)) {
+                                _context3.next = 30;
+                                break;
+                            }
+
+                            _context3.next = 24;
+                            return App.getFromTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - blocks_for_month_n_half * (num - 1));
+
+                        case 24:
+                            from_events = _context3.sent;
+                            _context3.next = 27;
+                            return App.getToTransactionsEvents(num * blocks_for_month_n_half, global_state.curr_block - blocks_for_month_n_half * (num - 1));
+
+                        case 27:
+                            to_events = _context3.sent;
+                            _context3.next = 36;
+                            break;
+
+                        case 30:
+                            _context3.next = 32;
                             return App.getFromTransactionsEvents(num * blocks_for_month_n_half);
 
-                        case 12:
+                        case 32:
                             from_events = _context3.sent;
-                            _context3.next = 15;
+                            _context3.next = 35;
                             return App.getToTransactionsEvents(num * blocks_for_month_n_half);
 
-                        case 15:
+                        case 35:
                             to_events = _context3.sent;
 
-                        case 16:
+                        case 36:
+
+                            //summing from and to events into arr
                             array = from_events.concat(to_events);
 
                             if (!(array.length > 0)) {
-                                _context3.next = 38;
+                                _context3.next = 54;
                                 break;
                             }
 
-                            _context3.next = 20;
-                            return $.getJSON('/assets/jsons/clinics.json');
-
-                        case 20:
-                            api_clinics = _context3.sent;
+                            //getting the clinics from the api cached json
                             table_html = '';
                             //looping for adding timestamp property for each object in the array
 
                             i = 0, len = array.length;
 
-                        case 23:
+                        case 40:
                             if (!(i < len)) {
-                                _context3.next = 30;
+                                _context3.next = 47;
                                 break;
                             }
 
-                            _context3.next = 26;
+                            _context3.next = 43;
                             return App.helper.addBlockTimestampToTransaction(array[i]);
 
-                        case 26:
+                        case 43:
                             array[i].timestamp = _context3.sent;
 
-                        case 27:
+                        case 44:
                             i += 1;
-                            _context3.next = 23;
+                            _context3.next = 40;
                             break;
 
-                        case 30:
+                        case 47:
 
                             //sorting the array of objects by timestamp property
                             sortByKey(array, 'timestamp');
@@ -25784,12 +25929,10 @@ var App = {
                             //looping to build the transaction history section
                             for (i = 0, len = array.length; i < len; i += 1) {
                                 //timestamp*1000 because blockchain return unix timestamp
-                                date_obj = new Date(array[i].timestamp * 1000);
                                 json_clinic = '';
                                 other_address = '';
                                 class_name = '';
                                 label = '';
-                                dcn_amount = '';
                                 usd_amount = (parseInt(array[i].returnValues._value) * global_state.curr_dcn_in_usd).toFixed(2);
 
                                 if (array[i].returnValues._to.toLowerCase() == global_state.account.toLowerCase()) {
@@ -25797,84 +25940,135 @@ var App = {
                                     other_address = array[i].returnValues._from;
                                     label = 'Received from';
                                     class_name = 'received_from';
-                                    dcn_amount = '+' + array[i].returnValues._value + ' DCN';
-                                    if (has(api_clinics.clinics, array[i].returnValues._from)) {
-                                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">' + api_clinics.clinics[array[i].returnValues._from].name + '</a>';
+                                    dcn_amount_symbol = '+';
+                                    if (has(App.clinics_holder.clinics, array[i].returnValues._from)) {
+                                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">' + App.clinics_holder.clinics[array[i].returnValues._from].name + '</a>';
                                     }
                                 } else if (array[i].returnValues._from.toLowerCase() == global_state.account.toLowerCase()) {
                                     //IF THE CURRENT ACCOUNT IS SENDER
                                     other_address = array[i].returnValues._to;
-                                    if (has(api_clinics.clinics, array[i].returnValues._to)) {
-                                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">' + api_clinics.clinics[array[i].returnValues._to].name + '</a>';
+                                    if (has(App.clinics_holder.clinics, array[i].returnValues._to)) {
+                                        json_clinic = '<a href="javascript:void(0)" class="api-clinic">' + App.clinics_holder.clinics[array[i].returnValues._to].name + '</a>';
                                         label = 'Payed to';
                                         class_name = 'payed_to';
                                     } else {
                                         label = 'Sent to';
                                         class_name = 'sent_to';
                                     }
-                                    dcn_amount = '-' + array[i].returnValues._value + ' DCN';
+                                    dcn_amount_symbol = '-';
                                 }
 
-                                if (new Date(array[i].timestamp * 1000).getMinutes() < 10) {
-                                    minutes = '0' + new Date(array[i].timestamp * 1000).getMinutes();
+                                dcn_amount = dcn_amount_symbol + array[i].returnValues._value + ' DCN';
+                                timestamp_javascript = array[i].timestamp * 1000;
+                                date_obj = new Date(timestamp_javascript);
+
+
+                                if (new Date(timestamp_javascript).getMinutes() < 10) {
+                                    minutes = '0' + new Date(timestamp_javascript).getMinutes();
                                 } else {
-                                    minutes = new Date(array[i].timestamp * 1000).getMinutes();
+                                    minutes = new Date(timestamp_javascript).getMinutes();
                                 }
 
-                                if (new Date(array[i].timestamp * 1000).getHours() < 10) {
-                                    hours = '0' + new Date(array[i].timestamp * 1000).getHours();
+                                if (new Date(timestamp_javascript).getHours() < 10) {
+                                    hours = '0' + new Date(timestamp_javascript).getHours();
                                 } else {
-                                    hours = new Date(array[i].timestamp * 1000).getHours();
+                                    hours = new Date(timestamp_javascript).getHours();
                                 }
 
                                 //first 3 are visible, rest are going to hidden tbody
-                                table_html += '<tr class="' + class_name + ' single-transaction"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>' + (date_obj.getMonth() + 1) + '/' + date_obj.getDay() + '/' + date_obj.getFullYear() + '</li><li>' + hours + ':' + minutes + '</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>' + label + ': </strong>' + json_clinic + ' ' + other_address + '</span></li><li><a href="https://etherscan.io/tx/' + array[i].transactionHash + '" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">' + dcn_amount + '</li><li>' + usd_amount + ' USD</li></ul></td></tr>';
+                                table_html += '<tr class="' + class_name + ' single-transaction" data-timestamp="' + array[i].timestamp + '" data-class="' + class_name + '" data-tx-id="' + array[i].transactionHash + '" data-dcn-amount="' + array[i].returnValues._value + '" data-block-number="' + array[i].blockNumber + '" data-label="' + label + '" data-address="' + other_address + '"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>' + (date_obj.getMonth() + 1) + '/' + date_obj.getDate() + '/' + date_obj.getFullYear() + '</li><li>' + hours + ':' + minutes + '</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>' + label + ': </strong>' + json_clinic + ' ' + other_address + '</span></li><li><a href="https://etherscan.io/tx/' + array[i].transactionHash + '" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">' + dcn_amount + '</li><li>' + usd_amount + ' USD</li></ul></td></tr>';
                             }
-                            $('.transaction-history table tbody .loader-animation').hide();
 
                             if (!$('.transaction-history table').hasClass('full-width-responsive')) {
                                 $('.transaction-history table').addClass('full-width-responsive');
                             }
 
-                            if (!called_transactions_first_time) {
-                                called_transactions_first_time = true;
-                                $('.transaction-history table tbody.visible-tbody').html(table_html);
+                            if (stop_query_more_obj) {
+                                hideLoader();
+                                $('.transaction-history table tbody.visible-tbody').prepend(table_html);
                             } else {
                                 $('.transaction-history table tbody.visible-tbody').append(table_html);
                             }
 
-                            //checking if current transactions are more then 3 and then display the show more button
-                            if ($('.transaction-history table tbody tr').length > 3) {
-                                $('.transaction-history .show-more-holder').html('<div class="col text-center"><a href="javascript:void(0)" ><strong>Show more</strong></a></div>');
-                                $('.transaction-history .show-more-holder a').click(function () {
-                                    $(this).closest('.show-more-holder').html('');
-                                    $('.transaction-history table tbody tr').addClass('display_row');
-                                });
-                            }
+                            initShowMoreBtn();
 
-                        case 38:
-                            _context3.next = 40;
+                        case 54:
+                            _context3.next = 56;
                             return App.helper.getLoopingTransactionFromBlockTimestamp(global_state.curr_block - num * blocks_for_month_n_half);
 
-                        case 40:
-                            _context3.t0 = _context3.sent;
-                            _context3.t1 = new Date('2017.01.01').getTime() / 1000;
+                        case 56:
+                            _context3.t1 = _context3.sent;
+                            _context3.t2 = new Date('2017.01.01').getTime() / 1000;
+                            _context3.t0 = _context3.t1 > _context3.t2;
 
-                            if (!(_context3.t0 > _context3.t1)) {
-                                _context3.next = 46;
+                            if (!_context3.t0) {
+                                _context3.next = 61;
+                                break;
+                            }
+
+                            _context3.t0 = !stop_query_more_obj;
+
+                        case 61:
+                            if (!_context3.t0) {
+                                _context3.next = 65;
                                 break;
                             }
 
                             App.buildTransactionsHistory(num += 1);
-                            _context3.next = 47;
+                            _context3.next = 68;
                             break;
 
-                        case 46:
+                        case 65:
+                            hideLoader();
+
+                            //IMPORTING TRANSACTIONS TO LOCAL STORAGE
+                            if ($('.transaction-history .visible-tbody tr.single-transaction').length > 0) {
+                                if (localStorage.getItem('transactions-history') != null) {
+                                    //IF WE HAVE ALREADY SAVED TRANSACTION HISTORY IN LOCAL STORAGE
+                                    local_storage_obj = JSON.parse(localStorage.getItem('transactions-history'));
+
+                                    for (i = 0, len = $('.transaction-history .visible-tbody tr[data-timestamp]').length; i < len; i += 1) {
+                                        single_transaction = $('.transaction-history .visible-tbody tr.single-transaction[data-timestamp]').eq(i);
+
+                                        if (!has(local_storage_obj, single_transaction.attr('data-timestamp'))) {
+                                            local_storage_obj[single_transaction.attr('data-timestamp')] = {
+                                                type: single_transaction.attr('data-class'),
+                                                tx_id: single_transaction.attr('data-tx-id'),
+                                                dcn_amount: single_transaction.attr('data-dcn-amount'),
+                                                label: single_transaction.attr('data-label'),
+                                                address: single_transaction.attr('data-address'),
+                                                block_num: single_transaction.attr('data-block-number')
+                                            };
+                                        }
+                                    }
+                                    //updating the saved transaction history object in the local storage
+                                    localStorage.setItem('latest-covered-block', $('.transaction-history .visible-tbody tr.single-transaction').eq(0).attr('data-block-number'));
+                                    localStorage.setItem('transactions-history', JSON.stringify(local_storage_obj));
+                                } else {
+                                    local_storage_obj = {};
+
+                                    for (i = 0, len = $('.transaction-history .visible-tbody tr.single-transaction').length; i < len; i += 1) {
+                                        single_transaction = $('.transaction-history .visible-tbody tr.single-transaction').eq(i);
+
+                                        local_storage_obj[single_transaction.attr('data-timestamp')] = {
+                                            type: single_transaction.attr('data-class'),
+                                            tx_id: single_transaction.attr('data-tx-id'),
+                                            dcn_amount: single_transaction.attr('data-dcn-amount'),
+                                            label: single_transaction.attr('data-label'),
+                                            address: single_transaction.attr('data-address'),
+                                            block_num: single_transaction.attr('data-block-number')
+                                        };
+                                    }
+                                    localStorage.setItem('latest-covered-block', $('.transaction-history .visible-tbody tr.single-transaction').eq(0).attr('data-block-number'));
+                                    localStorage.setItem('transactions-history', JSON.stringify(local_storage_obj));
+                                }
+                            }
+
                             if ($('.transaction-history table tbody tr.single-transaction').length == 0) {
                                 $('.transaction-history table tbody.visible-tbody').html('<tr><td class="text-center">No previous transactions found.</td></tr>');
                             }
 
-                        case 47:
+                        case 68:
                         case 'end':
                             return _context3.stop();
                     }
@@ -26010,11 +26204,14 @@ if ($('body').hasClass('home')) {
             $(this).removeClass('error-field');
         }
 
-        if ($(this).val().trim() < 0) {
+        if (parseFloat($(this).val().trim()) < 0) {
+            console.log('asd1');
             $('.buy-container #paying-with-amount').val(50);
-        } else if ($(this).val().trim() > 3000) {
+        } else if (parseFloat($(this).val().trim()) > 3000) {
+            console.log('asd2');
             $('.buy-container #paying-with-amount').val(3000);
         }
+
         $('.buy-container #dcn-amount').val(dcn_for_one_usd * parseFloat($(this).val().trim()));
     });
 
@@ -26271,7 +26468,10 @@ function pageAmountToLogic() {
         } else if (dcn_val < 10) {
             //checking if dcn value is lesser than 10 (contract condition)
             basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
-        } else if (dcn_val > parseInt(global_state.curr_address_balance)) {
+        } else if (0.005 > parseFloat(global_state.curr_addr_eth_balance)) {
+            //checking if current balance is lower than the desired value to send
+            basic.showAlert('For sending DCN you need at least 0.005 ETH. Please refill.', '', true);
+        } else if (dcn_val > parseInt(global_state.curr_addr_dcn_balance)) {
             //checking if current balance is lower than the desired value to send
             basic.showAlert('The value you want to send is higher than your balance.', '', true);
         } else if ($('.amount-to-container .address-container').hasClass('editing')) {
@@ -26362,6 +26562,13 @@ function initComboxes() {
     if ($('select.combobox').length > 0) {
         $('select.combobox').each(function () {
             $(this).combobox();
+            var this_select_input = $(this).prev().find('.combobox-input');
+            $(this).prev().find('.dropdown-toggle').click();
+            var drop_down_menu = this_select_input.closest('.combobox-container').find('.dropdown-menu');
+            drop_down_menu.hide();
+            this_select_input.on('focus', function () {
+                drop_down_menu.show();
+            });
         });
     }
 }

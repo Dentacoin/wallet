@@ -2010,7 +2010,7 @@ img {
 .transaction-history {
   padding-bottom: 30px; }
   .transaction-history .rotate-animation {
-    margin-top: 30px; }
+    margin: 10px 0; }
   .transaction-history strong.transaction-id {
     color: #00b7d9; }
   .transaction-history .api-clinic, .transaction-history .show-more-holder a {
@@ -2646,6 +2646,8 @@ footer {
   padding-bottom: 40px; }
   .amount-to-container .wallet-address .address-container {
     font-size: 18px; }
+    .amount-to-container .wallet-address .address-container span.address {
+      color: white; }
     .amount-to-container .wallet-address .address-container .value-to-edit {
       display: none;
       width: 100%; }

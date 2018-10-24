@@ -6,6 +6,9 @@
         padding-bottom: 40px;
         .address-container {
             font-size: 18px;
+            span.address {
+                color: white;
+            }
             .value-to-edit {
                 display: none;
                 width: 100%;
