@@ -25710,10 +25710,12 @@ var App = {
                                 return App.helper.getBlockNum();
 
                             case 20:
-                                _context2.next = 22;
+                                console.log(5);
+
+                                _context2.next = 23;
                                 return $.getJSON('/assets/jsons/clinics.json');
 
-                            case 22:
+                            case 23:
                                 App.clinics_holder = _context2.sent;
 
 
@@ -25722,7 +25724,7 @@ var App = {
 
                                 onAccountSwitch();
 
-                            case 25:
+                            case 26:
                             case 'end':
                                 return _context2.stop();
                         }
@@ -26206,6 +26208,7 @@ var App = {
             });
         },
         getBlockNum: function getBlockNum() {
+            console.log(4);
             return new Promise(function (resolve, reject) {
                 App.web3_in_use.eth.getBlockNumber(function (error, result) {
                     if (!error) {

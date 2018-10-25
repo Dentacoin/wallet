@@ -247,6 +247,7 @@ var App = {
 
             //save current block number into state
             await App.helper.getBlockNum();
+            console.log(5);
 
             App.clinics_holder = await $.getJSON('/assets/jsons/clinics.json');
 
@@ -624,6 +625,7 @@ var App = {
             });
         },
         getBlockNum: function()  {
+            console.log(4);
             return new Promise(function(resolve, reject) {
                 App.web3_in_use.eth.getBlockNumber(function(error, result) {
                     if(!error){
