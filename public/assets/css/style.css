@@ -2218,6 +2218,10 @@ input.module-field {
       font-size: 28px;
       font-family: "Calibri-Bold";
       padding: 0 30px 10px; }
+      @media screen and (max-width: 767px) {
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .title {
+          font-size: 22px;
+          text-align: center; } }
     .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right {
       width: 50%;
       font-size: 16px; }
@@ -2234,6 +2238,7 @@ input.module-field {
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .navigation-link a.active, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .navigation-link a.active {
           background-color: #ddd; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body {
+        font-size: 14px;
         min-height: 350px; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body label.custom-label, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body label.custom-label {
           display: block;
@@ -2242,8 +2247,13 @@ input.module-field {
           font-size: 14px; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body.custom-hide, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body.custom-hide {
           visibility: hidden; }
+          @media screen and (max-width: 767px) {
+            .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body.custom-hide, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body.custom-hide {
+              display: none; } }
     .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left {
       border-right: 1px solid #ddd; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .navigation-link.mobile {
+        display: none; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left label.custom-label {
         padding: 30px 10px 20px; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container {
@@ -2301,6 +2311,16 @@ input.module-field {
             color: red;
             padding-top: 20px;
             padding-bottom: 20px; }
+      @media screen and (max-width: 767px) {
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left {
+          width: 100%;
+          font-size: 0; }
+          .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .navigation-link {
+            width: 50%;
+            display: inline-block;
+            vertical-align: top; }
+            .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .navigation-link.mobile {
+              display: inline-block; } }
     .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right input[type='password'] {
       padding: 12px;
       border: 1px solid #ddd;
@@ -2341,6 +2361,11 @@ input.module-field {
       margin: 0 auto;
       padding-top: 30px;
       padding-bottom: 20px; }
+    @media screen and (max-width: 767px) {
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right {
+        width: 100%; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .navigation-link {
+          display: none; } }
 
 .validation-popup .modal-dialog {
   width: 95%;

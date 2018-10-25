@@ -4,6 +4,9 @@
         <div class="navigation-link">
             <a href="javascript:void(0)" data-slug="first" class="active">CREATE</a>
         </div>
+        <div class="navigation-link mobile">
+            <a href="javascript:void(0)" data-slug="second">IMPORT</a>
+        </div>
         <div class="popup-body first">
             <label class="custom-label">Input password for your Keystore file</label>
             <input type="password" class="keystore-file-pass" maxlength="30"/>

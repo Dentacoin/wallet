@@ -999,6 +999,10 @@ input.module-field {
                 font-size: 28px;
                 font-family: "Calibri-Bold";
                 padding: 0 30px 10px;
+                @include breakpoint($xs)    {
+                    font-size: 22px;
+                    text-align: center;
+                }
             }
             .left-right-side-holder {
                 .popup-left, .popup-right {
@@ -1021,6 +1025,7 @@ input.module-field {
                         }
                     }
                     .popup-body {
+                        font-size: 14px;
                         min-height: 350px;
                         label.custom-label {
                             display: block;
@@ -1030,10 +1035,18 @@ input.module-field {
                         }
                         &.custom-hide {
                             visibility: hidden;
+                            @include breakpoint($xs)    {
+                                display: none;
+                            }
                         }
                     }
                 }
                 .popup-left {
+                    .navigation-link {
+                        &.mobile {
+                            display: none;
+                        }
+                    }
                     border-right: 1px solid $light_gray;
                     label.custom-label {
                         padding: 30px 10px 20px;
@@ -1099,6 +1112,18 @@ input.module-field {
                             }
                         }
                     }
+                    @include breakpoint($xs)    {
+                        width: 100%;
+                        font-size: 0;
+                        .navigation-link {
+                            width: 50%;
+                            display: inline-block;
+                            vertical-align: top;
+                            &.mobile {
+                                display: inline-block;
+                            }
+                        }
+                    }
                 }
                 .popup-right {
                     input[type='password'] {
@@ -1141,6 +1166,12 @@ input.module-field {
                         margin: 0 auto;
                         padding-top: 30px;
                         padding-bottom: 20px;
+                    }
+                    @include breakpoint($xs)    {
+                        width: 100%;
+                        .navigation-link {
+                            display: none;
+                        }
                     }
                 }
             }
