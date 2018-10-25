@@ -193,7 +193,6 @@ var App = {
     web3_0_2: null,
     web3_1_0: null,
     web3_in_use: null,
-    defaultAccount: null,
     clinics_holder: null,
     contracts: {},
     loading: false,
@@ -208,8 +207,7 @@ var App = {
         if(localStorage.getItem('current-account') != null)    {
             global_state.account = JSON.parse(localStorage.getItem('current-account')).address;
             App.web3_1_0 = getWeb3();
-            web3 = getWeb3();
-            App.web3_in_use = App.web3_1_0;
+            App.web3_in_use = getWeb3();
         }else if(typeof(web3) !== 'undefined') {
             //reuse the provider of the Web3 object injected by Metamask
             App.web3_0_2 = web3;
@@ -350,7 +348,7 @@ var App = {
     },
     getAddressETHBalance: function(address)    {
         return new Promise(function(resolve, reject) {
-            resolve(web3.eth.getBalance(address));
+            resolve(App.web3_in_use.eth.getBalance(address));
         });
     },
     buildTransactionsHistory: async function(num)    {
