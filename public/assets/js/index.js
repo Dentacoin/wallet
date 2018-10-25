@@ -245,20 +245,16 @@ var App = {
             }else if(App.web3_1_0 != null) {
                 global_state.curr_addr_eth_balance = App.web3_1_0.utils.fromWei(await App.getAddressETHBalance(global_state.account));
             }
-            console.log(3);
 
             //save current block number into state
             await App.helper.getBlockNum();
-            console.log(5);
 
             App.clinics_holder = await $.getJSON('/assets/jsons/clinics.json');
 
             //get transactions history in footer
             App.buildTransactionsHistory();
-            console.log(6);
 
             onAccountSwitch();
-            console.log(7);
         });
     },
     updateBalance: function(homepage)  {
@@ -353,9 +349,7 @@ var App = {
         });
     },
     getAddressETHBalance: function(address)    {
-        console.log(1);
         return new Promise(function(resolve, reject) {
-            console.log(2);
             resolve(App.web3_in_use.eth.getBalance(address));
         });
     },
@@ -427,6 +421,7 @@ var App = {
 
         //summing from and to events into arr
         var array = from_events.concat(to_events);
+        console.log(array);
         if(array.length > 0) {
             //getting the clinics from the api cached json
             var table_html = '';
