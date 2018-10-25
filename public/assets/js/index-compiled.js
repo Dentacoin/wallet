@@ -25361,7 +25361,7 @@ var onAccountSwitch = function () {
 
                                 window.location.reload();
                             }
-                        } else {
+                        } else if (meta_mask_installed) {
                             if ($('.homepage-container').length > 0) {
                                 $('.homepage-container .address span').html($('.homepage-container .address span').attr('data-log-metamask'));
                                 $('.homepage-container .address .copy-address').hide();
