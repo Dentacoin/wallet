@@ -26322,33 +26322,6 @@ if ($('body').hasClass('home')) {
 
     //on input and if valid address add active class to 'next' button for UI
     $('.send-container .wallet-address input.combobox-input').on('input', function () {
-        if (basic.isMobile()) {
-            if (!is_firefox && typeof web3 === 'undefined') {
-                $(this).val('');
-                mobileDownloadMetaMaskPopup();
-                return false;
-            } else if (is_firefox) {
-                if (!meta_mask_installed) {
-                    $(this).val('');
-                    mobileDownloadMetaMaskPopup();
-                    return false;
-                } else if (!meta_mask_logged) {
-                    $(this).val('');
-                    mobileLoginMetaMaskPopup();
-                    return false;
-                }
-            }
-        } else {
-            if (!meta_mask_installed) {
-                desktopDownloadMetaMaskPopup();
-                $(this).val('');
-                return false;
-            } else if (!meta_mask_logged) {
-                desktopLoginMetaMaskPopup();
-                $(this).val('');
-                return false;
-            }
-        }
         if (innerAddressCheck($(this).val().trim())) {
             $('.send-container .next a').addClass('active');
         } else if ($('.send-container .next a').hasClass('active')) {
@@ -26357,32 +26330,6 @@ if ($('body').hasClass('home')) {
     });
 
     $('.send-container .next a').click(function () {
-        if (basic.isMobile()) {
-            if (!is_firefox && typeof web3 === 'undefined') {
-                $(this).val('');
-                mobileDownloadMetaMaskPopup();
-                return false;
-            } else if (is_firefox) {
-                if (!meta_mask_installed) {
-                    $(this).val('');
-                    mobileDownloadMetaMaskPopup();
-                    return false;
-                } else if (!meta_mask_logged) {
-                    $(this).val('');
-                    mobileLoginMetaMaskPopup();
-                    return false;
-                }
-            }
-        } else {
-            if (!meta_mask_installed) {
-                desktopDownloadMetaMaskPopup();
-                return false;
-            } else if (!meta_mask_logged) {
-                desktopLoginMetaMaskPopup();
-                return false;
-            }
-        }
-
         if (innerAddressCheck($('.send-container .wallet-address input.combobox-input').val().trim())) {
             window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address .combobox-input').val().trim();
         } else {
@@ -26400,28 +26347,6 @@ function pageAmountToLogic() {
 
     //editing the address logic
     $('.amount-to-container .edit-address').click(function () {
-        if (basic.isMobile()) {
-            if (!is_firefox && typeof web3 === 'undefined') {
-                mobileDownloadMetaMaskPopup();
-                return false;
-            } else if (is_firefox) {
-                if (!meta_mask_installed) {
-                    mobileDownloadMetaMaskPopup();
-                    return false;
-                } else if (!meta_mask_logged) {
-                    mobileLoginMetaMaskPopup();
-                    return false;
-                }
-            }
-        } else {
-            if (!meta_mask_installed) {
-                desktopDownloadMetaMaskPopup();
-                return false;
-            } else if (!meta_mask_logged) {
-                desktopLoginMetaMaskPopup();
-                return false;
-            }
-        }
         if ($(this).hasClass('ready-to-edit')) {
             var editing_address = $('.amount-to-container input.value-to-edit').val().trim();
             if (innerAddressCheck(editing_address)) {
@@ -26446,29 +26371,6 @@ function pageAmountToLogic() {
 
     //on input in dcn input change usd input
     $('.amount-to-container input#dcn').on('input', function () {
-        if (basic.isMobile()) {
-            if (!is_firefox && typeof web3 === 'undefined') {
-                mobileDownloadMetaMaskPopup();
-                return false;
-            } else if (is_firefox) {
-                if (!meta_mask_installed) {
-                    mobileDownloadMetaMaskPopup();
-                    return false;
-                } else if (!meta_mask_logged) {
-                    mobileLoginMetaMaskPopup();
-                    return false;
-                }
-            }
-        } else {
-            if (!meta_mask_installed) {
-                desktopDownloadMetaMaskPopup();
-                return false;
-            } else if (!meta_mask_logged) {
-                desktopLoginMetaMaskPopup();
-                return false;
-            }
-        }
-
         var to_fixed_num = 2;
         if ($(this).val().trim() * global_state.curr_dcn_in_usd < 0.01) {
             to_fixed_num = 4;
@@ -26478,54 +26380,10 @@ function pageAmountToLogic() {
 
     //on input in usd input change dcn input
     $('.amount-to-container input#usd').on('input', function () {
-        if (basic.isMobile()) {
-            if (!is_firefox && typeof web3 === 'undefined') {
-                mobileDownloadMetaMaskPopup();
-                return false;
-            } else if (is_firefox) {
-                if (!meta_mask_installed) {
-                    mobileDownloadMetaMaskPopup();
-                    return false;
-                } else if (!meta_mask_logged) {
-                    mobileLoginMetaMaskPopup();
-                    return false;
-                }
-            }
-        } else {
-            if (!meta_mask_installed) {
-                desktopDownloadMetaMaskPopup();
-                return false;
-            } else if (!meta_mask_logged) {
-                desktopLoginMetaMaskPopup();
-                return false;
-            }
-        }
         $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
     });
 
     $('.amount-to-container .send-value-btn').click(function () {
-        if (basic.isMobile()) {
-            if (!is_firefox && typeof web3 === 'undefined') {
-                mobileDownloadMetaMaskPopup();
-                return false;
-            } else if (is_firefox) {
-                if (!meta_mask_installed) {
-                    mobileDownloadMetaMaskPopup();
-                    return false;
-                } else if (!meta_mask_logged) {
-                    mobileLoginMetaMaskPopup();
-                    return false;
-                }
-            }
-        } else {
-            if (!meta_mask_installed) {
-                desktopDownloadMetaMaskPopup();
-                return false;
-            } else if (!meta_mask_logged) {
-                desktopLoginMetaMaskPopup();
-                return false;
-            }
-        }
         var dcn_val = $('.amount-to-container input#dcn').val().trim();
         var usd_val = $('.amount-to-container input#usd').val().trim();
         var sending_to_address = $('.amount-to-container .wallet-address span.address').html();
