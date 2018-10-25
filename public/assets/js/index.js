@@ -114,7 +114,7 @@ function initChecker()  {
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').click(function()  {
                                             if(keystore_downloaded) {
                                                 localStorage.setItem('current-account', JSON.stringify({
-                                                    address: response.success.keystore.address,
+                                                    address: '0x' + response.success.keystore.address,
                                                     pk_obj: response.success.pk_obj
                                                 }));
                                                 window.location.reload();
@@ -421,7 +421,6 @@ var App = {
 
         //summing from and to events into arr
         var array = from_events.concat(to_events);
-        console.log(array);
         if(array.length > 0) {
             //getting the clinics from the api cached json
             var table_html = '';
@@ -447,11 +446,6 @@ var App = {
                 var label = '';
                 var dcn_amount_symbol;
                 var usd_amount = (parseInt(array[i].returnValues._value) * global_state.curr_dcn_in_usd).toFixed(2);
-                console.log(global_state.account.toLowerCase());
-                console.log(array[i].returnValues._to.toLowerCase());
-                console.log(array[i].returnValues._from.toLowerCase());
-                console.log(array[i].returnValues);
-                console.log(array[i]);
                 if(array[i].returnValues._to.toLowerCase() == global_state.account.toLowerCase())    {
                     //IF THE CURRENT ACCOUNT IS RECEIVER
                     other_address = array[i].returnValues._from;
@@ -1183,7 +1177,7 @@ function styleInputTypeFile()    {
                                         success: function (response) {
                                             if(response.success)    {
                                                 localStorage.setItem('current-account', JSON.stringify({
-                                                    address: address,
+                                                    address: '0x' + address,
                                                     pk_obj: response.success
                                                 }));
                                                 window.location.reload();

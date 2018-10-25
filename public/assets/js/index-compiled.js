@@ -25523,7 +25523,7 @@ function initChecker() {
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').click(function () {
                                             if (keystore_downloaded) {
                                                 localStorage.setItem('current-account', JSON.stringify({
-                                                    address: response.success.keystore.address,
+                                                    address: '0x' + response.success.keystore.address,
                                                     pk_obj: response.success.pk_obj
                                                 }));
                                                 window.location.reload();
@@ -25959,10 +25959,8 @@ var App = {
                             //summing from and to events into arr
                             array = from_events.concat(to_events);
 
-                            console.log(array);
-
                             if (!(array.length > 0)) {
-                                _context3.next = 55;
+                                _context3.next = 54;
                                 break;
                             }
 
@@ -25972,24 +25970,24 @@ var App = {
 
                             i = 0, len = array.length;
 
-                        case 41:
+                        case 40:
                             if (!(i < len)) {
-                                _context3.next = 48;
+                                _context3.next = 47;
                                 break;
                             }
 
-                            _context3.next = 44;
+                            _context3.next = 43;
                             return App.helper.addBlockTimestampToTransaction(array[i]);
 
-                        case 44:
+                        case 43:
                             array[i].timestamp = _context3.sent;
 
-                        case 45:
+                        case 44:
                             i += 1;
-                            _context3.next = 41;
+                            _context3.next = 40;
                             break;
 
-                        case 48:
+                        case 47:
 
                             //sorting the array of objects by timestamp property
                             sortByKey(array, 'timestamp');
@@ -26008,11 +26006,6 @@ var App = {
                                 label = '';
                                 usd_amount = (parseInt(array[i].returnValues._value) * global_state.curr_dcn_in_usd).toFixed(2);
 
-                                console.log(global_state.account.toLowerCase());
-                                console.log(array[i].returnValues._to.toLowerCase());
-                                console.log(array[i].returnValues._from.toLowerCase());
-                                console.log(array[i].returnValues);
-                                console.log(array[i]);
                                 if (array[i].returnValues._to.toLowerCase() == global_state.account.toLowerCase()) {
                                     //IF THE CURRENT ACCOUNT IS RECEIVER
                                     other_address = array[i].returnValues._from;
@@ -26070,33 +26063,33 @@ var App = {
 
                             initShowMoreBtn();
 
-                        case 55:
-                            _context3.next = 57;
+                        case 54:
+                            _context3.next = 56;
                             return App.helper.getLoopingTransactionFromBlockTimestamp(global_state.curr_block - num * blocks_for_month_n_half);
 
-                        case 57:
+                        case 56:
                             _context3.t1 = _context3.sent;
                             _context3.t2 = new Date('2017.01.01').getTime() / 1000;
                             _context3.t0 = _context3.t1 > _context3.t2;
 
                             if (!_context3.t0) {
-                                _context3.next = 62;
+                                _context3.next = 61;
                                 break;
                             }
 
                             _context3.t0 = !stop_query_more_obj;
 
-                        case 62:
+                        case 61:
                             if (!_context3.t0) {
-                                _context3.next = 66;
+                                _context3.next = 65;
                                 break;
                             }
 
                             App.buildTransactionsHistory(num += 1);
-                            _context3.next = 69;
+                            _context3.next = 68;
                             break;
 
-                        case 66:
+                        case 65:
                             hideLoader();
 
                             //IMPORTING TRANSACTIONS TO LOCAL STORAGE
@@ -26147,7 +26140,7 @@ var App = {
                                 $('.transaction-history table tbody.visible-tbody').html('<tr><td class="text-center">No previous transactions found.</td></tr>');
                             }
 
-                        case 69:
+                        case 68:
                         case 'end':
                             return _context3.stop();
                     }
@@ -26734,7 +26727,7 @@ function styleInputTypeFile() {
                                         success: function success(response) {
                                             if (response.success) {
                                                 localStorage.setItem('current-account', JSON.stringify({
-                                                    address: address,
+                                                    address: '0x' + address,
                                                     pk_obj: response.success
                                                 }));
                                                 window.location.reload();
