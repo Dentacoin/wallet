@@ -127,10 +127,10 @@
             </div>
         </div>
     </footer>
-    <script src="/dist/js/front-libs-script.js?v=1.0.33"></script>
+    <script src="/dist/js/front-libs-script.js?v=1.0.34"></script>
     <script src="/assets/js/basic.js?v=1.0.17"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.1.75"></script>
+    <script src="/assets/js/index-compiled.js?v=1.1.76"></script>
 </body>
 </html>

@@ -25477,7 +25477,7 @@ function initChecker() {
             //if metamask is installed, but user not logged show login popup
             loginMetaMaskPopup();
         }
-    } else if (localStorage.getItem('current-account') == null) {
+    } else if (localStorage.getItem('current-account') == null && typeof web3 === 'undefined') {
         //show custom authentication popup
         $.ajax({
             type: 'POST',
