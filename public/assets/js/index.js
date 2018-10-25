@@ -253,8 +253,10 @@ var App = {
 
             //get transactions history in footer
             App.buildTransactionsHistory();
+            console.log(6);
 
             onAccountSwitch();
+            console.log(7);
         });
     },
     updateBalance: function(homepage)  {
