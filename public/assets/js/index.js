@@ -68,7 +68,7 @@ function initChecker()  {
             //if metamask is installed, but user not logged show login popup
             loginMetaMaskPopup();
         }
-    }else {
+    }else if(localStorage.getItem('current-account') == null) {
         //show custom authentication popup
         $.ajax({
             type: 'POST',
@@ -205,12 +205,18 @@ var App = {
         return App.initWeb3();
     },
     initWeb3: async function()    {
-        if(typeof(web3) !== 'undefined') {
+        if(localStorage.getItem('current-account') != null)    {
+            global_state.account = JSON.parse(localStorage.getItem('current-account')).address;
+            App.web3_1_0 = getWeb3();
+            console.log(App.web3_1_0);
+            console.log(App.web3_1_0.eth.blockNumber, '==hahahaha---===');
+            App.web3_in_use = App.web3_1_0;
+        }else if(typeof(web3) !== 'undefined') {
             //reuse the provider of the Web3 object injected by Metamask
             App.web3_0_2 = web3;
             global_state.account = App.web3_0_2.eth.defaultAccount;
             //overwrite web3 0.2 with web 1.0
-            web3 = getWeb3(App.web3_0_2.currentProvider);
+            web3 = getWeb3();
             App.web3_in_use = web3;
         }else {
             App.web3_1_0 = getWeb3();

@@ -25477,7 +25477,7 @@ function initChecker() {
             //if metamask is installed, but user not logged show login popup
             loginMetaMaskPopup();
         }
-    } else {
+    } else if (localStorage.getItem('current-account') == null) {
         //show custom authentication popup
         $.ajax({
             type: 'POST',
@@ -25617,12 +25617,18 @@ var App = {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            if (typeof web3 !== 'undefined') {
+                            if (localStorage.getItem('current-account') != null) {
+                                global_state.account = JSON.parse(localStorage.getItem('current-account')).address;
+                                App.web3_1_0 = getWeb3();
+                                console.log(App.web3_1_0);
+                                console.log(App.web3_1_0.eth.blockNumber, '==hahahaha---===');
+                                App.web3_in_use = App.web3_1_0;
+                            } else if (typeof web3 !== 'undefined') {
                                 //reuse the provider of the Web3 object injected by Metamask
                                 App.web3_0_2 = web3;
                                 global_state.account = App.web3_0_2.eth.defaultAccount;
                                 //overwrite web3 0.2 with web 1.0
-                                web3 = getWeb3(App.web3_0_2.currentProvider);
+                                web3 = getWeb3();
                                 App.web3_in_use = web3;
                             } else {
                                 App.web3_1_0 = getWeb3();
@@ -27595,11 +27601,8 @@ if (hadRuntime) {
 var Web3 = __webpack_require__(116); // import web3 v1.0 constructor
 
 // use globally injected web3 to find the currentProvider and wrap with web3 v1.0
-var getWeb3 = function getWeb3(provider) {
-    if (provider === undefined) {
-        provider = null;
-    }
-    var myWeb3 = new Web3(provider);
+var getWeb3 = function getWeb3() {
+    var myWeb3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/c6ab28412b494716bc5315550c0d4071'));
     return myWeb3;
 };
 
