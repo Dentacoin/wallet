@@ -25495,13 +25495,12 @@ function initChecker() {
                     $('.custom-auth-popup .btn-container a').click(function () {
                         if ($('.custom-auth-popup .keystore-file-pass').val().trim() == '') {
                             basic.showAlert('Please enter password for your keystore file.', '', true);
-                        } else if ($('.custom-auth-popup .keystore-file-pass').val().trim().length < 6 || $('.custom-auth-popup .keystore-file-pass').val().trim().length > 20) {
+                        } else if ($('.custom-auth-popup .keystore-file-pass').val().trim().length < 6 || $('.custom-auth-popup .keystore-file-pass').val().trim().length > 30) {
                             basic.showAlert('The password must be with minimum length of 6 characters and maximum 20.', '', true);
                         } else {
                             $.ajax({
                                 type: 'POST',
-                                //url: HOME_URL + '/app-create',
-                                url: 'https://wallet.dentacoin.com/app-create',
+                                url: HOME_URL + '/app-create',
                                 data: {
                                     password: $('.custom-auth-popup .keystore-file-pass').val().trim()
                                 },
