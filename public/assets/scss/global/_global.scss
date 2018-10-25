@@ -1022,6 +1022,12 @@ input.module-field {
                     }
                     .popup-body {
                         min-height: 350px;
+                        label.custom-label {
+                            display: block;
+                            text-align: center;
+                            font-weight: 500;
+                            font-size: 14px;
+                        }
                         &.custom-hide {
                             visibility: hidden;
                         }
@@ -1029,28 +1035,29 @@ input.module-field {
                 }
                 .popup-left {
                     border-right: 1px solid $light_gray;
-                    label {
-                        display: block;
-                        text-align: center;
+                    label.custom-label {
                         padding: 30px 10px 20px;
-                        font-weight: 500;
                     }
                     .btn-container {
                         padding-top: 20px;
                         padding-bottom: 20px;
                         a {
-                            display: inline-block; 
+                            display: inline-block;
                             color: white;
                             background-color: #00b7d9;
                             font-size: 22px;
                             padding: 10px 20px;
                             margin: 0 auto;
                             text-align: center;
-                            @include rounded(6px);
+                            min-width: 200px;
+                            @include rounded(10px);
                             i {
                                 color: white;
                                 font-size: 20px;
                             }
+                        }
+                        &.continue-btn {
+                            padding-top: 40px; 
                         }
                     }
                     &[data-step='first'] {
@@ -1060,14 +1067,15 @@ input.module-field {
                             border: 1px solid $light_gray;
                             width: 90%;
                             max-width: 400px;
-                            @include rounded(6px);
+                            @include rounded(10px);
                         }
                     }
                     &[data-step='second'] {
                         text-align: center;
-                        label {
-                            padding: 20px 10px 0;
-                            font-size: 14px;
+                        label.custom-label {
+                            padding: 20px 0 0;
+                            width: 90%;
+                            margin: 0 auto;
                         }
                         .btn-container {
                             padding-top: 15px;
@@ -1082,12 +1090,44 @@ input.module-field {
                             margin: 0 auto;
                             font-size: 14px;
                             font-weight: 500;
+                            padding-top: 15px;
+                            padding-bottom: 15px;
                             span.red {
                                 color: red;
                                 padding-top: 20px;
                                 padding-bottom: 20px;
                             }
                         }
+                    }
+                }
+                .popup-right {
+                    .btn-container {
+                        padding-top: 20px;
+                        padding-bottom: 20px;
+                        a {
+                            display: inline-block;
+                            color: white;
+                            background-color: #00b7d9;
+                            font-size: 22px;
+                            padding: 10px 20px;
+                            margin: 0 auto;
+                            text-align: center;
+                            min-width: 200px;
+                            @include rounded(10px);
+                            i {
+                                color: white;
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                    .camping-for-action {
+                        text-align: center;
+                    }
+                    label.custom-label {
+                        width: 90%;
+                        margin: 0 auto;
+                        padding-top: 30px;
+                        padding-bottom: 20px;
                     }
                 }
             }
@@ -1305,4 +1345,65 @@ input.module-field {
 
 .margin-0-auto {
     margin: 0 auto;
+}
+
+.custom-upload-button {
+    display: block;
+    background: #fff;
+    width: 150px;
+    margin: 0 auto;
+    position: relative;
+    font-size: 18px;
+    @include rounded(10px);
+    @include box-shadow(0 2px 6px rgba(170, 185, 200, 0.4));
+    svg {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -15px 0 0 -15px;
+        fill: #fff;
+    }
+    div {
+        height: 4px;
+        margin: -2px 0 0 0;
+        position: absolute;
+        top: 50%;
+        left: 71px;
+        right: 25px;
+        background: #d3d7e0;
+        display: none;
+        border-radius: 2px;
+        span {
+            position: absolute;
+            background: #28e470;
+            height: 4px;
+            left: 0;
+            top: 0;
+            width: 0;
+            display: block;
+            border-radius: 2px;
+        }
+    }
+    a {
+        position: relative;
+        display: block;
+        background: #00b7d9;
+        z-index: 2;
+        line-height: 56px;
+        height: 56px;
+        width: 100%;
+        text-align: center;
+        color: white !important;
+        @include rounded(10px);
+        @include box-shadow(0 2px 6px rgba(170, 185, 200, 0.4));
+        span {
+            cursor: pointer;
+            display: block;
+        }
+    }
+}
+
+input[type=file].hide-input {
+    display: none;
 }

@@ -2235,15 +2235,17 @@ input.module-field {
           background-color: #ddd; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body {
         min-height: 350px; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body label.custom-label, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body label.custom-label {
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          font-size: 14px; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body.custom-hide, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body.custom-hide {
           visibility: hidden; }
     .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left {
       border-right: 1px solid #ddd; }
-      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left label {
-        display: block;
-        text-align: center;
-        padding: 30px 10px 20px;
-        font-weight: 500; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left label.custom-label {
+        padding: 30px 10px 20px; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container {
         padding-top: 20px;
         padding-bottom: 20px; }
@@ -2255,13 +2257,16 @@ input.module-field {
           padding: 10px 20px;
           margin: 0 auto;
           text-align: center;
-          -webkit-border-radius: 6px;
-          -moz-border-radius: 6px;
-          -ms-border-radius: 6px;
-          border-radius: 6px; }
+          min-width: 200px;
+          -webkit-border-radius: 10px;
+          -moz-border-radius: 10px;
+          -ms-border-radius: 10px;
+          border-radius: 10px; }
           .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container a i {
             color: white;
             font-size: 20px; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container.continue-btn {
+          padding-top: 40px; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='first'] {
         text-align: center; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='first'] input[type='password'] {
@@ -2269,15 +2274,16 @@ input.module-field {
           border: 1px solid #ddd;
           width: 90%;
           max-width: 400px;
-          -webkit-border-radius: 6px;
-          -moz-border-radius: 6px;
-          -ms-border-radius: 6px;
-          border-radius: 6px; }
+          -webkit-border-radius: 10px;
+          -moz-border-radius: 10px;
+          -ms-border-radius: 10px;
+          border-radius: 10px; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] {
         text-align: center; }
-        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] label {
-          padding: 20px 10px 0;
-          font-size: 14px; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] label.custom-label {
+          padding: 20px 0 0;
+          width: 90%;
+          margin: 0 auto; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] .btn-container {
           padding-top: 15px;
           padding-bottom: 15px; }
@@ -2288,11 +2294,39 @@ input.module-field {
           width: 90%;
           margin: 0 auto;
           font-size: 14px;
-          font-weight: 500; }
+          font-weight: 500;
+          padding-top: 15px;
+          padding-bottom: 15px; }
           .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] .second-reminder span.red {
             color: red;
             padding-top: 20px;
             padding-bottom: 20px; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .btn-container {
+      padding-top: 20px;
+      padding-bottom: 20px; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .btn-container a {
+        display: inline-block;
+        color: white;
+        background-color: #00b7d9;
+        font-size: 22px;
+        padding: 10px 20px;
+        margin: 0 auto;
+        text-align: center;
+        min-width: 200px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        border-radius: 10px; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .btn-container a i {
+          color: white;
+          font-size: 20px; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .camping-for-action {
+      text-align: center; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right label.custom-label {
+      width: 90%;
+      margin: 0 auto;
+      padding-top: 30px;
+      padding-bottom: 20px; }
 
 .validation-popup .modal-dialog {
   width: 95%;
@@ -2437,6 +2471,72 @@ input.module-field {
 
 .margin-0-auto {
   margin: 0 auto; }
+
+.custom-upload-button {
+  display: block;
+  background: #fff;
+  width: 150px;
+  margin: 0 auto;
+  position: relative;
+  font-size: 18px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 2px 6px rgba(170, 185, 200, 0.4);
+  -moz-box-shadow: 0 2px 6px rgba(170, 185, 200, 0.4);
+  -ms-box-shadow: 0 2px 6px rgba(170, 185, 200, 0.4);
+  box-shadow: 0 2px 6px rgba(170, 185, 200, 0.4); }
+  .custom-upload-button svg {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+    fill: #fff; }
+  .custom-upload-button div {
+    height: 4px;
+    margin: -2px 0 0 0;
+    position: absolute;
+    top: 50%;
+    left: 71px;
+    right: 25px;
+    background: #d3d7e0;
+    display: none;
+    border-radius: 2px; }
+    .custom-upload-button div span {
+      position: absolute;
+      background: #28e470;
+      height: 4px;
+      left: 0;
+      top: 0;
+      width: 0;
+      display: block;
+      border-radius: 2px; }
+  .custom-upload-button a {
+    position: relative;
+    display: block;
+    background: #00b7d9;
+    z-index: 2;
+    line-height: 56px;
+    height: 56px;
+    width: 100%;
+    text-align: center;
+    color: white !important;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 2px 6px rgba(170, 185, 200, 0.4);
+    -moz-box-shadow: 0 2px 6px rgba(170, 185, 200, 0.4);
+    -ms-box-shadow: 0 2px 6px rgba(170, 185, 200, 0.4);
+    box-shadow: 0 2px 6px rgba(170, 185, 200, 0.4); }
+    .custom-upload-button a span {
+      cursor: pointer;
+      display: block; }
+
+input[type=file].hide-input {
+  display: none; }
 
 header .logo {
   padding-top: 10px;

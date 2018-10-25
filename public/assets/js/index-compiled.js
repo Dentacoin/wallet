@@ -25381,6 +25381,8 @@ var onAccountSwitch = function () {
     };
 }();
 
+//hidePopupOnBackdropClick();
+
 var initCheckIfUserLoggingMetaMask = function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5() {
         var accounts;
@@ -25485,6 +25487,8 @@ function initChecker() {
                 if (response.success) {
                     basic.showDialog(response.success, 'custom-auth-popup', null, true);
 
+                    styleInputTypeFile();
+
                     $('.custom-auth-popup .navigation-link > a').click(function () {
                         $('.custom-auth-popup .navigation-link a').removeClass('active');
                         $(this).addClass('active');
@@ -25492,7 +25496,7 @@ function initChecker() {
                         $('.custom-auth-popup .popup-body.' + $(this).attr('data-slug')).removeClass('custom-hide');
                     });
 
-                    $('.custom-auth-popup .btn-container a').click(function () {
+                    $('.custom-auth-popup .popup-left .btn-container a').click(function () {
                         if ($('.custom-auth-popup .keystore-file-pass').val().trim() == '') {
                             basic.showAlert('Please enter password for your keystore file.', '', true);
                         } else if ($('.custom-auth-popup .keystore-file-pass').val().trim().length < 8 || $('.custom-auth-popup .keystore-file-pass').val().trim().length > 30) {
@@ -25509,7 +25513,7 @@ function initChecker() {
                                     if (response.success) {
                                         var keystore_downloaded = false;
                                         $('.custom-auth-popup .popup-left').attr('data-step', 'second');
-                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label>Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled">I understand. CONTINUE</a></div>');
+                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled">I understand. CONTINUE</a></div>');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function () {
                                             download(response.success.address, JSON.stringify(response.success));
                                             $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
@@ -26609,7 +26613,6 @@ function hidePopupOnBackdropClick() {
         }
     });
 }
-hidePopupOnBackdropClick();
 
 function isInArray(value, array) {
     return array.indexOf(value) > -1;
@@ -26672,6 +26675,128 @@ function download(filename, text) {
     element.click();
 
     document.body.removeChild(element);
+}
+
+//styling input type file
+function styleInputTypeFile(load_filename_to_other_el) {
+    if (load_filename_to_other_el === undefined) {
+        load_filename_to_other_el = null;
+    }
+    jQuery(".upload-file").each(function (key, form) {
+        var inputs = document.querySelectorAll('.inputfile');
+        Array.prototype.forEach.call(inputs, function (input) {
+            var label = input.nextElementSibling;
+            input.addEventListener('change', function (e) {
+                var myFile = this.files[0];
+                var reader = new FileReader();
+
+                reader.addEventListener('load', function (e) {
+                    if (isJsonString(e.target.result) && has(JSON.parse(e.target.result), 'address')) {
+                        //init upload button animation
+                        initCustomInputFileAnimation(label);
+
+                        setTimeout(function () {
+                            //show continue button next step button
+                            $('.custom-auth-popup .popup-right .popup-body .camping-for-action').html('<div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled" data-password="123456">CONTINUE</a></div>');
+
+                            //calling IMPORT METHOD
+                            $('.custom-auth-popup .popup-right .popup-body .continue-btn > a').click(function () {
+                                var this_btn = $(this);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: HOME_URL + '/app-import',
+                                    data: {
+                                        password: this_btn.attr('data-password')
+                                    },
+                                    dataType: 'json',
+                                    success: function success(response) {
+                                        if (response.success) {
+                                            console.log(response.success);
+                                        }
+                                    }
+                                });
+                            });
+                        }, 1000);
+
+                        //display uploaded file name for user experience
+                        var fileName = '';
+                        if (this.files && this.files.length > 1) {
+                            fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                        } else {
+                            fileName = e.target.value.split('\\').pop();
+                        }
+                        console.log(fileName);
+                    } else {
+                        $('.custom-auth-popup .popup-right .popup-body #upload-keystore').val('');
+                        basic.showAlert('Please upload valid keystore file.', '', true);
+                        $('.custom-auth-popup .popup-right .popup-body .camping-for-action').html('');
+                    }
+                });
+
+                reader.readAsBinaryString(myFile);
+            });
+            // Firefox bug fix
+            input.addEventListener('focus', function () {
+                input.classList.add('has-focus');
+            });
+            input.addEventListener('blur', function () {
+                input.classList.remove('has-focus');
+            });
+        });
+    });
+}
+
+function initCustomInputFileAnimation(this_btn) {
+    var btn = $(this_btn);
+    var loadSVG = btn.children("a").children(".load");
+    var loadBar = btn.children("div").children("span");
+    var checkSVG = btn.children("a").children(".check");
+    btn.children("a").children("span").fadeOut(200, function () {
+        btn.children("a").animate({
+            width: 56
+        }, 100, function () {
+            loadSVG.fadeIn(300);
+            btn.animate({
+                width: 250
+            }, 200, function () {
+                btn.children("div").fadeIn(200, function () {
+                    loadBar.animate({
+                        width: "100%"
+                    }, 500, function () {
+                        loadSVG.fadeOut(200, function () {
+                            checkSVG.fadeIn(200, function () {
+                                setTimeout(function () {
+                                    btn.children("div").fadeOut(200, function () {
+                                        loadBar.width(0);
+                                        checkSVG.fadeOut(200, function () {
+                                            btn.children("a").animate({
+                                                width: 150
+                                            });
+                                            btn.animate({
+                                                width: 150
+                                            }, 300, function () {
+                                                btn.children("a").children("span").fadeIn(200);
+                                            });
+                                        });
+                                    });
+                                }, 500);
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+}
+
+//checking if string is valid json
+function isJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
 
 /***/ }),
