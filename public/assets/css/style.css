@@ -2205,7 +2205,7 @@ input.module-field {
     transform: translate(-50%, -50%); }
 
 .bootbox.custom-auth-popup .modal-dialog {
-  width: 90%;
+  width: 95%;
   max-width: 1100px; }
   .bootbox.custom-auth-popup .modal-dialog .modal-body {
     padding: 1rem 0; }
