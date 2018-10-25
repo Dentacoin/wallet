@@ -2204,6 +2204,74 @@ input.module-field {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%); }
 
+.bootbox.custom-auth-popup .modal-dialog {
+  width: 90%;
+  max-width: 1000px; }
+  .bootbox.custom-auth-popup .modal-dialog .modal-body {
+    padding: 1rem 0; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .bootbox-close-button {
+      margin-top: -10px;
+      margin-right: 10px;
+      font-size: 40px;
+      line-height: 20px; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .title {
+      font-size: 28px;
+      font-family: "Calibri-Bold";
+      padding: 0 30px 10px; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right {
+      width: 50%;
+      font-size: 16px; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .navigation-link a, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .navigation-link a {
+        display: block;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: center;
+        border-left: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        font-size: 30px;
+        font-family: "Calibri-Bold"; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .navigation-link a.active, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .navigation-link a.active {
+          background-color: #ddd; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body {
+        min-height: 350px; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .popup-body.custom-hide, .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .popup-body.custom-hide {
+          visibility: hidden; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left {
+      border-right: 1px solid #ddd; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='first'] {
+        text-align: center; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left label {
+        display: block;
+        text-align: center;
+        padding: 30px 10px 20px; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left input[type='password'] {
+        padding: 12px;
+        border: 1px solid #ddd;
+        width: 90%;
+        max-width: 400px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        -ms-border-radius: 6px;
+        border-radius: 6px; }
+      .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container {
+        padding-top: 20px;
+        padding-bottom: 20px; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container a {
+          display: block;
+          color: white;
+          background-color: #00b7d9;
+          font-size: 22px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          width: 250px;
+          margin: 0 auto;
+          text-align: center;
+          -webkit-border-radius: 6px;
+          -moz-border-radius: 6px;
+          -ms-border-radius: 6px;
+          border-radius: 6px; }
+
 .validation-popup .modal-dialog {
   width: 95%;
   max-width: 700px;

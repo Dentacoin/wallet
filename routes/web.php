@@ -21,6 +21,8 @@ Route::group(['prefix' => '/', 'middleware' => 'frontEndMiddleware'], function (
 
     Route::get('/buy', 'BuyController@getView')->name('buy');
 
+    Route::post('/get-custom-auth-html', 'Controller@getCustomAuthHtml')->name('get-custom-auth-html');
+
     Route::group(['prefix' => '/send'], function () {
         Route::get('/', 'SendController@getView')->name('send');
 

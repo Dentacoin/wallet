@@ -25453,10 +25453,6 @@ function mobileDownloadMetaMaskPopup() {
     basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
 
-function mobileLoginMetaMaskPopup() {
-    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup');
-}
-
 function desktopDownloadMetaMaskPopup() {
     var button_html = '';
     button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://metamask.io/" target="_blank">Get from MetaMask</a></div>';
@@ -25464,61 +25460,112 @@ function desktopDownloadMetaMaskPopup() {
     basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
 
-function desktopLoginMetaMaskPopup() {
+function loginMetaMaskPopup() {
     basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup');
 }
 
 function initChecker() {
-    if (typeof web3 !== 'undefined' && web3.eth.defaultAccount === undefined) {
-        setInterval(function () {
-            initCheckIfUserLoggingMetaMask();
-        }, 500);
-    }
-
+    //checking if metamask
     if (typeof web3 !== 'undefined' && web3.currentProvider.isMetaMask === true) {
         meta_mask_installed = true;
         web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
         if (typeof web3.eth.defaultAccount != 'undefined') {
             meta_mask_logged = true;
-        }
-    }
-
-    if (basic.isMobile()) {
-        if (typeof web3 === 'undefined') {
-            //MOBILE
-            if (!is_firefox) {
-                //popup for download mozilla browser OR trust wallet
-                basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
-            } else {
-                if (!meta_mask_installed) {
-                    //popup for download metamask
-                    mobileDownloadMetaMaskPopup();
-                } else if (!meta_mask_logged) {
-                    //popup for login in metamask
-                    mobileLoginMetaMaskPopup();
-                }
-            }
         } else {
-            if (is_firefox && !meta_mask_logged) {
-                //popup for login in metamask
-                mobileLoginMetaMaskPopup();
-            }
+            //if metamask is installed, but user not logged show login popup
+            loginMetaMaskPopup();
         }
     } else {
-        //DESKTOP
-        if (!is_chrome && !is_firefox && is_opera) {
-            //IF NOT CHROME OR MOZILLA OR OPERA
-            basic.showDialog('<div class="popup-body"> <div class="title">Download Desktop Browser</div><div class="subtitle">You can use Dentacoin Wallet on a desktop browser like Chrome, Firefox Brave or Opera.</div><div class="separator"></div><figure class="image"><img src="/assets/images/computer.svg" alt="Computer icon"/> </figure> <div class="btns-container"> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.google.com/chrome/" target="_blank"><img src="/assets/images/chrome.png" alt=""/> Chrome</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank"><img src="/assets/images/firefox.png" alt=""/> Firefox</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.opera.com/" target="_blank"><img src="/assets/images/opera.png" alt=""/> Opera</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://brave.com/download/" target="_blank"><img src="/assets/images/brave.png" alt=""/> Brave</a></figure> </div></div>', 'download-desktop-browser validation-popup');
-        } else {
-            if (!meta_mask_installed) {
-                //popup for download metamask
-                desktopDownloadMetaMaskPopup();
-            } else if (!meta_mask_logged) {
-                //popup for login in metamask
-                desktopLoginMetaMaskPopup();
+        //show custom authentication popup
+        $.ajax({
+            type: 'POST',
+            url: HOME_URL + '/get-custom-auth-html',
+            dataType: 'json',
+            success: function success(response) {
+                if (response.success) {
+                    basic.showDialog(response.success, 'custom-auth-popup', null, true);
+
+                    $('.custom-auth-popup .navigation-link > a').click(function () {
+                        $('.custom-auth-popup .navigation-link a').removeClass('active');
+                        $(this).addClass('active');
+                        $('.custom-auth-popup .popup-body').addClass('custom-hide');
+                        $('.custom-auth-popup .popup-body.' + $(this).attr('data-slug')).removeClass('custom-hide');
+                    });
+
+                    $('.custom-auth-popup .btn-container a').click(function () {
+                        if ($('.custom-auth-popup .keystore-file-pass').val().trim() == '') {
+                            basic.showAlert('Please enter password for your keystore file.', '', true);
+                        } else if ($('.custom-auth-popup .keystore-file-pass').val().trim().length < 6 || $('.custom-auth-popup .keystore-file-pass').val().trim().length > 20) {
+                            basic.showAlert('The password must be with minimum length of 6 characters and maximum 20.', '', true);
+                        } else {
+                            $.ajax({
+                                type: 'POST',
+                                //url: HOME_URL + '/app-create',
+                                url: 'https://wallet.dentacoin.com/app-create',
+                                data: {
+                                    password: $('.custom-auth-popup .keystore-file-pass').val().trim()
+                                },
+                                dataType: 'json',
+                                success: function success(response) {
+                                    if (response.success) {
+                                        console.log(response.success);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
             }
+        });
+    }
+    /*if(typeof(web3) !== 'undefined' && web3.eth.defaultAccount === undefined)   {
+        setInterval(function()  {
+            initCheckIfUserLoggingMetaMask();
+        }, 500);
+    }
+      if(typeof(web3) !== 'undefined' && web3.currentProvider.isMetaMask === true) {
+        meta_mask_installed = true;
+        web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
+        if(typeof(web3.eth.defaultAccount) != 'undefined')  {
+            meta_mask_logged = true;
         }
     }
+      if(basic.isMobile())    {
+        if(typeof(web3) === 'undefined')   {
+            //MOBILE
+            if(!is_firefox)    {
+                //popup for download mozilla browser OR trust wallet
+                basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
+            }else {
+                if(!meta_mask_installed)    {
+                    //popup for download metamask
+                    mobileDownloadMetaMaskPopup();
+                }else if(!meta_mask_logged) {
+                    //popup for login in metamask
+                    loginMetaMaskPopup();
+                }
+            }
+        }else {
+            if(is_firefox && !meta_mask_logged) {
+                //popup for login in metamask
+                loginMetaMaskPopup();
+            }
+        }
+    }else {
+        //DESKTOP
+        if(!is_chrome && !is_firefox && is_opera) {
+            //IF NOT CHROME OR MOZILLA OR OPERA
+            basic.showDialog('<div class="popup-body"> <div class="title">Download Desktop Browser</div><div class="subtitle">You can use Dentacoin Wallet on a desktop browser like Chrome, Firefox Brave or Opera.</div><div class="separator"></div><figure class="image"><img src="/assets/images/computer.svg" alt="Computer icon"/> </figure> <div class="btns-container"> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.google.com/chrome/" target="_blank"><img src="/assets/images/chrome.png" alt=""/> Chrome</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank"><img src="/assets/images/firefox.png" alt=""/> Firefox</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.opera.com/" target="_blank"><img src="/assets/images/opera.png" alt=""/> Opera</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://brave.com/download/" target="_blank"><img src="/assets/images/brave.png" alt=""/> Brave</a></figure> </div></div>', 'download-desktop-browser validation-popup');
+        }else {
+            if(!meta_mask_installed)    {
+                //popup for download metamask
+                desktopDownloadMetaMaskPopup();
+            }else if(!meta_mask_logged) {
+                //popup for login in metamask
+                loginMetaMaskPopup();
+            }
+        }
+    }*/
 }
 
 var global_state = {};
@@ -25715,12 +25762,10 @@ var App = {
                 event_obj.fromBlock = from_num;
             } else {
                 event_obj.fromBlock = global_state.curr_block - from_num;
-
                 if (global_state.curr_block - from_num < 0) {
                     event_obj.fromBlock = 0;
                 }
             }
-
             myContract.getPastEvents('Transfer', event_obj, function (error, event) {
                 resolve(event);
             });
@@ -25744,7 +25789,6 @@ var App = {
                 event_obj.fromBlock = from_num;
             } else {
                 event_obj.fromBlock = global_state.curr_block - from_num;
-
                 if (global_state.curr_block - from_num < 0) {
                     event_obj.fromBlock = 0;
                 }
@@ -25787,7 +25831,7 @@ var App = {
                                 num = 1;
                             }
 
-                            if (!(localStorage.getItem('latest-covered-block') != null)) {
+                            if (!(localStorage.getItem('latest-covered-block') != null && localStorage.getItem('transactions-address') == global_state.account)) {
                                 _context3.next = 21;
                                 break;
                             }
@@ -26023,7 +26067,7 @@ var App = {
 
                             //IMPORTING TRANSACTIONS TO LOCAL STORAGE
                             if ($('.transaction-history .visible-tbody tr.single-transaction').length > 0) {
-                                if (localStorage.getItem('transactions-history') != null) {
+                                if (localStorage.getItem('transactions-history') != null && localStorage.getItem('transactions-address') == global_state.account) {
                                     //IF WE HAVE ALREADY SAVED TRANSACTION HISTORY IN LOCAL STORAGE
                                     local_storage_obj = JSON.parse(localStorage.getItem('transactions-history'));
 
@@ -26061,6 +26105,7 @@ var App = {
                                     }
                                     localStorage.setItem('latest-covered-block', $('.transaction-history .visible-tbody tr.single-transaction').eq(0).attr('data-block-number'));
                                     localStorage.setItem('transactions-history', JSON.stringify(local_storage_obj));
+                                    localStorage.setItem('transactions-address', global_state.account);
                                 }
                             }
 
@@ -26205,10 +26250,8 @@ if ($('body').hasClass('home')) {
         }
 
         if (parseFloat($(this).val().trim()) < 0) {
-            console.log('asd1');
             $('.buy-container #paying-with-amount').val(50);
         } else if (parseFloat($(this).val().trim()) > 3000) {
-            console.log('asd2');
             $('.buy-container #paying-with-amount').val(3000);
         }
 

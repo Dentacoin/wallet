@@ -97,11 +97,11 @@ var basic = {
     showConfirm: function(message, class_name, params, vertical_center) {
         basic.realShowDialog(message, "confirm", class_name, params, null, vertical_center);
     },
-    showDialog: function(message, class_name, type) {
+    showDialog: function(message, class_name, type, vertical_center) {
         if(type === undefined){
             type = null;
         }
-        basic.realShowDialog(message, "dialog", class_name, null, type);
+        basic.realShowDialog(message, "dialog", class_name, null, type, vertical_center);
     },
     realShowDialog: function(message, dialog_type, class_name, params, type, vertical_center) {
         if(class_name === undefined){

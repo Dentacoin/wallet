@@ -983,6 +983,89 @@ input.module-field {
     }
 }
 
+.bootbox.custom-auth-popup {
+    .modal-dialog {
+        width: 90%;
+        max-width: 1000px;
+        .modal-body {
+            padding: 1rem 0;
+            .bootbox-close-button {
+                margin-top: -10px;
+                margin-right: 10px;
+                font-size: 40px;
+                line-height: 20px;
+            }
+            .title {
+                font-size: 28px;
+                font-family: "Calibri-Bold";
+                padding: 0 30px 10px;
+            }
+            .left-right-side-holder {
+                .popup-left, .popup-right {
+                    width: 50%;
+                    font-size: 16px;
+                    .navigation-link {
+                        a {
+                            display: block;
+                            padding-top: 5px;
+                            padding-bottom: 5px;
+                            text-align: center;
+                            border-left: 1px solid $light_gray;
+                            border-top: 1px solid $light_gray;
+                            border-bottom: 1px solid $light_gray;
+                            font-size: 30px;
+                            font-family: "Calibri-Bold";
+                            &.active {
+                                background-color: $light_gray;
+                            }
+                        }
+                    }
+                    .popup-body {
+                        min-height: 350px;
+                        &.custom-hide {
+                            visibility: hidden;
+                        }
+                    }
+                }
+                .popup-left {
+                    border-right: 1px solid $light_gray;
+                    &[data-step='first'] {
+                        text-align: center;
+                    }
+                    label {
+                        display: block;
+                        text-align: center;
+                        padding: 30px 10px 20px;
+                    }
+                    input[type='password'] {
+                        padding: 12px;
+                        border: 1px solid $light_gray;
+                        width: 90%;
+                        max-width: 400px;
+                        @include rounded(6px);
+                    }
+                    .btn-container {
+                        padding-top: 20px;
+                        padding-bottom: 20px;
+                        a {
+                            display: block;
+                            color: white;
+                            background-color: #00b7d9;
+                            font-size: 22px;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                            width: 250px;
+                            margin: 0 auto;
+                            text-align: center;
+                            @include rounded(6px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 .validation-popup {
     .modal-dialog {
         width: 95%;

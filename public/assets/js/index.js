@@ -46,10 +46,6 @@ function mobileDownloadMetaMaskPopup()  {
     basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
 
-function mobileLoginMetaMaskPopup()  {
-    basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup');
-}
-
 function desktopDownloadMetaMaskPopup() {
     var button_html = '';
     button_html = '<div class="btns-container"><a class="white-aqua-btn" href="https://metamask.io/" target="_blank">Get from MetaMask</a></div>';
@@ -57,12 +53,64 @@ function desktopDownloadMetaMaskPopup() {
     basic.showDialog(meta_mask_download_popup_html, 'download-metamask-desktop validation-popup');
 }
 
-function desktopLoginMetaMaskPopup()    {
+function loginMetaMaskPopup()    {
     basic.showDialog('<div class="popup-body"> <div class="title">Sign in to MetaMask</div><div class="subtitle">Open up your browser\'s MetaMask extention.</div><div class="separator"></div><figure class="gif"><img src="/assets/images/metamask-animation.gif" alt="Login MetaMask animation"/> </figure></div>', 'login-metamask-desktop validation-popup');
 }
 
 function initChecker()  {
-    if(typeof(web3) !== 'undefined' && web3.eth.defaultAccount === undefined)   {
+    //checking if metamask
+    if(typeof(web3) !== 'undefined' && web3.currentProvider.isMetaMask === true) {
+        meta_mask_installed = true;
+        web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
+        if(typeof(web3.eth.defaultAccount) != 'undefined')  {
+            meta_mask_logged = true;
+        }else {
+            //if metamask is installed, but user not logged show login popup
+            loginMetaMaskPopup();
+        }
+    }else {
+        //show custom authentication popup
+        $.ajax({
+            type: 'POST',
+            url: HOME_URL + '/get-custom-auth-html',
+            dataType: 'json',
+            success: function (response) {
+                if(response.success)    {
+                    basic.showDialog(response.success, 'custom-auth-popup', null, true);
+
+                    $('.custom-auth-popup .navigation-link > a').click(function()  {
+                        $('.custom-auth-popup .navigation-link a').removeClass('active');
+                        $(this).addClass('active');
+                        $('.custom-auth-popup .popup-body').addClass('custom-hide');
+                        $('.custom-auth-popup .popup-body.'+$(this).attr('data-slug')).removeClass('custom-hide');
+                    });
+
+                    $('.custom-auth-popup .btn-container a').click(function()   {
+                        if($('.custom-auth-popup .keystore-file-pass').val().trim() == '')  {
+                            basic.showAlert('Please enter password for your keystore file.', '', true);
+                        }else if($('.custom-auth-popup .keystore-file-pass').val().trim().length < 6 || $('.custom-auth-popup .keystore-file-pass').val().trim().length > 30)  {
+                            basic.showAlert('The password must be with minimum length of 6 characters and maximum 20.', '', true);
+                        }else {
+                            $.ajax({
+                                type: 'POST',
+                                url: HOME_URL + '/app-create',
+                                data: {
+                                    password: $('.custom-auth-popup .keystore-file-pass').val().trim()
+                                },
+                                dataType: 'json',
+                                success: function (response) {
+                                    if(response.success)    {
+                                        console.log(response.success);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    }
+    /*if(typeof(web3) !== 'undefined' && web3.eth.defaultAccount === undefined)   {
         setInterval(function()  {
             initCheckIfUserLoggingMetaMask();
         }, 500);
@@ -88,13 +136,13 @@ function initChecker()  {
                     mobileDownloadMetaMaskPopup();
                 }else if(!meta_mask_logged) {
                     //popup for login in metamask
-                    mobileLoginMetaMaskPopup();
+                    loginMetaMaskPopup();
                 }
             }
         }else {
             if(is_firefox && !meta_mask_logged) {
                 //popup for login in metamask
-                mobileLoginMetaMaskPopup();
+                loginMetaMaskPopup();
             }
         }
     }else {
@@ -108,10 +156,10 @@ function initChecker()  {
                 desktopDownloadMetaMaskPopup();
             }else if(!meta_mask_logged) {
                 //popup for login in metamask
-                desktopLoginMetaMaskPopup();
+                loginMetaMaskPopup();
             }
         }
-    }
+    }*/
 }
 
 var global_state = {};
@@ -238,19 +286,17 @@ var App = {
                 event_obj.fromBlock = from_num;
             }else {
                 event_obj.fromBlock = global_state.curr_block - from_num;
-
                 if(global_state.curr_block - from_num < 0)    {
                     event_obj.fromBlock = 0;
                 }
             }
-
             myContract.getPastEvents('Transfer', event_obj, function(error, event){
                 resolve(event);
             });
         });
     },
     getToTransactionsEvents: function(from_num, to, no_sub)    {
-        if(to === undefined){
+        if(to === undefined) {
             to = 'latest';
         }
         if(no_sub === undefined) {
@@ -267,7 +313,6 @@ var App = {
                 event_obj.fromBlock = from_num;
             }else {
                 event_obj.fromBlock = global_state.curr_block - from_num;
-
                 if (global_state.curr_block - from_num < 0) {
                     event_obj.fromBlock = 0;
                 }
@@ -288,7 +333,7 @@ var App = {
             num = 1;
         }
 
-        if(localStorage.getItem('latest-covered-block') != null) {
+        if(localStorage.getItem('latest-covered-block') != null && localStorage.getItem('transactions-address') == global_state.account) {
             stop_query_more_obj = true;
             var local_history_obj = JSON.parse(localStorage.getItem('transactions-history'));
             var local_history_html = '';
@@ -458,7 +503,7 @@ var App = {
 
             //IMPORTING TRANSACTIONS TO LOCAL STORAGE
             if($('.transaction-history .visible-tbody tr.single-transaction').length > 0)  {
-                if(localStorage.getItem('transactions-history') != null)    {
+                if(localStorage.getItem('transactions-history') != null && localStorage.getItem('transactions-address') == global_state.account) {
                     //IF WE HAVE ALREADY SAVED TRANSACTION HISTORY IN LOCAL STORAGE
                     var local_storage_obj = JSON.parse(localStorage.getItem('transactions-history'));
                     for(var i = 0, len = $('.transaction-history .visible-tbody tr[data-timestamp]').length; i < len; i+=1) {
@@ -492,6 +537,7 @@ var App = {
                     }
                     localStorage.setItem('latest-covered-block', $('.transaction-history .visible-tbody tr.single-transaction').eq(0).attr('data-block-number'));
                     localStorage.setItem('transactions-history', JSON.stringify(local_storage_obj));
+                    localStorage.setItem('transactions-address', global_state.account);
                 }
             }
 
@@ -625,10 +671,8 @@ if($('body').hasClass('home'))  {
         }
 
         if(parseFloat($(this).val().trim()) < 0)    {
-            console.log('asd1');
             $('.buy-container #paying-with-amount').val(50);
         }else if(parseFloat($(this).val().trim()) > 3000)    {
-            console.log('asd2');
             $('.buy-container #paying-with-amount').val(3000);
         }
 

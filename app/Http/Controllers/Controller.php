@@ -104,4 +104,10 @@ class Controller extends BaseController {
     public function getCookie($cookie){
         return request()->cookie($cookie);
     }
+
+    protected function getCustomAuthHtml()  {
+        $view = view('partials/login-popup  ');
+        $view = $view->render();
+        return response()->json(['success' => $view]);
+    }
 }
