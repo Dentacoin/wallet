@@ -117,6 +117,7 @@ function initChecker()  {
                                                     address: response.success.keystore.address,
                                                     pk_obj: response.success.pk_obj
                                                 }));
+                                                window.location.reload();
                                             }else {
                                                 basic.showAlert('Please save the Keystore file and keep it safe!', '', true);
                                             }
@@ -1174,6 +1175,7 @@ function styleInputTypeFile()    {
                                                     address: address,
                                                     pk_obj: response.success
                                                 }));
+                                                window.location.reload();
                                             }else if(response.error)    {
                                                 basic.showAlert(response.error, '', true);
                                             }
