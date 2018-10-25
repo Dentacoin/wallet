@@ -25467,6 +25467,7 @@ function loginMetaMaskPopup() {
 }
 
 function initChecker() {
+    return false;
     //checking if metamask
     if (typeof web3 !== 'undefined' && web3.currentProvider.isMetaMask === true) {
         meta_mask_installed = true;
