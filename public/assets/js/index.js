@@ -204,7 +204,7 @@ var App = {
         return App.initWeb3();
     },
     initWeb3: async function()    {
-        if(localStorage.getItem('current-account') != null)    {
+        if(localStorage.getItem('current-account') != null && typeof(web3) === 'undefined')    {
             //CUSTOM
             global_state.account = JSON.parse(localStorage.getItem('current-account')).address;
             App.web3_1_0 = getWeb3(new Web3.providers.HttpProvider('https://mainnet.infura.io/c6ab28412b494716bc5315550c0d4071'));
