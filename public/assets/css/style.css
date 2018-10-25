@@ -2246,10 +2246,9 @@ input.module-field {
         font-weight: 500; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container {
         padding-top: 20px;
-        padding-bottom: 20px;
-        display: inline-block; }
+        padding-bottom: 20px; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container a {
-          display: block;
+          display: inline-block;
           color: white;
           background-color: #00b7d9;
           font-size: 22px;
