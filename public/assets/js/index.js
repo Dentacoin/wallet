@@ -115,7 +115,7 @@ function initChecker()  {
                                             if(keystore_downloaded) {
                                                 localStorage.setItem('current-account', JSON.stringify({
                                                     address: '0x' + response.success.keystore.address,
-                                                    pk_obj: response.success.pk_obj
+                                                    keystore: response.success.keystore
                                                 }));
                                                 window.location.reload();
                                             }else {
@@ -1036,7 +1036,7 @@ function styleInputTypeFile()    {
                                             if(response.success)    {
                                                 localStorage.setItem('current-account', JSON.stringify({
                                                     address: '0x' + address,
-                                                    pk_obj: response.success
+                                                    keystore: response.success
                                                 }));
                                                 window.location.reload();
                                             }else if(response.error)    {
