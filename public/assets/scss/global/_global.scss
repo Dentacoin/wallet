@@ -986,7 +986,7 @@ input.module-field {
 .bootbox.custom-auth-popup {
     .modal-dialog {
         width: 90%;
-        max-width: 1000px;
+        max-width: 1100px;
         .modal-body {
             padding: 1rem 0;
             .bootbox-close-button {
@@ -1033,10 +1033,12 @@ input.module-field {
                         display: block;
                         text-align: center;
                         padding: 30px 10px 20px;
+                        font-weight: 500;
                     }
                     .btn-container {
                         padding-top: 20px;
                         padding-bottom: 20px;
+                        display: inline-block;
                         a {
                             display: block;
                             color: white;
@@ -1048,7 +1050,7 @@ input.module-field {
                             @include rounded(6px);
                             i {
                                 color: white;
-                                font-size: 20px;  
+                                font-size: 20px;
                             }
                         }
                     }
@@ -1064,8 +1066,23 @@ input.module-field {
                     }
                     &[data-step='second'] {
                         text-align: center;
+                        label {
+                            padding: 20px 10px 0;
+                            font-size: 14px;
+                        }
+                        .btn-container {
+                            padding-top: 15px;
+                            padding-bottom: 15px;
+                            a.disabled {
+                                background-color: $light_gray;
+                            }
+                        }
                         .second-reminder {
                             text-align: left;
+                            width: 90%;
+                            margin: 0 auto;
+                            font-size: 14px;
+                            font-weight: 500;
                             span.red {
                                 color: red;
                                 padding-top: 20px;

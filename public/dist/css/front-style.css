@@ -2206,7 +2206,7 @@ input.module-field {
 
 .bootbox.custom-auth-popup .modal-dialog {
   width: 90%;
-  max-width: 1000px; }
+  max-width: 1100px; }
   .bootbox.custom-auth-popup .modal-dialog .modal-body {
     padding: 1rem 0; }
     .bootbox.custom-auth-popup .modal-dialog .modal-body .bootbox-close-button {
@@ -2242,10 +2242,12 @@ input.module-field {
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left label {
         display: block;
         text-align: center;
-        padding: 30px 10px 20px; }
+        padding: 30px 10px 20px;
+        font-weight: 500; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container {
         padding-top: 20px;
-        padding-bottom: 20px; }
+        padding-bottom: 20px;
+        display: inline-block; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container a {
           display: block;
           color: white;
@@ -2258,6 +2260,9 @@ input.module-field {
           -moz-border-radius: 6px;
           -ms-border-radius: 6px;
           border-radius: 6px; }
+          .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container a i {
+            color: white;
+            font-size: 20px; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='first'] {
         text-align: center; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='first'] input[type='password'] {
@@ -2271,8 +2276,20 @@ input.module-field {
           border-radius: 6px; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] {
         text-align: center; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] label {
+          padding: 20px 10px 0;
+          font-size: 14px; }
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] .btn-container {
+          padding-top: 15px;
+          padding-bottom: 15px; }
+          .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] .btn-container a.disabled {
+            background-color: #ddd; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] .second-reminder {
-          text-align: left; }
+          text-align: left;
+          width: 90%;
+          margin: 0 auto;
+          font-size: 14px;
+          font-weight: 500; }
           .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='second'] .second-reminder span.red {
             color: red;
             padding-top: 20px;

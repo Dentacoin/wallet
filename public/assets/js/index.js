@@ -100,11 +100,22 @@ function initChecker()  {
                                 dataType: 'json',
                                 success: function (response) {
                                     if(response.success)    {
+                                        var keystore_downloaded = false;
                                         $('.custom-auth-popup .popup-left').attr('data-step', 'second');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label>Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled">I understand. CONTINUE</a></div>');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function()  {
                                             download(response.success.address, JSON.stringify(response.success));
+                                            $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
+                                            keystore_downloaded = true;
                                         });
+
+                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').click(function()  {
+                                            if(keystore_downloaded) {
+                                                console.log('authenticate');
+                                            }else {
+                                                basic.showAlert('Please save the Keystore file and keep it safe!', '', true);
+                                            }
+                                        })
                                     }
                                 }
                             });
