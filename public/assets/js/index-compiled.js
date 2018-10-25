@@ -25705,30 +25705,23 @@ var App = {
                                 global_state.curr_addr_eth_balance = _context2.t2.fromWei.call(_context2.t2, _context2.t3);
 
                             case 17:
-                                console.log(3);
-
-                                //save current block number into state
-                                _context2.next = 20;
+                                _context2.next = 19;
                                 return App.helper.getBlockNum();
 
-                            case 20:
-                                console.log(5);
-
-                                _context2.next = 23;
+                            case 19:
+                                _context2.next = 21;
                                 return $.getJSON('/assets/jsons/clinics.json');
 
-                            case 23:
+                            case 21:
                                 App.clinics_holder = _context2.sent;
 
 
                                 //get transactions history in footer
                                 App.buildTransactionsHistory();
-                                console.log(6);
 
                                 onAccountSwitch();
-                                console.log(7);
 
-                            case 28:
+                            case 24:
                             case 'end':
                                 return _context2.stop();
                         }
@@ -25833,9 +25826,7 @@ var App = {
         });
     },
     getAddressETHBalance: function getAddressETHBalance(address) {
-        console.log(1);
         return new Promise(function (resolve, reject) {
-            console.log(2);
             resolve(App.web3_in_use.eth.getBalance(address));
         });
     },
@@ -25968,8 +25959,10 @@ var App = {
                             //summing from and to events into arr
                             array = from_events.concat(to_events);
 
+                            console.log(array);
+
                             if (!(array.length > 0)) {
-                                _context3.next = 54;
+                                _context3.next = 55;
                                 break;
                             }
 
@@ -25979,24 +25972,24 @@ var App = {
 
                             i = 0, len = array.length;
 
-                        case 40:
+                        case 41:
                             if (!(i < len)) {
-                                _context3.next = 47;
+                                _context3.next = 48;
                                 break;
                             }
 
-                            _context3.next = 43;
+                            _context3.next = 44;
                             return App.helper.addBlockTimestampToTransaction(array[i]);
 
-                        case 43:
+                        case 44:
                             array[i].timestamp = _context3.sent;
 
-                        case 44:
+                        case 45:
                             i += 1;
-                            _context3.next = 40;
+                            _context3.next = 41;
                             break;
 
-                        case 47:
+                        case 48:
 
                             //sorting the array of objects by timestamp property
                             sortByKey(array, 'timestamp');
@@ -26072,33 +26065,33 @@ var App = {
 
                             initShowMoreBtn();
 
-                        case 54:
-                            _context3.next = 56;
+                        case 55:
+                            _context3.next = 57;
                             return App.helper.getLoopingTransactionFromBlockTimestamp(global_state.curr_block - num * blocks_for_month_n_half);
 
-                        case 56:
+                        case 57:
                             _context3.t1 = _context3.sent;
                             _context3.t2 = new Date('2017.01.01').getTime() / 1000;
                             _context3.t0 = _context3.t1 > _context3.t2;
 
                             if (!_context3.t0) {
-                                _context3.next = 61;
+                                _context3.next = 62;
                                 break;
                             }
 
                             _context3.t0 = !stop_query_more_obj;
 
-                        case 61:
+                        case 62:
                             if (!_context3.t0) {
-                                _context3.next = 65;
+                                _context3.next = 66;
                                 break;
                             }
 
                             App.buildTransactionsHistory(num += 1);
-                            _context3.next = 68;
+                            _context3.next = 69;
                             break;
 
-                        case 65:
+                        case 66:
                             hideLoader();
 
                             //IMPORTING TRANSACTIONS TO LOCAL STORAGE
@@ -26149,7 +26142,7 @@ var App = {
                                 $('.transaction-history table tbody.visible-tbody').html('<tr><td class="text-center">No previous transactions found.</td></tr>');
                             }
 
-                        case 68:
+                        case 69:
                         case 'end':
                             return _context3.stop();
                     }
