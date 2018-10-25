@@ -1,8 +1,11 @@
 const Web3 = require("../../../node_modules/web3"); // import web3 v1.0 constructor
 
 // use globally injected web3 to find the currentProvider and wrap with web3 v1.0
-const getWeb3 = () => {
-    const myWeb3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/c6ab28412b494716bc5315550c0d4071'));
+const getWeb3 = (provider) => {
+    if(provider === undefined)  {
+        provider = null;
+    }
+    const myWeb3 = new Web3(provider);
     return myWeb3;
 };
 

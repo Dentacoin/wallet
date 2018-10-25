@@ -25617,17 +25617,19 @@ var App = {
                     switch (_context.prev = _context.next) {
                         case 0:
                             if (localStorage.getItem('current-account') != null) {
+                                //CUSTOM
                                 global_state.account = JSON.parse(localStorage.getItem('current-account')).address;
-                                App.web3_1_0 = getWeb3();
-                                App.web3_in_use = getWeb3();
+                                App.web3_1_0 = getWeb3(new Web3.providers.HttpProvider('https://mainnet.infura.io/c6ab28412b494716bc5315550c0d4071'));
+                                App.web3_in_use = App.web3_1_0;
                             } else if (typeof web3 !== 'undefined') {
-                                //reuse the provider of the Web3 object injected by Metamask
+                                //METAMASK
                                 App.web3_0_2 = web3;
                                 global_state.account = App.web3_0_2.eth.defaultAccount;
                                 //overwrite web3 0.2 with web 1.0
-                                web3 = getWeb3();
+                                web3 = getWeb3(App.web3_0_2.currentProvider);
                                 App.web3_in_use = web3;
                             } else {
+                                //NO CUSTOM, NO METAMASK
                                 App.web3_1_0 = getWeb3();
                                 App.web3_in_use = App.web3_1_0;
                             }
@@ -27608,8 +27610,11 @@ if (hadRuntime) {
 var Web3 = __webpack_require__(116); // import web3 v1.0 constructor
 
 // use globally injected web3 to find the currentProvider and wrap with web3 v1.0
-var getWeb3 = function getWeb3() {
-    var myWeb3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/c6ab28412b494716bc5315550c0d4071'));
+var getWeb3 = function getWeb3(provider) {
+    if (provider === undefined) {
+        provider = null;
+    }
+    var myWeb3 = new Web3(provider);
     return myWeb3;
 };
 
