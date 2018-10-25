@@ -13,6 +13,6 @@ const getWeb3 = (provider) => {
 const getContractInstance = (web3) => (contractName, address) => {
     const instance = new web3.eth.Contract(contractName.abi, address);
     return instance;
-}
+};
 
 module.exports = {getWeb3, getContractInstance};

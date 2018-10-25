@@ -447,6 +447,11 @@ var App = {
                 var label = '';
                 var dcn_amount_symbol;
                 var usd_amount = (parseInt(array[i].returnValues._value) * global_state.curr_dcn_in_usd).toFixed(2);
+                console.log(global_state.account.toLowerCase());
+                console.log(array[i].returnValues._to.toLowerCase());
+                console.log(array[i].returnValues._from.toLowerCase());
+                console.log(array[i].returnValues);
+                console.log(array[i]);
                 if(array[i].returnValues._to.toLowerCase() == global_state.account.toLowerCase())    {
                     //IF THE CURRENT ACCOUNT IS RECEIVER
                     other_address = array[i].returnValues._from;
@@ -624,7 +629,6 @@ var App = {
             });
         },
         getBlockNum: function()  {
-            console.log(4);
             return new Promise(function(resolve, reject) {
                 App.web3_in_use.eth.getBlockNumber(function(error, result) {
                     if(!error){
