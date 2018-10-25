@@ -1150,13 +1150,14 @@ function styleInputTypeFile(load_filename_to_other_el)    {
 
                         setTimeout(function()   {
                             //show continue button next step button
-                            $('.custom-auth-popup .popup-right .popup-body .camping-for-action').html('<div class="enter-pass-label"><label>Please enter the password for your keystore file.</label></div><div><input type="password" class="import-keystore-password"/></div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled" data-password="123456">CONTINUE</a></div>');
+                            $('.custom-auth-popup .popup-right .popup-body .camping-for-action').html('<div class="enter-pass-label"><label>Please enter the password for your keystore file.</label></div><div><input type="password" class="import-keystore-password"/></div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled">CONTINUE</a></div>');
 
                             //calling IMPORT METHOD
                             $('.custom-auth-popup .popup-right .popup-body .continue-btn > a').click(function()   {
-                                if($('.custom-auth-popup .popup-right .popup-body .import-keystore-password').val().trim() == '')  {
+                                var keystore_password = $('.custom-auth-popup .popup-right .popup-body .import-keystore-password').val().trim();
+                                if(keystore_password == '')  {
                                     basic.showAlert('Please enter password for your keystore file.', '', true);
-                                }else if($('.custom-auth-popup .popup-right .popup-body .import-keystore-password').val().trim().length < 8 || $('.custom-auth-popup .popup-right .popup-body .import-keystore-password').val().trim().length > 30)  {
+                                }else if(keystore_password.length < 8 || keystore_password.length > 30)  {
                                     basic.showAlert('The password must be with minimum length of 8 characters and maximum 30.', '', true);
                                 }else {
                                     var this_btn = $(this);
@@ -1164,7 +1165,7 @@ function styleInputTypeFile(load_filename_to_other_el)    {
                                         type: 'POST',
                                         url: HOME_URL + '/app-import',
                                         data: {
-                                            password: this_btn.attr('data-password'),
+                                            password: keystore_password,
                                             keystore: keystore_string,
                                             address: address
                                         },
