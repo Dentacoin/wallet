@@ -208,8 +208,7 @@ var App = {
         if(localStorage.getItem('current-account') != null)    {
             global_state.account = JSON.parse(localStorage.getItem('current-account')).address;
             App.web3_1_0 = getWeb3();
-            console.log(App.web3_1_0);
-            console.log(App.web3_1_0.eth.blockNumber, '==hahahaha---===');
+            web3 = getWeb3();
             App.web3_in_use = App.web3_1_0;
         }else if(typeof(web3) !== 'undefined') {
             //reuse the provider of the Web3 object injected by Metamask
