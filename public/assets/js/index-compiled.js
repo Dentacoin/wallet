@@ -25600,7 +25600,6 @@ var App = {
     web3_0_2: null,
     web3_1_0: null,
     web3_in_use: null,
-    defaultAccount: null,
     clinics_holder: null,
     contracts: {},
     loading: false,
@@ -25704,14 +25703,17 @@ var App = {
                                 global_state.curr_addr_eth_balance = _context2.t2.fromWei.call(_context2.t2, _context2.t3);
 
                             case 17:
-                                _context2.next = 19;
+                                console.log(3);
+
+                                //save current block number into state
+                                _context2.next = 20;
                                 return App.helper.getBlockNum();
 
-                            case 19:
-                                _context2.next = 21;
+                            case 20:
+                                _context2.next = 22;
                                 return $.getJSON('/assets/jsons/clinics.json');
 
-                            case 21:
+                            case 22:
                                 App.clinics_holder = _context2.sent;
 
 
@@ -25720,7 +25722,7 @@ var App = {
 
                                 onAccountSwitch();
 
-                            case 24:
+                            case 25:
                             case 'end':
                                 return _context2.stop();
                         }
@@ -25825,7 +25827,9 @@ var App = {
         });
     },
     getAddressETHBalance: function getAddressETHBalance(address) {
+        console.log(1);
         return new Promise(function (resolve, reject) {
+            console.log(2);
             resolve(App.web3_in_use.eth.getBalance(address));
         });
     },

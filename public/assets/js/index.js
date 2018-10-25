@@ -243,6 +243,7 @@ var App = {
             }else if(App.web3_1_0 != null) {
                 global_state.curr_addr_eth_balance = App.web3_1_0.utils.fromWei(await App.getAddressETHBalance(global_state.account));
             }
+            console.log(3);
 
             //save current block number into state
             await App.helper.getBlockNum();
@@ -347,7 +348,9 @@ var App = {
         });
     },
     getAddressETHBalance: function(address)    {
+        console.log(1);
         return new Promise(function(resolve, reject) {
+            console.log(2);
             resolve(App.web3_in_use.eth.getBalance(address));
         });
     },
