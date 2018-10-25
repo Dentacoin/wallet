@@ -106,14 +106,17 @@ function initChecker()  {
                                         $('.custom-auth-popup .popup-left').attr('data-step', 'second');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled">I understand. CONTINUE</a></div>');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function()  {
-                                            download(response.success.address, JSON.stringify(response.success));
+                                            download(response.success.keystore.address, JSON.stringify(response.success.keystore));
                                             $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
                                             keystore_downloaded = true;
                                         });
 
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').click(function()  {
                                             if(keystore_downloaded) {
-                                                console.log('authenticate');
+                                                localStorage.setItem('current-account', JSON.stringify({
+                                                    address: response.success.keystore.address,
+                                                    pk_obj: response.success.pk_obj
+                                                }));
                                             }else {
                                                 basic.showAlert('Please save the Keystore file and keep it safe!', '', true);
                                             }
@@ -1128,10 +1131,7 @@ function download(filename, text) {
 }
 
 //styling input type file
-function styleInputTypeFile(load_filename_to_other_el)    {
-    if(load_filename_to_other_el === undefined) {
-        load_filename_to_other_el = null;
-    }
+function styleInputTypeFile()    {
     jQuery(".upload-file").each(function(key, form){
         var inputs = document.querySelectorAll('.inputfile');
         Array.prototype.forEach.call( inputs, function( input ) {
@@ -1139,7 +1139,6 @@ function styleInputTypeFile(load_filename_to_other_el)    {
             input.addEventListener('change', function(e) {
                 var myFile = this.files[0];
                 var reader = new FileReader();
-
 
                 reader.addEventListener('load', function (e) {
                     if(isJsonString(e.target.result) && has(JSON.parse(e.target.result), 'address'))    {
@@ -1160,7 +1159,6 @@ function styleInputTypeFile(load_filename_to_other_el)    {
                                 }else if(keystore_password.length < 8 || keystore_password.length > 30)  {
                                     basic.showAlert('The password must be with minimum length of 8 characters and maximum 30.', '', true);
                                 }else {
-                                    var this_btn = $(this);
                                     $.ajax({
                                         type: 'POST',
                                         url: HOME_URL + '/app-import',
@@ -1172,7 +1170,10 @@ function styleInputTypeFile(load_filename_to_other_el)    {
                                         dataType: 'json',
                                         success: function (response) {
                                             if(response.success)    {
-                                                console.log(response.success);
+                                                localStorage.setItem('current-account', JSON.stringify({
+                                                    address: address,
+                                                    pk_obj: response.success
+                                                }));
                                             }else if(response.error)    {
                                                 basic.showAlert(response.error, '', true);
                                             }
@@ -1181,15 +1182,6 @@ function styleInputTypeFile(load_filename_to_other_el)    {
                                 }
                             });
                         }, 1000);
-
-                        //display uploaded file name for user experience
-                        var fileName = '';
-                        if(this.files && this.files.length > 1) {
-                            fileName = ( this.getAttribute('data-multiple-caption') || '' ).replace('{count}', this.files.length);
-                        }else {
-                            fileName = e.target.value.split('\\').pop();
-                        }
-                        console.log(fileName);
                     }else {
                         $('.custom-auth-popup .popup-right .popup-body #upload-keystore').val('');
                         basic.showAlert('Please upload valid keystore file.', '', true);
