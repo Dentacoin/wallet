@@ -2301,6 +2301,20 @@ input.module-field {
             color: red;
             padding-top: 20px;
             padding-bottom: 20px; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right input[type='password'] {
+      padding: 12px;
+      border: 1px solid #ddd;
+      width: 90%;
+      max-width: 400px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      border-radius: 10px; }
+    .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .enter-pass-label {
+      padding-top: 20px;
+      display: block;
+      font-weight: 500;
+      font-size: 14px; }
     .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .btn-container {
       padding-top: 20px;
       padding-bottom: 20px; }
