@@ -1143,6 +1143,7 @@ function styleInputTypeFile(load_filename_to_other_el)    {
 
                 reader.addEventListener('load', function (e) {
                     if(isJsonString(e.target.result) && has(JSON.parse(e.target.result), 'address'))    {
+                        var address = JSON.parse(e.target.result).address;
                         //init upload button animation
                         initCustomInputFileAnimation(label);
 
@@ -1157,7 +1158,8 @@ function styleInputTypeFile(load_filename_to_other_el)    {
                                     type: 'POST',
                                     url: HOME_URL + '/app-import',
                                     data: {
-                                        password: this_btn.attr('data-password')
+                                        password: this_btn.attr('data-password'),
+                                        address: address
                                     },
                                     dataType: 'json',
                                     success: function (response) {
