@@ -25348,7 +25348,7 @@ var onAccountSwitch = function () {
             while (1) {
                 switch (_context4.prev = _context4.next) {
                     case 0:
-                        if (typeof global_state.account != 'undefined' && typeof App.web3_0_2.eth != 'undefined') {
+                        if (typeof global_state.account != 'undefined' && App.web3_0_2 != null) {
                             if (global_state.account != App.web3_0_2.eth.defaultAccount) {
                                 //doing this check because metamask fire the change event randomly, this way we detect real account switch
                                 //global_state.account = web3.eth.defaultAccount;
