@@ -6,7 +6,7 @@
         </div>
         <div class="popup-body first">
             <label>Input password for your Keystore file</label>
-            <input type="password" class="keystore-file-pass"/>
+            <input type="password" class="keystore-file-pass" maxlength="30"/>
             <div class="btn-container">
                 <a href="javascript:void(0)" class="create-keystore">CREATE</a>
             </div>

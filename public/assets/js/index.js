@@ -88,8 +88,8 @@ function initChecker()  {
                     $('.custom-auth-popup .btn-container a').click(function()   {
                         if($('.custom-auth-popup .keystore-file-pass').val().trim() == '')  {
                             basic.showAlert('Please enter password for your keystore file.', '', true);
-                        }else if($('.custom-auth-popup .keystore-file-pass').val().trim().length < 6 || $('.custom-auth-popup .keystore-file-pass').val().trim().length > 30)  {
-                            basic.showAlert('The password must be with minimum length of 6 characters and maximum 20.', '', true);
+                        }else if($('.custom-auth-popup .keystore-file-pass').val().trim().length < 8 || $('.custom-auth-popup .keystore-file-pass').val().trim().length > 30)  {
+                            basic.showAlert('The password must be with minimum length of 8 characters and maximum 30.', '', true);
                         }else {
                             $.ajax({
                                 type: 'POST',
@@ -100,7 +100,11 @@ function initChecker()  {
                                 dataType: 'json',
                                 success: function (response) {
                                     if(response.success)    {
-                                        console.log(response.success);
+                                        $('.custom-auth-popup .popup-left').attr('data-step', 'second');
+                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label>Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled">I understand. CONTINUE</a></div>');
+                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function()  {
+                                            download(response.success.address, JSON.stringify(response.success));
+                                        });
                                     }
                                 }
                             });
@@ -1095,3 +1099,17 @@ function initMobileFooterEvent()    {
     }
 }
 initMobileFooterEvent();
+
+//donwloading string as file
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}

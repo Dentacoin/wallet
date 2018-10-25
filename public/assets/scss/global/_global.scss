@@ -1029,20 +1029,10 @@ input.module-field {
                 }
                 .popup-left {
                     border-right: 1px solid $light_gray;
-                    &[data-step='first'] {
-                        text-align: center;
-                    }
                     label {
                         display: block;
                         text-align: center;
                         padding: 30px 10px 20px;
-                    }
-                    input[type='password'] {
-                        padding: 12px;
-                        border: 1px solid $light_gray;
-                        width: 90%;
-                        max-width: 400px;
-                        @include rounded(6px);
                     }
                     .btn-container {
                         padding-top: 20px;
@@ -1052,12 +1042,35 @@ input.module-field {
                             color: white;
                             background-color: #00b7d9;
                             font-size: 22px;
-                            padding-top: 10px;
-                            padding-bottom: 10px;
-                            width: 250px;
+                            padding: 10px 20px;
                             margin: 0 auto;
                             text-align: center;
                             @include rounded(6px);
+                            i {
+                                color: white;
+                                font-size: 20px;  
+                            }
+                        }
+                    }
+                    &[data-step='first'] {
+                        text-align: center;
+                        input[type='password'] {
+                            padding: 12px;
+                            border: 1px solid $light_gray;
+                            width: 90%;
+                            max-width: 400px;
+                            @include rounded(6px);
+                        }
+                    }
+                    &[data-step='second'] {
+                        text-align: center;
+                        .second-reminder {
+                            text-align: left;
+                            span.red {
+                                color: red;
+                                padding-top: 20px;
+                                padding-bottom: 20px;
+                            }
                         }
                     }
                 }
