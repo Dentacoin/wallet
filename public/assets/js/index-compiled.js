@@ -27102,7 +27102,7 @@ function pageAmountToLogic() {
                                 usd_val: usd_val,
                                 sending_to_address: sending_to_address,
                                 from: global_state.account,
-                                fee: eth_fee.toFixed(8)
+                                fee: parseFloat(eth_fee).toFixed(8)
                             },
                             dataType: 'json',
                             success: function success(response) {
