@@ -663,22 +663,13 @@ function getQrCode()    {
 //PAGES
 if($('body').hasClass('home'))  {
     $('.homepage-container .copy-address').click(function()   {
-        console.log('called atfirst');
         var this_el = $(this);
-        var str_to_copy = $('.homepage-container .address span');
-        if(str_to_copy.data('valid-address'))   {
-            var $temp = $("<input>");
-            $("body").append($temp);
-            $temp.val('test test 123').select();
-            document.execCommand("copy");
-            $temp.remove();
+        copyToClipboard('.important-message');
 
-            this_el.tooltip('show');
-            setTimeout(function()   {
-                this_el.tooltip('hide');
-            }, 1000);
-        }
-        //copyToClipboard('.important-message');
+        this_el.tooltip('show');
+        setTimeout(function()   {
+            this_el.tooltip('hide');
+        }, 1000);
     });
 
     $('.homepage-container .copy-address').tooltip({
@@ -1123,7 +1114,7 @@ function isJsonString(str) {
 }
 
 function copyToClipboard(el) {
-    console.log('called');
+    console.log('called BUNDLED');
     // resolve the element
     el = (typeof el === 'string') ? document.querySelector(el) : el;
     console.log(el);
@@ -1151,11 +1142,17 @@ function copyToClipboard(el) {
         // restore contentEditable/readOnly to original state
         el.contentEditable = editable;
         el.readOnly = readOnly;
-    }
-    else {
+        // execute copy command
+        document.execCommand('copy');
+    } else {
         console.log('2');
-        el.select();
+        var str_to_copy = $('.homepage-container .address span');
+        if(str_to_copy.data('valid-address'))   {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val('test test 123').select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
     }
-    // execute copy command
-    document.execCommand('copy');
 }
