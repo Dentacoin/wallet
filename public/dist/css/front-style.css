@@ -2259,22 +2259,9 @@ input.module-field {
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container {
         padding-top: 20px;
         padding-bottom: 20px; }
-        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container a {
-          display: inline-block;
+        .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container a i {
           color: white;
-          background-color: #00b7d9;
-          font-size: 22px;
-          padding: 10px 20px;
-          margin: 0 auto;
-          text-align: center;
-          min-width: 200px;
-          -webkit-border-radius: 10px;
-          -moz-border-radius: 10px;
-          -ms-border-radius: 10px;
-          border-radius: 10px; }
-          .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container a i {
-            color: white;
-            font-size: 20px; }
+          font-size: 20px; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left .btn-container.continue-btn {
           padding-top: 40px; }
       .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-left[data-step='first'] {
@@ -2283,7 +2270,7 @@ input.module-field {
           padding: 12px;
           border: 1px solid #ddd;
           width: 90%;
-          max-width: 400px;
+          max-width: 300px;
           -webkit-border-radius: 10px;
           -moz-border-radius: 10px;
           -ms-border-radius: 10px;
@@ -2325,7 +2312,7 @@ input.module-field {
       padding: 12px;
       border: 1px solid #ddd;
       width: 90%;
-      max-width: 400px;
+      max-width: 300px;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       -ms-border-radius: 10px;
@@ -2366,6 +2353,75 @@ input.module-field {
         width: 100%; }
         .bootbox.custom-auth-popup .modal-dialog .modal-body .left-right-side-holder .popup-right .navigation-link {
           display: none; } }
+
+.bootbox.transaction-confirmation-popup .modal-dialog {
+  width: 95%;
+  max-width: 800px; }
+  .bootbox.transaction-confirmation-popup .modal-dialog .modal-body {
+    padding: 1rem 0; }
+    .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .bootbox-close-button {
+      margin-top: -10px;
+      margin-right: 10px;
+      font-size: 40px;
+      line-height: 20px; }
+    .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .title {
+      font-size: 28px;
+      font-family: "Calibri-Bold";
+      padding: 0 30px 10px; }
+      @media screen and (max-width: 767px) {
+        .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .title {
+          font-size: 22px;
+          text-align: center; } }
+    .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .pictogram-and-dcn-usd-price {
+      text-align: center;
+      border-top: 1px solid #A0A0A0;
+      border-bottom: 1px solid #A0A0A0;
+      padding-top: 30px;
+      padding-bottom: 30px; }
+      .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .pictogram-and-dcn-usd-price figure {
+        padding-bottom: 15px; }
+        .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .pictogram-and-dcn-usd-price figure img {
+          width: 100px; }
+      .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .pictogram-and-dcn-usd-price .dcn-amount {
+        font-size: 28px;
+        line-height: 28px;
+        font-family: "Calibri-Bold"; }
+      .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .pictogram-and-dcn-usd-price .usd-amount {
+        color: #A0A0A0;
+        font-size: 18px;
+        font-weight: 500; }
+    .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .confirm-row {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #A0A0A0;
+      font-size: 0; }
+      .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .confirm-row .label {
+        font-size: 16px;
+        color: #A0A0A0;
+        width: 200px;
+        padding-left: 100px; }
+      .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .confirm-row .value {
+        font-size: 16px;
+        text-align: right;
+        width: calc(100% - 200px);
+        padding-right: 100px; }
+    .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .password {
+      padding-top: 15px; }
+      .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .password input[type='password'] {
+        padding: 12px;
+        border: 1px solid #ddd;
+        width: 90%;
+        max-width: 300px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        border-radius: 10px; }
+    .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .btn-container {
+      padding-top: 15px;
+      padding-bottom: 20px;
+      text-align: center; }
+      .bootbox.transaction-confirmation-popup .modal-dialog .modal-body .btn-container a {
+        display: inline-block; }
 
 .validation-popup .modal-dialog {
   width: 95%;
@@ -2576,6 +2632,22 @@ input.module-field {
 
 input[type=file].hide-input {
   display: none; }
+
+.white-blue-btn {
+  display: inline-block;
+  color: white;
+  background-color: #00b7d9;
+  font-size: 22px;
+  padding: 10px 20px;
+  margin: 0 auto;
+  text-align: center;
+  min-width: 200px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+  .white-blue-btn:hover {
+    color: white; }
 
 header .logo {
   padding-top: 10px;

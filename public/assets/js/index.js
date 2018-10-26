@@ -104,7 +104,7 @@ function initChecker()  {
                                     if(response.success)    {
                                         var keystore_downloaded = false;
                                         $('.custom-auth-popup .popup-left').attr('data-step', 'second');
-                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled">I understand. CONTINUE</a></div>');
+                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)" class="white-blue-btn"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">I understand. CONTINUE</a></div>');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function()  {
                                             download(response.success.keystore.address, JSON.stringify(response.success.keystore));
                                             $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
@@ -189,6 +189,7 @@ global_state.curr_dcn_in_usd = parseFloat($('body').attr('data-current-dcn-in-us
 var getInstance;
 var myContract;
 var App = {
+    contract_address: "0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6",
     web3Provider: null,
     web3_0_2: null,
     web3_1_0: null,
@@ -228,7 +229,7 @@ var App = {
         $.getJSON('/assets/jsons/DentacoinToken.json', async function(DCNArtifact) {
             // get the contract artifact file and use it to instantiate a truffle contract abstraction
             getInstance = getContractInstance(App.web3_1_0);
-            myContract = getInstance(DCNArtifact, "0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6");
+            myContract = getInstance(DCNArtifact, App.contract_address);
 
             //refresh the current dentacoin value
             if($('.homepage-container').length > 0) {
@@ -638,6 +639,27 @@ var App = {
                     }
                 });
             });
+        },
+        estimateGas: function(address, function_abi)  {
+            return new Promise(function(resolve, reject) {
+                App.web3_1_0.eth.estimateGas({
+                    to: address,
+                    data: function_abi
+                }, function(error, result) {
+                    if(!error){
+                        resolve(result);
+                    }
+                });
+            });
+        },
+        getGasPrice: function() {
+            return new Promise(function(resolve, reject) {
+                App.web3_1_0.eth.getGasPrice(function(error, result) {
+                    if(!error){
+                        resolve(result);
+                    }
+                });
+            });
         }
     }
 };
@@ -664,7 +686,22 @@ function getQrCode()    {
 if($('body').hasClass('home'))  {
     $('.homepage-container .copy-address').click(function()   {
         var this_el = $(this);
-        copyToClipboard('.important-message');
+        // resolve the element
+        el = (typeof el === 'string') ? document.querySelector(el) : el;
+        // handle iOS as a special case
+        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+            console.log('SELECT');
+        } else {
+            console.log('2');
+            var str_to_copy = $('.homepage-container .address span');
+            if(str_to_copy.data('valid-address'))   {
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val(str_to_copy.html()).select();
+                document.execCommand("copy");
+                $temp.remove();
+            }
+        }
 
         this_el.tooltip('show');
         setTimeout(function()   {
@@ -791,60 +828,134 @@ function pageAmountToLogic()    {
         $('.amount-to-container input#usd').val(($(this).val().trim() * global_state.curr_dcn_in_usd).toFixed(to_fixed_num));
     });
 
+    //sending transactions with metamask
+    function metaMaskSubmit(dcn_val, usd_val, sending_to_address)   {
+        var callback_obj = {};
+        callback_obj.callback = function (result) {
+            if (result) {
+                //setup cookie with all used address for sending so we can display then dropdown at address inserting into field
+                if(basic.cookies.get('prev_used_addresses') == ''){
+                    basic.cookies.set('prev_used_addresses', JSON.stringify([sending_to_address]));
+                }else {
+                    var addresses = JSON.parse(basic.cookies.get('prev_used_addresses'));
+                    if(!isInArray(sending_to_address, addresses))    {
+                        addresses.push(sending_to_address);
+                        addresses = JSON.stringify(addresses);
+                        basic.cookies.set('prev_used_addresses', addresses);
+                    }
+                }
+                App.sendValue(sending_to_address, dcn_val);
+            }
+        };
+        basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
+    }
+
+    //custom sending transaction with ethereumjs-tx
+    function customSubmit(dcn_val, usd_val, sending_to_address, function_abi)  {
+        App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
+            const EthereumTx = require('ethereumjs-tx');
+            console.log(nonce);
+            const txParams = {
+                gasPrice: '0x09184e72a000',
+                gasLimit: 65000,
+                to: App.contract_address,
+                data: function_abi,
+                from: global_state.account,
+                nonce: '0x' + nonce
+            };
+
+            const tx = new EthereumTx(txParams);
+        });
+    }
+
     //on input in usd input change dcn input
     $('.amount-to-container input#usd').on('input', function()  {
         $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
     });
 
-    $('.amount-to-container .send-value-btn').click(function()  {
-        if(!meta_mask_installed)    {
-            basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
-            return false;
-        }
-
+    $('.amount-to-container .send-value-btn').click(async function()  {
         var dcn_val = $('.amount-to-container input#dcn').val().trim();
         var usd_val = $('.amount-to-container input#usd').val().trim();
         var sending_to_address = $('.amount-to-container .wallet-address span.address').html();
+
         if (isNaN(dcn_val) || isNaN(usd_val) || dcn_val == '' || dcn_val == 0 || usd_val == '' || usd_val == 0) {
             //checking if not a number or empty values
             basic.showAlert('Please make sure all values are numbers.', '', true);
+            return false;
         } else if (dcn_val < 0 || usd_val < 0) {
             //checking if negative numbers
             basic.showAlert('Please make sure all values are more than 0.', '', true);
+            return false;
         } else if (dcn_val < 10) {
             //checking if dcn value is lesser than 10 (contract condition)
             basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
-        } else if (0.005 > parseFloat(global_state.curr_addr_eth_balance)) {
+            return false;
+        } /*else if (0.005 > parseFloat(global_state.curr_addr_eth_balance)) {
             //checking if current balance is lower than the desired value to send
             basic.showAlert('For sending DCN you need at least 0.005 ETH. Please refill.', '', true);
-        } else if (dcn_val > parseInt(global_state.curr_addr_dcn_balance)) {
+            return false;
+        }*/ else if (dcn_val > parseInt(global_state.curr_addr_dcn_balance)) {
             //checking if current balance is lower than the desired value to send
             basic.showAlert('The value you want to send is higher than your balance.', '', true);
+            return false;
         } else if ($('.amount-to-container .address-container').hasClass('editing')) {
             //checking if editing address is done
             basic.showAlert('Please make sure you are done with address editing.', '', true);
+            return false;
         } else if (!innerAddressCheck(sending_to_address)) {
             //checking again if valid address
             basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
-        } else {
-            var callback_obj = {};
-            callback_obj.callback = function (result) {
-                if (result) {
-                    //setup cookie with all used address for sending so we can display then dropdown at address inserting into field
-                    if(basic.cookies.get('prev_used_addresses') == ''){
-                        basic.cookies.set('prev_used_addresses', JSON.stringify([sending_to_address]));
-                    }else {
-                        var addresses = JSON.parse(basic.cookies.get('prev_used_addresses'));
-                        if(!isInArray(sending_to_address, addresses))    {
-                            addresses.push(sending_to_address);
-                            addresses = JSON.stringify(addresses);
-                            basic.cookies.set('prev_used_addresses', addresses);
+            return false;
+        }
+
+        if(meta_mask_installed)    {
+            //basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
+            //return false;
+            metaMaskSubmit(dcn_val, usd_val, sending_to_address);
+        }else {
+            var function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
+            //calculating the fee from the gas price and the estimated gas price
+            var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
+            //Send confirmation popup
+            $.ajax({
+                type: 'POST',
+                url: HOME_URL + '/get-transaction-confirmation-popup',
+                data: {
+                    dcn_val: dcn_val,
+                    usd_val: usd_val,
+                    sending_to_address: sending_to_address,
+                    from: global_state.account,
+                    fee: eth_fee.toFixed(8)
+                },
+                dataType: 'json',
+                success: function (response) {
+                    basic.showDialog(response.success, 'transaction-confirmation-popup', true);
+                    $('.transaction-confirmation-popup .confirm-transaction').click(function()  {
+                        if($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
+                            basic.showAlert('Please enter your password.', '', true);
+                            return false;
+                        }else {
+                            //API call for decrypt localstorage json
+                            $.ajax({
+                                type: 'POST',
+                                url: HOME_URL + '/app-create',
+                                data: {
+                                    password: $('.custom-auth-popup .keystore-file-pass').val().trim()
+                                },
+                                dataType: 'json',
+                                success: function (response) {
+                                    if(response.success)    {
+                                        console.log(response.success);
+                                    }else if(response.error)    {
+                                        basic.showAlert(response.error, '', true);
+                                    }
+                                }
+                            });
                         }
-                    }
-                    App.sendValue(sending_to_address, dcn_val);
+                    });
+                    //customSubmit(dcn_val, usd_val, sending_to_address);
                 }
-            };
-            basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
+            });
         }
     });
 }
@@ -981,7 +1092,7 @@ initMobileFooterEvent();
 function download(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
+    element.setAttribute('download', filename + '.txt');
 
     element.style.display = 'none';
     document.body.appendChild(element);
@@ -1010,7 +1121,7 @@ function styleInputTypeFile()    {
 
                         setTimeout(function()   {
                             //show continue button next step button
-                            $('.custom-auth-popup .popup-right .popup-body .camping-for-action').html('<div class="enter-pass-label"><label>Please enter the password for your keystore file.</label></div><div><input type="password" class="import-keystore-password"/></div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled">CONTINUE</a></div>');
+                            $('.custom-auth-popup .popup-right .popup-body .camping-for-action').html('<div class="enter-pass-label"><label>Please enter the password for your keystore file.</label></div><div><input type="password" class="import-keystore-password"/></div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">CONTINUE</a></div>');
 
                             //calling IMPORT METHOD
                             $('.custom-auth-popup .popup-right .popup-body .continue-btn > a').click(function()   {
@@ -1111,48 +1222,4 @@ function isJsonString(str) {
         return false;
     }
     return true;
-}
-
-function copyToClipboard(el) {
-    console.log('called BUNDLED');
-    // resolve the element
-    el = (typeof el === 'string') ? document.querySelector(el) : el;
-    console.log(el);
-    // handle iOS as a special case
-    if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-        console.log('1');
-        // save current contentEditable/readOnly status
-        var editable = el.contentEditable;
-        var readOnly = el.readOnly;
-
-        // convert to editable with readonly to stop iOS keyboard opening
-        el.contentEditable = true;
-        el.readOnly = false;
-
-        // create a selectable range
-        var range = document.createRange();
-        range.selectNodeContents(el);
-
-        // select the range
-        var selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        el.setSelectionRange(0, 42);
-
-        // restore contentEditable/readOnly to original state
-        el.contentEditable = editable;
-        el.readOnly = readOnly;
-        // execute copy command
-        document.execCommand('copy');
-    } else {
-        console.log('2');
-        var str_to_copy = $('.homepage-container .address span');
-        if(str_to_copy.data('valid-address'))   {
-            var $temp = $("<input>");
-            $("body").append($temp);
-            $temp.val(str_to_copy.html()).select();
-            document.execCommand("copy");
-            $temp.remove();
-        }
-    }
 }

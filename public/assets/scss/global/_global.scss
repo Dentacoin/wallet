@@ -1055,15 +1055,6 @@ input.module-field {
                         padding-top: 20px;
                         padding-bottom: 20px;
                         a {
-                            display: inline-block;
-                            color: white;
-                            background-color: #00b7d9;
-                            font-size: 22px;
-                            padding: 10px 20px;
-                            margin: 0 auto;
-                            text-align: center;
-                            min-width: 200px;
-                            @include rounded(10px);
                             i {
                                 color: white;
                                 font-size: 20px;
@@ -1079,7 +1070,7 @@ input.module-field {
                             padding: 12px;
                             border: 1px solid $light_gray;
                             width: 90%;
-                            max-width: 400px;
+                            max-width: 300px;
                             @include rounded(10px);
                         }
                     }
@@ -1130,7 +1121,7 @@ input.module-field {
                         padding: 12px;
                         border: 1px solid $light_gray;
                         width: 90%;
-                        max-width: 400px;
+                        max-width: 300px;
                         @include rounded(10px);
                     }
                     .enter-pass-label {
@@ -1173,6 +1164,90 @@ input.module-field {
                             display: none;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+.bootbox.transaction-confirmation-popup {
+    .modal-dialog {
+        width: 95%;
+        max-width: 800px;
+        .modal-body {
+            padding: 1rem 0;
+            .bootbox-close-button {
+                margin-top: -10px;
+                margin-right: 10px;
+                font-size: 40px;
+                line-height: 20px;
+            }
+            .title {
+                font-size: 28px;
+                font-family: "Calibri-Bold";
+                padding: 0 30px 10px;
+                @include breakpoint($xs) {
+                    font-size: 22px;
+                    text-align: center;
+                }
+            }
+            .pictogram-and-dcn-usd-price {
+                text-align: center;
+                border-top: 1px solid $dark_gray;
+                border-bottom: 1px solid $dark_gray;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                figure {
+                    padding-bottom: 15px;
+                    img {
+                        width: 100px;
+                    }
+                }
+                .dcn-amount {
+                    font-size: 28px;
+                    line-height: 28px;
+                    font-family: "Calibri-Bold";
+                }
+                .usd-amount {
+                    color: $dark_gray;
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+            }
+            .confirm-row {
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid $dark_gray;
+                font-size: 0;
+                .label {
+                    font-size: 16px;
+                    color: $dark_gray;
+                    width: 200px;
+                    padding-left: 100px;
+                }
+                .value {
+                    font-size: 16px;
+                    text-align: right;
+                    width: calc(100% - 200px);
+                    padding-right: 100px;
+                }
+            }
+            .password {
+                padding-top: 15px;
+                input[type='password'] {
+                    padding: 12px;
+                    border: 1px solid $light_gray;
+                    width: 90%;
+                    max-width: 300px;
+                    @include rounded(10px);
+                }
+            }
+            .btn-container {
+                padding-top: 15px;
+                padding-bottom: 20px;
+                text-align: center;
+                a {
+                    display: inline-block;
                 }
             }
         }
@@ -1450,4 +1525,19 @@ input.module-field {
 
 input[type=file].hide-input {
     display: none;
+}
+
+.white-blue-btn {
+    display: inline-block;
+    color: white;
+    background-color: #00b7d9;
+    font-size: 22px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    text-align: center;
+    min-width: 200px;
+    @include rounded(10px);
+    &:hover {
+        color: white;
+    }
 }

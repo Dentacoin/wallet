@@ -21,4 +21,10 @@ class SendController extends Controller {
         }
         return view('pages/amount-to', $params);
     }
+
+    protected function getTransactionConfirmationHtml(Request $request) {
+        $view = view('partials/transaction-confirmation-popup', ['dcn_val' => $request->input('dcn_val'), 'usd_val' => $request->input('usd_val'), 'sending_to_address' => $request->input('sending_to_address'), 'from' => $request->input('from'), 'fee' => $request->input('fee')]);
+        $view = $view->render();
+        return response()->json(['success' => $view]);
+    }
 }

@@ -7,7 +7,7 @@
                     <div class="col-12 text-center">
                         <div class="subtitle">Your Dentacoin address:</div>
                         <div class="address">
-                            <figure class="inline-block" itemscope="" itemtype="http://schema.org/ImageObject"><a href="javascript:void(0)" class="copy-address" data-toggle="tooltip" title="Copied."><img src="{{URL::asset('assets/images/copy.svg') }}" class="Copy address to clipboard icon" itemprop="contentUrl"/></a></figure>
+                            <figure class="inline-block" itemscope="" itemtype="http://schema.org/ImageObject"><a href="javascript:void(0)" class="copy-address" data-toggle="tooltip" title="Copied."><img src="{{URL::asset('assets/images/copy.svg') }}" alt="Copy address to clipboard icon" itemprop="contentUrl"/></a></figure>
                             <span data-log-metamask="You are not logged in."></span>
                             <input class="important-message" type="hidden" value="" />
                         </div>
