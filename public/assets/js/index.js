@@ -670,6 +670,7 @@ if($('body').hasClass('home'))  {
             $("body").append($temp);
             $temp.val(str_to_copy.html());
             if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+                console.log(1);
                 var el = $temp.get(0);
                 var editable = el.contentEditable;
                 var readOnly = el.readOnly;
@@ -684,6 +685,7 @@ if($('body').hasClass('home'))  {
                 el.contentEditable = editable;
                 el.readOnly = readOnly;
             } else {
+                console.log(2);
                 $temp.select();
             }
             document.execCommand('copy');
