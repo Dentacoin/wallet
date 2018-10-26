@@ -946,7 +946,7 @@ function pageAmountToLogic()    {
                                 dataType: 'json',
                                 success: function (response) {
                                     if(response.success)    {
-                                        console.log(response.success.data.toString('hex'));
+                                        console.log(new Buffer(response.success));
                                     }else if(response.error)    {
                                         basic.showAlert(response.error, '', true);
                                     }
