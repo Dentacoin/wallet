@@ -26971,24 +26971,6 @@ function pageAmountToLogic() {
         basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
     }
 
-    //custom sending transaction with ethereumjs-tx
-    function customSubmit(dcn_val, usd_val, sending_to_address, function_abi) {
-        App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
-            var EthereumTx = __webpack_require__(298);
-            console.log(nonce);
-            var txParams = {
-                gasPrice: '0x09184e72a000',
-                gasLimit: 65000,
-                to: App.contract_address,
-                data: function_abi,
-                from: global_state.account,
-                nonce: '0x' + nonce
-            };
-
-            var tx = new EthereumTx(txParams);
-        });
-    }
-
     //on input in usd input change dcn input
     $('.amount-to-container input#usd').on('input', function () {
         $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
@@ -27069,26 +27051,20 @@ function pageAmountToLogic() {
                             break;
                         }
 
-                        //basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
-                        //return false;
                         metaMaskSubmit(dcn_val, usd_val, sending_to_address);
-                        _context4.next = 46;
+                        _context4.next = 48;
                         break;
 
                     case 35:
-                        function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
-                        //calculating the fee from the gas price and the estimated gas price
+                        basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
+                        return _context4.abrupt('return', false);
 
-                        _context4.t0 = App.web3_1_0.utils;
-                        _context4.next = 39;
-                        return App.helper.getGasPrice();
-
-                    case 39:
+                    case 41:
                         _context4.t1 = _context4.sent;
-                        _context4.next = 42;
+                        _context4.next = 44;
                         return App.helper.estimateGas(sending_to_address, function_abi);
 
-                    case 42:
+                    case 44:
                         _context4.t2 = _context4.sent;
                         _context4.t3 = (_context4.t1 * _context4.t2).toString();
                         eth_fee = _context4.t0.fromWei.call(_context4.t0, _context4.t3, 'ether');
@@ -27123,7 +27099,22 @@ function pageAmountToLogic() {
                                             dataType: 'json',
                                             success: function success(response) {
                                                 if (response.success) {
-                                                    console.log(new Buffer(response.success, 'hex'));
+                                                    App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
+                                                        var EthereumTx = __webpack_require__(298);
+                                                        var txParams = {
+                                                            gasLimit: 65000,
+                                                            to: App.contract_address,
+                                                            data: function_abi,
+                                                            from: global_state.account,
+                                                            nonce: nonce
+                                                        };
+                                                        var tx = new EthereumTx(txParams);
+                                                        tx.sign(new Buffer(response.success, 'hex'));
+
+                                                        App.web3_1_0.eth.sendRawTransaction(raw, function (err, transactionHash) {
+                                                            console.log(transactionHash);
+                                                        });
+                                                    });
                                                 } else if (response.error) {
                                                     basic.showAlert(response.error, '', true);
                                                 }
@@ -27135,7 +27126,7 @@ function pageAmountToLogic() {
                             }
                         });
 
-                    case 46:
+                    case 48:
                     case 'end':
                         return _context4.stop();
                 }

@@ -850,24 +850,6 @@ function pageAmountToLogic()    {
         basic.showConfirm('Are you sure you want to continue?', '', callback_obj, true);
     }
 
-    //custom sending transaction with ethereumjs-tx
-    function customSubmit(dcn_val, usd_val, sending_to_address, function_abi)  {
-        App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
-            const EthereumTx = require('ethereumjs-tx');
-            console.log(nonce);
-            const txParams = {
-                gasPrice: '0x09184e72a000',
-                gasLimit: 65000,
-                to: App.contract_address,
-                data: function_abi,
-                from: global_state.account,
-                nonce: '0x' + nonce
-            };
-
-            const tx = new EthereumTx(txParams);
-        });
-    }
-
     //on input in usd input change dcn input
     $('.amount-to-container input#usd').on('input', function()  {
         $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
@@ -909,10 +891,10 @@ function pageAmountToLogic()    {
         }
 
         if(meta_mask_installed)    {
-            //basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
-            //return false;
             metaMaskSubmit(dcn_val, usd_val, sending_to_address);
         }else {
+            basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
+            return false;
             var function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
             //calculating the fee from the gas price and the estimated gas price
             var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
@@ -946,7 +928,22 @@ function pageAmountToLogic()    {
                                 dataType: 'json',
                                 success: function (response) {
                                     if(response.success)    {
-                                        console.log(new Buffer(response.success, 'hex'));
+                                        App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
+                                            const EthereumTx = require('ethereumjs-tx');
+                                            const txParams = {
+                                                gasLimit: 65000,
+                                                to: App.contract_address,
+                                                data: function_abi,
+                                                from: global_state.account,
+                                                nonce: nonce
+                                            };
+                                            const tx = new EthereumTx(txParams);
+                                            tx.sign(new Buffer(response.success, 'hex'));
+
+                                            App.web3_1_0.eth.sendRawTransaction(raw, function (err, transactionHash) {
+                                                console.log(transactionHash);
+                                            });
+                                        });
                                     }else if(response.error)    {
                                         basic.showAlert(response.error, '', true);
                                     }

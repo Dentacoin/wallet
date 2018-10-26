@@ -19,9 +19,6 @@ class Controller extends BaseController {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function __construct() {
-        if(!isset($_COOKIE['testing'])) {
-            die();
-        }
         View::share('mobile', $this->isMobile());
         View::share('meta_data', $this->getMetaData());
         View::share('dcn_in_usd', $this->getCurrentDcnUsdRate());
