@@ -26243,12 +26243,18 @@ function getQrCode() {
 //PAGES
 if ($('body').hasClass('home')) {
     $('.homepage-container .copy-address').click(function () {
-        var this_el = $(this);
+        /*var this_el = $(this);
         var str_to_copy = $('.homepage-container .address span');
-        if (str_to_copy.data('valid-address')) {
-            var $temp = $("<input contenteditable='true'>");
-            $("body").append($temp);
-            $temp.val(str_to_copy.html());
+        if(str_to_copy.data('valid-address'))   {
+            var $temp = $("<input type='hidden' contenteditable='true' readonly='false' value='123456'>");
+            var el = $temp.get(0);
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            el.setSelectionRange(0, 999999);
+                $("body").append($temp);
             if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
                 console.log(1);
                 var el = $temp.get(0);
@@ -26270,14 +26276,12 @@ if ($('body').hasClass('home')) {
             }
             document.execCommand('copy');
             $temp.blur();
-
-            $temp.remove();
-
-            this_el.tooltip('show');
-            setTimeout(function () {
+              $temp.remove();
+              this_el.tooltip('show');
+            setTimeout(function()   {
                 this_el.tooltip('hide');
             }, 1000);
-        }
+        }*/
     });
 
     $('.homepage-container .copy-address').tooltip({
@@ -26467,6 +26471,7 @@ function initHomepageUserData() {
     if ($('.homepage-container').length > 0) {
         //change the address html and show the copy address button
         $('.homepage-container .address span').html(global_state.account);
+        $('.homepage-container .address input[type="hidden"]').val(global_state.account);
         $('.homepage-container .address span').data('valid-address', true);
         $('.homepage-container .address .copy-address').show();
 
