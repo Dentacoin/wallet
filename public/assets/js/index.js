@@ -1151,12 +1151,13 @@ function isJsonString(str) {
 }
 
 function copyToClipboard(el) {
+    console.log('called');
     // resolve the element
     el = (typeof el === 'string') ? document.querySelector(el) : el;
 
     // handle iOS as a special case
     if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-
+        console.log('called1');
         // save current contentEditable/readOnly status
         var editable = el.contentEditable;
         var readOnly = el.readOnly;
