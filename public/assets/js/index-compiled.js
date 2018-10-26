@@ -26243,46 +26243,8 @@ function getQrCode() {
 //PAGES
 if ($('body').hasClass('home')) {
     $('.homepage-container .copy-address').click(function () {
+        console.log('called atfirst');
         copyToClipboard('.important-message');
-        /*var this_el = $(this);
-        var str_to_copy = $('.homepage-container .address span');
-        if(str_to_copy.data('valid-address'))   {
-            var $temp = $("<input type='hidden' contenteditable='true' readonly='false' value='123456'>");
-            var el = $temp.get(0);
-            var range = document.createRange();
-            range.selectNodeContents(el);
-            var sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-            el.setSelectionRange(0, 999999);
-                $("body").append($temp);
-            if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-                console.log(1);
-                var el = $temp.get(0);
-                var editable = el.contentEditable;
-                var readOnly = el.readOnly;
-                el.contentEditable = true;
-                el.readOnly = false;
-                var range = document.createRange();
-                range.selectNodeContents(el);
-                var sel = window.getSelection();
-                sel.removeAllRanges();
-                sel.addRange(range);
-                el.setSelectionRange(0, 999999);
-                el.contentEditable = editable;
-                el.readOnly = readOnly;
-            } else {
-                console.log(2);
-                $temp.select();
-            }
-            document.execCommand('copy');
-            $temp.blur();
-              $temp.remove();
-              this_el.tooltip('show');
-            setTimeout(function()   {
-                this_el.tooltip('hide');
-            }, 1000);
-        }*/
     });
 
     $('.homepage-container .copy-address').tooltip({
@@ -26704,10 +26666,10 @@ function copyToClipboard(el) {
     console.log('called');
     // resolve the element
     el = typeof el === 'string' ? document.querySelector(el) : el;
-
+    console.log(el);
     // handle iOS as a special case
     if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-        console.log('called1');
+        console.log('1');
         // save current contentEditable/readOnly status
         var editable = el.contentEditable;
         var readOnly = el.readOnly;
@@ -26730,9 +26692,9 @@ function copyToClipboard(el) {
         el.contentEditable = editable;
         el.readOnly = readOnly;
     } else {
+        console.log('2');
         el.select();
     }
-
     // execute copy command
     document.execCommand('copy');
 }
