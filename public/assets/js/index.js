@@ -804,6 +804,11 @@ function pageAmountToLogic()    {
     });
 
     $('.amount-to-container .send-value-btn').click(function()  {
+        if(!meta_mask_installed)    {
+            basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
+            return false;
+        }
+
         var dcn_val = $('.amount-to-container input#dcn').val().trim();
         var usd_val = $('.amount-to-container input#usd').val().trim();
         var sending_to_address = $('.amount-to-container .wallet-address span.address').html();
