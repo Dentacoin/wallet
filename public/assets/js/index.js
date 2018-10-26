@@ -1137,7 +1137,7 @@ function copyToClipboard(el) {
         var selection = window.getSelection();
         selection.removeAllRanges();
         selection.addRange(range);
-        el.setSelectionRange(0, 999999);
+        el.setSelectionRange(0, 42);
 
         // restore contentEditable/readOnly to original state
         el.contentEditable = editable;
