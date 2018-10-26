@@ -27123,8 +27123,7 @@ function pageAmountToLogic() {
                                             dataType: 'json',
                                             success: function success(response) {
                                                 if (response.success) {
-                                                    console.log(response.success);
-                                                    console.log(response.success.toString('hex'));
+                                                    console.log(response.success.data.toString('hex'));
                                                 } else if (response.error) {
                                                     basic.showAlert(response.error, '', true);
                                                 }
