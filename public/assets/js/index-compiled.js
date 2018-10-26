@@ -26681,7 +26681,7 @@ function copyToClipboard(el) {
 
         // convert to editable with readonly to stop iOS keyboard opening
         el.contentEditable = true;
-        el.readOnly = true;
+        el.readOnly = false;
 
         // create a selectable range
         var range = document.createRange();
@@ -26704,7 +26704,7 @@ function copyToClipboard(el) {
         if (str_to_copy.data('valid-address')) {
             var $temp = $("<input>");
             $("body").append($temp);
-            $temp.val('test test 123').select();
+            $temp.val(str_to_copy.html()).select();
             document.execCommand("copy");
             $temp.remove();
         }
