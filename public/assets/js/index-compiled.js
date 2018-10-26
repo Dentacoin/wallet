@@ -25599,7 +25599,6 @@ var App = {
     web3Provider: null,
     web3_0_2: null,
     web3_1_0: null,
-    web3_in_use: null,
     clinics_holder: null,
     contracts: {},
     loading: false,
@@ -25620,19 +25619,18 @@ var App = {
                                 //CUSTOM
                                 global_state.account = JSON.parse(localStorage.getItem('current-account')).address;
                                 App.web3_1_0 = getWeb3(new Web3.providers.HttpProvider('https://mainnet.infura.io/c6ab28412b494716bc5315550c0d4071'));
-                                App.web3_in_use = App.web3_1_0;
                             } else if (typeof web3 !== 'undefined') {
                                 //METAMASK
                                 App.web3_0_2 = web3;
                                 global_state.account = App.web3_0_2.eth.defaultAccount;
                                 //overwrite web3 0.2 with web 1.0
                                 web3 = getWeb3(App.web3_0_2.currentProvider);
-                                App.web3_in_use = web3;
-                            } else {
-                                //NO CUSTOM, NO METAMASK
-                                App.web3_1_0 = getWeb3();
-                                App.web3_in_use = App.web3_1_0;
-                            }
+                                App.web3_1_0 = web3;
+                            } /*else {
+                                 //NO CUSTOM, NO METAMASK
+                                 App.web3_1_0 = getWeb3();
+                                 App.web3_1_0 = App.web3_1_0;
+                              }*/
 
                             if (!(typeof global_state.account != 'undefined')) {
                                 _context.next = 3;
@@ -25663,7 +25661,7 @@ var App = {
                         switch (_context2.prev = _context2.next) {
                             case 0:
                                 // get the contract artifact file and use it to instantiate a truffle contract abstraction
-                                getInstance = getContractInstance(App.web3_in_use);
+                                getInstance = getContractInstance(App.web3_1_0);
                                 myContract = getInstance(DCNArtifact, "0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6");
 
                                 //refresh the current dentacoin value
@@ -25827,7 +25825,7 @@ var App = {
     },
     getAddressETHBalance: function getAddressETHBalance(address) {
         return new Promise(function (resolve, reject) {
-            resolve(App.web3_in_use.eth.getBalance(address));
+            resolve(App.web3_1_0.eth.getBalance(address));
         });
     },
     buildTransactionsHistory: function () {
@@ -26183,7 +26181,7 @@ var App = {
     helper: {
         addBlockTimestampToTransaction: function addBlockTimestampToTransaction(transaction) {
             return new Promise(function (resolve, reject) {
-                App.web3_in_use.eth.getBlock(transaction.blockNumber, function (error, result) {
+                App.web3_1_0.eth.getBlock(transaction.blockNumber, function (error, result) {
                     if (error !== null) {
                         reject(error);
                     }
@@ -26194,7 +26192,7 @@ var App = {
         },
         getLoopingTransactionFromBlockTimestamp: function getLoopingTransactionFromBlockTimestamp(block_num) {
             return new Promise(function (resolve, reject) {
-                App.web3_in_use.eth.getBlock(block_num, function (error, result) {
+                App.web3_1_0.eth.getBlock(block_num, function (error, result) {
                     if (error !== null) {
                         reject(error);
                     }
@@ -26204,7 +26202,7 @@ var App = {
         },
         getBlockNum: function getBlockNum() {
             return new Promise(function (resolve, reject) {
-                App.web3_in_use.eth.getBlockNumber(function (error, result) {
+                App.web3_1_0.eth.getBlockNumber(function (error, result) {
                     if (!error) {
                         global_state.curr_block = result;
                         resolve(global_state.curr_block);
@@ -26214,7 +26212,7 @@ var App = {
         },
         getAccounts: function getAccounts() {
             return new Promise(function (resolve, reject) {
-                App.web3_in_use.eth.getAccounts(function (error, result) {
+                App.web3_1_0.eth.getAccounts(function (error, result) {
                     if (!error) {
                         resolve(result);
                     }
@@ -26340,8 +26338,8 @@ if ($('body').hasClass('home')) {
 
 function pageAmountToLogic() {
     var curr_addr = window.location.href.split('/')[window.location.href.split('/').length - 1];
-    //redirect to /send if the address it not valid or using the same address as the owner
-    if (typeof global_state.account == 'undefined' || typeof web3 == 'undefined' && web3.currentProvider.isMetaMask !== true || !innerAddressCheck(curr_addr) || curr_addr == global_state.account) {
+    //redirect to /send if the address it not valid or using the same address as the owner1
+    if (typeof global_state.account == 'undefined' || typeof App.web3_1_0 == 'undefined' || !innerAddressCheck(curr_addr) || curr_addr == global_state.account) {
         window.location = HOME_URL + '/send';
     }
 
