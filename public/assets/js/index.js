@@ -940,7 +940,8 @@ function pageAmountToLogic()    {
                                 type: 'POST',
                                 url: HOME_URL + '/app-create',
                                 data: {
-                                    password: $('.custom-auth-popup .keystore-file-pass').val().trim()
+                                    password: $('.transaction-confirmation-popup #user-keystore-password').val().trim(),
+                                    keystore: JSON.parse(localStorage.getItem('current-account')).keystore
                                 },
                                 dataType: 'json',
                                 success: function (response) {

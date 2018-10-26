@@ -11,8 +11,8 @@
     <style>
 
     </style>
-    <link rel="stylesheet" type="text/css" href="/dist/css/front-libs-style.css?v=1.0.13">
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=1.0.13">
+    <link rel="stylesheet" type="text/css" href="/dist/css/front-libs-style.css?v=1.0.14">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=1.0.14">
     <script src="/assets/libs/popper/popper.min.js?v=1.0.2"></script>
     <script>
         var HOME_URL = '{{ route("home") }}';
@@ -128,9 +128,9 @@
         </div>
     </footer>
     <script src="/dist/js/front-libs-script.js?v=1.0.35"></script>
-    <script src="/assets/js/basic.js?v=1.0.17"></script>
+    <script src="/assets/js/basic.js?v=1.0.18"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.2.13"></script>
+    <script src="/assets/js/index-compiled.js?v=1.2.14"></script>
 </body>
 </html>
