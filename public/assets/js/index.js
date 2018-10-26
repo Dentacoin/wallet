@@ -664,7 +664,21 @@ function getQrCode()    {
 if($('body').hasClass('home'))  {
     $('.homepage-container .copy-address').click(function()   {
         console.log('called atfirst');
-        copyToClipboard('.important-message');
+        var this_el = $(this);
+        var str_to_copy = $('.homepage-container .address span');
+        if(str_to_copy.data('valid-address'))   {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val('test test 123').select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            this_el.tooltip('show');
+            setTimeout(function()   {
+                this_el.tooltip('hide');
+            }, 1000);
+        }
+        //copyToClipboard('.important-message');
     });
 
     $('.homepage-container .copy-address').tooltip({

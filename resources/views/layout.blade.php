@@ -131,6 +131,6 @@
     <script src="/assets/js/basic.js?v=1.0.17"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.1.88"></script>
+    <script src="/assets/js/index-compiled.js?v=1.1.89"></script>
 </body>
 </html>
