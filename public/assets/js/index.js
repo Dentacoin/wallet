@@ -938,7 +938,7 @@ function pageAmountToLogic()    {
                             //API call for decrypt localstorage json
                             $.ajax({
                                 type: 'POST',
-                                url: HOME_URL + '/app-create',
+                                url: HOME_URL + '/decrypt-pk',
                                 data: {
                                     password: $('.transaction-confirmation-popup #user-keystore-password').val().trim(),
                                     keystore: JSON.parse(localStorage.getItem('current-account')).keystore
@@ -947,6 +947,7 @@ function pageAmountToLogic()    {
                                 success: function (response) {
                                     if(response.success)    {
                                         console.log(response.success);
+                                        console.log(response.success.toString('hex'));
                                     }else if(response.error)    {
                                         basic.showAlert(response.error, '', true);
                                     }
