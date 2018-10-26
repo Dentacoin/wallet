@@ -27118,7 +27118,7 @@ function pageAmountToLogic() {
                                             url: HOME_URL + '/decrypt-pk',
                                             data: {
                                                 password: $('.transaction-confirmation-popup #user-keystore-password').val().trim(),
-                                                keystore: JSON.parse(localStorage.getItem('current-account')).keystore
+                                                keystore: JSON.stringify(JSON.parse(localStorage.getItem('current-account')).keystore)
                                             },
                                             dataType: 'json',
                                             success: function success(response) {
