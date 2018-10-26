@@ -26245,11 +26245,32 @@ if ($('body').hasClass('home')) {
     $('.homepage-container .copy-address').click(function () {
         var this_el = $(this);
         var str_to_copy = $('.homepage-container .address span');
+        console.log(str_to_copy, 'str_to_copy');
         if (str_to_copy.data('valid-address')) {
-            var $temp = $("<input>");
+            console.log('passed if validation');
+            var $temp = $("<input contenteditable='true'>");
             $("body").append($temp);
-            $temp.val(str_to_copy.html()).select();
-            document.execCommand("copy");
+            $temp.val(str_to_copy.html());
+            if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+                var el = $temp.get(0);
+                var editable = el.contentEditable;
+                var readOnly = el.readOnly;
+                el.contentEditable = true;
+                el.readOnly = false;
+                var range = document.createRange();
+                range.selectNodeContents(el);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                el.setSelectionRange(0, 999999);
+                el.contentEditable = editable;
+                el.readOnly = readOnly;
+            } else {
+                $temp.select();
+            }
+            document.execCommand('copy');
+            $temp.blur();
+
             $temp.remove();
 
             this_el.tooltip('show');
