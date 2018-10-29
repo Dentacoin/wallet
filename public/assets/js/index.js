@@ -893,8 +893,8 @@ function pageAmountToLogic()    {
         if(meta_mask_installed)    {
             metaMaskSubmit(dcn_val, usd_val, sending_to_address);
         }else {
-            basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
-            return false;
+            //basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
+            //return false;
             var function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
             //calculating the fee from the gas price and the estimated gas price
             var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');

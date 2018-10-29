@@ -27052,19 +27052,25 @@ function pageAmountToLogic() {
                         }
 
                         metaMaskSubmit(dcn_val, usd_val, sending_to_address);
-                        _context4.next = 48;
+                        _context4.next = 46;
                         break;
 
                     case 35:
-                        basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
-                        return _context4.abrupt('return', false);
+                        //basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
+                        //return false;
+                        function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
+                        //calculating the fee from the gas price and the estimated gas price
 
-                    case 41:
+                        _context4.t0 = App.web3_1_0.utils;
+                        _context4.next = 39;
+                        return App.helper.getGasPrice();
+
+                    case 39:
                         _context4.t1 = _context4.sent;
-                        _context4.next = 44;
+                        _context4.next = 42;
                         return App.helper.estimateGas(sending_to_address, function_abi);
 
-                    case 44:
+                    case 42:
                         _context4.t2 = _context4.sent;
                         _context4.t3 = (_context4.t1 * _context4.t2).toString();
                         eth_fee = _context4.t0.fromWei.call(_context4.t0, _context4.t3, 'ether');
@@ -27126,7 +27132,7 @@ function pageAmountToLogic() {
                             }
                         });
 
-                    case 48:
+                    case 46:
                     case 'end':
                         return _context4.stop();
                 }

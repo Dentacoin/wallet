@@ -1231,6 +1231,18 @@ input.module-field {
                     width: calc(100% - 200px);
                     padding-right: 100px;
                 }
+                @include breakpoint($xs)    {
+                    .label {
+                        width: 100%;
+                        padding: 0 15px !important;
+                    }
+                    .value {
+                        font-size: 12px;
+                        text-align: left;
+                        width: 100%;
+                        padding: 0 15px !important;
+                    }
+                }
             }
             .password {
                 padding-top: 15px;
