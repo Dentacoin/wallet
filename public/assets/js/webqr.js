@@ -86,12 +86,10 @@ function captureToCanvas() {
                 qrcode.decode();
             }
             catch(e){
-                console.log(e);
                 setTimeout(captureToCanvas, 500);
             };
         }
         catch(e){
-            console.log(e);
             setTimeout(captureToCanvas, 500);
         };
     }
@@ -101,13 +99,15 @@ function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function read(a)
-{
-    var html="<br>";
-    if(a.indexOf("http://") === 0 || a.indexOf("https://") === 0)
-        html+="<a target='_blank' href='"+a+"'>"+a+"</a><br>";
-    html+="<b>"+htmlEntities(a)+"</b><br><br>";
-    document.getElementById("result").innerHTML=html;
+var last_address = '';
+function read(a) {
+    if($('.send-container .combobox-input').length > 0) {
+        $('.send-container .combobox-input').val(htmlEntities(a));
+        if(last_address != htmlEntities(a)) {
+            $('.scan-qr-code-popup').removeClass('visible-popup');
+        }
+        last_address = htmlEntities(a);
+    }
 }
 
 function isCanvasSupported(){
@@ -124,23 +124,20 @@ function success(stream)
     setTimeout(captureToCanvas, 500);
 }
 
-function error(error)
+/*function error(error)
 {
     gUM=false;
     return;
-}
+}*/
 
 function load()
 {
-    if(isCanvasSupported() && window.File && window.FileReader)
-    {
+    if(isCanvasSupported() && window.File && window.FileReader) {
         initCanvas(800, 600);
         qrcode.callback = read;
         document.getElementById("mainbody").style.display="inline";
         setwebcam();
-    }
-    else
-    {
+    } else {
         document.getElementById("mainbody").style.display="inline";
         document.getElementById("mainbody").innerHTML='<p id="mp1">QR code scanner for HTML5 capable browsers</p><br>'+
             '<br><p id="mp2">sorry your browser is not supported</p><br><br>'+
@@ -148,12 +145,9 @@ function load()
     }
 }
 
-function setwebcam()
-{
-
+function setwebcam() {
     var options = true;
-    if(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)
-    {
+    if(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
         try{
             navigator.mediaDevices.enumerateDevices()
                 .then(function(devices) {
@@ -162,29 +156,20 @@ function setwebcam()
                             if(device.label.toLowerCase().search("back") >-1)
                                 options={'deviceId': {'exact':device.deviceId}, 'facingMode':'environment'} ;
                         }
-                        console.log(device.kind + ": " + device.label +" id = " + device.deviceId);
                     });
                     setwebcam2(options);
                 });
-        }
-        catch(e)
-        {
+        } catch(e) {
             console.log(e);
         }
-    }
-    else{
-        console.log("no navigator.mediaDevices.enumerateDevices" );
+    } else{
         setwebcam2(options);
     }
-
 }
 
-function setwebcam2(options)
-{
-    console.log(options);
+function setwebcam2(options) {
     document.getElementById("result").innerHTML="- scanning -";
-    if(stype==1)
-    {
+    if(stype==1) {
         setTimeout(captureToCanvas, 500);
         return;
     }
@@ -192,37 +177,26 @@ function setwebcam2(options)
     document.getElementById("outdiv").innerHTML = vidhtml;
     v=document.getElementById("v");
 
-
-    if(n.mediaDevices.getUserMedia)
-    {
+    if(n.mediaDevices.getUserMedia) {
         n.mediaDevices.getUserMedia({video: options, audio: false}).
         then(function(stream){
             success(stream);
         }).catch(function(error){
-            error(error)
+            //error(error)
         });
-    }
-    else
-    if(n.getUserMedia)
-    {
+    } else if(n.getUserMedia) {
         webkit=true;
         n.getUserMedia({video: options, audio: false}, success, error);
-    }
-    else
-    if(n.webkitGetUserMedia)
-    {
+    } else if(n.webkitGetUserMedia) {
         webkit=true;
         n.webkitGetUserMedia({video:options, audio: false}, success, error);
     }
-
     document.getElementById("qrimg").style.opacity=0.2;
-
     stype=1;
     setTimeout(captureToCanvas, 500);
 }
 
-function setimg()
-{
+function setimg() {
     document.getElementById("result").innerHTML="";
     if(stype==2)
         return;

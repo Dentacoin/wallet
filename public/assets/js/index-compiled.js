@@ -26044,6 +26044,8 @@ function initChecker() {
                             basic.showAlert('Please enter password for your keystore file.', '', true);
                         } else if ($('.custom-auth-popup .keystore-file-pass').val().trim().length < 8 || $('.custom-auth-popup .keystore-file-pass').val().trim().length > 30) {
                             basic.showAlert('The password must be with minimum length of 8 characters and maximum 30.', '', true);
+                        } else if ($('.custom-auth-popup .keystore-file-pass').val().trim() != $('.custom-auth-popup .second-pass').val().trim()) {
+                            basic.showAlert('Please make sure you entered same password in both fields.', '', true);
                         } else {
                             $.ajax({
                                 type: 'POST',
@@ -26896,8 +26898,11 @@ if ($('body').hasClass('home')) {
         }
     });
 
+    $('.scan-qr-code-popup .custom-close-button').click(function () {
+        $('.scan-qr-code-popup').removeClass('visible-popup');
+    });
     $('.send-container .scan-qr-code').click(function () {
-        basic.showDialog('<div id="camera-output"></div>', 'scan-qr-code-popup', true);
+        $('.scan-qr-code-popup').addClass('visible-popup');
         load();
     });
 }

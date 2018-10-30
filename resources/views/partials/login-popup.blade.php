@@ -9,9 +9,14 @@
         </div>
         <div class="popup-body first">
             <label class="custom-label">Input password for your Keystore file</label>
-            <input type="password" class="keystore-file-pass" maxlength="30"/>
+            <div>
+                <input type="password" class="keystore-file-pass" maxlength="30" value="Enter password"/>
+            </div>
+            <div>
+                <input type="password" class="second-pass" maxlength="30" value="Repeat password"/>
+            </div>
             <div class="btn-container">
-                <a href="javascript:void(0)" class="create-keystore">CREATE</a>
+                <a href="javascript:void(0)" class="white-blue-btn create-keystore">CREATE</a>
             </div>
         </div>
     </div>
