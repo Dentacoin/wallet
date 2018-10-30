@@ -121,6 +121,7 @@
             </div>
             <div class="row copyright">
                 <div class="col-12 text-center">
+                    <div class="forget-me-button"><a href="javascript:void(0)">Forget this account</a></div>
                     © 2018 Dentacoin Foundation. All rights reserved.
                     <div><a href="https://dentacoin.com/assets/uploads/dentacoin-foundation.pdf" target="_blank">Verify Dentacoin Foundation</a></div>
                 </div>
@@ -128,9 +129,9 @@
         </div>
     </footer>
     <script src="/dist/js/front-libs-script.js?v=1.0.38"></script>
-    <script src="/assets/js/basic.js?v=1.0.21"></script>
-    <script src="/assets/js/llqrcode.js?v=1.0.3"></script>
-    <script src="/assets/js/webqr.js?v=1.0.3"></script>
+    <script src="/assets/js/basic.js?v=1.0.22"></script>
+    <script src="/assets/js/llqrcode.js?v=1.0.4"></script>
+    <script src="/assets/js/webqr.js?v=1.0.4"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
     <script src="/assets/js/index-compiled.js?v=1.2.38"></script>

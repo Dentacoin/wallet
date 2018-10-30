@@ -2683,6 +2683,8 @@ footer {
   background-size: 100% 100%;
   color: white;
   padding-top: 70px; }
+  footer .forget-me-button {
+    padding-bottom: 5px; }
   footer ul {
     font-size: 0;
     padding-top: 30px;

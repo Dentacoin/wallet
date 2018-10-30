@@ -1237,3 +1237,8 @@ function displayMessageOnTransactionSend(tx_hash)  {
     $('.amount-to-container input#usd').val('');
     basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/'+tx_hash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
 }
+
+//remove current account in the localstorage
+$('.forget-me-button a').click(function()   {
+
+});

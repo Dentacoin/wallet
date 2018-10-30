@@ -106,6 +106,7 @@ function read(a) {
         if(last_address != htmlEntities(a)) {
             $('.send-container .next a').addClass('active');
             $('.scan-qr-code-popup').removeClass('visible-popup');
+            v.stop();
         }
         last_address = htmlEntities(a);
     }
