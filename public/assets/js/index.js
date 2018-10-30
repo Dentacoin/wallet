@@ -898,6 +898,7 @@ function pageAmountToLogic()    {
             var function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
             //calculating the fee from the gas price and the estimated gas price
             var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
+            console.log(await App.helper.estimateGas(sending_to_address, function_abi), 'App.helper.estimateGas');
             //Send confirmation popup
             $.ajax({
                 type: 'POST',
@@ -915,6 +916,8 @@ function pageAmountToLogic()    {
 
                     const gWei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation'), 10);
                     const gasPrice = gWei * 100000000;
+
+                    console.log(gasPrice, 'gasPrice');
 
                     $('.transaction-confirmation-popup .confirm-transaction').click(function()  {
                         if($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {

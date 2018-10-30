@@ -27052,7 +27052,7 @@ function pageAmountToLogic() {
                         }
 
                         metaMaskSubmit(dcn_val, usd_val, sending_to_address);
-                        _context4.next = 46;
+                        _context4.next = 51;
                         break;
 
                     case 35:
@@ -27074,6 +27074,14 @@ function pageAmountToLogic() {
                         _context4.t2 = _context4.sent;
                         _context4.t3 = (_context4.t1 * _context4.t2).toString();
                         eth_fee = _context4.t0.fromWei.call(_context4.t0, _context4.t3, 'ether');
+                        _context4.t4 = console;
+                        _context4.next = 48;
+                        return App.helper.estimateGas(sending_to_address, function_abi);
+
+                    case 48:
+                        _context4.t5 = _context4.sent;
+
+                        _context4.t4.log.call(_context4.t4, _context4.t5, 'App.helper.estimateGas');
 
                         //Send confirmation popup
                         $.ajax({
@@ -27092,6 +27100,8 @@ function pageAmountToLogic() {
 
                                 var gWei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation'), 10);
                                 var gasPrice = gWei * 100000000;
+
+                                console.log(gasPrice, 'gasPrice');
 
                                 $('.transaction-confirmation-popup .confirm-transaction').click(function () {
                                     if ($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
@@ -27140,7 +27150,7 @@ function pageAmountToLogic() {
                             }
                         });
 
-                    case 46:
+                    case 51:
                     case 'end':
                         return _context4.stop();
                 }
