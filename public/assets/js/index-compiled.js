@@ -26058,7 +26058,8 @@ function initChecker() {
                                         $('.custom-auth-popup .popup-left').attr('data-step', 'second');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)" class="white-blue-btn"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">I understand. CONTINUE</a></div>');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function () {
-                                            download(response.success.keystore.address, JSON.stringify(response.success.keystore));
+                                            window.location = HOME_URL + '/force-keystore-download/' + JSON.stringify(response.success.keystore);
+                                            //download(response.success.keystore.address, JSON.stringify(response.success.keystore));
                                             $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
                                             keystore_downloaded = true;
                                         });
@@ -27058,7 +27059,9 @@ function pageAmountToLogic() {
                         //calculating the fee from the gas price and the estimated gas price
 
                         on_page_load_gwei = parseInt($('.amount-to-container').attr('data-on-page-load-gas-estimation'), 10);
-                        on_page_load_gas_price = on_page_load_gwei * 100000000;
+                        //adding 10% of the outcome just in case transactions don't take so long
+
+                        on_page_load_gas_price = on_page_load_gwei * 100000000 + on_page_load_gwei * 100000000 * 10 / 100;
 
                         //var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
                         //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
@@ -27089,7 +27092,8 @@ function pageAmountToLogic() {
                                 basic.showDialog(response.success, 'transaction-confirmation-popup', true);
 
                                 var on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
-                                var on_popup_call_gas_price = on_popup_call_gwei * 100000000;
+                                //adding 10% of the outcome just in case transactions don't take so long
+                                var on_popup_call_gas_price = on_popup_call_gwei * 100000000 + on_popup_call_gwei * 100000000 * 10 / 100;
 
                                 $('.transaction-confirmation-popup .confirm-transaction').click(function () {
                                     if ($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {

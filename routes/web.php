@@ -23,6 +23,8 @@ Route::group(['prefix' => '/', 'middleware' => 'frontEndMiddleware'], function (
 
     Route::post('/get-custom-auth-html', 'Controller@getCustomAuthHtml')->name('get-custom-auth-html');
 
+    Route::get('/force-keystore-download/{file}', 'Controller@forceKeystoreDownload')->name('force-keystore-download');
+
     Route::post('/get-transaction-confirmation-popup', 'SendController@getTransactionConfirmationHtml')->name('get-transaction-confirmation-html');
 
     Route::group(['prefix' => '/send'], function () {

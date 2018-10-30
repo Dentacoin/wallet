@@ -106,7 +106,8 @@ function initChecker()  {
                                         $('.custom-auth-popup .popup-left').attr('data-step', 'second');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)" class="white-blue-btn"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">I understand. CONTINUE</a></div>');
                                         $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function()  {
-                                            download(response.success.keystore.address, JSON.stringify(response.success.keystore));
+                                            window.location = HOME_URL + '/force-keystore-download/' + JSON.stringify(response.success.keystore);
+                                            //download(response.success.keystore.address, JSON.stringify(response.success.keystore));
                                             $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
                                             keystore_downloaded = true;
                                         });
@@ -771,7 +772,6 @@ if($('body').hasClass('home'))  {
         }else {
             basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
         }
-
     });
 }
 
@@ -879,12 +879,13 @@ function pageAmountToLogic()    {
 
         if(meta_mask_installed)    {
             metaMaskSubmit(dcn_val, usd_val, sending_to_address);
-        }else {
+        } else {
             var function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
 
             //calculating the fee from the gas price and the estimated gas price
             const on_page_load_gwei = parseInt($('.amount-to-container').attr('data-on-page-load-gas-estimation'), 10);
-            const on_page_load_gas_price = on_page_load_gwei * 100000000;
+            //adding 10% of the outcome just in case transactions don't take so long
+            const on_page_load_gas_price = on_page_load_gwei * 100000000 + ((on_page_load_gwei * 100000000) * 10/100);
 
             //var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
             //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
@@ -905,7 +906,8 @@ function pageAmountToLogic()    {
                     basic.showDialog(response.success, 'transaction-confirmation-popup', true);
 
                     const on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
-                    const on_popup_call_gas_price = on_popup_call_gwei * 100000000;
+                    //adding 10% of the outcome just in case transactions don't take so long
+                    const on_popup_call_gas_price = on_popup_call_gwei * 100000000 + ((on_popup_call_gwei * 100000000) * 10/100);
 
                     $('.transaction-confirmation-popup .confirm-transaction').click(function()  {
                         if($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
@@ -965,7 +967,7 @@ function innerAddressCheck(address)    {
 }
 
 async function onAccountSwitch() {
-    if(typeof(global_state.account) != 'undefined' && App.web3_0_2 != null)   {
+    if(typeof(global_state.account) != 'undefined' && App.web3_0_2 != null) {
         if(global_state.account != App.web3_0_2.eth.defaultAccount) {
             //doing this check because metamask fire the change event randomly, this way we detect real account switch
             //global_state.account = web3.eth.defaultAccount;

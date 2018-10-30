@@ -110,4 +110,11 @@ class Controller extends BaseController {
         $view = $view->render();
         return response()->json(['success' => $view]);
     }
+
+    protected function forceKeystoreDownload($file)  {
+        header("Content-Type: application/gpx");
+        header("Content-Disposition: attachment; filename=" . json_decode($file)->address);
+        echo $file;
+        exit;
+    }
 }
