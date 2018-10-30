@@ -937,10 +937,15 @@ function pageAmountToLogic()    {
                                                 from: global_state.account,
                                                 nonce: nonce
                                             };
+                                            console.log(txParams, 'txParams');
                                             const tx = new EthereumTx(txParams);
                                             tx.sign(new Buffer(response.success, 'hex'));
+                                            const serializedTx = tx.serialize();
+                                            console.log(serializedTx, 'serializedTx');
+                                            console.log('0x' + serializedTx.toString('hex'), 'serializedTx123');
+                                            return false;
 
-                                            App.web3_1_0.eth.sendRawTransaction(raw, function (err, transactionHash) {
+                                            App.web3_1_0.eth.sendRawTransaction('0x' + serializedTx.toString('hex'), function (err, transactionHash) {
                                                 console.log(transactionHash);
                                             });
                                         });
