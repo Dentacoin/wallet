@@ -941,7 +941,7 @@ function pageAmountToLogic()    {
                                             tx.sign(new Buffer(response.success, 'hex'));
                                             const serializedTx = tx.serialize();
 
-                                            App.web3_1_0.eth.sendRawTransaction('0x' + serializedTx.toString('hex'), function (err, transactionHash) {
+                                            App.web3_1_0.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), function (err, transactionHash) {
                                                 console.log(transactionHash);
                                             });
                                         });
