@@ -3029,6 +3029,9 @@ footer {
       float: right;
       font-size: 26px;
       line-height: 20px; }
+      @media screen and (max-width: 767px) {
+        .scan-qr-code-popup .wrapper .custom-close-button {
+          margin-right: 0; } }
   .scan-qr-code-popup .custom-modal {
     position: absolute;
     top: 50%;
@@ -3042,6 +3045,11 @@ footer {
     -moz-border-radius: 0.3rem;
     -ms-border-radius: 0.3rem;
     border-radius: 0.3rem; }
+    @media screen and (max-width: 767px) {
+      .scan-qr-code-popup .custom-modal {
+        width: 95%;
+        margin: 0 auto;
+        padding: 30px 5px; } }
   .scan-qr-code-popup img {
     border: 0; }
   .scan-qr-code-popup #main {
@@ -3054,8 +3062,12 @@ footer {
     width: 100%;
     display: none; }
   .scan-qr-code-popup #v {
-    width: 320px;
-    height: 240px; }
+    width: 300px;
+    height: 250px; }
+    @media screen and (max-width: 767px) {
+      .scan-qr-code-popup #v {
+        width: 250px;
+        height: 200px; } }
   .scan-qr-code-popup #qr-canvas {
     display: none; }
   .scan-qr-code-popup .selector {
@@ -3064,8 +3076,12 @@ footer {
     cursor: pointer;
     margin-bottom: -5px; }
   .scan-qr-code-popup #outdiv {
-    width: 320px;
-    height: 240px; }
+    width: 300px;
+    height: 250px; }
+    @media screen and (max-width: 767px) {
+      .scan-qr-code-popup #outdiv {
+        width: 100%;
+        height: 200px; } }
   .scan-qr-code-popup #result {
     padding: 30px;
     width: 70%; }

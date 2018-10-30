@@ -135,6 +135,9 @@
             float: right;
             font-size: 26px;
             line-height: 20px;
+            @include breakpoint($xs)    {
+                margin-right: 0;
+            }
         }
     }
     .custom-modal {
@@ -142,6 +145,11 @@
         background-color: white;
         padding: 30px;
         @include rounded(.3rem);
+        @include breakpoint($xs)    {
+            width: 95%;
+            margin: 0 auto;
+            padding: 30px 5px;
+        }
     }
     img{
         border:0;
@@ -158,8 +166,12 @@
         display:none;
     }
     #v{
-        width:320px;
-        height:240px;
+        width: 300px;
+        height: 250px;
+        @include breakpoint($xs)    {
+            width: 250px;
+            height: 200px;
+        }
     }
     #qr-canvas{
         display:none;
@@ -171,8 +183,12 @@
         margin-bottom:-5px;
     }
     #outdiv {
-        width:320px;
-        height:240px;
+        width:300px;
+        height:250px;
+        @include breakpoint($xs)    {
+            width: 100%;
+            height: 200px;
+        }
     }
     #result{
         padding: 30px;

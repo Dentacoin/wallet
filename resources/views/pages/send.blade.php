@@ -14,7 +14,7 @@
                     @else
                         <input type="text" class="combobox-input input" placeholder="Enter receiving address/clinic or scan QR code" maxlength="42"/>
                     @endif
-                    <figure class="inline-block btn-container">
+                    <figure class="inline-block btn-container" itemscope="" itemtype="http://schema.org/ImageObject">
                         <a href="javascript:void(0);" class="scan-qr-code">
                             <img src="{{URL::asset('assets/images/scan-qr-code.svg') }}" alt="Scan QR code button" itemprop="contentUrl"/>
                         </a>
