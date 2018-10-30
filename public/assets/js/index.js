@@ -935,7 +935,8 @@ function pageAmountToLogic()    {
                                                 to: App.contract_address,
                                                 data: function_abi,
                                                 from: global_state.account,
-                                                nonce: nonce
+                                                nonce: nonce,
+                                                chainId: 1
                                             };
                                             const tx = new EthereumTx(txParams);
                                             tx.sign(new Buffer(response.success, 'hex'));
