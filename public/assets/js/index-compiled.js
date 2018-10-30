@@ -26977,7 +26977,7 @@ function pageAmountToLogic() {
     });
 
     $('.amount-to-container .send-value-btn').click(_asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4() {
-        var dcn_val, usd_val, sending_to_address, function_abi, eth_fee;
+        var dcn_val, usd_val, sending_to_address, function_abi, on_page_load_gwei, on_page_load_gas_price, eth_fee;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
             while (1) {
                 switch (_context4.prev = _context4.next) {
@@ -27052,7 +27052,7 @@ function pageAmountToLogic() {
                         }
 
                         metaMaskSubmit(dcn_val, usd_val, sending_to_address);
-                        _context4.next = 51;
+                        _context4.next = 49;
                         break;
 
                     case 35:
@@ -27061,28 +27061,24 @@ function pageAmountToLogic() {
                         function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
                         //calculating the fee from the gas price and the estimated gas price
 
-                        _context4.t0 = App.web3_1_0.utils;
-                        _context4.next = 39;
-                        return App.helper.getGasPrice();
+                        on_page_load_gwei = parseInt($('.amount-to-container').attr('data-on-page-load-gas-estimation'), 10);
 
-                    case 39:
-                        _context4.t1 = _context4.sent;
-                        _context4.next = 42;
+                        console.log(on_page_load_gwei, 'on_page_load_gwei');
+                        on_page_load_gas_price = on_page_load_gwei * 100000000;
+
+                        console.log(on_page_load_gas_price, 'on_page_load_gas_price');
+
+                        _context4.t0 = App.web3_1_0.utils;
+                        _context4.t1 = on_page_load_gas_price;
+                        _context4.next = 44;
                         return App.helper.estimateGas(sending_to_address, function_abi);
 
-                    case 42:
+                    case 44:
                         _context4.t2 = _context4.sent;
                         _context4.t3 = (_context4.t1 * _context4.t2).toString();
                         eth_fee = _context4.t0.fromWei.call(_context4.t0, _context4.t3, 'ether');
-                        _context4.t4 = console;
-                        _context4.next = 48;
-                        return App.helper.estimateGas(sending_to_address, function_abi);
 
-                    case 48:
-                        _context4.t5 = _context4.sent;
-
-                        _context4.t4.log.call(_context4.t4, _context4.t5, 'App.helper.estimateGas');
-
+                        console.log(eth_fee, 'eth_fee');
                         //Send confirmation popup
                         $.ajax({
                             type: 'POST',
@@ -27098,8 +27094,8 @@ function pageAmountToLogic() {
                             success: function success(response) {
                                 basic.showDialog(response.success, 'transaction-confirmation-popup', true);
 
-                                var gWei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation'), 10);
-                                var gasPrice = gWei * 100000000;
+                                var on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
+                                var on_popup_call_gas_price = on_popup_call_gwei * 100000000;
 
                                 console.log(gasPrice, 'gasPrice');
 
@@ -27123,12 +27119,12 @@ function pageAmountToLogic() {
                                                         var EthereumTx = __webpack_require__(298);
                                                         var txParams = {
                                                             gasLimit: App.web3_1_0.utils.toHex(65000),
+                                                            gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
                                                             to: App.contract_address,
                                                             data: function_abi,
                                                             from: global_state.account,
                                                             nonce: App.web3_1_0.utils.toHex(nonce),
-                                                            chainId: 1,
-                                                            gas: gas
+                                                            chainId: 1
                                                         };
                                                         console.log(txParams, 'txParams');
                                                         var tx = new EthereumTx(txParams);
@@ -27150,7 +27146,7 @@ function pageAmountToLogic() {
                             }
                         });
 
-                    case 51:
+                    case 49:
                     case 'end':
                         return _context4.stop();
                 }

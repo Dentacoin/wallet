@@ -897,8 +897,14 @@ function pageAmountToLogic()    {
             //return false;
             var function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
             //calculating the fee from the gas price and the estimated gas price
-            var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
-            console.log(await App.helper.estimateGas(sending_to_address, function_abi), 'App.helper.estimateGas');
+
+            const on_page_load_gwei = parseInt($('.amount-to-container').attr('data-on-page-load-gas-estimation'), 10);
+            console.log(on_page_load_gwei, 'on_page_load_gwei');
+            const on_page_load_gas_price = on_page_load_gwei * 100000000;
+            console.log(on_page_load_gas_price, 'on_page_load_gas_price');
+
+            var eth_fee = App.web3_1_0.utils.fromWei((on_page_load_gas_price * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
+            console.log(eth_fee, 'eth_fee');
             //Send confirmation popup
             $.ajax({
                 type: 'POST',
@@ -914,8 +920,8 @@ function pageAmountToLogic()    {
                 success: function (response) {
                     basic.showDialog(response.success, 'transaction-confirmation-popup', true);
 
-                    const gWei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation'), 10);
-                    const gasPrice = gWei * 100000000;
+                    const on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
+                    const on_popup_call_gas_price = on_popup_call_gwei * 100000000;
 
                     console.log(gasPrice, 'gasPrice');
 
@@ -939,12 +945,12 @@ function pageAmountToLogic()    {
                                             const EthereumTx = require('ethereumjs-tx');
                                             const txParams = {
                                                 gasLimit: App.web3_1_0.utils.toHex(65000),
+                                                gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
                                                 to: App.contract_address,
                                                 data: function_abi,
                                                 from: global_state.account,
                                                 nonce: App.web3_1_0.utils.toHex(nonce),
-                                                chainId: 1,
-                                                gas
+                                                chainId: 1
                                             };
                                             console.log(txParams, 'txParams');
                                             const tx = new EthereumTx(txParams);

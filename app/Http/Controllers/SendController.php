@@ -16,6 +16,7 @@ class SendController extends Controller {
 
     protected function getAmountToView($address)   {
         $params = ['url_address' => $address];
+        $params['gas_estimation'] = $this->getGasEstimationFromEthgasstation();
         if(isset($_COOKIE['prev_used_addresses']) && !empty($_COOKIE['prev_used_addresses']))    {
             $params['addresses'] = json_decode($_COOKIE['prev_used_addresses']);
         }

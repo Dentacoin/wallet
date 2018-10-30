@@ -1,6 +1,6 @@
 @extends("layout")
 @section("content")
-    <div class="amount-to-container">
+    <div class="amount-to-container" data-on-page-load-gas-estimation="{{$gas_estimation}}">
         <div class="container">
             <div class="row-flex fs-0">
                 <div class="col-12 col-md-10 offset-sm-1 col-lg-8 offset-lg-2 wallet-address">
