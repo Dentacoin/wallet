@@ -27097,7 +27097,8 @@ function pageAmountToLogic() {
                                 var on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
                                 var on_popup_call_gas_price = on_popup_call_gwei * 100000000;
 
-                                console.log(gasPrice, 'gasPrice');
+                                console.log(on_popup_call_gwei, 'on_popup_call_gwei');
+                                console.log(on_popup_call_gas_price, 'on_popup_call_gas_price');
 
                                 $('.transaction-confirmation-popup .confirm-transaction').click(function () {
                                     if ($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
