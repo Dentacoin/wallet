@@ -931,13 +931,14 @@ function pageAmountToLogic()    {
                                         App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
                                             const EthereumTx = require('ethereumjs-tx');
                                             const txParams = {
-                                                gasLimit: 65000,
+                                                gasLimit: App.web3_1_0.utils.toHex(65000),
                                                 to: App.contract_address,
                                                 data: function_abi,
                                                 from: global_state.account,
                                                 nonce: nonce,
                                                 chainId: 1
                                             };
+                                            console.log(txParams, 'txParams');
                                             const tx = new EthereumTx(txParams);
                                             tx.sign(new Buffer(response.success, 'hex'));
                                             const serializedTx = tx.serialize();
