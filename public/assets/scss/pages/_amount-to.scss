@@ -67,9 +67,6 @@
         .btn-container {
             padding-top: 50px;
             padding-bottom: 30px;
-            a {
-                padding: 10px 120px;
-            }
         }
     }
     @include breakpoint($xs)    {

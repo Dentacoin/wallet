@@ -2118,12 +2118,14 @@ img {
 .bluegreen-white-btn {
   background-color: #17a2b8;
   color: white;
-  font-size: 16px;
-  padding: 6px 12px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  border-radius: 4px;
+  font-size: 22px;
+  padding: 10px 20px;
+  display: inline-block;
+  min-width: 200px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
@@ -2949,6 +2951,29 @@ footer {
     -moz-border-radius: 0 4px 4px 0;
     -ms-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0; }
+  .send-container .next {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 20px; }
+    .send-container .next a {
+      display: inline-block;
+      color: white;
+      background-color: #A0A0A0;
+      border: 1px solid transparent;
+      font-size: 22px;
+      padding: 10px 20px;
+      margin: 0 auto;
+      text-align: center;
+      min-width: 200px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      border-radius: 10px; }
+      .send-container .next a.active {
+        background-color: #00b7d9;
+        border: 1px solid white; }
+      .send-container .next a:hover {
+        color: white; }
   @media screen and (max-width: 767px) {
     .send-container {
       padding-top: 20px;
@@ -3025,8 +3050,6 @@ footer {
 .amount-to-container .exchange-inputs .btn-container {
   padding-top: 50px;
   padding-bottom: 30px; }
-  .amount-to-container .exchange-inputs .btn-container a {
-    padding: 10px 120px; }
 @media screen and (max-width: 767px) {
   .amount-to-container .dropdown-item {
     padding: 5px;

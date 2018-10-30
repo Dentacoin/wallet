@@ -112,8 +112,8 @@ class Controller extends BaseController {
     }
 
     protected function forceKeystoreDownload($file)  {
-        header("Content-Type: application/gpx");
-        header("Content-Disposition: attachment; filename=" . json_decode($file)->address);
+        header("Content-Type: application/save");
+        header("Content-Disposition: attachment; filename=" . json_decode($file)->address . '.save');
         echo $file;
         exit;
     }

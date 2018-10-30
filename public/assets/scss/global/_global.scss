@@ -910,9 +910,11 @@ img {
 .bluegreen-white-btn {
     background-color: $bluegreen;
     color: white;
-    font-size: 16px;
-    padding: 6px 12px;
-    @include rounded(4px);
+    font-size: 22px;
+    padding: 10px 20px;
+    display: inline-block;
+    min-width: 200px;
+    @include rounded(10px);
     @include simple_transition(.3s);
     &:hover {
         color: white;

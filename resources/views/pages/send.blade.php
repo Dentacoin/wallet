@@ -14,14 +14,14 @@
                     @else
                         <input type="text" class="combobox-input input" placeholder="Type the Receiver's wallet address OR your Dentist's name" maxlength="42"/>
                     @endif
-                    <div class="inline-block btn-container next"><a href="javascript:void(0);" class="gray-btn">NEXT</a></div>
+                    <div class="inline-block btn-container"><a href="javascript:void(0);">Scan</a></div>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row-flex">
                 <div class="col-12">
-                    <div class="horizontal-white-line-120 line"></div>
+                    <div class="btn-container next"><a href="javascript:void(0);" class="bluegreen-white-btn">NEXT</a></div>
                     <div class="text-center fill-the-address">Enter the Receiver's Dentacoin wallet address. If you want to pay for your treatment to a Dentacoin Partner Dentist or Clinic, just type their name in the field above (Feature not supported yet).</div>
                 </div>
             </div>

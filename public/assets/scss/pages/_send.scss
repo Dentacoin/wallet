@@ -54,6 +54,30 @@
             }
         }
     }
+    .next {
+        text-align: center;
+        padding-top: 50px;
+        padding-bottom: 20px;
+        a {
+            display: inline-block;
+            color: white;
+            background-color: $dark_gray;
+            border: 1px solid transparent;
+            font-size: 22px;
+            padding: 10px 20px;
+            margin: 0 auto;
+            text-align: center;
+            min-width: 200px;
+            @include rounded(10px);
+            &.active {
+                background-color: #00b7d9;
+                border: 1px solid white;
+            }
+            &:hover {
+                color: white;
+            }
+        }
+    }
     @include breakpoint($xs)    {
         padding-top: 20px;
         padding-bottom: 0;
