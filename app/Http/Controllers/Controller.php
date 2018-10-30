@@ -113,7 +113,7 @@ class Controller extends BaseController {
 
     protected function forceKeystoreDownload($file)  {
         header("Content-Type: application/save");
-        header("Content-Disposition: attachment; filename=" . json_decode($file)->address . '.save');
+        header("Content-Disposition: attachment; filename=" . json_decode($file)->address);
         echo $file;
         exit;
     }

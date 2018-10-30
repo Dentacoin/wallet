@@ -773,6 +773,11 @@ if($('body').hasClass('home'))  {
             basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
         }
     });
+
+    $('.send-container .scan-qr-code').click(function() {
+        basic.showDialog('<div id="camera-output"></div>', 'scan-qr-code-popup', true);
+        load();
+    });
 }
 
 function pageAmountToLogic()    {

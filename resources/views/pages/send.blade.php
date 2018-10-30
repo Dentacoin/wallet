@@ -12,9 +12,9 @@
                             @endforeach
                         </select>
                     @else
-                        <input type="text" class="combobox-input input" placeholder="Type the Receiver's wallet address OR your Dentist's name" maxlength="42"/>
+                        <input type="text" class="combobox-input input" placeholder="Enter receiving address/clinic or scan QR code" maxlength="42"/>
                     @endif
-                    <div class="inline-block btn-container"><a href="javascript:void(0);">Scan</a></div>
+                    <div class="inline-block btn-container"><a href="javascript:void(0);" class="scan-qr-code">Scan</a></div>
                 </div>
             </div>
         </div>
