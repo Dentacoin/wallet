@@ -104,6 +104,7 @@ function read(a) {
     if($('.send-container .combobox-input').length > 0) {
         $('.send-container .combobox-input').val(htmlEntities(a));
         if(last_address != htmlEntities(a)) {
+            $('.send-container .next a').addClass('active');
             $('.scan-qr-code-popup').removeClass('visible-popup');
         }
         last_address = htmlEntities(a);

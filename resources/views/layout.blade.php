@@ -129,10 +129,10 @@
     </footer>
     <script src="/dist/js/front-libs-script.js?v=1.0.38"></script>
     <script src="/assets/js/basic.js?v=1.0.21"></script>
-    <script src="/assets/js/llqrcode.js?v=1.0.2"></script>
-    <script src="/assets/js/webqr.js?v=1.0.2"></script>
+    <script src="/assets/js/llqrcode.js?v=1.0.3"></script>
+    <script src="/assets/js/webqr.js?v=1.0.3"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.2.37"></script>
+    <script src="/assets/js/index-compiled.js?v=1.2.38"></script>
 </body>
 </html>
