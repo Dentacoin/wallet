@@ -11,8 +11,8 @@
     <style>
 
     </style>
-    <link rel="stylesheet" type="text/css" href="/dist/css/front-libs-style.css?v=1.0.15">
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=1.0.15">
+    <link rel="stylesheet" type="text/css" href="/dist/css/front-libs-style.css?v=1.0.16">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=1.0.16">
     <script src="/assets/libs/popper/popper.min.js?v=1.0.2"></script>
     <script>
         var HOME_URL = '{{ route("home") }}';
