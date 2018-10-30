@@ -282,9 +282,7 @@ var App = {
             from: global_state.account,
             gas: 65000
         }).on('transactionHash', function(hash){
-            $('.amount-to-container input#dcn').val('');
-            $('.amount-to-container input#usd').val('');
-            basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/'+hash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
+            displayMessageOnTransactionSend(hash);
         })/*.then(function (result){
             basic.closeDialog();
             basic.showAlert('Your transaction is now pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+result.transactionHash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
@@ -893,16 +891,14 @@ function pageAmountToLogic()    {
         if(meta_mask_installed)    {
             metaMaskSubmit(dcn_val, usd_val, sending_to_address);
         }else {
-            //basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
-            //return false;
             var function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
+
             //calculating the fee from the gas price and the estimated gas price
-
             const on_page_load_gwei = parseInt($('.amount-to-container').attr('data-on-page-load-gas-estimation'), 10);
-            console.log(on_page_load_gwei, 'on_page_load_gwei');
             const on_page_load_gas_price = on_page_load_gwei * 100000000;
-            console.log(on_page_load_gas_price, 'on_page_load_gas_price');
 
+            //var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
+            //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
             var eth_fee = App.web3_1_0.utils.fromWei((on_page_load_gas_price * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
             console.log(eth_fee, 'eth_fee');
             //Send confirmation popup
@@ -923,9 +919,6 @@ function pageAmountToLogic()    {
                     const on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
                     const on_popup_call_gas_price = on_popup_call_gwei * 100000000;
 
-                    console.log(on_popup_call_gwei, 'on_popup_call_gwei');
-                    console.log(on_popup_call_gas_price, 'on_popup_call_gas_price');
-
                     $('.transaction-confirmation-popup .confirm-transaction').click(function()  {
                         if($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
                             basic.showAlert('Please enter your password.', '', true);
@@ -944,7 +937,7 @@ function pageAmountToLogic()    {
                                     if(response.success)    {
                                         App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
                                             const EthereumTx = require('ethereumjs-tx');
-                                            const txParams = {
+                                            const tx = new EthereumTx({
                                                 gasLimit: App.web3_1_0.utils.toHex(65000),
                                                 gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
                                                 to: App.contract_address,
@@ -952,14 +945,14 @@ function pageAmountToLogic()    {
                                                 from: global_state.account,
                                                 nonce: App.web3_1_0.utils.toHex(nonce),
                                                 chainId: 1
-                                            };
-                                            console.log(txParams, 'txParams');
-                                            const tx = new EthereumTx(txParams);
-                                            tx.sign(new Buffer(response.success, 'hex'));
-                                            const serializedTx = tx.serialize();
+                                            });
 
-                                            App.web3_1_0.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), function (err, transactionHash) {
-                                                console.log(transactionHash);
+                                            //signing the transaction
+                                            tx.sign(new Buffer(response.success, 'hex'));
+                                            //sending the transaction
+                                            App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
+                                                console.log(err, '===err===');
+                                                displayMessageOnTransactionSend(transactionHash);
                                             });
                                         });
                                     }else if(response.error)    {
@@ -969,7 +962,6 @@ function pageAmountToLogic()    {
                             });
                         }
                     });
-                    //customSubmit(dcn_val, usd_val, sending_to_address);
                 }
             });
         }
@@ -1238,4 +1230,10 @@ function isJsonString(str) {
         return false;
     }
     return true;
+}
+
+function displayMessageOnTransactionSend(tx_hash)  {
+    $('.amount-to-container input#dcn').val('');
+    $('.amount-to-container input#usd').val('');
+    basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/'+tx_hash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
 }

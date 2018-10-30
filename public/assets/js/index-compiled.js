@@ -26302,9 +26302,7 @@ var App = {
             from: global_state.account,
             gas: 65000
         }).on('transactionHash', function (hash) {
-            $('.amount-to-container input#dcn').val('');
-            $('.amount-to-container input#usd').val('');
-            basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/' + hash + '" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
+            displayMessageOnTransactionSend(hash);
         }) /*.then(function (result){
              basic.closeDialog();
              basic.showAlert('Your transaction is now pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+result.transactionHash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
@@ -27052,28 +27050,26 @@ function pageAmountToLogic() {
                         }
 
                         metaMaskSubmit(dcn_val, usd_val, sending_to_address);
-                        _context4.next = 49;
+                        _context4.next = 47;
                         break;
 
                     case 35:
-                        //basic.showAlert('Sending transactions without MetaMask is not implemented yet. Stay tuned!', '', true);
-                        //return false;
                         function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
+
                         //calculating the fee from the gas price and the estimated gas price
 
                         on_page_load_gwei = parseInt($('.amount-to-container').attr('data-on-page-load-gas-estimation'), 10);
-
-                        console.log(on_page_load_gwei, 'on_page_load_gwei');
                         on_page_load_gas_price = on_page_load_gwei * 100000000;
 
-                        console.log(on_page_load_gas_price, 'on_page_load_gas_price');
+                        //var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
+                        //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
 
                         _context4.t0 = App.web3_1_0.utils;
                         _context4.t1 = on_page_load_gas_price;
-                        _context4.next = 44;
+                        _context4.next = 42;
                         return App.helper.estimateGas(sending_to_address, function_abi);
 
-                    case 44:
+                    case 42:
                         _context4.t2 = _context4.sent;
                         _context4.t3 = (_context4.t1 * _context4.t2).toString();
                         eth_fee = _context4.t0.fromWei.call(_context4.t0, _context4.t3, 'ether');
@@ -27097,9 +27093,6 @@ function pageAmountToLogic() {
                                 var on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
                                 var on_popup_call_gas_price = on_popup_call_gwei * 100000000;
 
-                                console.log(on_popup_call_gwei, 'on_popup_call_gwei');
-                                console.log(on_popup_call_gas_price, 'on_popup_call_gas_price');
-
                                 $('.transaction-confirmation-popup .confirm-transaction').click(function () {
                                     if ($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
                                         basic.showAlert('Please enter your password.', '', true);
@@ -27118,7 +27111,7 @@ function pageAmountToLogic() {
                                                 if (response.success) {
                                                     App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
                                                         var EthereumTx = __webpack_require__(298);
-                                                        var txParams = {
+                                                        var tx = new EthereumTx({
                                                             gasLimit: App.web3_1_0.utils.toHex(65000),
                                                             gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
                                                             to: App.contract_address,
@@ -27126,14 +27119,14 @@ function pageAmountToLogic() {
                                                             from: global_state.account,
                                                             nonce: App.web3_1_0.utils.toHex(nonce),
                                                             chainId: 1
-                                                        };
-                                                        console.log(txParams, 'txParams');
-                                                        var tx = new EthereumTx(txParams);
-                                                        tx.sign(new Buffer(response.success, 'hex'));
-                                                        var serializedTx = tx.serialize();
+                                                        });
 
-                                                        App.web3_1_0.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), function (err, transactionHash) {
-                                                            console.log(transactionHash);
+                                                        //signing the transaction
+                                                        tx.sign(new Buffer(response.success, 'hex'));
+                                                        //sending the transaction
+                                                        App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
+                                                            console.log(err, '===err===');
+                                                            displayMessageOnTransactionSend(transactionHash);
                                                         });
                                                     });
                                                 } else if (response.error) {
@@ -27143,11 +27136,10 @@ function pageAmountToLogic() {
                                         });
                                     }
                                 });
-                                //customSubmit(dcn_val, usd_val, sending_to_address);
                             }
                         });
 
-                    case 49:
+                    case 47:
                     case 'end':
                         return _context4.stop();
                 }
@@ -27394,6 +27386,12 @@ function isJsonString(str) {
         return false;
     }
     return true;
+}
+
+function displayMessageOnTransactionSend(tx_hash) {
+    $('.amount-to-container input#dcn').val('');
+    $('.amount-to-container input#usd').val('');
+    basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/' + tx_hash + '" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
 }
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
