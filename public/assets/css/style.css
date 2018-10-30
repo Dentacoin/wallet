@@ -2661,6 +2661,9 @@ input[type=file].hide-input {
   border-radius: 10px; }
   .white-blue-btn:hover {
     color: white; }
+  @media screen and (max-width: 767px) {
+    .white-blue-btn {
+      font-size: 16px; } }
 
 header .logo {
   padding-top: 10px;
@@ -2915,6 +2918,10 @@ footer {
     vertical-align: middle;
     display: inline-block;
     position: relative; }
+    @media screen and (max-width: 767px) {
+      .send-container .input-with-button .combobox-container {
+        width: 100%;
+        margin-bottom: 10px; } }
     .send-container .input-with-button .combobox-container input {
       padding: 7px 12px;
       border: 0;
@@ -2934,6 +2941,10 @@ footer {
     display: inline-block;
     padding: 7px 12px;
     border: 0; }
+    @media screen and (max-width: 767px) {
+      .send-container .input-with-button input.combobox-input.input {
+        width: 100%;
+        margin-bottom: 10px; } }
   .send-container .input-with-button .btn-container {
     width: 80px;
     vertical-align: middle;
@@ -2942,11 +2953,21 @@ footer {
       display: block;
       height: 100%;
       text-align: center; }
+    @media screen and (max-width: 767px) {
+      .send-container .input-with-button .btn-container {
+        display: block;
+        margin: 0 auto; } }
   .send-container .input-with-button.left-side input {
     -webkit-border-radius: 4px 0 0 4px;
     -moz-border-radius: 4px 0 0 4px;
     -ms-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px; }
+    @media screen and (max-width: 767px) {
+      .send-container .input-with-button.left-side input {
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        border-radius: 4px; } }
   .send-container .input-with-button.left-side .btn-container a {
     -webkit-border-radius: 0 4px 4px 0;
     -moz-border-radius: 0 4px 4px 0;

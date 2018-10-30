@@ -15,6 +15,10 @@
             vertical-align: middle;
             display: inline-block;
             position: relative;
+            @include breakpoint($xs)    {
+                width: 100%;
+                margin-bottom: 10px;
+            }
             input {
                 padding: 7px 12px;
                 border: 0;
@@ -33,6 +37,10 @@
             display: inline-block;
             padding: 7px 12px;
             border: 0;
+            @include breakpoint($xs)    {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
         .btn-container {
             width: 80px;
@@ -43,10 +51,17 @@
                 height: 100%;
                 text-align: center;
             }
+            @include breakpoint($xs)    {
+                display: block;
+                margin: 0 auto;
+            }
         }
         &.left-side {
             input {
                 @include rounded(4px 0 0 4px);
+                @include breakpoint($xs)    {
+                    @include rounded(4px);
+                }
             }
             .btn-container a {
                 @include rounded(0 4px 4px 0);
