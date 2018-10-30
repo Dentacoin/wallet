@@ -951,7 +951,7 @@ function pageAmountToLogic()    {
                                             tx.sign(new Buffer(response.success, 'hex'));
                                             //sending the transaction
                                             App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
-                                                console.log(err, '===err===');
+                                                basic.closeDialog();
                                                 displayMessageOnTransactionSend(transactionHash);
                                             });
                                         });
