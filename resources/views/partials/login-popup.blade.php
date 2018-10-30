@@ -10,10 +10,10 @@
         <div class="popup-body first">
             <label class="custom-label">Input password for your Keystore file</label>
             <div>
-                <input type="password" class="keystore-file-pass" maxlength="30" value="Enter password"/>
+                <input type="password" class="keystore-file-pass" maxlength="30" placeholder="Enter password"/>
             </div>
             <div>
-                <input type="password" class="second-pass" maxlength="30" value="Repeat password"/>
+                <input type="password" class="second-pass" maxlength="30" placeholder="Repeat password"/>
             </div>
             <div class="btn-container">
                 <a href="javascript:void(0)" class="white-blue-btn create-keystore">CREATE</a>
