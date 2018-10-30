@@ -912,6 +912,10 @@ function pageAmountToLogic()    {
                 dataType: 'json',
                 success: function (response) {
                     basic.showDialog(response.success, 'transaction-confirmation-popup', true);
+
+                    const gWei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation'), 10);
+                    const gasPrice = gWei * 100000000;
+
                     $('.transaction-confirmation-popup .confirm-transaction').click(function()  {
                         if($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
                             basic.showAlert('Please enter your password.', '', true);
@@ -935,8 +939,9 @@ function pageAmountToLogic()    {
                                                 to: App.contract_address,
                                                 data: function_abi,
                                                 from: global_state.account,
-                                                nonce: nonce,
-                                                chainId: 1
+                                                nonce: App.web3_1_0.utils.toHex(nonce),
+                                                chainId: 1,
+                                                gas
                                             };
                                             console.log(txParams, 'txParams');
                                             const tx = new EthereumTx(txParams);

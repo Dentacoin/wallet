@@ -23,4 +23,5 @@
 </div>
 <div class="btn-container">
     <a href="javascript:void(0)" class="white-blue-btn confirm-transaction">Confirm</a>
+    <input type="hidden" id="gas-estimation" value="{{$gas_estimation}}"/>
 </div>

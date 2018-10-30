@@ -23,8 +23,24 @@ class SendController extends Controller {
     }
 
     protected function getTransactionConfirmationHtml(Request $request) {
-        $view = view('partials/transaction-confirmation-popup', ['dcn_val' => $request->input('dcn_val'), 'usd_val' => $request->input('usd_val'), 'sending_to_address' => $request->input('sending_to_address'), 'from' => $request->input('from'), 'fee' => $request->input('fee')]);
+        $view = view('partials/transaction-confirmation-popup', ['dcn_val' => $request->input('dcn_val'), 'usd_val' => $request->input('usd_val'), 'sending_to_address' => $request->input('sending_to_address'), 'from' => $request->input('from'), 'fee' => $request->input('fee'), 'gas_estimation' => $this->getGasEstimationFromEthgasstation()]);
         $view = $view->render();
         return response()->json(['success' => $view]);
+    }
+
+    protected function getGasEstimationFromEthgasstation()  {
+        //API connection
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'https://ethgasstation.info/json/ethgasAPI.json',
+            CURLOPT_SSL_VERIFYPEER => 0
+        ));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $resp = json_decode(curl_exec($curl));
+        curl_close($curl);
+        if(!empty($resp))   {
+            return $resp->safeLow;
+        }
     }
 }
