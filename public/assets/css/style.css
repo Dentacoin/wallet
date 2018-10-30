@@ -2733,8 +2733,13 @@ footer {
     display: none; }
     .homepage-container .your-dcn-wallet .address .copy-address img {
       width: 40px; }
-  .homepage-container .your-dcn-wallet .address span {
-    padding-left: 10px; }
+  .homepage-container .your-dcn-wallet .address .address-value {
+    padding-left: 10px;
+    border: 0;
+    background: transparent;
+    color: white;
+    width: 400px;
+    font-weight: 500; }
 .homepage-container .values-and-qr-code {
   padding-top: 50px;
   padding-bottom: 50px; }
@@ -2769,8 +2774,8 @@ footer {
   .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value {
     font-size: 38px; } }
 @media screen and (max-width: 767px) {
-  .homepage-container .your-dcn-wallet .address span {
-    padding-left: 0; }
+  .homepage-container .your-dcn-wallet .address .address-value {
+    width: 280px; }
   .homepage-container .values-and-qr-code {
     display: block;
     font-size: 0; }
@@ -2784,8 +2789,15 @@ footer {
         line-height: 40px;
         padding-left: 10px; } }
 @media screen and (max-width: 576px) {
-  .homepage-container .your-dcn-wallet .address {
-    font-size: 12px; }
+  .homepage-container .your-dcn-wallet {
+    height: 120px; }
+    .homepage-container .your-dcn-wallet .address {
+      font-size: 12px; }
+      .homepage-container .your-dcn-wallet .address .address-value {
+        padding-left: 0;
+        width: 100%;
+        text-align: center;
+        padding-top: 5px; }
   .homepage-container .values-and-qr-code {
     padding-top: 20px;
     padding-bottom: 0; }

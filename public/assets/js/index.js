@@ -684,21 +684,10 @@ function getQrCode()    {
 if($('body').hasClass('home'))  {
     $('.homepage-container .copy-address').click(function()   {
         var this_el = $(this);
-        // resolve the element
-        el = (typeof el === 'string') ? document.querySelector(el) : el;
-        // handle iOS as a special case
-        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-            console.log('SELECT');
-        } else {
-            console.log('2');
-            var str_to_copy = $('.homepage-container .address span');
-            if(str_to_copy.data('valid-address'))   {
-                var $temp = $("<input>");
-                $("body").append($temp);
-                $temp.val(str_to_copy.html()).select();
-                document.execCommand("copy");
-                $temp.remove();
-            }
+
+        $('.homepage-container .address .address-value').select();
+        if(!navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+            document.execCommand("copy");
         }
 
         this_el.tooltip('show');
@@ -870,11 +859,11 @@ function pageAmountToLogic()    {
             //checking if dcn value is lesser than 10 (contract condition)
             basic.showAlert('Please make sure dcn value is more than 10. You cannot send less than 10 DCN.', '', true);
             return false;
-        } /*else if (0.005 > parseFloat(global_state.curr_addr_eth_balance)) {
+        } else if (0.005 > parseFloat(global_state.curr_addr_eth_balance)) {
             //checking if current balance is lower than the desired value to send
             basic.showAlert('For sending DCN you need at least 0.005 ETH. Please refill.', '', true);
             return false;
-        }*/ else if (dcn_val > parseInt(global_state.curr_addr_dcn_balance)) {
+        } else if (dcn_val > parseInt(global_state.curr_addr_dcn_balance)) {
             //checking if current balance is lower than the desired value to send
             basic.showAlert('The value you want to send is higher than your balance.', '', true);
             return false;
@@ -900,7 +889,6 @@ function pageAmountToLogic()    {
             //var eth_fee = App.web3_1_0.utils.fromWei((await App.helper.getGasPrice() * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
             //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
             var eth_fee = App.web3_1_0.utils.fromWei((on_page_load_gas_price * await App.helper.estimateGas(sending_to_address, function_abi)).toString(), 'ether');
-            console.log(eth_fee, 'eth_fee');
             //Send confirmation popup
             $.ajax({
                 type: 'POST',
@@ -992,7 +980,7 @@ async function onAccountSwitch() {
         }
     }else if(meta_mask_installed) {
         if($('.homepage-container').length > 0) {
-            $('.homepage-container .address span').html($('.homepage-container .address span').attr('data-log-metamask'));
+            $('.homepage-container .address .address-value').val($('.homepage-container .address .address-value').attr('data-log-metamask'));
             $('.homepage-container .address .copy-address').hide();
         }
     }
@@ -1001,9 +989,9 @@ async function onAccountSwitch() {
 function initHomepageUserData() {
     if($('.homepage-container').length > 0) {
         //change the address html and show the copy address button
-        $('.homepage-container .address span').html(global_state.account);
+        $('.homepage-container .address .address-value').val(global_state.account);
         $('.homepage-container .address input[type="hidden"]').val(global_state.account);
-        $('.homepage-container .address span').data('valid-address', true);
+        $('.homepage-container .address .address-value').data('valid-address', true);
         $('.homepage-container .address .copy-address').show();
 
         //init new qr code

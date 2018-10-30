@@ -25906,7 +25906,7 @@ var onAccountSwitch = function () {
                             }
                         } else if (meta_mask_installed) {
                             if ($('.homepage-container').length > 0) {
-                                $('.homepage-container .address span').html($('.homepage-container .address span').attr('data-log-metamask'));
+                                $('.homepage-container .address .address-value').val($('.homepage-container .address .address-value').attr('data-log-metamask'));
                                 $('.homepage-container .address .copy-address').hide();
                             }
                         }
@@ -26807,21 +26807,10 @@ function getQrCode() {
 if ($('body').hasClass('home')) {
     $('.homepage-container .copy-address').click(function () {
         var this_el = $(this);
-        // resolve the element
-        el = typeof el === 'string' ? document.querySelector(el) : el;
-        // handle iOS as a special case
-        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-            console.log('SELECT');
-        } else {
-            console.log('2');
-            var str_to_copy = $('.homepage-container .address span');
-            if (str_to_copy.data('valid-address')) {
-                var $temp = $("<input>");
-                $("body").append($temp);
-                $temp.val(str_to_copy.html()).select();
-                document.execCommand("copy");
-                $temp.remove();
-            }
+
+        $('.homepage-container .address .address-value').select();
+        if (!navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+            document.execCommand("copy");
         }
 
         this_el.tooltip('show');
@@ -27014,8 +27003,18 @@ function pageAmountToLogic() {
                         return _context4.abrupt('return', false);
 
                     case 18:
-                        if (!(dcn_val > parseInt(global_state.curr_addr_dcn_balance))) {
+                        if (!(0.005 > parseFloat(global_state.curr_addr_eth_balance))) {
                             _context4.next = 23;
+                            break;
+                        }
+
+                        //checking if current balance is lower than the desired value to send
+                        basic.showAlert('For sending DCN you need at least 0.005 ETH. Please refill.', '', true);
+                        return _context4.abrupt('return', false);
+
+                    case 23:
+                        if (!(dcn_val > parseInt(global_state.curr_addr_dcn_balance))) {
+                            _context4.next = 28;
                             break;
                         }
 
@@ -27023,9 +27022,9 @@ function pageAmountToLogic() {
                         basic.showAlert('The value you want to send is higher than your balance.', '', true);
                         return _context4.abrupt('return', false);
 
-                    case 23:
+                    case 28:
                         if (!$('.amount-to-container .address-container').hasClass('editing')) {
-                            _context4.next = 28;
+                            _context4.next = 33;
                             break;
                         }
 
@@ -27033,9 +27032,9 @@ function pageAmountToLogic() {
                         basic.showAlert('Please make sure you are done with address editing.', '', true);
                         return _context4.abrupt('return', false);
 
-                    case 28:
+                    case 33:
                         if (innerAddressCheck(sending_to_address)) {
-                            _context4.next = 31;
+                            _context4.next = 36;
                             break;
                         }
 
@@ -27043,17 +27042,17 @@ function pageAmountToLogic() {
                         basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
                         return _context4.abrupt('return', false);
 
-                    case 31:
+                    case 36:
                         if (!meta_mask_installed) {
-                            _context4.next = 35;
+                            _context4.next = 40;
                             break;
                         }
 
                         metaMaskSubmit(dcn_val, usd_val, sending_to_address);
-                        _context4.next = 47;
+                        _context4.next = 51;
                         break;
 
-                    case 35:
+                    case 40:
                         function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
 
                         //calculating the fee from the gas price and the estimated gas price
@@ -27066,15 +27065,14 @@ function pageAmountToLogic() {
 
                         _context4.t0 = App.web3_1_0.utils;
                         _context4.t1 = on_page_load_gas_price;
-                        _context4.next = 42;
+                        _context4.next = 47;
                         return App.helper.estimateGas(sending_to_address, function_abi);
 
-                    case 42:
+                    case 47:
                         _context4.t2 = _context4.sent;
                         _context4.t3 = (_context4.t1 * _context4.t2).toString();
                         eth_fee = _context4.t0.fromWei.call(_context4.t0, _context4.t3, 'ether');
 
-                        console.log(eth_fee, 'eth_fee');
                         //Send confirmation popup
                         $.ajax({
                             type: 'POST',
@@ -27139,7 +27137,7 @@ function pageAmountToLogic() {
                             }
                         });
 
-                    case 47:
+                    case 51:
                     case 'end':
                         return _context4.stop();
                 }
@@ -27159,9 +27157,9 @@ function innerAddressCheck(address) {
 function initHomepageUserData() {
     if ($('.homepage-container').length > 0) {
         //change the address html and show the copy address button
-        $('.homepage-container .address span').html(global_state.account);
+        $('.homepage-container .address .address-value').val(global_state.account);
         $('.homepage-container .address input[type="hidden"]').val(global_state.account);
-        $('.homepage-container .address span').data('valid-address', true);
+        $('.homepage-container .address .address-value').data('valid-address', true);
         $('.homepage-container .address .copy-address').show();
 
         //init new qr code

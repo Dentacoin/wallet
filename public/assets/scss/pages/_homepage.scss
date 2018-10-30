@@ -16,8 +16,13 @@
                     width: 40px;
                 }
             }
-            span {
+            .address-value {
                 padding-left: 10px;
+                border: 0;
+                background: transparent;
+                color: white;
+                width: 400px;
+                font-weight: 500;
             }
         }
     }
@@ -81,8 +86,8 @@
     @include breakpoint($xs)    {
         .your-dcn-wallet {
             .address {
-                span {
-                    padding-left: 0;
+                .address-value {
+                    width: 280px;
                 }
             }
         }
@@ -107,8 +112,15 @@
     }
     @include breakpoint($xxs)   {
         .your-dcn-wallet {
+            height: 120px;
             .address {
                 font-size: 12px;
+                .address-value {
+                    padding-left: 0;
+                    width: 100%;
+                    text-align: center;
+                    padding-top: 5px;
+                }
             }
         }
         .values-and-qr-code {
