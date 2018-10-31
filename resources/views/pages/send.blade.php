@@ -3,7 +3,7 @@
     <div class="send-container">
         <div class="container">
             <div class="row-flex fs-0">
-                <div class="col-12 col-sm-8 offset-sm-2 wallet-address input-with-button left-side">
+                <div class="col-12 col-sm-10 offset-sm-1  col-lg-8 offset-lg-2 wallet-address input-with-button left-side">
                     @if(!empty($addresses))
                         <select class="combobox combobox-input">
                             <option></option>
