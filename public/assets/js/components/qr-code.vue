@@ -4,19 +4,19 @@
     </div>
 </template>
 <script>
-    var this_template = this;
-    $('.scan-qr-code-popup .custom-close-button').click(function()  {
-        this_template.paused = true;
-        this_template.camera = false;
-        $('.scan-qr-code-popup').removeClass('visible-popup');
-        $('#app').html('<qr-code></qr-code>');
-    });
 
     import { QrcodeStream } from 'vue-qrcode-reader'
 
     export default {
         components: { QrcodeStream },
         data () {
+            var this_template = this;
+            $('.scan-qr-code-popup .custom-close-button').click(function()  {
+                this_template.paused = true;
+                this_template.camera = false;
+                $('.scan-qr-code-popup').removeClass('visible-popup');
+                $('#app').html('<qr-code></qr-code>');
+            });
             return {
                 paused: false,
                 camera: {

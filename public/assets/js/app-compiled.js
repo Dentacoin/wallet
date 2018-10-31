@@ -10577,19 +10577,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-var this_template = this;
-$('.scan-qr-code-popup .custom-close-button').click(function () {
-    this_template.paused = true;
-    this_template.camera = false;
-    $('.scan-qr-code-popup').removeClass('visible-popup');
-    $('#app').html('<qr-code></qr-code>');
-});
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { QrcodeStream: __WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__["QrcodeStream"] },
     data: function data() {
+        var this_template = this;
+        $('.scan-qr-code-popup .custom-close-button').click(function () {
+            this_template.paused = true;
+            this_template.camera = false;
+            $('.scan-qr-code-popup').removeClass('visible-popup');
+            $('#app').html('<qr-code></qr-code>');
+        });
         return {
             paused: false,
             camera: {
