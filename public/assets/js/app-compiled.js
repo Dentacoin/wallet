@@ -10599,6 +10599,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onDecode: function onDecode(result) {
             this.result = result;
             this.paused = true;
+            this.camera = false;
             console.log('DECODED');
         }
     }
