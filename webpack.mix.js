@@ -15,7 +15,7 @@ mix.disableSuccessNotifications();
 //mix.js('public/assets/js/require-libs.js', 'public/assets/js/require-libs-compiled.js');
 //mix.js('public/assets/js/helper.js', 'public/assets/js/helper-compiled.js');
 mix.js('public/assets/js/app.js', 'public/assets/js/app-compiled.js');
-mix.js('public/assets/js/index.js', 'public/assets/js/index-compiled.js');
+//mix.js('public/assets/js/index.js', 'public/assets/js/index-compiled.js');
 
 
 /*var vuetojs = require('vue-to-js');

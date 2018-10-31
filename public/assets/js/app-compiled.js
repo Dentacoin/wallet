@@ -10588,8 +10588,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: { QrcodeStream: __WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__["QrcodeStream"] },
 
     data: function data() {
+        console.log('init');
         return {
             paused: false,
+            camera: {
+                audio: false
+            },
             result: ''
         };
     },

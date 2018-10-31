@@ -11,8 +11,12 @@
         components: { QrcodeStream },
 
         data () {
+            console.log('init');
             return {
                 paused: false,
+                camera: {
+                    audio: false
+                },
                 result: ''
             }
         },
