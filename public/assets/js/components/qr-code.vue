@@ -1,8 +1,7 @@
 <template>
     <div>
         <p class="one-line">Last result: <b>{{ result }}</b></p>
-
-        <qrcode-stream @decode="onDecode" :paused="paused" @init="$emit('init', $event)"/>
+        <qrcode-stream @decode="onDecode" :paused="paused" :camera="{ facingMode: 'user' }" @init="$emit('init', $event)"/>
     </div>
 </template>
 <script>
@@ -24,7 +23,7 @@
                 this.track = false;
                 this.result = result;
                 this.paused = true;
-                console.log('DECODED123');
+                console.log('DECODED12345');
             }
         }
     }

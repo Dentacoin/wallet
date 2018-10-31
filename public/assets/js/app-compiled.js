@@ -10581,7 +10581,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -10602,7 +10601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.track = false;
             this.result = result;
             this.paused = true;
-            console.log('DECODED123');
+            console.log('DECODED12345');
         }
     }
 });
@@ -16002,7 +16001,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("qrcode-stream", {
-        attrs: { paused: _vm.paused },
+        attrs: { paused: _vm.paused, camera: { facingMode: "user" } },
         on: {
           decode: _vm.onDecode,
           init: function($event) {
