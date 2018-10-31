@@ -20,7 +20,6 @@
 
     export default {
         components: { QrcodeStream },
-
         data () {
             return {
                 paused: false,
@@ -32,15 +31,13 @@
                 }
             }
         },
-
         methods: {
             onDecode (result) {
                 this.paused = true;
                 this.camera = false;
                 $('.send-container .combobox-input').val(result);
-                closeScaningPopup(this);
+                //closeScaningPopup(this);
             }
         }
-
     }
 </script>

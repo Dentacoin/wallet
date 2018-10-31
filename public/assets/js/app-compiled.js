@@ -10593,7 +10593,6 @@ function closeScaningPopup(this_template) {
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { QrcodeStream: __WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__["QrcodeStream"] },
-
     data: function data() {
         return {
             paused: false,
@@ -10606,16 +10605,14 @@ function closeScaningPopup(this_template) {
         };
     },
 
-
     methods: {
         onDecode: function onDecode(result) {
             this.paused = true;
             this.camera = false;
             $('.send-container .combobox-input').val(result);
-            closeScaningPopup(this);
+            //closeScaningPopup(this);
         }
     }
-
 });
 
 /***/ }),
