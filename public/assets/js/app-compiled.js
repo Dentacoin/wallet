@@ -10478,7 +10478,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             paused: false,
             camera: {
-                audio: false
+                audio: false,
+                video: {
+                    facingMode: 'user'
+                }
             },
             result: ''
         };
@@ -10487,10 +10490,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         onDecode: function onDecode(result) {
-            var promise = navigator.mediaDevices.getUserMedia(__WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__["QrcodeStream"]);
-            promise.stop();
-            console.log(promise);
-            console.log(result, 'onDecode1');
+            this.paused = true;
+            this.camera = false;
+            console.log(result, 'onDecode123');
         }
     }
 });
@@ -15890,7 +15892,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("qrcode-stream", {
-        attrs: { camera: { facingMode: "user" } },
+        attrs: { paused: _vm.paused, camera: _vm.camera },
         on: {
           decode: _vm.onDecode,
           init: function($event) {

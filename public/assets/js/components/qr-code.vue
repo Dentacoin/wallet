@@ -1,7 +1,7 @@
 <template>
     <div>
         <p class="one-line">Last result: <b>{{ result }}</b></p>
-        <qrcode-stream @decode="onDecode" :camera="{ facingMode: 'user' }" @init="$emit('init', $event)"/>
+        <qrcode-stream @decode="onDecode" :paused="paused" :camera="camera" @init="$emit('init', $event)"/>
     </div>
 </template>
 <script>
@@ -14,7 +14,10 @@
             return {
                 paused: false,
                 camera: {
-                    audio: false
+                    audio: false,
+                    video: {
+                        facingMode: 'user'
+                    }
                 },
                 result: ''
             }
@@ -22,10 +25,9 @@
 
         methods: {
             onDecode (result) {
-                var promise = navigator.mediaDevices.getUserMedia(QrcodeStream);
-                promise.stop();
-                console.log(promise);
-                console.log(result, 'onDecode1');
+                this.paused = true;
+                this.camera = false;
+                console.log(result, 'onDecode123');
             }
         }
     }
