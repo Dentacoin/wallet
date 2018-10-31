@@ -10475,7 +10475,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: { QrcodeStream: __WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__["QrcodeStream"] },
 
     data: function data() {
-        console.log('init');
         return {
             paused: false,
             camera: {
@@ -10488,8 +10487,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         onDecode: function onDecode(result) {
-            $('#app').remove();
-            console.log(result);
+            this.camera.video = false;
+            console.log(result, 'onDecode');
         }
     }
 });
@@ -15889,7 +15888,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("qrcode-stream", {
-        attrs: { camera: false },
+        attrs: { camera: { facingMode: "user" } },
         on: {
           decode: _vm.onDecode,
           init: function($event) {
