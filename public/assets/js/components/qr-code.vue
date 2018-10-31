@@ -19,7 +19,8 @@
 
         methods: {
             onDecode (result) {
-                this.result = result
+                this.result = result;
+                this.paused = true;
             }
         }
     }

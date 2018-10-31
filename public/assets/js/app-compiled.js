@@ -10598,6 +10598,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         onDecode: function onDecode(result) {
             this.result = result;
+            this.paused = true;
         }
     }
 });
