@@ -1,4 +1,4 @@
-<div class="title">Access your wallet with Keystore / JSON File</div>
+<div class="title">Access your wallet with a secret key file</div>
 <div class="left-right-side-holder fs-0">
     <div class="popup-left inline-block-top" data-step="first">
         <div class="navigation-link">
@@ -8,7 +8,7 @@
             <a href="javascript:void(0)" data-slug="second">IMPORT</a>
         </div>
         <div class="popup-body first">
-            <label class="custom-label">Input password for your Keystore file</label>
+            <label class="custom-label">Choose a password for your secret key file</label>
             <div>
                 <input type="password" class="keystore-file-pass" maxlength="30" placeholder="Enter password"/>
             </div>
@@ -26,15 +26,14 @@
         </div>
         <div class="popup-body second custom-hide">
             <label class="custom-label">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br>
-                Lorem Ipsum has been the industry's the.
+                To access your wallet, please upload the secret key file that you have created initially.
             </label>
             <div class="custom-upload-button-holder text-center">
                 <div class="upload-file inline-block">
                     <input type="file" id="upload-keystore" class="inputfile inputfile-1 hide-input"/>
                     <label for="upload-keystore" class="button custom-upload-button">
                         <a>
-                            <span>Upload Now</span>
+                            <span>Upload</span>
                             <svg class="load" version="1.1" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 40 40" enable-background="new 0 0 40 40">
                                 <path opacity="0.3" fill="#fff" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
         s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634

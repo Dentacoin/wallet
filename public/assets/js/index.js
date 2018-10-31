@@ -1139,7 +1139,7 @@ function styleInputTypeFile()    {
 
                         setTimeout(function()   {
                             //show continue button next step button
-                            $('.custom-auth-popup .popup-right .popup-body .camping-for-action').html('<div class="enter-pass-label"><label>Please enter the password for your keystore file.</label></div><div><input type="password" class="import-keystore-password"/></div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">CONTINUE</a></div>');
+                            $('.custom-auth-popup .popup-right .popup-body .camping-for-action').html('<div class="enter-pass-label"><label>Please enter your password for the secret key file.</label></div><div><input type="password" class="import-keystore-password"/></div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">CONTINUE</a></div>');
 
                             //calling IMPORT METHOD
                             $('.custom-auth-popup .popup-right .popup-body .continue-btn > a').click(function()   {
