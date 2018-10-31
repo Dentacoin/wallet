@@ -10579,15 +10579,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var this_template = this;
 $('.scan-qr-code-popup .custom-close-button').click(function () {
-    closeScaningPopup(this_template);
-});
-
-function closeScaningPopup(this_template) {
     this_template.paused = true;
     this_template.camera = false;
     $('.scan-qr-code-popup').removeClass('visible-popup');
     $('#app').html('<qr-code></qr-code>');
-}
+});
 
 
 
@@ -10610,6 +10606,8 @@ function closeScaningPopup(this_template) {
             this.paused = true;
             this.camera = false;
             $('.send-container .combobox-input').val(result);
+            $('.scan-qr-code-popup').removeClass('visible-popup');
+            $('#app').html('<qr-code></qr-code>');
             //closeScaningPopup(this);
         }
     }
