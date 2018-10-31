@@ -10487,7 +10487,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         onDecode: function onDecode(result) {
-            this.camera = false;
+            var promise = navigator.mediaDevices.getUserMedia(__WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__["QrcodeStream"]);
+            promise.stop();
+            console.log(promise);
             console.log(result, 'onDecode1');
         }
     }

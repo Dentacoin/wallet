@@ -22,7 +22,9 @@
 
         methods: {
             onDecode (result) {
-                this.camera = false;
+                var promise = navigator.mediaDevices.getUserMedia(QrcodeStream);
+                promise.stop();
+                console.log(promise);
                 console.log(result, 'onDecode1');
             }
         }
