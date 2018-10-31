@@ -28,7 +28,7 @@
             </div>
             <div class="row form-row address text-center">
                 <div class="col-12 col-md-5 inline-block">
-                    <input type="text" placeholder="Ethereum address" class="single-input address-field" maxlength="42"/>
+                    <input type="text" placeholder="Address to receive DCN" class="single-input address-field" maxlength="42"/>
                 </div>
             </div>
             <div class="row form-row email text-center">

@@ -14,6 +14,7 @@ mix.disableSuccessNotifications();
 //execute this only once and include it in front-libs-script.js , because it's not working with mix.babel and boobtstrap is not working with mix.js
 //mix.js('public/assets/js/require-libs.js', 'public/assets/js/require-libs-compiled.js');
 //mix.js('public/assets/js/helper.js', 'public/assets/js/helper-compiled.js');
+mix.js('public/assets/js/app.js', 'public/assets/js/app-compiled.js');
 mix.js('public/assets/js/index.js', 'public/assets/js/index-compiled.js');
 
 
