@@ -786,14 +786,10 @@ if($('body').hasClass('home'))  {
         }
     });
 
-    $('.scan-qr-code-popup .custom-close-button').click(function()  {
-        $('.scan-qr-code-popup').removeClass('visible-popup');
-        $('#app').html('');
-    });
     $('.send-container .scan-qr-code').click(function() {
         $('.scan-qr-code-popup').addClass('visible-popup');
 
-        const app = new Vue({
+        var app = new Vue({
             el: '#app'
         });
     });

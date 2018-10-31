@@ -10576,7 +10576,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
+
+var this_template = this;
+$('.scan-qr-code-popup .custom-close-button').click(function () {
+    this_template.paused = true;
+    this_template.camera = false;
+    $('.scan-qr-code-popup').removeClass('visible-popup');
+    $('#app').html('');
+    console.log('stopped');
+});
 
 
 
@@ -10591,8 +10599,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 video: {
                     facingMode: 'user'
                 }
-            },
-            result: ''
+            }
         };
     },
 
@@ -10601,9 +10608,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onDecode: function onDecode(result) {
             this.paused = true;
             this.camera = false;
-            this.result = result;
+            $('.send-container .combobox-input').val(result);
         }
     }
+
 });
 
 /***/ }),
@@ -15995,11 +16003,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("input", {
-        attrs: { type: "hidden", id: "qr-scan-result" },
-        domProps: { value: _vm.result }
-      }),
-      _vm._v(" "),
       _c("qrcode-stream", {
         attrs: { paused: _vm.paused, camera: _vm.camera },
         on: {

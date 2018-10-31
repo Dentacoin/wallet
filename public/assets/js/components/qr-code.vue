@@ -1,10 +1,18 @@
 <template>
     <div>
-        <input type="hidden" id="qr-scan-result" :value="result"/>
         <qrcode-stream @decode="onDecode" :paused="paused" :camera="camera" @init="$emit('init', $event)"/>
     </div>
 </template>
 <script>
+    var this_template = this;
+    $('.scan-qr-code-popup .custom-close-button').click(function()  {
+        this_template.paused = true;
+        this_template.camera = false;
+        $('.scan-qr-code-popup').removeClass('visible-popup');
+        $('#app').html('');
+        console.log('stopped');
+    });
+
     import { QrcodeStream } from 'vue-qrcode-reader'
 
     export default {
@@ -18,8 +26,7 @@
                     video: {
                         facingMode: 'user'
                     }
-                },
-                result: ''
+                }
             }
         },
 
@@ -27,8 +34,9 @@
             onDecode (result) {
                 this.paused = true;
                 this.camera = false;
-                this.result = result;
+                $('.send-container .combobox-input').val(result);
             }
         }
+
     }
 </script>
