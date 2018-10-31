@@ -19,6 +19,7 @@
 
         methods: {
             onDecode (result) {
+                this.camera = false;
                 $('#app').remove();
                 console.log(result);
             }
