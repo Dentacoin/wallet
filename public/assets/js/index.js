@@ -1253,8 +1253,14 @@ function commonData()   {
     if(localStorage.getItem('current-account') != null)   {
         $('.forget-me-button').show();
         $('.forget-me-button a').click(function()   {
-            localStorage.clear();
-            window.location.reload();
+            var delete_account_obj = {};
+            delete_account_obj.callback = function (result) {
+                if (result) {
+                    localStorage.clear();
+                    window.location.reload();
+                }
+            };
+            basic.showConfirm('Are you sure you want to forget this account?', '', delete_account_obj, true);
         });
     }
 }

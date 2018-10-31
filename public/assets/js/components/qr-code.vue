@@ -1,6 +1,6 @@
 <template>
     <div>
-        <qrcode-stream @decode="onDecode" :paused="paused" :camera="camera" @init="$emit('init', $event)"/>
+        <qrcode-stream @decode="onDecode" @init="onInit" :paused="paused" :camera="camera"/>
     </div>
 </template>
 <script>
@@ -35,6 +35,33 @@
                 $('.scan-qr-code-popup').removeClass('visible-popup');
                 $('#app').html('<qr-code></qr-code>');
                 //closeScaningPopup(this);
+            },
+            async onInit (promise) {
+                try {
+                    await promise
+                    console.log(1);
+                } catch (error) {
+                    console.log(2);
+                    this.openError(error)
+                }
+            },
+
+            openError (error) {
+                if (error.name === 'NotAllowedError') {
+                    console.log('To detect and decode QR codes this page needs access to your camera')
+                } else if (error.name === 'NotFoundError') {
+                    console.log('Seems like you have no suitable camera on your device.')
+                } else if (error.name === 'NotSupportedError') {
+                    console.log('Seems like this page is served in non-secure context. Your browser doesn\'t support that')
+                } else if (error.name === 'NotReadableError') {
+                    console.log('Couldn\'t access your camera. Is it already in use?')
+                } else if (error.name === 'OverconstrainedError') {
+                    console.log('Constraints don\'t match any installed camera. Did you asked for the front camera although there is none?')
+                } else {
+                    console.log('UNKNOWN ERROR: ' + error.message)
+
+                    console.error(error)
+                }
             }
         }
     }
