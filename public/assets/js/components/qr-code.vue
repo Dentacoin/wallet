@@ -22,8 +22,8 @@
 
         methods: {
             onDecode (result) {
-                this.camera.video = false;
-                console.log(result, 'onDecode');
+                this.camera = false;
+                console.log(result, 'onDecode1');
             }
         }
     }
