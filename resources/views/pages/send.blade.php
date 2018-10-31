@@ -35,6 +35,16 @@
         <div class="wrapper">
             <div class="custom-modal">
                 <button type="button" class="custom-close-button">×</button>
+                <div id="app">
+                    <qr-code></qr-code>
+                </div>
+            </div>
+        </div>
+    </div>{{--
+    <div class="scan-qr-code-popup">
+        <div class="wrapper">
+            <div class="custom-modal">
+                <button type="button" class="custom-close-button">×</button>
                 <div id="mainbody">
                     <table class="tsel" border="0" width="100%">
                         <tr>
@@ -60,7 +70,7 @@
                 <canvas id="qr-canvas" width="800" height="600"></canvas>
             </div>
         </div>
-    </div>
+    </div>--}}
 @endsection
 
 @section("meta_block")

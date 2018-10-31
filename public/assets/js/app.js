@@ -14,7 +14,3 @@ window.Vue = require('vue');
  */
 
 Vue.component('qr-code', require('./components/qr-code.vue'));
-
-const app = new Vue({
-    el: '#app'
-});

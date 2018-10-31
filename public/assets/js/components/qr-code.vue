@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="one-line">Last result: <b>{{ result }}</b></p>
+        <input type="hidden" id="qr-scan-result" :value="result"/>
         <qrcode-stream @decode="onDecode" :paused="paused" :camera="camera" @init="$emit('init', $event)"/>
     </div>
 </template>
@@ -27,7 +27,7 @@
             onDecode (result) {
                 this.paused = true;
                 this.camera = false;
-                console.log(result, 'onDecode123');
+                this.result = result;
             }
         }
     }
