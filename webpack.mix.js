@@ -16,6 +16,14 @@ mix.disableSuccessNotifications();
 //mix.js('public/assets/js/helper.js', 'public/assets/js/helper-compiled.js');
 mix.js('public/assets/js/index.js', 'public/assets/js/index-compiled.js');
 
+
+/*var vuetojs = require('vue-to-js');
+vuetojs.compile({
+    resource: 'resources/views/partials/TheSwitchCameraDemo.vue',
+    dest: 'dest',
+    mode: 'amd'
+});*/
+
 /* ===== PUBLIC =====*/
 mix.styles([
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -32,6 +40,7 @@ mix.babel([
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
     'node_modules/bootbox.js/bootbox.min.js',
     'public/assets/libs/combobox/combobox.js',
+    'node_modules/clipboard/dist/clipboard.min.js',
     'public/assets/js/require-libs-compiled.js'
 ], 'public/dist/js/front-libs-script.js');
 

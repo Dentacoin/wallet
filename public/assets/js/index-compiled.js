@@ -26808,19 +26808,27 @@ function getQrCode() {
 
 //PAGES
 if ($('body').hasClass('home')) {
-    $('.homepage-container .copy-address').click(function () {
-        var this_el = $(this);
-
-        $('.homepage-container .address .address-value').select();
-        if (!navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-            document.execCommand("copy");
-        }
-
-        this_el.tooltip('show');
+    //init copy button event
+    var clipboard = new ClipboardJS('.copy-btn');
+    clipboard.on('success', function (e) {
+        $('.homepage-container .copy-address').tooltip('show');
         setTimeout(function () {
-            this_el.tooltip('hide');
+            $('.homepage-container .copy-address').tooltip('hide');
         }, 1000);
     });
+
+    //custom copy
+    /*$('.homepage-container .copy-address').click(function()   {
+        var this_el = $(this);
+          $('.homepage-container .address .address-value').select();
+        if(!navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+            document.execCommand("copy");
+        }
+          this_el.tooltip('show');
+        setTimeout(function()   {
+            this_el.tooltip('hide');
+        }, 1000);
+    });*/
 
     $('.homepage-container .copy-address').tooltip({
         trigger: 'click'
@@ -27405,6 +27413,18 @@ function displayMessageOnTransactionSend(tx_hash) {
     $('.amount-to-container input#usd').val('');
     basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/' + tx_hash + '" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
 }
+
+//clear current account data from the localstorage
+function commonData() {
+    if (localStorage.getItem('current-account') != null) {
+        $('.forget-me-button').show();
+        $('.forget-me-button a').click(function () {
+            localStorage.clear();
+            window.location.reload();
+        });
+    }
+}
+commonData();
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),

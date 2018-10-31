@@ -128,12 +128,12 @@
             </div>
         </div>
     </footer>
-    <script src="/dist/js/front-libs-script.js?v=1.0.38"></script>
-    <script src="/assets/js/basic.js?v=1.0.22"></script>
-    <script src="/assets/js/llqrcode.js?v=1.0.4"></script>
-    <script src="/assets/js/webqr.js?v=1.0.4"></script>
+    <script src="/dist/js/front-libs-script.js?v=1.0.42"></script>
+    <script src="/assets/js/basic.js?v=1.0.23"></script>
+    {{--<script src="/assets/js/llqrcode.js?v=1.0.4"></script>
+    <script src="/assets/js/webqr.js?v=1.0.4"></script>--}}
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.2.38"></script>
+    <script src="/assets/js/index-compiled.js?v=1.2.44"></script>
 </body>
 </html>
