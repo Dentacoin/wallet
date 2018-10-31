@@ -21,6 +21,7 @@
             onDecode (result) {
                 this.result = result;
                 this.paused = true;
+                this.camera  = false;
                 console.log('DECODED');
             }
         }
