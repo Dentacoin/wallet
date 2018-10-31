@@ -2,7 +2,7 @@
     <div>
         <p class="one-line">Last result: <b>{{ result }}</b></p>
 
-        <qrcode-stream @decode="onDecode" @init="$emit('init', $event)" />
+        <qrcode-stream @decode="onDecode" :paused="paused" @init="$emit('init', $event)" />
     </div>
 </template>
 <script>
@@ -21,6 +21,7 @@
             onDecode (result) {
                 this.result = result;
                 this.paused = true;
+                console.log('DECODED');
             }
         }
     }

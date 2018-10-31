@@ -10599,6 +10599,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onDecode: function onDecode(result) {
             this.result = result;
             this.paused = true;
+            console.log('DECODED');
         }
     }
 });
@@ -15998,6 +15999,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("qrcode-stream", {
+        attrs: { paused: _vm.paused },
         on: {
           decode: _vm.onDecode,
           init: function($event) {

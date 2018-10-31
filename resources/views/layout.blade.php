@@ -135,11 +135,11 @@
     @endif
     <script src="/dist/js/front-libs-script.js?v=1.0.43"></script>
     <script src="/assets/js/basic.js?v=1.0.25"></script>
-    <script src="/assets/js/app-compiled.js?v=1.0.3"></script>
+    <script src="/assets/js/app-compiled.js?v=1.0.4"></script>
     {{--<script src="/assets/js/llqrcode.js?v=1.0.4"></script>
     <script src="/assets/js/webqr.js?v=1.0.4"></script>--}}
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.2.47"></script>
+    <script src="/assets/js/index-compiled.js?v=1.2.48"></script>
 </body>
 </html>
