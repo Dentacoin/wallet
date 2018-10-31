@@ -10598,10 +10598,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         onDecode: function onDecode(result) {
             this.camera = false;
-            this.track = false;
             this.result = result;
-            this.paused = true;
-            console.log('DECODED12345');
+            console.log('DECODED YES');
         }
     }
 });
@@ -16001,7 +15999,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("qrcode-stream", {
-        attrs: { paused: _vm.paused, camera: { facingMode: "user" } },
+        attrs: { camera: { facingMode: "user" } },
         on: {
           decode: _vm.onDecode,
           init: function($event) {
