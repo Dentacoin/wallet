@@ -229,6 +229,8 @@ var App = {
                 $('.buy-container .address-field').val(global_state.account);
             }
             return App.initContract();
+        }else {
+            $('.transaction-history table tbody.visible-tbody').html('<tr><td class="text-center">Please login with your address.</td></tr>');
         }
     },
     initContract: function() {

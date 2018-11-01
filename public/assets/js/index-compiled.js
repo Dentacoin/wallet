@@ -26999,7 +26999,7 @@ var App = {
                             }
 
                             if (!(typeof global_state.account != 'undefined')) {
-                                _context.next = 4;
+                                _context.next = 6;
                                 break;
                             }
 
@@ -27009,7 +27009,10 @@ var App = {
                             }
                             return _context.abrupt('return', App.initContract());
 
-                        case 4:
+                        case 6:
+                            $('.transaction-history table tbody.visible-tbody').html('<tr><td class="text-center">Please login with your address.</td></tr>');
+
+                        case 7:
                         case 'end':
                             return _context.stop();
                     }
