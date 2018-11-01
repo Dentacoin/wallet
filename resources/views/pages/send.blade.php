@@ -41,37 +41,7 @@
                 </div>
             </div>
         </div>
-    </div>{{--
-    <div class="scan-qr-code-popup">
-        <div class="wrapper">
-            <div class="custom-modal">
-                <button type="button" class="custom-close-button">×</button>
-                <div id="mainbody">
-                    <table class="tsel" border="0" width="100%">
-                        <tr>
-                            <td valign="top" align="center" width="50%">
-                                <table class="tsel" border="0">
-                                    <tr>
-                                        <td><img class="selector" id="qrimg" onclick="setimg()" align="right"/></td></tr>
-                                    <tr>
-                                        <td colspan="2" align="center">
-                                            <div id="outdiv"></div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr style="display: none;">
-                            <td colspan="3" align="center">
-                                <div id="result"></div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <canvas id="qr-canvas" width="800" height="600"></canvas>
-            </div>
-        </div>
-    </div>--}}
+    </div>
 @endsection
 
 @section("meta_block")
