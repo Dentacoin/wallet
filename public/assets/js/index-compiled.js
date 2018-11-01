@@ -26999,13 +26999,17 @@ var App = {
                             }
 
                             if (!(typeof global_state.account != 'undefined')) {
-                                _context.next = 3;
+                                _context.next = 4;
                                 break;
                             }
 
+                            //auto fill user address on buy page
+                            if ($('body').hasClass('buy')) {
+                                $('.buy-container .address-field').val(global_state.account);
+                            }
                             return _context.abrupt('return', App.initContract());
 
-                        case 3:
+                        case 4:
                         case 'end':
                             return _context.stop();
                     }

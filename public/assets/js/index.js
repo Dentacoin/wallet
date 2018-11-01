@@ -224,6 +224,10 @@ var App = {
         }
 
         if(typeof(global_state.account) != 'undefined') {
+            //auto fill user address on buy page
+            if($('body').hasClass('buy'))   {
+                $('.buy-container .address-field').val(global_state.account);
+            }
             return App.initContract();
         }
     },
