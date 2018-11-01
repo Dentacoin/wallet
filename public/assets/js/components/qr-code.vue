@@ -14,7 +14,7 @@
                     this_template.paused = true;
                     this_template.camera = false;
                     $('.scan-qr-code-popup').removeClass('visible-popup');
-                    $('#app').html('<qr-code></qr-code>');
+                    $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
                     $('.send-container .combobox-input').attr('data-inserted-from-upload', false);
                 }
             }, 100);
@@ -23,7 +23,7 @@
                 this_template.paused = true;
                 this_template.camera = false;
                 $('.scan-qr-code-popup').removeClass('visible-popup');
-                $('#app').html('<qr-code></qr-code>');
+                $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
             });
             return {
                 paused: false,
@@ -41,21 +41,21 @@
                 this.camera = false;
                 $('.send-container .combobox-input').val(result);
                 $('.scan-qr-code-popup').removeClass('visible-popup');
-                $('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
+                $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
                 //closeScaningPopup(this);
             },
             async onInit (promise) {
                 try {
                     await promise
-                    console.log(1);
                 } catch (error) {
-                    console.log(2);
                     this.openError(error)
                 }
             },
 
             openError (error) {
-
+                //HIDE CAMERA CONTAINER
+                $('.qr-code-upload-container').addClass('lonely');
+                $('#app .qr-code-container').remove();
                 /*if (error.name === 'NotAllowedError') {
                     console.log('To detect and decode QR codes this page needs access to your camera')
                 } else if (error.name === 'NotFoundError') {

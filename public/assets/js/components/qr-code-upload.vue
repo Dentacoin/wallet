@@ -1,6 +1,7 @@
 <template>
     <div class="qr-code-upload">
         <div class="qr-code-options-separator">OR</div>
+        <div class="qr-code-options-title">Upload QR code:</div>
         <qrcode-capture @decode="onDecode" />
     </div>
 </template>

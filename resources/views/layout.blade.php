@@ -130,7 +130,7 @@
     </footer>
     <script src="/dist/js/front-libs-script.js?v=1.0.45"></script>
     <script src="/assets/js/basic.js?v=1.0.27"></script>
-    <script src="/assets/js/app-compiled.js?v=1.0.31"></script>
+    <script src="/assets/js/app-compiled.js?v=1.0.32"></script>
     {{--<script src="/assets/js/llqrcode.js?v=1.0.4"></script>
     <script src="/assets/js/webqr.js?v=1.0.4"></script>--}}
     @yield("script_block")

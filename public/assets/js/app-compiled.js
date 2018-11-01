@@ -11392,7 +11392,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 this_template.paused = true;
                 this_template.camera = false;
                 $('.scan-qr-code-popup').removeClass('visible-popup');
-                $('#app').html('<qr-code></qr-code>');
+                $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
                 $('.send-container .combobox-input').attr('data-inserted-from-upload', false);
             }
         }, 100);
@@ -11401,7 +11401,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this_template.paused = true;
             this_template.camera = false;
             $('.scan-qr-code-popup').removeClass('visible-popup');
-            $('#app').html('<qr-code></qr-code>');
+            $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
         });
         return {
             paused: false,
@@ -11420,7 +11420,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.camera = false;
             $('.send-container .combobox-input').val(result);
             $('.scan-qr-code-popup').removeClass('visible-popup');
-            $('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
+            $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
             //closeScaningPopup(this);
         },
         onInit: function () {
@@ -11434,23 +11434,21 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 return promise;
 
                             case 3:
-                                console.log(1);
-                                _context.next = 10;
+                                _context.next = 8;
                                 break;
 
-                            case 6:
-                                _context.prev = 6;
+                            case 5:
+                                _context.prev = 5;
                                 _context.t0 = _context['catch'](0);
 
-                                console.log(2);
                                 this.openError(_context.t0);
 
-                            case 10:
+                            case 8:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this, [[0, 6]]);
+                }, _callee, this, [[0, 5]]);
             }));
 
             function onInit(_x) {
@@ -11460,7 +11458,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             return onInit;
         }(),
         openError: function openError(error) {
-
+            //HIDE CAMERA CONTAINER
+            $('.qr-code-upload-container').addClass('lonely');
+            $('#app .qr-code-container').remove();
             /*if (error.name === 'NotAllowedError') {
                 console.log('To detect and decode QR codes this page needs access to your camera')
             } else if (error.name === 'NotFoundError') {
@@ -16930,6 +16930,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16961,6 +16962,10 @@ var render = function() {
     { staticClass: "qr-code-upload" },
     [
       _c("div", { staticClass: "qr-code-options-separator" }, [_vm._v("OR")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "qr-code-options-title" }, [
+        _vm._v("Upload QR code:")
+      ]),
       _vm._v(" "),
       _c("qrcode-capture", { on: { decode: _vm.onDecode } })
     ],

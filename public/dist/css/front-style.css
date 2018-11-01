@@ -3035,14 +3035,28 @@ footer {
       @media screen and (max-width: 767px) {
         .scan-qr-code-popup .wrapper .custom-close-button {
           margin-right: 0; } }
-    .scan-qr-code-popup .wrapper .qr-code-options-separator {
-      font-size: 30px;
-      font-weight: 500;
-      padding-bottom: 30px; }
-    .scan-qr-code-popup .wrapper .qr-code-upload {
-      padding-top: 50px;
-      padding-bottom: 50px;
+    .scan-qr-code-popup .wrapper .qr-code-container {
+      width: 100%;
+      max-width: 350px; }
+    .scan-qr-code-popup .wrapper .qr-code-upload-container {
+      padding-top: 20px;
+      padding-bottom: 20px;
       text-align: center; }
+      .scan-qr-code-popup .wrapper .qr-code-upload-container.lonely {
+        padding-top: 40px;
+        padding-bottom: 40px; }
+        .scan-qr-code-popup .wrapper .qr-code-upload-container.lonely .qr-code-options-title {
+          display: block; }
+        .scan-qr-code-popup .wrapper .qr-code-upload-container.lonely .qr-code-options-separator {
+          display: none; }
+      .scan-qr-code-popup .wrapper .qr-code-upload-container .qr-code-options-title {
+        display: none;
+        font-size: 30px;
+        font-weight: 500;
+        padding-bottom: 15px; }
+      .scan-qr-code-popup .wrapper .qr-code-upload-container .qr-code-options-separator {
+        font-size: 30px;
+        font-weight: 500; }
   .scan-qr-code-popup .custom-modal {
     position: absolute;
     top: 50%;
