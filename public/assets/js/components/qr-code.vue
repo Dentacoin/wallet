@@ -46,8 +46,8 @@
                 this.paused = true;
                 this.camera = false;
                 $('.send-container .combobox-input').val(result);
-                closePopupLogic();
                 $('.send-container .next a').addClass('active');
+                closePopupLogic();
             },
             async onInit (promise) {
                 try {

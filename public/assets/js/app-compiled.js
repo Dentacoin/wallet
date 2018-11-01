@@ -11382,28 +11382,32 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 
+function closePopupLogic() {
+    $('.scan-qr-code-popup').removeClass('visible-popup');
+    $('body').removeClass('overflow-hidden');
+    $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
+}
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { QrcodeStream: __WEBPACK_IMPORTED_MODULE_1_vue_qrcode_reader__["QrcodeStream"] },
     data: function data() {
+
         var this_template = this;
         setInterval(function () {
             if ($('.send-container .combobox-input').attr('data-inserted-from-upload') == 'true') {
                 this_template.paused = true;
                 this_template.camera = false;
-                $('.scan-qr-code-popup').removeClass('visible-popup');
-                $('body').removeClass('overflow-hidden');
-                $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
+                closePopupLogic();
                 $('.send-container .combobox-input').attr('data-inserted-from-upload', false);
+                $('.send-container .next a').addClass('active');
             }
         }, 100);
 
         $('.scan-qr-code-popup .custom-close-button').click(function () {
             this_template.paused = true;
             this_template.camera = false;
-            $('.scan-qr-code-popup').removeClass('visible-popup');
-            $('body').removeClass('overflow-hidden');
-            $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
+            closePopupLogic();
         });
         return {
             paused: false,
@@ -11421,10 +11425,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.paused = true;
             this.camera = false;
             $('.send-container .combobox-input').val(result);
-            $('.scan-qr-code-popup').removeClass('visible-popup');
-            $('body').removeClass('overflow-hidden');
-            $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
-            //closeScaningPopup(this);
+            $('.send-container .next a').addClass('active');
+            closePopupLogic();
         },
         onInit: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(promise) {
