@@ -175,11 +175,11 @@
         @include vertical-horizontal-align(absolute);
         background-color: white;
         padding: 30px;
-        margin: 60px 0;
+        margin: 50px 0;
         @include rounded(.3rem);
         @include breakpoint($xs)    {
             width: 95%;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 30px 5px;
         }
     }

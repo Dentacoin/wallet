@@ -3068,7 +3068,7 @@ footer {
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 30px;
-    margin: 60px 0;
+    margin: 50px 0;
     -webkit-border-radius: 0.3rem;
     -moz-border-radius: 0.3rem;
     -ms-border-radius: 0.3rem;
@@ -3076,7 +3076,7 @@ footer {
     @media screen and (max-width: 767px) {
       .scan-qr-code-popup .custom-modal {
         width: 95%;
-        margin: 0 auto;
+        margin: 50px auto;
         padding: 30px 5px; } }
   .scan-qr-code-popup img {
     border: 0; }
