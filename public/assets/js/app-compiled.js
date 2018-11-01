@@ -306,7 +306,13 @@ module.exports = {
 /* 27 */,
 /* 28 */,
 /* 29 */,
-/* 30 */,
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(41);
+
+
+/***/ }),
 /* 31 */,
 /* 32 */,
 /* 33 */,
@@ -316,13 +322,7 @@ module.exports = {
 /* 37 */,
 /* 38 */,
 /* 39 */,
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(41);
-
-
-/***/ }),
+/* 40 */,
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11369,7 +11369,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_qrcode_reader__ = __webpack_require__(59);
 
@@ -16928,7 +16928,13 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_qrcode_reader__ = __webpack_require__(59);
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 //
 //
 //
@@ -16942,9 +16948,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { QrcodeCapture: __WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__["QrcodeCapture"] },
+    components: { QrcodeCapture: __WEBPACK_IMPORTED_MODULE_1_vue_qrcode_reader__["QrcodeCapture"] },
     data: function data() {
-        $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
         return {
             result: ''
         };
@@ -16954,7 +16959,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onDecode: function onDecode(result) {
             $('.send-container .combobox-input').val(result).attr('data-inserted-from-upload', true);
             //$('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
-        }
+        },
+        onInit: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(promise) {
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
+
+                            case 1:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function onInit(_x) {
+                return _ref.apply(this, arguments);
+            }
+
+            return onInit;
+        }()
     }
 });
 
@@ -16982,7 +17009,9 @@ var render = function() {
     _c(
       "div",
       { staticClass: "hide-vue-btn" },
-      [_c("qrcode-capture", { on: { decode: _vm.onDecode } })],
+      [
+        _c("qrcode-capture", { on: { decode: _vm.onDecode, init: _vm.onInit } })
+      ],
       1
     )
   ])
