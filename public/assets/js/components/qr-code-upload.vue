@@ -23,7 +23,10 @@
                 //$('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
             },
             async onInit (promise) {
-                $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
+                console.log('haha');
+                setTimeout(function()   {
+                    $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
+                }, 300);
             },
         }
     }

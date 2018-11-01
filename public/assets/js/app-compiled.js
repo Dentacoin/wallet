@@ -16966,9 +16966,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
+                                console.log('haha');
+                                setTimeout(function () {
+                                    $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
+                                }, 300);
 
-                            case 1:
+                            case 2:
                             case 'end':
                                 return _context.stop();
                         }
