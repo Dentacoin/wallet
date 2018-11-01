@@ -16944,6 +16944,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { QrcodeCapture: __WEBPACK_IMPORTED_MODULE_0_vue_qrcode_reader__["QrcodeCapture"] },
     data: function data() {
+        $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
         return {
             result: ''
         };

@@ -13,6 +13,7 @@
     export default {
         components: { QrcodeCapture },
         data () {
+            $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
             return {
                 result: ''
             }

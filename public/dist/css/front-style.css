@@ -3051,6 +3051,11 @@ footer {
           display: block; }
         .scan-qr-code-popup .wrapper .qr-code-upload-container.lonely .qr-code-options-separator {
           display: none; }
+      .scan-qr-code-popup .wrapper .qr-code-upload-container .white-blue-btn {
+        font-size: 20px;
+        margin-top: 10px; }
+      .scan-qr-code-popup .wrapper .qr-code-upload-container .hide-vue-btn {
+        display: none; }
       .scan-qr-code-popup .wrapper .qr-code-upload-container .qr-code-options-title {
         display: none;
         font-size: 30px;
