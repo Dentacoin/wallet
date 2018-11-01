@@ -11392,6 +11392,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 this_template.paused = true;
                 this_template.camera = false;
                 $('.scan-qr-code-popup').removeClass('visible-popup');
+                $('body').removeClass('overflow-hidden');
                 $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
                 $('.send-container .combobox-input').attr('data-inserted-from-upload', false);
             }
@@ -11401,6 +11402,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this_template.paused = true;
             this_template.camera = false;
             $('.scan-qr-code-popup').removeClass('visible-popup');
+            $('body').removeClass('overflow-hidden');
             $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
         });
         return {
@@ -11420,6 +11422,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.camera = false;
             $('.send-container .combobox-input').val(result);
             $('.scan-qr-code-popup').removeClass('visible-popup');
+            $('body').removeClass('overflow-hidden');
             $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
             //closeScaningPopup(this);
         },

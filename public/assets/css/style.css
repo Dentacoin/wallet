@@ -2939,7 +2939,7 @@ footer {
       transform: translateY(-50%); }
   .send-container .input-with-button input.combobox-input.input {
     width: calc(100% - 80px);
-    font-size: 16px;
+    font-size: 14px;
     vertical-align: middle;
     display: inline-block;
     padding: 7px 12px;
@@ -3025,7 +3025,8 @@ footer {
   .scan-qr-code-popup .wrapper {
     height: 100%;
     width: 100%;
-    position: relative; }
+    position: relative;
+    overflow-y: auto; }
     .scan-qr-code-popup .wrapper .custom-close-button {
       margin-top: -25px;
       margin-right: -20px;
@@ -3066,6 +3067,7 @@ footer {
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 30px;
+    margin: 30px 0;
     -webkit-border-radius: 0.3rem;
     -moz-border-radius: 0.3rem;
     -ms-border-radius: 0.3rem;

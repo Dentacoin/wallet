@@ -4,26 +4,32 @@
     </div>
 </template>
 <script>
+    function closePopupLogic()  {
+        $('.scan-qr-code-popup').removeClass('visible-popup');
+        $('body').removeClass('overflow-hidden');
+        $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
+    }
+
     import { QrcodeStream } from 'vue-qrcode-reader'
     export default {
         components: { QrcodeStream },
         data () {
+
             var this_template = this;
             setInterval(function()  {
                 if($('.send-container .combobox-input').attr('data-inserted-from-upload') == 'true')    {
                     this_template.paused = true;
                     this_template.camera = false;
-                    $('.scan-qr-code-popup').removeClass('visible-popup');
-                    $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
+                    closePopupLogic();
                     $('.send-container .combobox-input').attr('data-inserted-from-upload', false);
+                    $('.send-container .next a').addClass('active');
                 }
             }, 100);
 
             $('.scan-qr-code-popup .custom-close-button').click(function()  {
                 this_template.paused = true;
                 this_template.camera = false;
-                $('.scan-qr-code-popup').removeClass('visible-popup');
-                $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
+                closePopupLogic();
             });
             return {
                 paused: false,
@@ -40,9 +46,8 @@
                 this.paused = true;
                 this.camera = false;
                 $('.send-container .combobox-input').val(result);
-                $('.scan-qr-code-popup').removeClass('visible-popup');
-                $('#app').html('<qr-code class="qr-code-container"></qr-code><qr-code-upload class="qr-code-upload-container"></qr-code-upload>');
-                //closeScaningPopup(this);
+                closePopupLogic();
+                $('.send-container .next a').addClass('active');
             },
             async onInit (promise) {
                 try {

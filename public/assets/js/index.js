@@ -788,6 +788,7 @@ if($('body').hasClass('home'))  {
 
     $('.send-container .scan-qr-code').click(function() {
         $('.scan-qr-code-popup').addClass('visible-popup');
+        $('body').addClass('overflow-hidden');
 
         var app = new Vue({
             el: '#app'
