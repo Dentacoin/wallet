@@ -135,6 +135,6 @@
     <script src="/assets/js/webqr.js?v=1.0.4"></script>--}}
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.2.65"></script>
+    <script src="/assets/js/index-compiled.js?v=1.2.66"></script>
 </body>
 </html>
