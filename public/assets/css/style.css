@@ -3035,6 +3035,14 @@ footer {
       @media screen and (max-width: 767px) {
         .scan-qr-code-popup .wrapper .custom-close-button {
           margin-right: 0; } }
+    .scan-qr-code-popup .wrapper .qr-code-options-separator {
+      font-size: 30px;
+      font-weight: 500;
+      padding-bottom: 30px; }
+    .scan-qr-code-popup .wrapper .qr-code-upload {
+      padding-top: 50px;
+      padding-bottom: 50px;
+      text-align: center; }
   .scan-qr-code-popup .custom-modal {
     position: absolute;
     top: 50%;

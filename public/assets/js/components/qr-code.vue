@@ -31,7 +31,7 @@
                 this.camera = false;
                 $('.send-container .combobox-input').val(result);
                 $('.scan-qr-code-popup').removeClass('visible-popup');
-                $('#app').html('<qr-code></qr-code>');
+                $('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
                 //closeScaningPopup(this);
             },
             async onInit (promise) {

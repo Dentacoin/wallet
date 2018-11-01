@@ -11410,7 +11410,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.camera = false;
             $('.send-container .combobox-input').val(result);
             $('.scan-qr-code-popup').removeClass('visible-popup');
-            $('#app').html('<qr-code></qr-code>');
+            $('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
             //closeScaningPopup(this);
         },
         onInit: function () {
@@ -16932,7 +16932,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         onDecode: function onDecode(result) {
-            this.result = result;
+            $('.send-container .combobox-input').val(result);
+            $('.scan-qr-code-popup').removeClass('visible-popup');
+            $('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
         }
     }
 });
@@ -16947,11 +16949,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "qr-code-upload" },
     [
-      _c("p", { staticClass: "one-line" }, [
-        _vm._v("Last result: "),
-        _c("b", [_vm._v(_vm._s(_vm.result))])
-      ]),
+      _c("div", { staticClass: "qr-code-options-separator" }, [_vm._v("OR")]),
       _vm._v(" "),
       _c("qrcode-capture", { on: { decode: _vm.onDecode } })
     ],

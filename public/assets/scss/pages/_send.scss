@@ -139,6 +139,16 @@
                 margin-right: 0;
             }
         }
+        .qr-code-options-separator {
+            font-size: 30px;
+            font-weight: 500;
+            padding-bottom: 30px;
+        }
+        .qr-code-upload {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
     }
     .custom-modal {
         @include vertical-horizontal-align(absolute);

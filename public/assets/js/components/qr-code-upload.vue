@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <p class="one-line">Last result: <b>{{ result }}</b></p>
+    <div class="qr-code-upload">
+        <div class="qr-code-options-separator">OR</div>
         <qrcode-capture @decode="onDecode" />
     </div>
 </template>
@@ -15,7 +15,9 @@
         },
         methods: {
             onDecode (result) {
-                this.result = result
+                $('.send-container .combobox-input').val(result);
+                $('.scan-qr-code-popup').removeClass('visible-popup');
+                $('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
             }
         }
     }
