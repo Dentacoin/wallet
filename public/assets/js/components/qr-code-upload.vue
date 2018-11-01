@@ -4,7 +4,7 @@
         <div class="qr-code-options-title">Upload QR code:</div>
         <label class="white-blue-btn" for="hide-vue-btn">Upload QR Code</label>
         <div class="hide-vue-btn">
-            <qrcode-capture @decode="onDecode" @init="onInit"/>
+            <qrcode-capture @decode="onDecode"/>
         </div>
     </div>
 </template>
@@ -20,12 +20,14 @@
         methods: {
             onDecode (result) {
                 $('.send-container .combobox-input').val(result).attr('data-inserted-from-upload', true);
-                //$('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
-            },
-            async onInit (promise) {
-                console.log('===========haha============================================');
-                $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
-            },
+            }
         }
     }
+
+    var adding_id_interval = setInterval(function() {
+        if($('.hide-vue-btn input[type="file"]').length > 0 && $('.hide-vue-btn input[type="file"]').attr('id') != 'hide-vue-btn')  {
+            $('.hide-vue-btn input[type="file"]').attr('id', 'hide-vue-btn');
+            clearImmediate(adding_id_interval);
+        }
+    }, 300);
 </script>
