@@ -220,7 +220,6 @@ var App = {
             App.web3_1_0 = web3;
         }else {
             //NO CUSTOM, NO METAMASK. Doing this final third check so we can use web3_1_0 functions and utils even if there is no metamask or custom imported/created account
-            console.log('//NO CUSTOM, NO METAMASK');
             App.web3_1_0 = getWeb3();
         }
 
@@ -980,17 +979,9 @@ function pageAmountToLogic()    {
 }
 
 function innerAddressCheck(address)    {
-    console.log(address, 'address');
-    console.log(App.web3_0_2, 'web3_0_2');
-    console.log(App.web3_1_0, 'web3_1_0');
     if(App.web3_0_2 != null) {
-        console.log(1);
         return App.web3_0_2.isAddress(address) && address != global_state.account;
     }else if(App.web3_1_0 != null) {
-        console.log(2);
-        console.log(App.web3_1_0.utils.isAddress(address), 'App.web3_1_0.utils.isAddress(address)');
-        console.log(global_state.account, 'global_state.account');
-        console.log(address != global_state.account, 'address != global_state.account');
         return App.web3_1_0.utils.isAddress(address) && address != global_state.account;
     }
 }
