@@ -26993,11 +26993,11 @@ var App = {
                                 //overwrite web3 0.2 with web 1.0
                                 web3 = getWeb3(App.web3_0_2.currentProvider);
                                 App.web3_1_0 = web3;
-                            } /*else {
-                                 //NO CUSTOM, NO METAMASK
-                                 App.web3_1_0 = getWeb3();
-                                 App.web3_1_0 = App.web3_1_0;
-                              }*/
+                            } else {
+                                //NO CUSTOM, NO METAMASK. Doing this final third check so we can use web3_1_0 functions and utils even if there is no metamask or custom imported/created account
+                                console.log('//NO CUSTOM, NO METAMASK');
+                                App.web3_1_0 = getWeb3();
+                            }
 
                             if (!(typeof global_state.account != 'undefined')) {
                                 _context.next = 3;
@@ -27991,6 +27991,8 @@ function pageAmountToLogic() {
 
 function innerAddressCheck(address) {
     console.log(address, 'address');
+    console.log(App.web3_0_2, 'web3_0_2');
+    console.log(App.web3_1_0, 'web3_1_0');
     if (App.web3_0_2 != null) {
         console.log(1);
         return App.web3_0_2.isAddress(address) && address != global_state.account;
