@@ -14,3 +14,4 @@ window.Vue = require('vue');
  */
 
 Vue.component('qr-code', require('./components/qr-code.vue'));
+Vue.component('qr-code-upload', require('./components/qr-code.vue'));

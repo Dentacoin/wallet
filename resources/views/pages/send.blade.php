@@ -37,6 +37,7 @@
                 <button type="button" class="custom-close-button">×</button>
                 <div id="app">
                     <qr-code></qr-code>
+                    <qr-code-upload></qr-code-upload>
                 </div>
             </div>
         </div>
