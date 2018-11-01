@@ -15,6 +15,7 @@
                     this_template.camera = false;
                     $('.scan-qr-code-popup').removeClass('visible-popup');
                     $('#app').html('<qr-code></qr-code>');
+                    $('.send-container .combobox-input').attr('data-inserted-from-upload', false);
                 }
             }, 100);
 
@@ -54,7 +55,8 @@
             },
 
             openError (error) {
-                if (error.name === 'NotAllowedError') {
+
+                /*if (error.name === 'NotAllowedError') {
                     console.log('To detect and decode QR codes this page needs access to your camera')
                 } else if (error.name === 'NotFoundError') {
                     console.log('Seems like you have no suitable camera on your device.')
@@ -66,9 +68,8 @@
                     console.log('Constraints don\'t match any installed camera. Did you asked for the front camera although there is none?')
                 } else {
                     console.log('UNKNOWN ERROR: ' + error.message)
-
                     console.error(error)
-                }
+                }*/
             }
         }
     }

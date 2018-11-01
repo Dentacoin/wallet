@@ -11393,6 +11393,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 this_template.camera = false;
                 $('.scan-qr-code-popup').removeClass('visible-popup');
                 $('#app').html('<qr-code></qr-code>');
+                $('.send-container .combobox-input').attr('data-inserted-from-upload', false);
             }
         }, 100);
 
@@ -11459,21 +11460,21 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             return onInit;
         }(),
         openError: function openError(error) {
-            if (error.name === 'NotAllowedError') {
-                console.log('To detect and decode QR codes this page needs access to your camera');
-            } else if (error.name === 'NotFoundError') {
-                console.log('Seems like you have no suitable camera on your device.');
-            } else if (error.name === 'NotSupportedError') {
-                console.log('Seems like this page is served in non-secure context. Your browser doesn\'t support that');
-            } else if (error.name === 'NotReadableError') {
-                console.log('Couldn\'t access your camera. Is it already in use?');
-            } else if (error.name === 'OverconstrainedError') {
-                console.log('Constraints don\'t match any installed camera. Did you asked for the front camera although there is none?');
-            } else {
-                console.log('UNKNOWN ERROR: ' + error.message);
 
-                console.error(error);
-            }
+            /*if (error.name === 'NotAllowedError') {
+                console.log('To detect and decode QR codes this page needs access to your camera')
+            } else if (error.name === 'NotFoundError') {
+                console.log('Seems like you have no suitable camera on your device.')
+            } else if (error.name === 'NotSupportedError') {
+                console.log('Seems like this page is served in non-secure context. Your browser doesn\'t support that')
+            } else if (error.name === 'NotReadableError') {
+                console.log('Couldn\'t access your camera. Is it already in use?')
+            } else if (error.name === 'OverconstrainedError') {
+                console.log('Constraints don\'t match any installed camera. Did you asked for the front camera although there is none?')
+            } else {
+                console.log('UNKNOWN ERROR: ' + error.message)
+                console.error(error)
+            }*/
         }
     }
 });

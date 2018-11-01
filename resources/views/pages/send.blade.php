@@ -36,8 +36,8 @@
             <div class="custom-modal">
                 <button type="button" class="custom-close-button">×</button>
                 <div id="app">
-                    <qr-code></qr-code>
-                    <qr-code-upload></qr-code-upload>
+                    <qr-code class="qr-code-container"></qr-code>
+                    <qr-code-upload class="qr-code-upload-container"></qr-code-upload>
                 </div>
             </div>
         </div>
