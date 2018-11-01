@@ -11387,6 +11387,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     components: { QrcodeStream: __WEBPACK_IMPORTED_MODULE_1_vue_qrcode_reader__["QrcodeStream"] },
     data: function data() {
         var this_template = this;
+        setInterval(function () {
+            if ($('.send-container .combobox-input').attr('data-inserted-from-upload') == 'true') {
+                this_template.paused = true;
+                this_template.camera = false;
+                $('.scan-qr-code-popup').removeClass('visible-popup');
+                $('#app').html('<qr-code></qr-code>');
+            }
+        }, 100);
+
         $('.scan-qr-code-popup .custom-close-button').click(function () {
             this_template.paused = true;
             this_template.camera = false;
@@ -16932,9 +16941,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         onDecode: function onDecode(result) {
-            $('.send-container .combobox-input').val(result);
-            $('.scan-qr-code-popup').removeClass('visible-popup');
-            $('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
+            $('.send-container .combobox-input').val(result).attr('data-inserted-from-upload', true);
+            //$('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
         }
     }
 });

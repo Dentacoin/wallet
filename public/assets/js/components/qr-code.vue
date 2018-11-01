@@ -9,6 +9,15 @@
         components: { QrcodeStream },
         data () {
             var this_template = this;
+            setInterval(function()  {
+                if($('.send-container .combobox-input').attr('data-inserted-from-upload') == 'true')    {
+                    this_template.paused = true;
+                    this_template.camera = false;
+                    $('.scan-qr-code-popup').removeClass('visible-popup');
+                    $('#app').html('<qr-code></qr-code>');
+                }
+            }, 100);
+
             $('.scan-qr-code-popup .custom-close-button').click(function()  {
                 this_template.paused = true;
                 this_template.camera = false;

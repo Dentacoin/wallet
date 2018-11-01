@@ -5,14 +5,14 @@
             <div class="row-flex fs-0">
                 <div class="col-12 col-sm-10 offset-sm-1  col-lg-8 offset-lg-2 wallet-address input-with-button left-side">
                     @if(!empty($addresses))
-                        <select class="combobox combobox-input">
+                        <select class="combobox combobox-input" data-inserted-from-upload="false">
                             <option></option>
                             @foreach($addresses as $address)
                                 <option value="{{$address}}">{{$address}}</option>
                             @endforeach
                         </select>
                     @else
-                        <input type="text" class="combobox-input input" placeholder="Enter receiving address/clinic or scan QR code" maxlength="42"/>
+                        <input type="text" class="combobox-input input" data-inserted-from-upload="false" placeholder="Enter receiving address/clinic or scan QR code" maxlength="42"/>
                     @endif
                     <figure class="inline-block btn-container" itemscope="" itemtype="http://schema.org/ImageObject">
                         <a href="javascript:void(0);" class="scan-qr-code">

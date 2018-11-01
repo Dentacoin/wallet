@@ -15,9 +15,8 @@
         },
         methods: {
             onDecode (result) {
-                $('.send-container .combobox-input').val(result);
-                $('.scan-qr-code-popup').removeClass('visible-popup');
-                $('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
+                $('.send-container .combobox-input').val(result).attr('data-inserted-from-upload', true);
+                //$('#app').html('<qr-code></qr-code><qr-code-upload></qr-code-upload>');
             }
         }
     }
