@@ -2,7 +2,10 @@
     <div class="qr-code-upload">
         <div class="qr-code-options-separator">OR</div>
         <div class="qr-code-options-title">Upload QR code:</div>
-        <qrcode-capture @decode="onDecode" />
+        <label class="white-blue-btn" for="hide-vue-btn">Upload QR Code</label>
+        <div class="hide-vue-btn">
+            <qrcode-capture @decode="onDecode"/>
+        </div>
     </div>
 </template>
 <script>

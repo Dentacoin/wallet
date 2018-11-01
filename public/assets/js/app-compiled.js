@@ -16936,6 +16936,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16962,20 +16965,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "qr-code-upload" },
-    [
-      _c("div", { staticClass: "qr-code-options-separator" }, [_vm._v("OR")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "qr-code-options-title" }, [
-        _vm._v("Upload QR code:")
-      ]),
-      _vm._v(" "),
-      _c("qrcode-capture", { on: { decode: _vm.onDecode } })
-    ],
-    1
-  )
+  return _c("div", { staticClass: "qr-code-upload" }, [
+    _c("div", { staticClass: "qr-code-options-separator" }, [_vm._v("OR")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "qr-code-options-title" }, [
+      _vm._v("Upload QR code:")
+    ]),
+    _vm._v(" "),
+    _c(
+      "label",
+      { staticClass: "white-blue-btn", attrs: { for: "hide-vue-btn" } },
+      [_vm._v("Upload QR Code")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "hide-vue-btn" },
+      [_c("qrcode-capture", { on: { decode: _vm.onDecode } })],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
