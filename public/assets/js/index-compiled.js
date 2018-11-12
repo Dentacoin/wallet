@@ -28008,7 +28008,7 @@ if ($('body').hasClass('home')) {
 function pageAmountToLogic() {
     var curr_addr = window.location.href.split('/')[window.location.href.split('/').length - 1];
     //redirect to /send if the address it not valid or using the same address as the owner1
-    if (typeof global_state.account == 'undefined' || typeof App.web3_1_0 == 'undefined' || !innerAddressCheck(curr_addr) || curr_addr == global_state.account) {
+    if (typeof global_state.account == 'undefined' || typeof App.web3_1_0 == 'undefined' || !innerAddressCheck(curr_addr)) {
         window.location = HOME_URL + '/send';
     }
 

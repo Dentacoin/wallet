@@ -3394,9 +3394,9 @@
     </footer>
     <script src="/dist/js/front-libs-script.js?v=1.0.46"></script>
     <script src="/assets/js/basic.js?v=1.0.28"></script>
-    <script src="/assets/js/app-compiled.js?v=1.0.48"></script>
+    <script src="/assets/js/app-compiled.js?v=1.0.49"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.2.78"></script>
+    <script src="/assets/js/index-compiled.js?v=1.2.79"></script>
 </body>
 </html>
