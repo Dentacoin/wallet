@@ -986,9 +986,9 @@ function pageAmountToLogic()    {
 
 function innerAddressCheck(address)    {
     if(App.web3_0_2 != null) {
-        return App.web3_0_2.isAddress(address) && address != global_state.account;
+        return App.web3_0_2.isAddress(address);
     }else if(App.web3_1_0 != null) {
-        return App.web3_1_0.utils.isAddress(address) && address != global_state.account;
+        return App.web3_1_0.utils.isAddress(address);
     }
 }
 

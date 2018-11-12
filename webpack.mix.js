@@ -42,7 +42,6 @@ mix.babel([
     'public/assets/js/index.js'
 ], 'public/dist/js/front-script.js');*/
 
-
 if(mix.inProduction()) {
     mix.version();
     mix.webpackConfig({
