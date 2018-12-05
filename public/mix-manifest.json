@@ -1,4 +1,7 @@
 {
+    "/assets/js/index-compiled.js": "/assets/js/index-compiled.js",
+    "/assets/js/app-compiled.js": "/assets/js/app-compiled.js",
     "/dist/css/front-libs-style.css": "/dist/css/front-libs-style.css",
-    "/dist/css/front-style.css": "/dist/css/front-style.css"
+    "/dist/css/front-style.css": "/dist/css/front-style.css",
+    "/dist/js/front-libs-script.js": "/dist/js/front-libs-script.js"
 }
