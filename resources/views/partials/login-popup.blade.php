@@ -57,3 +57,6 @@
         </div>
     </div>
 </div>
+<div class="faq-link">
+    <a href="{{route('faq')}}" target="_blank">?</a>
+</div>

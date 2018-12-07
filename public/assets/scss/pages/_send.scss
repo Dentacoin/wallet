@@ -7,11 +7,12 @@
     }
     .fill-the-address {
         padding-top: 20px;
+        font-size: 18px;
     }
     .input-with-button {
         .combobox-container {
             width: calc(100% - 80px);
-            font-size: 16px;
+            font-size: 18px;
             vertical-align: middle;
             display: inline-block;
             position: relative;
@@ -32,7 +33,7 @@
         }
         input.combobox-input.input {
             width: calc(100% - 80px);
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 500;
             vertical-align: middle;
             display: inline-block;

@@ -13,16 +13,19 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
 use bb\Sha3\Sha3;
+use Request;
 
 
 class Controller extends BaseController {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function __construct() {
-        View::share('mobile', $this->isMobile());
-        View::share('meta_data', $this->getMetaData());
-        View::share('dcn_in_usd', $this->getCurrentDcnUsdRate());
-        View::share('privacy_policy_cookie', $this->checkIfPrivacyPolicyCookie());
+        if(!empty(Route::getCurrentRoute()) && Route::getCurrentRoute()->getPrefix() == '/' && !Request::isMethod('post')) {
+            View::share('mobile', $this->isMobile());
+            View::share('meta_data', $this->getMetaData());
+            View::share('dcn_in_usd', $this->getCurrentDcnUsdRate());
+            View::share('privacy_policy_cookie', $this->checkIfPrivacyPolicyCookie());
+        }
     }
 
     protected function getCurrentDcnUsdRate()  {

@@ -19,7 +19,7 @@ footer {
         padding-top: 30px;
         padding-bottom: 20px;
         li {
-            width: 25%;
+            width: 20%;
             text-align: center;
             font-size: 22px;
             padding: 0 10px;
@@ -65,12 +65,17 @@ footer {
         ul {
             padding-bottom: 10px;
             li {
-                width: 33.33333333%;
+                width: 25%;
                 &.go-next {
                     display: inline-block;
                 }
+                &.go-next.go-back {
+                    display: inline-block;
+                    width: 33.33333333%;
+                }
                 &.hide-on-mobile-device {
                     display: none;
+                    width: 33.33333333%;
                 }
             }
         }

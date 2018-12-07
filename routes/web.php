@@ -21,6 +21,8 @@ Route::group(['prefix' => '/', 'middleware' => 'frontEndMiddleware'], function (
 
     Route::get('/buy', 'BuyController@getView')->name('buy');
 
+    Route::get('/faq', 'FaqController@getView')->name('faq');
+
     Route::post('/get-custom-auth-html', 'Controller@getCustomAuthHtml')->name('get-custom-auth-html');
 
     Route::get('/force-keystore-download/{file}', 'Controller@forceKeystoreDownload')->name('force-keystore-download');

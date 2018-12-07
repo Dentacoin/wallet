@@ -28003,6 +28003,12 @@ if ($('body').hasClass('home')) {
             el: '#app'
         });
     });
+} else if ($('body').hasClass('faq')) {
+    if ($('.list .question').length > 0) {
+        $('.list .question').click(function () {
+            $(this).closest('li').find('.question-content').toggle(300);
+        });
+    }
 }
 
 function pageAmountToLogic() {
@@ -28346,12 +28352,14 @@ function initMobileFooterEvent() {
                 $(this).parent().css('display', 'inline-block');
                 $(this).attr('data-position', 'left');
                 $(this).find('i').removeClass('fa-arrow-right').addClass('fa-arrow-left');
+                $(this).parent().addClass('go-back');
             } else if ($(this).attr('data-position') == 'left') {
                 $('footer ul li').css('display', 'inline-block');
                 $('footer ul li.hide-on-mobile-device').hide();
                 $(this).parent().css('display', 'inline-block');
                 $(this).attr('data-position', 'right');
                 $(this).find('i').removeClass('fa-arrow-left').addClass('fa-arrow-right');
+                $(this).parent().removeClass('go-back');
             }
         });
     }

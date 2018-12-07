@@ -16,15 +16,15 @@
         .title {
             color: white;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
             line-height: 16px;
         }
         .subtitle {
             color: white;
-            font-size: 16px;
+            font-size: 18px;
             padding-bottom: 5px;
             @include breakpoint($sm-only)   {
-                font-size: 12px;
+                font-size: 14px;
             }
         }
     }
@@ -60,7 +60,7 @@
             }
             label {
                 width: calc(100% - 25px);
-                font-size: 14px;
+                font-size: 16px;
                 cursor: pointer;
                 a {
                     color: $dark_blue;
@@ -87,7 +87,7 @@
         }
         .input-container {
             .subtitle {
-                font-size: 13px;
+                font-size: 14px;
             }
             &.dcn-amount {
                 padding-top: 15px;
