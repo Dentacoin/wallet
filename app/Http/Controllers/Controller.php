@@ -72,6 +72,7 @@ class Controller extends BaseController {
         //$sitemap->add(URL::to('publications'), '2012-08-25T20:10:00+02:00', '0.6', 'weekly');
         $sitemap->add(URL::to('buy'), '2018-09-25T20:10:00+02:00', '0.8', 'weekly');
         $sitemap->add(URL::to('send'), '2018-09-25T20:10:00+02:00', '1.0', 'weekly');
+        $sitemap->add(URL::to('faq'), '2018-09-25T20:10:00+02:00', '1.0', 'weekly');
 
         return $sitemap->render('xml');
     }
