@@ -6,6 +6,10 @@
         font-size: 50px;
         font-family: 'Calibri-Bold';
         padding-bottom: 60px;
+        @include breakpoint($xs) {
+            font-size: 35px;
+            padding-bottom: 0;
+        }
     }
     .container {
         @include breakpoint($lgl) {

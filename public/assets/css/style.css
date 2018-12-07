@@ -5002,6 +5002,8 @@ footer {
           footer ul li.hide-on-mobile-device {
             display: none;
             width: 33.33333333%; }
+          footer ul li span {
+            font-size: 13px; }
       footer .copyright {
         font-size: 12px; } }
 
@@ -5492,6 +5494,10 @@ footer {
     font-size: 50px;
     font-family: 'Calibri-Bold';
     padding-bottom: 60px; }
+    @media screen and (max-width: 767px) {
+      .faq-container h1 {
+        font-size: 35px;
+        padding-bottom: 0; } }
   @media screen and (min-width: 1400px) {
     .faq-container .container {
       width: 65% !important; } }
