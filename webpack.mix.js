@@ -14,8 +14,8 @@ mix.disableSuccessNotifications();
 //execute this only once and include it in front-libs-script.js , because it's not working with mix.babel and boobtstrap is not working with mix.js
 //mix.js('public/assets/js/require-libs.js', 'public/assets/js/require-libs-compiled.js');
 //mix.js('public/assets/js/helper.js', 'public/assets/js/helper-compiled.js');
-/*mix.js('public/assets/js/app.js', 'public/assets/js/app-compiled.js');
-mix.js('public/assets/js/index.js', 'public/assets/js/index-compiled.js');*/
+mix.js('public/assets/js/app.js', 'public/assets/js/app-compiled.js');
+mix.js('public/assets/js/index.js', 'public/assets/js/index-compiled.js');
 
 /* ===== PUBLIC =====*/
 mix.styles([
@@ -27,7 +27,6 @@ mix.styles([
 mix.styles([
     'public/assets/css/style.css'
 ], 'public/dist/css/front-style.css');
-/*
 
 mix.babel([
     'node_modules/jquery/dist/jquery.min.js',
@@ -37,14 +36,13 @@ mix.babel([
     'node_modules/clipboard/dist/clipboard.min.js',
     'public/assets/js/require-libs-compiled.js'
 ], 'public/dist/js/front-libs-script.js');
-*/
 
 /*mix.babel([
     'public/assets/js/basic.js',
     'public/assets/js/index.js'
 ], 'public/dist/js/front-script.js');*/
 
-/*if(mix.inProduction()) {
+if(mix.inProduction()) {
     mix.version();
     mix.webpackConfig({
         module: {
@@ -58,7 +56,7 @@ mix.babel([
             }]
         }
     });
-}*/
+}
 /* ===== /PUBLIC =====*/
 
 /* ===== ADMIN =====*/
