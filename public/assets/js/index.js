@@ -134,56 +134,6 @@ function initChecker()  {
             }
         });
     }
-    /*if(typeof(web3) !== 'undefined' && web3.eth.defaultAccount === undefined)   {
-        setInterval(function()  {
-            initCheckIfUserLoggingMetaMask();
-        }, 500);
-    }
-
-    if(typeof(web3) !== 'undefined' && web3.currentProvider.isMetaMask === true) {
-        meta_mask_installed = true;
-        web3.currentProvider.publicConfigStore.on('update', onAccountSwitch);
-        if(typeof(web3.eth.defaultAccount) != 'undefined')  {
-            meta_mask_logged = true;
-        }
-    }
-
-    if(basic.isMobile())    {
-        if(typeof(web3) === 'undefined')   {
-            //MOBILE
-            if(!is_firefox)    {
-                //popup for download mozilla browser OR trust wallet
-                basic.showDialog('<div class="popup-body"> <div class="title">Download Firefox Mobile Browser or Trust Wallet</div><div class="subtitle">You can use Dentacoin Wallet on a Firefox Mobile Browser or Trust Wallet app.</div><div class="separator"></div><figure class="image"><img src="/assets/images/phone.svg" alt="Phone icon"/> </figure> <div class="btns-container"> <figure><a class="app-store" href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" target="_blank"><img src="/assets/images/google-store-button.svg" alt=""/></a></figure><figure><a class="app-store" href="https://itunes.apple.com/us/app/firefox-web-browser/id989804926?mt=8" target="_blank"><img src="/assets/images/apple-store-button.svg" alt=""/></a></figure><figure><a class="white-aqua-btn" href="https://trustwalletapp.com/" target="_blank"><img src="/assets/images/trust-wallet-logo.png" alt=""/> Trust Wallet</a></figure></div></div>', 'download-mobile-browser validation-popup');
-            }else {
-                if(!meta_mask_installed)    {
-                    //popup for download metamask
-                    mobileDownloadMetaMaskPopup();
-                }else if(!meta_mask_logged) {
-                    //popup for login in metamask
-                    loginMetaMaskPopup();
-                }
-            }
-        }else {
-            if(is_firefox && !meta_mask_logged) {
-                //popup for login in metamask
-                loginMetaMaskPopup();
-            }
-        }
-    }else {
-        //DESKTOP
-        if(!is_chrome && !is_firefox && is_opera) {
-            //IF NOT CHROME OR MOZILLA OR OPERA
-            basic.showDialog('<div class="popup-body"> <div class="title">Download Desktop Browser</div><div class="subtitle">You can use Dentacoin Wallet on a desktop browser like Chrome, Firefox Brave or Opera.</div><div class="separator"></div><figure class="image"><img src="/assets/images/computer.svg" alt="Computer icon"/> </figure> <div class="btns-container"> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.google.com/chrome/" target="_blank"><img src="/assets/images/chrome.png" alt=""/> Chrome</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank"><img src="/assets/images/firefox.png" alt=""/> Firefox</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://www.opera.com/" target="_blank"><img src="/assets/images/opera.png" alt=""/> Opera</a></figure> <figure class="inline-block"><a class="white-aqua-btn" href="https://brave.com/download/" target="_blank"><img src="/assets/images/brave.png" alt=""/> Brave</a></figure> </div></div>', 'download-desktop-browser validation-popup');
-        }else {
-            if(!meta_mask_installed)    {
-                //popup for download metamask
-                desktopDownloadMetaMaskPopup();
-            }else if(!meta_mask_logged) {
-                //popup for login in metamask
-                loginMetaMaskPopup();
-            }
-        }
-    }*/
 }
 
 var global_state = {};
@@ -239,13 +189,6 @@ var App = {
             getInstance = getContractInstance(App.web3_1_0);
             myContract = getInstance(DCNArtifact, App.contract_address);
 
-            //refresh the current dentacoin value
-            if($('.homepage-container').length > 0) {
-                App.updateBalance(true);
-            }else {
-                App.updateBalance();
-            }
-
             //getting current eth balance for current public address
             if(App.web3_0_2 != null) {
                 global_state.curr_addr_eth_balance = App.web3_0_2.fromWei(await App.getAddressETHBalance(global_state.account));
@@ -253,7 +196,12 @@ var App = {
                 global_state.curr_addr_eth_balance = App.web3_1_0.utils.fromWei(await App.getAddressETHBalance(global_state.account));
             }
 
-            console.log(global_state.curr_addr_eth_balance);
+            //refresh the current dentacoin value
+            if($('.homepage-container').length > 0) {
+                App.updateBalance(true);
+            }else {
+                App.updateBalance();
+            }
 
             //save current block number into state
             await App.helper.getBlockNum();
@@ -278,6 +226,7 @@ var App = {
                         initHomepageUserData();
                         $('.values-and-qr-code .animation').removeClass('rotate-animation');
                         $('.homepage-container .dcn-value .value').html(result);
+                        $('.homepage-container .eth-value .value').html(global_state.curr_addr_eth_balance.toFixed(6));
                         $('.homepage-container .output .value').html((parseInt(result) * global_state.curr_dcn_in_usd).toFixed(2));
                         $('.homepage-container .values-and-qr-code').show();
                     }, 300);
@@ -701,23 +650,12 @@ if($('body').hasClass('home'))  {
         }, 1000);
     });
 
-    //custom copy
-    /*$('.homepage-container .copy-address').click(function()   {
-        var this_el = $(this);
-
-        $('.homepage-container .address .address-value').select();
-        if(!navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-            document.execCommand("copy");
-        }
-
-        this_el.tooltip('show');
-        setTimeout(function()   {
-            this_el.tooltip('hide');
-        }, 1000);
-    });*/
-
     $('.homepage-container .copy-address').tooltip({
         trigger: 'click'
+    });
+
+    $('.homepage-container .eth-value i').tooltip({
+        trigger: 'hover focus'
     });
 }else if($('body').hasClass('buy'))  {
     var dcn_for_one_usd = parseFloat($('.buy-container').attr('data-dcn-for-one-usd'));

@@ -5050,6 +5050,11 @@ footer {
       display: none; }
     .homepage-container .values-and-qr-code .transfer-value .transferred-value .output button {
       border: 0; }
+  .homepage-container .values-and-qr-code .transfer-value .eth-value {
+    font-size: 20px; }
+    .homepage-container .values-and-qr-code .transfer-value .eth-value i {
+      font-size: 16px;
+      cursor: pointer; }
   .homepage-container .values-and-qr-code .qr-code a {
     display: block;
     max-width: 220px;
