@@ -27334,7 +27334,7 @@ var App = {
                         initHomepageUserData();
                         $('.values-and-qr-code .animation').removeClass('rotate-animation');
                         $('.homepage-container .dcn-value .value').html(result);
-                        $('.homepage-container .eth-value .value').html(parseInt(global_state.curr_addr_eth_balance).toFixed(6));
+                        $('.homepage-container .eth-value .value').html(parseFloat(global_state.curr_addr_eth_balance).toFixed(6));
                         $('.homepage-container .output .value').html((parseInt(result) * global_state.curr_dcn_in_usd).toFixed(2));
                         $('.homepage-container .values-and-qr-code').show();
                     }, 300);
