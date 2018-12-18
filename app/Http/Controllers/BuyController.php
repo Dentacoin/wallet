@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 
 class BuyController extends Controller  {
     protected function getView()   {
-        return view('pages/buy', ['dcn_for_one_usd' => $this->getIndaCoinDCNPriceInUSD()]);
+        return view('pages/buy', ['dcn_for_one_usd' => $this->getIndacoinPricesInUSD('DCN'), 'eth_for_one_usd' => $this->getIndacoinPricesInUSD('ETH')]);
     }
 
-    protected function getIndaCoinDCNPriceInUSD()    {
+    protected function getIndacoinPricesInUSD($currency)    {
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'https://indacoin.com/api/GetCoinConvertAmount/USD/DCN/100/dentacoin',
+            CURLOPT_URL => 'https://indacoin.com/api/GetCoinConvertAmount/USD/'.$currency.'/100/dentacoin',
             CURLOPT_SSL_VERIFYPEER => 0
         ));
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));

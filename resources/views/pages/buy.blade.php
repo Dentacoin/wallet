@@ -1,13 +1,13 @@
 @extends("layout")
 @section("content")
-    <div class="buy-container" data-dcn-for-one-usd="{{$dcn_for_one_usd}}">
+    <div class="buy-container" data-dcn-for-one-usd="{{$dcn_for_one_usd}}" data-eth-for-one-usd="{{$eth_for_one_usd}}">
         <div class="container">
             <div class="row-flex fs-0">
                 <div class="col-12 col-md-5 input-container">
                     <div class="title">Pay with:</div>
-                    <div class="subtitle">Transaction limit: 50 - 3000 USD</div>
+                    <div class="subtitle">Transaction limit: 30 - 6000 USD</div>
                     <div class="wrapper input-with-label left-side fs-0 flex">
-                        <input type="number" id="paying-with-amount" value="50"/>
+                        <input type="number" id="paying-with-amount" value="30"/>
                         <div class="label"><span>USD</span></div>
                         {{--<button class="btn btn-light dropdown-toggle label paying-with-currency-switch" data-paying-currency="usd" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">USD</button>
                         <div class="dropdown-menu currency-dropdown">
@@ -21,8 +21,13 @@
                     <div class="title">You get:</div>
                     <div class="subtitle">The exchange rate may change in the process.</div>
                     <div class="wrapper input-with-label left-side fs-0 flex">
-                        <input type="number" id="dcn-amount"/>
-                        <div class="label"><span>DCN</span></div>
+                        <input type="number" id="buyable-currency-amount"/>
+                        {{--<div class="label"><span>DCN</span></div>--}}
+                        <button class="btn btn-light dropdown-toggle label current-buyable-currency" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-currency="DCN">DCN</button>
+                        <div class="dropdown-menu currency-dropdown">
+                            <a class="dropdown-item" href="javascript:void(0)">DCN</a>
+                            <a class="dropdown-item" href="javascript:void(0)">ETH</a>
+                        </div>
                     </div>
                 </div>
             </div>

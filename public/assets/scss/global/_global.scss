@@ -1713,3 +1713,9 @@ input[type=file].hide-input {
         font-size: 16px;
     }
 }
+
+.popover-body {
+    a {
+        text-decoration: underline;
+    }
+}

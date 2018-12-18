@@ -27,6 +27,9 @@
             }
         }
     }
+    .center-content {
+        align-items: flex-end;
+    }
     .values-and-qr-code {
         padding-top: 50px;
         padding-bottom: 50px;
@@ -49,9 +52,9 @@
                 }
             }
             .transferred-value {
+                line-height: 24px;
                 .output {
                     font-size: 32px;
-                    padding-top: 15px;
                     .mobile-symbol {
                         display: none;
                     }
@@ -62,6 +65,7 @@
             }
             .eth-value {
                 font-size: 20px;
+                padding-top: 40px;
                 i {
                     font-size: 16px;
                     cursor: pointer;
@@ -156,7 +160,6 @@
                 .transferred-value {
                     .output {
                         font-size: 22px;
-                        padding-top: 10px;
                         .mobile-symbol {
                             display: inline-block;
                         }

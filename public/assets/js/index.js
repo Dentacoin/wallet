@@ -124,7 +124,7 @@ function initChecker()  {
                                             }else {
                                                 basic.showAlert('Please save the Keystore file and keep it safe!', '', true);
                                             }
-                                        })
+                                        });
                                     }
                                 }
                             });
@@ -654,46 +654,79 @@ if($('body').hasClass('home'))  {
         trigger: 'click'
     });
 
-    $('.homepage-container .eth-value i').tooltip({
-        trigger: 'hover focus'
+    $('.homepage-container .eth-value i').popover({
+        trigger: 'click',
+        html: true
     });
 }else if($('body').hasClass('buy'))  {
     var dcn_for_one_usd = parseFloat($('.buy-container').attr('data-dcn-for-one-usd'));
-    var dcn_starting_amount = dcn_for_one_usd * parseFloat($('.buy-container #paying-with-amount').val().trim());
-    $('.buy-container #dcn-amount').val(dcn_for_one_usd * parseFloat($('.buy-container #paying-with-amount').val().trim()));
+    var eth_for_one_usd = parseFloat($('.buy-container').attr('data-eth-for-one-usd'));
+    $('.buy-container #buyable-currency-amount').val(dcn_for_one_usd * parseFloat($('.buy-container #paying-with-amount').val().trim()));
 
     $('.buy-container #paying-with-amount').on('input', function() {
-        if($(this).val().trim() < 50)   {
+        if($(this).val().trim() < 30)   {
             $(this).addClass('error-field');
         }else {
             $(this).removeClass('error-field');
         }
 
         if(parseFloat($(this).val().trim()) < 0)    {
-            $('.buy-container #paying-with-amount').val(50);
-        }else if(parseFloat($(this).val().trim()) > 3000)    {
-            $('.buy-container #paying-with-amount').val(3000);
+            $('.buy-container #paying-with-amount').val(30);
+        }else if(parseFloat($(this).val().trim()) > 6000)    {
+            $('.buy-container #paying-with-amount').val(6000);
         }
 
-        $('.buy-container #dcn-amount').val(dcn_for_one_usd * parseFloat($(this).val().trim()));
+        if($('.current-buyable-currency').attr('data-currency') == 'DCN') {
+            $('.buy-container #buyable-currency-amount').val(dcn_for_one_usd * parseFloat($(this).val().trim()));
+        } else if($('.current-buyable-currency').attr('data-currency') == 'ETH') {
+            $('.buy-container #buyable-currency-amount').val(eth_for_one_usd * parseFloat($(this).val().trim()));
+        }
     });
 
-    $('.buy-container #dcn-amount').on('input', function() {
-        if(parseFloat($(this).val().trim()) / dcn_for_one_usd > 3000)   {
-            $(this).val(dcn_for_one_usd * 3000);
+    $('.currency-dropdown .dropdown-item').on('click', function() {
+        $('.current-buyable-currency').html($(this).html()).attr('data-currency', $(this).html());
+
+        $('.buy-container #paying-with-amount').val(30);
+        $('.buy-container #paying-with-amount').removeClass('error-field');
+
+        if($(this).html() == 'DCN') {
+            $('.buy-container #buyable-currency-amount').val(dcn_for_one_usd * 30);
+        } else if($(this).html() == 'ETH') {
+            $('.buy-container #buyable-currency-amount').val(eth_for_one_usd * 30);
         }
-        $('.buy-container #paying-with-amount').val(parseFloat($(this).val().trim()) / dcn_for_one_usd);
+    });
+
+    $('.buy-container #buyable-currency-amount').on('input', function() {
+        var divisor;
+        if($('.current-buyable-currency').attr('data-currency') == 'DCN') {
+            divisor = dcn_for_one_usd;
+        } else if($('.current-buyable-currency').attr('data-currency') == 'ETH') {
+            divisor = eth_for_one_usd;
+        }
+
+        if(parseFloat($(this).val().trim()) / divisor > 6000)   {
+            $(this).val(divisor * 6000);
+        }
+        $('.buy-container #paying-with-amount').val(parseFloat($(this).val().trim()) / divisor);
     });
 
     $('.buy-dcn-btn').click(function()  {
-        if(parseFloat($('.buy-container #paying-with-amount').val().trim()) < 50)  {
-            basic.showAlert('The minimum transaction limit is 50 USD.', '', true);
-        }else if(parseFloat($('.buy-container #paying-with-amount').val().trim()) > 3000)  {
-            basic.showAlert('The maximum transaction limit is 3000 USD.', '', true);
-        }else if(parseFloat($('.buy-container #dcn-amount').val().trim()) < dcn_for_one_usd * 50)  {
-            basic.showAlert('The minimum transaction limit is 50 USD in DCN.', '', true);
-        }else if(parseFloat($('.buy-container #dcn-amount').val().trim()) > dcn_for_one_usd * 3000)  {
-            basic.showAlert('The maximum transaction limit is 3000 USD in DCN.', '', true);
+        var currency = $('.current-buyable-currency').attr('data-currency');
+        var currency_amount_for_one_usd;
+        if(currency == 'DCN') {
+            currency_amount_for_one_usd = dcn_for_one_usd;
+        } else if(currency == 'ETH') {
+            currency_amount_for_one_usd = eth_for_one_usd;
+        }
+
+        if(parseFloat($('.buy-container #paying-with-amount').val().trim()) < 30)  {
+            basic.showAlert('The minimum transaction limit is 30 USD.', '', true);
+        }else if(parseFloat($('.buy-container #paying-with-amount').val().trim()) > 6000)  {
+            basic.showAlert('The maximum transaction limit is 6000 USD.', '', true);
+        }else if(parseFloat($('.buy-container #buyable-currency-amount').val().trim()) < currency_amount_for_one_usd * 30)  {
+            basic.showAlert('The minimum transaction limit is 30 USD in '+currency+'.', '', true);
+        }else if(parseFloat($('.buy-container #buyable-currency-amount').val().trim()) > currency_amount_for_one_usd * 6000)  {
+            basic.showAlert('The maximum transaction limit is 6000 USD in '+currency+'.', '', true);
         }else if(!innerAddressCheck($('.buy-container .address-field').val().trim())) {
             basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
         }else if(!basic.validateEmail($('.buy-container .email-field').val().trim()))  {
@@ -701,7 +734,7 @@ if($('body').hasClass('home'))  {
         }else if(!$('#privacy-policy-agree').is(':checked')) {
             basic.showAlert('Please agree with our Privacy Policy.', '', true);
         }else {
-            window.location = 'https://indacoin.com/gw/payment_form?partner=dentacoin&cur_from=USD&cur_to=DCN&amount='+$('.buy-container #paying-with-amount').val().trim()+'&address='+$('.buy-container .address-field').val().trim()+'&user_id='+$('.buy-container .email-field').val().trim();
+            window.location = 'https://indacoin.com/gw/payment_form?partner=dentacoin&cur_from=USD&cur_to='+currency+'&amount='+$('.buy-container #paying-with-amount').val().trim()+'&address='+$('.buy-container .address-field').val().trim()+'&user_id='+$('.buy-container .email-field').val().trim();
         }
     });
 

@@ -4936,6 +4936,9 @@ input[type=file].hide-input {
     .white-blue-btn {
       font-size: 16px; } }
 
+.popover-body a {
+  text-decoration: underline; }
+
 header .logo {
   padding-top: 10px;
   padding-bottom: 10px; }
@@ -5028,6 +5031,8 @@ footer {
     color: white;
     width: 400px;
     font-weight: 500; }
+.homepage-container .center-content {
+  align-items: flex-end; }
 .homepage-container .values-and-qr-code {
   padding-top: 50px;
   padding-bottom: 50px; }
@@ -5043,15 +5048,17 @@ footer {
       display: none;
       font-size: 20px;
       line-height: 20px; }
-  .homepage-container .values-and-qr-code .transfer-value .transferred-value .output {
-    font-size: 32px;
-    padding-top: 15px; }
-    .homepage-container .values-and-qr-code .transfer-value .transferred-value .output .mobile-symbol {
-      display: none; }
-    .homepage-container .values-and-qr-code .transfer-value .transferred-value .output button {
-      border: 0; }
+  .homepage-container .values-and-qr-code .transfer-value .transferred-value {
+    line-height: 24px; }
+    .homepage-container .values-and-qr-code .transfer-value .transferred-value .output {
+      font-size: 32px; }
+      .homepage-container .values-and-qr-code .transfer-value .transferred-value .output .mobile-symbol {
+        display: none; }
+      .homepage-container .values-and-qr-code .transfer-value .transferred-value .output button {
+        border: 0; }
   .homepage-container .values-and-qr-code .transfer-value .eth-value {
-    font-size: 20px; }
+    font-size: 20px;
+    padding-top: 40px; }
     .homepage-container .values-and-qr-code .transfer-value .eth-value i {
       font-size: 16px;
       cursor: pointer; }
@@ -5107,8 +5114,7 @@ footer {
       .homepage-container .values-and-qr-code .transfer-value .current-value .dcn-value .desktop-symbol {
         display: none; }
     .homepage-container .values-and-qr-code .transfer-value .transferred-value .output {
-      font-size: 22px;
-      padding-top: 10px; }
+      font-size: 22px; }
       .homepage-container .values-and-qr-code .transfer-value .transferred-value .output .mobile-symbol {
         display: inline-block; }
       .homepage-container .values-and-qr-code .transfer-value .transferred-value .output .desktop-symbol {

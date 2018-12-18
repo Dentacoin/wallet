@@ -31,7 +31,7 @@
                             </div>--}}
                         </div>
                     </div>
-                    <div class="eth-value"><span class="value">0</span> ETH <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Used for transaction fees." aria-hidden="true"></i></div>
+                    <div class="eth-value"><span class="value">0</span> ETH for transaction fees <i class="fa fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="Ether (ETH) is a currency that is used for covering your transaction costs. Don't have ETH? <a href='//wallet.dentacoin.com/buy'>Buy some with a card here</a>." aria-hidden="true"></i></div>
                 </div>
                 <figure class="col-4 col-sm-4 col-md-3 qr-code" itemscope="" itemtype="http://schema.org/ImageObject">
                     <a href="javascript:void(0)">
