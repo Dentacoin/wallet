@@ -27902,8 +27902,10 @@ if ($('body').hasClass('home')) {
 
         if ($(this).html() == 'DCN') {
             $('.buy-container #buyable-currency-amount').val(dcn_for_one_usd * 30);
+            $('.buy-container .address-field').attr('placeholder', 'Address to receive DCN');
         } else if ($(this).html() == 'ETH') {
             $('.buy-container #buyable-currency-amount').val(eth_for_one_usd * 30);
+            $('.buy-container .address-field').attr('placeholder', 'Address to receive ETH (you can use your DCN wallet address)');
         }
     });
 
