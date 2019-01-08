@@ -810,18 +810,12 @@ if($('body').hasClass('home'))  {
             } else {
                 //calculating the fee from the gas price and the estimated gas price
                 const on_page_load_gwei = parseInt($('body').attr('data-current-gas-estimation'), 10);
-                console.log(on_page_load_gwei, 'on_page_load_gwei');
                 //adding 10% of the outcome just in case transactions don't take so long
                 const on_page_load_gas_price = on_page_load_gwei * 100000000 + ((on_page_load_gwei * 100000000) * 10/100);
-                console.log(on_page_load_gas_price, 'on_page_load_gas_price');
-
-                console.log(on_page_load_gas_price * 21000, 'on_page_load_gas_price * 21000');
-                console.log((on_page_load_gas_price * 21000).toString(), '(on_page_load_gas_price * 21000).toString()');
 
                 //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
                 //using 21000 because this is the number set by default for simple ETH value transfers
                 var eth_fee = App.web3_1_0.utils.fromWei((on_page_load_gas_price * 21000).toString(), 'ether');
-                console.log(eth_fee, 'eth_fee');
                 var usd_val = eth_amount * parseFloat($('body').attr('data-current-eth-in-usd'));
 
                 callTransactionConfirmationPopup(eth_amount, 'ETH', usd_val.toFixed(2), receiver_address, eth_fee);
@@ -1293,7 +1287,6 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                     const tx = new EthereumTx({
                                         gasLimit: App.web3_1_0.utils.toHex(65000),
                                         gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
-                                        to: App.contract_address,
                                         from: global_state.account,
                                         nonce: App.web3_1_0.utils.toHex(nonce),
                                         chainId: 1
@@ -1301,6 +1294,13 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
 
                                     if(function_abi != null) {
                                         tx.data = function_abi;
+                                    }
+
+                                    if(symbol == 'DCN') {
+                                        tx.to = App.contract_address;
+                                    }else if(symbol == 'ETH') {
+                                        tx.to = sending_to_address;
+                                        tx.value = token_val;
                                     }
 
                                     //signing the transaction
