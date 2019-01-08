@@ -1300,7 +1300,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                         transaction_obj.to = App.contract_address;
                                     } else if(symbol == 'ETH') {
                                         transaction_obj.to = sending_to_address;
-                                        transaction_obj.value = App.web3_1_0.utils.toHex(token_val);
+                                        transaction_obj.value = App.web3_1_0.utils.toHex(token_val.toString());
                                     }
 
                                     console.log(transaction_obj);
