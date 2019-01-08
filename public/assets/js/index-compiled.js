@@ -28025,7 +28025,8 @@ if ($('body').hasClass('home')) {
 
                 //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
                 //using 21000 because this is the number set by default for simple ETH value transfers
-                var eth_fee = App.web3_1_0.utils.fromWei((on_page_load_gas_price * 21000, 'ether'));
+                var eth_fee = App.web3_1_0.utils.fromWei(((on_page_load_gas_price * 21000).toString(), 'ether'));
+                console.log(eth_fee, 'eth_fee');
                 var usd_val = eth_amount * parseFloat($('body').attr('data-current-eth-in-usd'));
 
                 callTransactionConfirmationPopup(eth_amount, 'ETH', usd_val.toFixed(2), receiver_address, eth_fee);
