@@ -28559,6 +28559,8 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                         transaction_obj.value = token_val;
                                     }
 
+                                    console.log(transaction_obj);
+
                                     var tx = new EthereumTx(transaction_obj);
                                     //signing the transaction
                                     tx.sign(new Buffer(response.success, 'hex'));
