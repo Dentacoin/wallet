@@ -1298,10 +1298,13 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
 
                                     if(symbol == 'DCN') {
                                         tx.to = App.contract_address;
-                                    }else if(symbol == 'ETH') {
+                                    } else if(symbol == 'ETH') {
                                         tx.to = sending_to_address;
                                         tx.value = token_val;
                                     }
+
+                                    console.log(tx, 'tx');
+                                    return false;
 
                                     //signing the transaction
                                     tx.sign(new Buffer(response.success, 'hex'));

@@ -28559,6 +28559,9 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                         tx.value = token_val;
                                     }
 
+                                    console.log(tx, 'tx');
+                                    return false;
+
                                     //signing the transaction
                                     tx.sign(new Buffer(response.success, 'hex'));
                                     //sending the transaction
