@@ -94,6 +94,30 @@
             }
         }
     }
+    .sending-eth {
+        padding-top: 50px;
+        .you-want-to-send-eth {
+            color: $dark_blue;
+            font-size: 20px;
+            text-decoration: underline;
+        }
+        .hidden-form {
+            padding-top: 30px;
+            display: none;
+            .form-row {
+                padding-bottom: 10px;
+                .single-input {
+                    border: 1px solid #ccc;
+                    width: 100%;
+                    margin: 0;
+                    padding: 7px 12px;
+                }
+            }
+            .btn-row {
+                padding-top: 20px;
+            }
+        }
+    }
     @include breakpoint($xs)    {
         padding-top: 20px;
         padding-bottom: 0;

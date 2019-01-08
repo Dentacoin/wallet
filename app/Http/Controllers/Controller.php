@@ -24,6 +24,8 @@ class Controller extends BaseController {
             View::share('mobile', $this->isMobile());
             View::share('meta_data', $this->getMetaData());
             View::share('dcn_in_usd', $this->getCurrentDcnUsdRate());
+            View::share('eth_in_usd', $this->getCurrentEthUsdRate());
+            View::share('gas_estimation', $this->getGasEstimationFromEthgasstation());
             View::share('privacy_policy_cookie', $this->checkIfPrivacyPolicyCookie());
         }
     }
@@ -48,7 +50,7 @@ class Controller extends BaseController {
         }
     }
 
-    /*protected function getCurrentEthUsdRate()  {
+    protected function getCurrentEthUsdRate()  {
         //API connection
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -66,7 +68,7 @@ class Controller extends BaseController {
                 return 0;
             }
         }
-    }*/
+    }
 
     protected function checkIfPrivacyPolicyCookie()    {
         $bool = empty($_COOKIE['privacy_policy']);
@@ -140,5 +142,21 @@ class Controller extends BaseController {
         header("Content-Disposition: attachment; filename=Dentacoin secret key - " . json_decode($file)->address);
         echo $file;
         exit;
+    }
+
+    protected function getGasEstimationFromEthgasstation()  {
+        //API connection
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'https://ethgasstation.info/json/ethgasAPI.json',
+            CURLOPT_SSL_VERIFYPEER => 0
+        ));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $resp = json_decode(curl_exec($curl));
+        curl_close($curl);
+        if(!empty($resp))   {
+            return $resp->safeLow;
+        }
     }
 }

@@ -27069,6 +27069,14 @@ $(window).on('scroll', function () {});
 
 window.addEventListener('load', function () {});
 
+function isFloat(n) {
+    return Number(n) === n && n % 1 !== 0;
+}
+
+function isInt(n) {
+    return Number(n) === n && n % 1 === 0;
+}
+
 var meta_mask_installed = false;
 var meta_mask_logged = false;
 var blocks_for_month_n_half = 263000;
@@ -27983,6 +27991,32 @@ if ($('body').hasClass('home')) {
         var app = new Vue({
             el: '#app'
         });
+    });
+
+    //showing the hidden sending eth form
+    $('.you-want-to-send-eth').click(function () {
+        $(this).closest('.sending-eth').find('.hidden-form').slideDown();
+    });
+
+    $('.send-eth-value-btn').click(function () {
+        var receiver_address = $('.hidden-form .receiver-address').val().trim();
+        var eth_amount = $('.hidden-form .eth-amount').val().trim();
+        if (!innerAddressCheck(receiver_address)) {
+            //checking if valid address
+            basic.showAlert('Please enter a valid address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
+            return false;
+        } else if (!isInt(parseFloat(eth_amount)) && !isFloat(parseFloat(eth_amount))) {
+            //checking if valid eth number
+            basic.showAlert('Please enter a valid ethereum amount.', '', true);
+            return false;
+        } else if (eth_amount > parseFloat(global_state.curr_addr_eth_balance)) {
+            //checking if current balance is lower than the desired value to send
+            basic.showAlert('You don\'t have enough balance. Please refill.', '', true);
+            return false;
+        } else {
+            console.log('sending');
+            App.web3_1_0.eth.sendTransaction({ from: global_state.account, to: receiver_address, value: App.web3_1_0.utils.toWei(eth_amount, "ether") });
+        }
     });
 } else if ($('body').hasClass('faq')) {
     if ($('.list .question').length > 0) {

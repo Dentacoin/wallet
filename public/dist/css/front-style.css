@@ -5290,6 +5290,24 @@ footer {
         border: 1px solid white; }
       .send-container .next a:hover {
         color: white; }
+  .send-container .sending-eth {
+    padding-top: 50px; }
+    .send-container .sending-eth .you-want-to-send-eth {
+      color: #007bff;
+      font-size: 20px;
+      text-decoration: underline; }
+    .send-container .sending-eth .hidden-form {
+      padding-top: 30px;
+      display: none; }
+      .send-container .sending-eth .hidden-form .form-row {
+        padding-bottom: 10px; }
+        .send-container .sending-eth .hidden-form .form-row .single-input {
+          border: 1px solid #ccc;
+          width: 100%;
+          margin: 0;
+          padding: 7px 12px; }
+      .send-container .sending-eth .hidden-form .btn-row {
+        padding-top: 20px; }
   @media screen and (max-width: 767px) {
     .send-container {
       padding-top: 20px;

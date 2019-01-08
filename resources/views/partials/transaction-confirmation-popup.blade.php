@@ -3,7 +3,7 @@
     <figure itemscope="" itemtype="http://schema.org/ImageObject">
         <img src="{{URL::asset('assets/images/sent-icon.svg') }}" alt="Sent icon" itemprop="contentUrl"/>
     </figure>
-    <div class="dcn-amount">- {{$dcn_val}} DCN</div>
+    <div class="dcn-amount">- {{$token_val}} {{$symbol}}</div>
     <div class="usd-amount">= ${{$usd_val}}</div>
 </div>
 <div class="confirm-row to">

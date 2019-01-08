@@ -26,7 +26,27 @@
             <div class="row-flex">
                 <div class="col-12">
                     <div class="btn-container next"><a href="javascript:void(0);" class="bluegreen-white-btn">NEXT</a></div>
-                    <div class="text-center fill-the-address">Enter the Receiver's Dentacoin wallet address. If you want to pay for your treatment to a Dentacoin Partner Dentist or Clinic, just type their name in the field above (Feature not supported yet).</div>
+                    <div class="text-center fill-the-address">For payments to Dentacoin Partner Dentists, just type their name in the field above (Feature not supported yet).</div>
+                </div>
+            </div>
+        </div>
+        <div class="container sending-eth">
+            <div class="row-flex text-center">
+                <div class="col-12">
+                    <a href="javascript:void(0)" class="you-want-to-send-eth">You want to send ETH?</a>
+                </div>
+            </div>
+            <div class="row-flex text-center hidden-form">
+                <div class="col-12 col-sm-4 offset-sm-4">
+                    <div class="form-row">
+                        <input type="text" placeholder="Receiver's Address" class="single-input receiver-address" maxlength="42">
+                    </div>
+                    <div class="form-row">
+                        <input type="number" placeholder="ETH Amount to Send" class="single-input eth-amount">
+                    </div>
+                    <div class="btn-row">
+                        <a href="javascript:void(0)" class="bluegreen-white-btn send-eth-value-btn">Send</a>
+                    </div>
                 </div>
             </div>
         </div>
