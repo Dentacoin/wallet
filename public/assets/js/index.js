@@ -1284,28 +1284,26 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                             if(response.success)    {
                                 App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
                                     const EthereumTx = require('ethereumjs-tx');
-                                    const tx = new EthereumTx({
+                                    var transaction_obj = {
                                         gasLimit: App.web3_1_0.utils.toHex(65000),
                                         gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
                                         from: global_state.account,
                                         nonce: App.web3_1_0.utils.toHex(nonce),
                                         chainId: 1
-                                    });
+                                    };
 
                                     if(function_abi != null) {
-                                        tx.data = function_abi;
+                                        transaction_obj.data = function_abi;
                                     }
 
                                     if(symbol == 'DCN') {
-                                        tx.to = App.contract_address;
+                                        transaction_obj.to = App.contract_address;
                                     } else if(symbol == 'ETH') {
-                                        tx.to = sending_to_address;
-                                        tx.value = token_val;
+                                        transaction_obj.to = sending_to_address;
+                                        transaction_obj.value = token_val;
                                     }
 
-                                    console.log(tx, 'tx');
-                                    return false;
-
+                                    const tx = new EthereumTx(transaction_obj);
                                     //signing the transaction
                                     tx.sign(new Buffer(response.success, 'hex'));
                                     //sending the transaction
