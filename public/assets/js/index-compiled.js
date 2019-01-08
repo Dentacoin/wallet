@@ -27357,7 +27357,7 @@ var App = {
             from: global_state.account,
             gas: 65000
         }).on('transactionHash', function (hash) {
-            displayMessageOnTransactionSend(hash);
+            displayMessageOnDCNTransactionSend(hash);
         }) /*.then(function (result){
              basic.closeDialog();
              basic.showAlert('Your transaction is now pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+result.transactionHash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
@@ -28014,8 +28014,22 @@ if ($('body').hasClass('home')) {
             basic.showAlert('You don\'t have enough balance. Please refill.', '', true);
             return false;
         } else {
-            console.log('sending');
-            App.web3_1_0.eth.sendTransaction({ from: global_state.account, to: receiver_address, value: App.web3_1_0.utils.toWei(eth_amount, "ether") });
+
+            if (meta_mask_installed) {
+                App.web3_1_0.eth.sendTransaction({ from: global_state.account, to: receiver_address, value: App.web3_1_0.utils.toWei(eth_amount, "ether") });
+            } else {
+                //calculating the fee from the gas price and the estimated gas price
+                var on_page_load_gwei = parseInt($('body').attr('data-current-gas-estimation'), 10);
+                //adding 10% of the outcome just in case transactions don't take so long
+                var on_page_load_gas_price = on_page_load_gwei * 100000000 + on_page_load_gwei * 100000000 * 10 / 100;
+
+                //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
+                //using 21000 because this is the number set by default for simple ETH value transfers
+                var eth_fee = App.web3_1_0.utils.fromWei((on_page_load_gas_price * 21000, 'ether'));
+                var usd_val = eth_amount * parseFloat($('body').attr('data-current-eth-in-usd'));
+
+                callTransactionConfirmationPopup(eth_amount, 'ETH', usd_val.toFixed(2), receiver_address, eth_fee);
+            }
         }
     });
 } else if ($('body').hasClass('faq')) {
@@ -28187,7 +28201,7 @@ function pageAmountToLogic() {
 
                         //calculating the fee from the gas price and the estimated gas price
 
-                        on_page_load_gwei = parseInt($('.amount-to-container').attr('data-on-page-load-gas-estimation'), 10);
+                        on_page_load_gwei = parseInt($('body').attr('data-current-gas-estimation'), 10);
                         //adding 10% of the outcome just in case transactions don't take so long
 
                         on_page_load_gas_price = on_page_load_gwei * 100000000 + on_page_load_gwei * 100000000 * 10 / 100;
@@ -28206,69 +28220,8 @@ function pageAmountToLogic() {
                         eth_fee = _context4.t0.fromWei.call(_context4.t0, _context4.t3, 'ether');
 
                         //Send confirmation popup
-                        $.ajax({
-                            type: 'POST',
-                            url: HOME_URL + '/get-transaction-confirmation-popup',
-                            data: {
-                                dcn_val: dcn_val,
-                                usd_val: usd_val,
-                                sending_to_address: sending_to_address,
-                                from: global_state.account,
-                                fee: parseFloat(eth_fee).toFixed(8)
-                            },
-                            dataType: 'json',
-                            success: function success(response) {
-                                basic.showDialog(response.success, 'transaction-confirmation-popup', true);
 
-                                var on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
-                                //adding 10% of the outcome just in case transactions don't take so long
-                                var on_popup_call_gas_price = on_popup_call_gwei * 100000000 + on_popup_call_gwei * 100000000 * 10 / 100;
-
-                                $('.transaction-confirmation-popup .confirm-transaction').click(function () {
-                                    if ($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
-                                        basic.showAlert('Please enter your password.', '', true);
-                                        return false;
-                                    } else {
-                                        //API call for decrypt localstorage json
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: HOME_URL + '/decrypt-pk',
-                                            data: {
-                                                password: $('.transaction-confirmation-popup #user-keystore-password').val().trim(),
-                                                keystore: JSON.stringify(JSON.parse(localStorage.getItem('current-account')).keystore)
-                                            },
-                                            dataType: 'json',
-                                            success: function success(response) {
-                                                if (response.success) {
-                                                    App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
-                                                        var EthereumTx = __webpack_require__(337);
-                                                        var tx = new EthereumTx({
-                                                            gasLimit: App.web3_1_0.utils.toHex(65000),
-                                                            gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
-                                                            to: App.contract_address,
-                                                            data: function_abi,
-                                                            from: global_state.account,
-                                                            nonce: App.web3_1_0.utils.toHex(nonce),
-                                                            chainId: 1
-                                                        });
-
-                                                        //signing the transaction
-                                                        tx.sign(new Buffer(response.success, 'hex'));
-                                                        //sending the transaction
-                                                        App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
-                                                            basic.closeDialog();
-                                                            displayMessageOnTransactionSend(transactionHash);
-                                                        });
-                                                    });
-                                                } else if (response.error) {
-                                                    basic.showAlert(response.error, '', true);
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        });
+                        callTransactionConfirmationPopup(dcn_val, 'DCN', usd_val, sending_to_address, eth_fee, function_abi);
 
                     case 51:
                     case 'end':
@@ -28521,7 +28474,7 @@ function isJsonString(str) {
     return true;
 }
 
-function displayMessageOnTransactionSend(tx_hash) {
+function displayMessageOnDCNTransactionSend(tx_hash) {
     $('.amount-to-container input#dcn').val('');
     $('.amount-to-container input#usd').val('');
     basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/' + tx_hash + '" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
@@ -28544,6 +28497,80 @@ function commonData() {
     }
 }
 commonData();
+
+function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to_address, eth_fee, function_abi) {
+    //doing this check, because IE 11 not support ES6
+    if (function_abi === undefined) {
+        function_abi = null;
+    }
+    $.ajax({
+        type: 'POST',
+        url: HOME_URL + '/get-transaction-confirmation-popup',
+        data: {
+            token_val: token_val,
+            symbol: symbol,
+            usd_val: usd_val,
+            sending_to_address: sending_to_address,
+            from: global_state.account,
+            fee: parseFloat(eth_fee).toFixed(8)
+        },
+        dataType: 'json',
+        success: function success(response) {
+            basic.showDialog(response.success, 'transaction-confirmation-popup', true);
+
+            var on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
+            //adding 10% of the outcome just in case transactions don't take so long
+            var on_popup_call_gas_price = on_popup_call_gwei * 100000000 + on_popup_call_gwei * 100000000 * 10 / 100;
+
+            $('.transaction-confirmation-popup .confirm-transaction').click(function () {
+                if ($('.transaction-confirmation-popup #user-keystore-password').val().trim() == '') {
+                    basic.showAlert('Please enter your password.', '', true);
+                    return false;
+                } else {
+                    //API call for decrypt localstorage json
+                    $.ajax({
+                        type: 'POST',
+                        url: HOME_URL + '/decrypt-pk',
+                        data: {
+                            password: $('.transaction-confirmation-popup #user-keystore-password').val().trim(),
+                            keystore: JSON.stringify(JSON.parse(localStorage.getItem('current-account')).keystore)
+                        },
+                        dataType: 'json',
+                        success: function success(response) {
+                            if (response.success) {
+                                App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
+                                    var EthereumTx = __webpack_require__(337);
+                                    var tx = new EthereumTx({
+                                        gasLimit: App.web3_1_0.utils.toHex(65000),
+                                        gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
+                                        to: App.contract_address,
+                                        from: global_state.account,
+                                        nonce: App.web3_1_0.utils.toHex(nonce),
+                                        chainId: 1
+                                    });
+
+                                    if (function_abi != null) {
+                                        tx.data = function_abi;
+                                    }
+
+                                    //signing the transaction
+                                    tx.sign(new Buffer(response.success, 'hex'));
+                                    //sending the transaction
+                                    App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
+                                        basic.closeDialog();
+                                        displayMessageOnDCNTransactionSend(transactionHash);
+                                    });
+                                });
+                            } else if (response.error) {
+                                basic.showAlert(response.error, '', true);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
