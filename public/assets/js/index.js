@@ -783,7 +783,7 @@ if($('body').hasClass('home'))  {
         });
     });
 
-    //showing the hidden sending eth form
+    /*//showing the hidden sending eth form
     $('.you-want-to-send-eth').click(function() {
         $(this).closest('.sending-eth').find('.hidden-form').slideDown();
     });
@@ -821,7 +821,7 @@ if($('body').hasClass('home'))  {
                 callTransactionConfirmationPopup(eth_amount, 'ETH', usd_val.toFixed(2), receiver_address, eth_fee);
             }
         }
-    });
+    });*/
 }else if($('body').hasClass('faq')) {
     if($('.list .question').length > 0) {
         $('.list .question').click(function()   {
