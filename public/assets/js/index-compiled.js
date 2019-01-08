@@ -28020,8 +28020,13 @@ if ($('body').hasClass('home')) {
             } else {
                 //calculating the fee from the gas price and the estimated gas price
                 var on_page_load_gwei = parseInt($('body').attr('data-current-gas-estimation'), 10);
+                console.log(on_page_load_gwei, 'on_page_load_gwei');
                 //adding 10% of the outcome just in case transactions don't take so long
                 var on_page_load_gas_price = on_page_load_gwei * 100000000 + on_page_load_gwei * 100000000 * 10 / 100;
+                console.log(on_page_load_gas_price, 'on_page_load_gas_price');
+
+                console.log(on_page_load_gas_price * 21000, 'on_page_load_gas_price * 21000');
+                console.log((on_page_load_gas_price * 21000).toString(), '(on_page_load_gas_price * 21000).toString()');
 
                 //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
                 //using 21000 because this is the number set by default for simple ETH value transfers
