@@ -50,4 +50,5 @@
     <meta property="og:url" content="{{Request::url()}}"/>
     <meta property="og:title" content="Dentacoin Wallet App: Buy, Store & Manage Your DCN Tokens"/>
     <meta property="og:description" content="Dentacoin Wallet allows users to easily and securely store, send, receive DCN tokens, as well as to buy DCN with credit card and other cryptocurrencies."/>
+    <meta property="og:image" content="{{URL::asset('assets/images/homepage-wallet.png') }}"/>
 @endsection

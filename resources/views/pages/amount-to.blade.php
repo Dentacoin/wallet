@@ -62,4 +62,5 @@
     <meta property="og:url" content="{{Request::url()}}"/>
     <meta property="og:title" content="Send Dentacoin (DCN) and/or Pay to Your Dentist"/>
     <meta property="og:description" content="Dentacoin Wallet App allows users to send DCN tokens to other wallets. It also makes it easier than ever for patients to pay to their dentist in DCN."/>
+    <meta property="og:image" content="{{URL::asset('assets/images/send-wallet.png') }}"/>
 @endsection

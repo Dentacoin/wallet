@@ -89,4 +89,5 @@
     <meta property="og:url" content="{{Request::url()}}"/>
     <meta property="og:title" content="Buy Dentacoin (DCN) via Dentacoin Wallet App"/>
     <meta property="og:description" content="Dentacoin Wallet App allows users to easily and securely buy Dentacoin (DCN) with USD, Ether (ETH), Bitcoin (BTC) and 100+ other cryptocurrencies."/>
+    <meta property="og:image" content="{{URL::asset('assets/images/buy-wallet.png') }}"/>
 @endsection

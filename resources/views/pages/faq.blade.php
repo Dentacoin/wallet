@@ -239,4 +239,5 @@
     <meta property="og:url" content="{{Request::url()}}"/>
     <meta property="og:title" content="Dentacoin Wallet dApp: Frequently Asked Questions"/>
     <meta property="og:description" content="Where to store Dentacoin tokens? How to create a Dentacoin Wallet? How to buy DCN? Find the answers to all your questions here."/>
+    <meta property="og:image" content="{{URL::asset('assets/images/faq-wallet.png') }}"/>
 @endsection

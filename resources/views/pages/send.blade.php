@@ -71,4 +71,5 @@
     <meta property="og:url" content="{{Request::url()}}"/>
     <meta property="og:title" content="Send Dentacoin (DCN) via Dentacoin Wallet App"/>
     <meta property="og:description" content="Dentacoin Wallet App enables sending DCN tokens to any valid Ethereum address. Fast, secure and easier than ever!"/>
+    <meta property="og:image" content="{{URL::asset('assets/images/send-wallet.png') }}"/>
 @endsection
