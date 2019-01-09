@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="row-flex text-center hidden-form">
-                <div class="col-12 col-sm-4 offset-sm-4">
+                <div class="col-12 col-sm-8 offset-sm-2 col-md-4 offset-md-4">
                     <div class="form-row">
                         <input type="text" placeholder="Receiver's Address" class="single-input receiver-address" maxlength="42">
                     </div>
