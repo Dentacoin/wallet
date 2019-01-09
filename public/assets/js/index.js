@@ -249,7 +249,7 @@ var App = {
             from: global_state.account,
             gas: 65000
         }).on('transactionHash', function(hash){
-            displayMessageOnDCNTransactionSend(hash);
+            displayMessageOnDCNTransactionSend('Dentacoin tokens', hash, 'DCN');
         })/*.then(function (result){
             basic.closeDialog();
             basic.showAlert('Your transaction is now pending. Give it a minute and check for confirmation on <a href="https://etherscan.io/tx/'+result.transactionHash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
@@ -808,6 +808,8 @@ if($('body').hasClass('home'))  {
             if(meta_mask_installed)    {
                 App.web3_1_0.eth.sendTransaction({from: global_state.account, to: receiver_address, value: App.web3_1_0.utils.toWei(eth_amount, "ether")});
             } else {
+                appendLoaderContainer();
+
                 //calculating the fee from the gas price and the estimated gas price
                 const on_page_load_gwei = parseInt($('body').attr('data-current-gas-estimation'), 10);
                 //adding 10% of the outcome just in case transactions don't take so long
@@ -935,6 +937,8 @@ function pageAmountToLogic()    {
         if(meta_mask_installed)    {
             metaMaskSubmit(dcn_val, usd_val, sending_to_address);
         } else {
+            appendLoaderContainer();
+
             var function_abi = myContract.methods.transfer(sending_to_address, dcn_val).encodeABI();
 
             //calculating the fee from the gas price and the estimated gas price
@@ -1218,10 +1222,15 @@ function isJsonString(str) {
     return true;
 }
 
-function displayMessageOnDCNTransactionSend(tx_hash)  {
-    $('.amount-to-container input#dcn').val('');
-    $('.amount-to-container input#usd').val('');
-    basic.showAlert('Your Dentacoin tokens are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/'+tx_hash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
+function displayMessageOnDCNTransactionSend(token_label, tx_hash, symbol)  {
+    if(symbol == 'DCN') {
+        $('.amount-to-container input#dcn').val('');
+        $('.amount-to-container input#usd').val('');
+    }else if(symbol == 'ETH') {
+        $('.sending-eth .receiver-address').val('');
+        $('.sending-eth .eth-amount').val('');
+    }
+    basic.showAlert('Your '+token_label+' are on their way to the Receiver\'s wallet. Check transaction status <a href="https://etherscan.io/tx/'+tx_hash+'" target="_blank" class="etherscan-link">Etherscan</a>.', '', true);
 }
 
 //clear current account data from the localstorage
@@ -1260,6 +1269,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
         },
         dataType: 'json',
         success: function (response) {
+            $('.loader-container').remove();
             basic.showDialog(response.success, 'transaction-confirmation-popup', true);
 
             const on_popup_call_gwei = parseInt($('.transaction-confirmation-popup input[type="hidden"]#gas-estimation').val(), 10);
@@ -1292,22 +1302,19 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                         chainId: 1
                                     };
 
-                                    console.log(on_popup_call_gas_price, 'on_popup_call_gas_price');
-                                    console.log(App.web3_1_0.utils.toHex(App.web3_1_0.utils.toWei(token_val.toString(), 'ether')));
-
                                     if(function_abi != null) {
                                         transaction_obj.data = function_abi;
                                     }
 
+                                    var token_label;
                                     if(symbol == 'DCN') {
                                         transaction_obj.to = App.contract_address;
+                                        token_label = 'Dentacoin tokens';
                                     } else if(symbol == 'ETH') {
                                         transaction_obj.to = sending_to_address;
                                         transaction_obj.value = App.web3_1_0.utils.toHex(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'));
+                                        token_label = 'Ethers';
                                     }
-
-                                    console.log(transaction_obj);
-
 
                                     const tx = new EthereumTx(transaction_obj);
                                     //signing the transaction
@@ -1315,7 +1322,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                     //sending the transaction
                                     App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
                                         basic.closeDialog();
-                                        displayMessageOnDCNTransactionSend(transactionHash);
+                                        displayMessageOnDCNTransactionSend(token_label, transactionHash, symbol);
                                     });
                                 });
                             }else if(response.error)    {
@@ -1327,4 +1334,9 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
             });
         }
     });
+}
+
+//show loader while waiting for AJAX to execute
+function appendLoaderContainer() {
+    $('body').append('<div class="loader-container"><figure itemscope="" itemtype="http://schema.org/ImageObject" class="inline-block"><img src="/assets/images/loader.gif" alt="Loader" itemprop="contentUrl"/></figure></div>');
 }
