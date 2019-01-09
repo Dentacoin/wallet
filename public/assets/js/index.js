@@ -1292,12 +1292,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                         chainId: 1
                                     };
 
-                                    console.log(token_val, 'token_val');
-                                    console.log(token_val.toString(), 'token_val.toString()');
-                                    console.log(App.web3_1_0.utils.toHex(token_val), 'App.web3_1_0.utils.toHex(token_val)');
-                                    console.log(App.web3_1_0.utils.toHex(token_val.toString()), 'App.web3_1_0.utils.toHex(token_val.toString())');
-
-                                    return false;
+                                    console.log(on_popup_call_gas_price, 'on_popup_call_gas_price');
 
                                     if(function_abi != null) {
                                         transaction_obj.data = function_abi;
