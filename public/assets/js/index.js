@@ -1293,6 +1293,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                     };
 
                                     console.log(on_popup_call_gas_price, 'on_popup_call_gas_price');
+                                    console.log(App.web3_1_0.utils.toHex(App.web3_1_0.utils.toWei(token_val.toString(), 'ether')));
 
                                     if(function_abi != null) {
                                         transaction_obj.data = function_abi;
@@ -1302,7 +1303,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                         transaction_obj.to = App.contract_address;
                                     } else if(symbol == 'ETH') {
                                         transaction_obj.to = sending_to_address;
-                                        transaction_obj.value = token_val.toString();
+                                        transaction_obj.value = App.web3_1_0.utils.toHex(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'));
                                     }
 
                                     console.log(transaction_obj);
