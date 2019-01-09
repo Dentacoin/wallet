@@ -27993,41 +27993,45 @@ if ($('body').hasClass('home')) {
         });
     });
 
-    /*//showing the hidden sending eth form
-    $('.you-want-to-send-eth').click(function() {
+    //showing the hidden sending eth form
+    $('.you-want-to-send-eth').click(function () {
         $(this).closest('.sending-eth').find('.hidden-form').slideDown();
     });
-      $('.send-eth-value-btn').click(function() {
+
+    $('.send-eth-value-btn').click(function () {
         var receiver_address = $('.hidden-form .receiver-address').val().trim();
         var eth_amount = $('.hidden-form .eth-amount').val().trim();
-        if(!innerAddressCheck(receiver_address)) {
+        if (!innerAddressCheck(receiver_address)) {
             //checking if valid address
             basic.showAlert('Please enter a valid address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
             return false;
-        }else if(!isInt(parseFloat(eth_amount)) && !isFloat(parseFloat(eth_amount))) {
+        } else if (!isInt(parseFloat(eth_amount)) && !isFloat(parseFloat(eth_amount))) {
             //checking if valid eth number
             basic.showAlert('Please enter a valid ethereum amount.', '', true);
             return false;
-        }else if(eth_amount > parseFloat(global_state.curr_addr_eth_balance)) {
+        } else if (eth_amount > parseFloat(global_state.curr_addr_eth_balance)) {
             //checking if current balance is lower than the desired value to send
             basic.showAlert('You don\'t have enough balance. Please refill.', '', true);
             return false;
         } else {
-              if(meta_mask_installed)    {
-                App.web3_1_0.eth.sendTransaction({from: global_state.account, to: receiver_address, value: App.web3_1_0.utils.toWei(eth_amount, "ether")});
+
+            if (meta_mask_installed) {
+                App.web3_1_0.eth.sendTransaction({ from: global_state.account, to: receiver_address, value: App.web3_1_0.utils.toWei(eth_amount, "ether") });
             } else {
                 //calculating the fee from the gas price and the estimated gas price
-                const on_page_load_gwei = parseInt($('body').attr('data-current-gas-estimation'), 10);
+                var on_page_load_gwei = parseInt($('body').attr('data-current-gas-estimation'), 10);
                 //adding 10% of the outcome just in case transactions don't take so long
-                const on_page_load_gas_price = on_page_load_gwei * 100000000 + ((on_page_load_gwei * 100000000) * 10/100);
-                  //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
+                var on_page_load_gas_price = on_page_load_gwei * 100000000 + on_page_load_gwei * 100000000 * 10 / 100;
+
+                //using ethgasstation gas price and not await App.helper.getGasPrice(), because its more accurate
                 //using 21000 because this is the number set by default for simple ETH value transfers
                 var eth_fee = App.web3_1_0.utils.fromWei((on_page_load_gas_price * 21000).toString(), 'ether');
                 var usd_val = eth_amount * parseFloat($('body').attr('data-current-eth-in-usd'));
-                  callTransactionConfirmationPopup(eth_amount, 'ETH', usd_val.toFixed(2), receiver_address, eth_fee);
+
+                callTransactionConfirmationPopup(eth_amount, 'ETH', usd_val.toFixed(2), receiver_address, eth_fee);
             }
         }
-    });*/
+    });
 } else if ($('body').hasClass('faq')) {
     if ($('.list .question').length > 0) {
         $('.list .question').click(function () {
@@ -28543,6 +28547,13 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                         nonce: App.web3_1_0.utils.toHex(nonce),
                                         chainId: 1
                                     };
+
+                                    console.log(token_val, 'token_val');
+                                    console.log(token_val.toString(), 'token_val.toString()');
+                                    console.log(App.web3_1_0.utils.toHex(token_val), 'App.web3_1_0.utils.toHex(token_val)');
+                                    console.log(App.web3_1_0.utils.toHex(token_val.toString()), 'App.web3_1_0.utils.toHex(token_val.toString())');
+
+                                    return false;
 
                                     if (function_abi != null) {
                                         transaction_obj.data = function_abi;

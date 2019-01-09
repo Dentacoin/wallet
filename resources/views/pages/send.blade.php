@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        {{--<div class="container sending-eth">
+        <div class="container sending-eth">
             <div class="row-flex text-center">
                 <div class="col-12">
                     <a href="javascript:void(0)" class="you-want-to-send-eth">You want to send ETH?</a>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-        </div>--}}
+        </div>
     </div>
     <div class="scan-qr-code-popup">
         <div class="wrapper">
