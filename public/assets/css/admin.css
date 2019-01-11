@@ -22,6 +22,12 @@
   src: url("/assets/fonts/Calibri Bold.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/Calibri Bold.woff2") format("woff2"), url("/assets/fonts/Calibri Bold.woff") format("woff"), url("/assets/fonts/Calibri Bold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
+@font-face {
+  font-family: "Calibri-Regular";
+  src: url("/assets/fonts/Calibri.eot");
+  src: url("/assets/fonts/Calibri.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/Calibri.woff2") format("woff2"), url("/assets/fonts/Calibri.woff") format("woff"), url("/assets/fonts/Calibri.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
 @media screen and (max-width: 576px) {
   .col-xxs-12 {
     width: 100%; }
