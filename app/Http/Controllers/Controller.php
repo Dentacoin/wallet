@@ -163,15 +163,9 @@ class Controller extends BaseController {
 
     protected function savePublicKey(Request $request) {
         $inserted_key = DB::connection('mysql2')->table('public_keys')->where('address', $request->input('address'))->get()->first();
-        var_dump($inserted_key);
-        var_dump(sizeof($inserted_key));
-        var_dump(empty($inserted_key));
         if(empty($inserted_key)) {
-            var_dump('KOS');
-            die();
             DB::connection('mysql2')->table('public_keys')->insert(['address' => $request->input('address'), 'public_key' => $request->input('public_key')]);
         }
-        die();
         return response()->json(['success' => true]);
     }
 }
