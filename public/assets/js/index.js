@@ -1152,17 +1152,15 @@ function styleInputTypeFile()    {
                                                         },
                                                         dataType: 'json',
                                                         success: function (inner_response) {
-
+                                                            if(inner_response.success) {
+                                                                localStorage.setItem('current-account', JSON.stringify({
+                                                                    address: '0x' + address,
+                                                                    keystore: response.success
+                                                                }));
+                                                                window.location.reload();
+                                                            }
                                                         }
                                                     });
-
-                                                    return false;
-
-                                                    localStorage.setItem('current-account', JSON.stringify({
-                                                        address: '0x' + address,
-                                                        keystore: response.success
-                                                    }));
-                                                    window.location.reload();
                                                 }else if(response.error)    {
                                                     $('.loader-container').remove();
                                                     basic.showAlert(response.error, '', true);

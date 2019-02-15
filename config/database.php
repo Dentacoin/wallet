@@ -61,6 +61,11 @@ return [
             'database'  => env('DB_DATABASE_SECOND'),
             'username'  => env('DB_USERNAME_SECOND'),
             'password'  => env('DB_PASSWORD_SECOND'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => 'InnoDB',
         ],
 
         'pgsql' => [
