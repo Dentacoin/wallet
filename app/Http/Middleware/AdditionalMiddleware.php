@@ -16,10 +16,10 @@ class AdditionalMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        if(!isset($_COOKIE['testing-dev'])) {
+        /*if(!isset($_COOKIE['testing-dev'])) {
             return response(view('pages/maintenance'));
         }
-        $params = $request->route()->parameters();
+        $params = $request->route()->parameters();*/
         $response = (new App\Http\Controllers\Controller())->minifyHtml($next($request));
         return $response;
     }
