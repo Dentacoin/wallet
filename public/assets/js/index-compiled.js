@@ -28381,27 +28381,45 @@ function styleInputTypeFile() {
                                 } else if (keystore_password.length < 8 || keystore_password.length > 30) {
                                     basic.showAlert('The password must be with minimum length of 8 characters and maximum 30.', '', true);
                                 } else {
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: HOME_URL + '/app-import',
-                                        data: {
-                                            password: keystore_password,
-                                            keystore: keystore_string,
-                                            address: address
-                                        },
-                                        dataType: 'json',
-                                        success: function success(response) {
-                                            if (response.success) {
-                                                localStorage.setItem('current-account', JSON.stringify({
-                                                    address: '0x' + address,
-                                                    keystore: response.success
-                                                }));
-                                                window.location.reload();
-                                            } else if (response.error) {
-                                                basic.showAlert(response.error, '', true);
+                                    appendLoaderContainer();
+
+                                    setTimeout(function () {
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: HOME_URL + '/app-import',
+                                            data: {
+                                                password: keystore_password,
+                                                keystore: keystore_string,
+                                                address: address
+                                            },
+                                            dataType: 'json',
+                                            success: function success(response) {
+                                                if (response.success) {
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: HOME_URL + '/save-public-key',
+                                                        data: {
+                                                            address: '0x' + address,
+                                                            public_key: response.public_key
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function success(inner_response) {}
+                                                    });
+
+                                                    return false;
+
+                                                    localStorage.setItem('current-account', JSON.stringify({
+                                                        address: '0x' + address,
+                                                        keystore: response.success
+                                                    }));
+                                                    window.location.reload();
+                                                } else if (response.error) {
+                                                    $('.loader-container').remove();
+                                                    basic.showAlert(response.error, '', true);
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                                    }, 1000);
                                 }
                             });
                         }, 1000);

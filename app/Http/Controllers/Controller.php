@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
 use bb\Sha3\Sha3;
-use Request;
+use Illuminate\Http\Request;
 
 
 class Controller extends BaseController {
@@ -158,5 +158,10 @@ class Controller extends BaseController {
         if(!empty($resp))   {
             return $resp->safeLow;
         }
+    }
+
+    protected function savePublicKey(Request $request) {
+        var_dump($request->input());
+        die();
     }
 }
