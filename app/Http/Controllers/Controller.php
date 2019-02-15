@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
 use bb\Sha3\Sha3;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class Controller extends BaseController {
