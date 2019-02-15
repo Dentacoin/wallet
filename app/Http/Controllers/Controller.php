@@ -162,7 +162,7 @@ class Controller extends BaseController {
     }
 
     protected function savePublicKey(Request $request) {
-        $inserted_key = DB::connection('mysql2')->select(DB::raw("SELECT * from public_keys WHERE address = '".$request->input('address')."'"))->toArray();
+        $inserted_key = DB::connection('mysql2')->select(DB::raw("SELECT * from public_keys WHERE address = '".$request->input('address')."'"));
         var_dump($inserted_key);
         if(empty($inserted_key)) {
             var_dump('KOS');
