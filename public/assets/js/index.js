@@ -1145,7 +1145,7 @@ function styleInputTypeFile()    {
                                 var keystore_password = $('.custom-auth-popup .popup-right .popup-body .import-keystore-password').val().trim();
                                 if(keystore_password == '')  {
                                     basic.showAlert('Please enter password for your keystore file.', '', true);
-                                }else if(keystore_password.length < 8 || keystore_password.length > 30)  {
+                                }else if(keystore_password.length < 6 || keystore_password.length > 50)  {
                                     basic.showAlert('The password must be with minimum length of 8 characters and maximum 30.', '', true);
                                 }else {
                                     appendLoaderContainer();
