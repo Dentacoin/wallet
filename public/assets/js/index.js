@@ -1331,10 +1331,12 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                             if(response.success)    {
                                 App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
                                     const EthereumTx = require('ethereumjs-tx');
+                                    console.log(on_popup_call_gas_price, 'on_popup_call_gas_price');
+                                    console.log(nonce, 'nonce');
                                     var transaction_obj = {
                                         gasLimit: App.web3_1_0.utils.toHex(65000),
                                         gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
-                                        from: global_state.account,
+                                        from: App.web3_1_0.utils.toChecksumAddress(global_state.account),
                                         nonce: App.web3_1_0.utils.toHex(nonce),
                                         chainId: 1
                                     };
@@ -1358,6 +1360,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                     //signing the transaction
                                     tx.sign(new Buffer(response.success, 'hex'));
                                     //sending the transaction
+                                    console.log(tx, 'tx');
                                     App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
                                         basic.closeDialog();
                                         displayMessageOnDCNTransactionSend(token_label, transactionHash, symbol);
