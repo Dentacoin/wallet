@@ -28397,7 +28397,7 @@ function styleInputTypeFile() {
                                 var keystore_password = $('.custom-auth-popup .popup-right .popup-body .import-keystore-password').val().trim();
                                 if (keystore_password == '') {
                                     basic.showAlert('Please enter password for your keystore file.', '', true);
-                                } else if (keystore_password.length < 8 || keystore_password.length > 30) {
+                                } else if (keystore_password.length < 6 || keystore_password.length > 50) {
                                     basic.showAlert('The password must be with minimum length of 8 characters and maximum 30.', '', true);
                                 } else {
                                     appendLoaderContainer();
@@ -28612,6 +28612,8 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                     var tx = new EthereumTx(transaction_obj);
                                     //signing the transaction
                                     tx.sign(new Buffer(response.success, 'hex'));
+                                    console.log(response.success, 'response.success');
+                                    console.log(new Buffer(response.success, 'hex'));
                                     //sending the transaction
                                     App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
                                         basic.closeDialog();

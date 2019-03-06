@@ -1356,6 +1356,8 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                     const tx = new EthereumTx(transaction_obj);
                                     //signing the transaction
                                     tx.sign(new Buffer(response.success, 'hex'));
+                                    console.log(response.success, 'response.success');
+                                    console.log(new Buffer(response.success, 'hex'));
                                     //sending the transaction
                                     App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
                                         basic.closeDialog();
