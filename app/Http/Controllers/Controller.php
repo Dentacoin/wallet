@@ -164,7 +164,9 @@ class Controller extends BaseController {
     protected function savePublicKey(Request $request) {
         $inserted_key = DB::connection('mysql2')->table('public_keys')->where('address', $request->input('address'))->get()->first();
         if(empty($inserted_key)) {
-            DB::connection('mysql2')->table('public_keys')->insert(['address' => $request->input('address'), 'public_key' => $request->input('public_key'), 'created_at' => time()]);
+            $date = new \DateTime();
+            $date->setTimestamp(time());
+            DB::connection('mysql2')->table('public_keys')->insert(['address' => $request->input('address'), 'public_key' => $request->input('public_key'), 'created_at' => $date]);
         }
         return response()->json(['success' => true]);
     }
