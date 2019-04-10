@@ -27117,6 +27117,9 @@ function initChecker() {
             type: 'POST',
             url: HOME_URL + '/get-custom-auth-html',
             dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function success(response) {
                 if (response.success) {
                     basic.showDialog(response.success, 'custom-auth-popup', null, true);
@@ -27158,6 +27161,9 @@ function initChecker() {
                                                     public_key: response.success.public_key
                                                 },
                                                 dataType: 'json',
+                                                headers: {
+                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                },
                                                 success: function success(inner_response) {
                                                     if (inner_response.success) {
                                                         $('.loader-container').remove();
@@ -27868,6 +27874,9 @@ function getQrCode() {
                 'address': global_state.account
             },
             dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function success(response) {
                 if (response.success) {
                     $('.homepage-container .values-and-qr-code .qr-code img').attr('src', response.success);
@@ -28421,6 +28430,9 @@ function styleInputTypeFile() {
                                                             address: '0x' + address,
                                                             public_key: response.public_key
                                                         },
+                                                        headers: {
+                                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                        },
                                                         dataType: 'json',
                                                         success: function success(inner_response) {
                                                             if (inner_response.success) {
@@ -28559,6 +28571,9 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
             sending_to_address: sending_to_address,
             from: global_state.account,
             fee: parseFloat(eth_fee).toFixed(8)
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: 'json',
         success: function success(response) {

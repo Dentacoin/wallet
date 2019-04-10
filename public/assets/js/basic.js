@@ -3,7 +3,7 @@ var basic = {
         alert: null
     },
     init: function(opt) {
-        basic.addCsrfTokenToAllAjax();
+        //basic.addCsrfTokenToAllAjax();
         //basic.stopMaliciousInspect();
     },
     cookies: {
