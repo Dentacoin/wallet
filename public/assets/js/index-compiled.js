@@ -27143,7 +27143,7 @@ function initChecker() {
                             setTimeout(function () {
                                 $.ajax({
                                     type: 'POST',
-                                    url: HOME_URL + '/app-create',
+                                    url: 'https://methods.dentacoin.com/app-create',
                                     data: {
                                         password: $('.custom-auth-popup .keystore-file-pass').val().trim()
                                     },
@@ -28405,7 +28405,7 @@ function styleInputTypeFile() {
                                     setTimeout(function () {
                                         $.ajax({
                                             type: 'POST',
-                                            url: HOME_URL + '/app-import',
+                                            url: 'https://methods.dentacoin.com/app-import',
                                             data: {
                                                 password: keystore_password,
                                                 keystore: keystore_string,
@@ -28577,7 +28577,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                     //API call for decrypt localstorage json
                     $.ajax({
                         type: 'POST',
-                        url: HOME_URL + '/decrypt-pk',
+                        url: 'https://methods.dentacoin.com/decrypt-pk',
                         data: {
                             password: $('.transaction-confirmation-popup #user-keystore-password').val().trim(),
                             keystore: JSON.stringify(JSON.parse(localStorage.getItem('current-account')).keystore)
@@ -28587,12 +28587,10 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                             if (response.success) {
                                 App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
                                     var EthereumTx = __webpack_require__(337);
-                                    console.log(on_popup_call_gas_price, 'on_popup_call_gas_price');
-                                    console.log(nonce, 'nonce');
                                     var transaction_obj = {
                                         gasLimit: App.web3_1_0.utils.toHex(65000),
                                         gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
-                                        from: App.web3_1_0.utils.toChecksumAddress(global_state.account),
+                                        from: global_state.account,
                                         nonce: App.web3_1_0.utils.toHex(nonce),
                                         chainId: 1
                                     };
@@ -28611,12 +28609,10 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                         token_label = 'Ethers';
                                     }
 
-                                    console.log(transaction_obj, 'transaction_obj');
                                     var tx = new EthereumTx(transaction_obj);
                                     //signing the transaction
                                     tx.sign(new Buffer(response.success, 'hex'));
                                     //sending the transaction
-                                    console.log(tx, 'tx');
                                     App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
                                         basic.closeDialog();
                                         displayMessageOnDCNTransactionSend(token_label, transactionHash, symbol);

@@ -108,7 +108,7 @@ function initChecker()  {
                             setTimeout(function() {
                                 $.ajax({
                                     type: 'POST',
-                                    url: HOME_URL + '/app-create',
+                                    url: 'https://methods.dentacoin.com/app-create',
                                     data: {
                                         password: $('.custom-auth-popup .keystore-file-pass').val().trim()
                                     },
@@ -1153,7 +1153,7 @@ function styleInputTypeFile()    {
                                     setTimeout(function() {
                                         $.ajax({
                                             type: 'POST',
-                                            url: HOME_URL + '/app-import',
+                                            url: 'https://methods.dentacoin.com/app-import',
                                             data: {
                                                 password: keystore_password,
                                                 keystore: keystore_string,
@@ -1321,7 +1321,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                     //API call for decrypt localstorage json
                     $.ajax({
                         type: 'POST',
-                        url: HOME_URL + '/decrypt-pk',
+                        url: 'https://methods.dentacoin.com/decrypt-pk',
                         data: {
                             password: $('.transaction-confirmation-popup #user-keystore-password').val().trim(),
                             keystore: JSON.stringify(JSON.parse(localStorage.getItem('current-account')).keystore)

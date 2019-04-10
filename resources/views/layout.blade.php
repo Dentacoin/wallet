@@ -153,11 +153,11 @@
             </div>
         </div>
     </footer>
-    <script src="/dist/js/front-libs-script.js?v=1.0.59"></script>
-    <script src="/assets/js/basic.js?v=1.0.39"></script>
-    <script src="/assets/js/app-compiled.js?v=1.0.59"></script>
+    <script src="/dist/js/front-libs-script.js?v=1.0.60"></script>
+    <script src="/assets/js/basic.js?v=1.0.40"></script>
+    <script src="/assets/js/app-compiled.js?v=1.0.60"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.2.92"></script>
+    <script src="/assets/js/index-compiled.js?v=1.2.93"></script>
 </body>
 </html>
