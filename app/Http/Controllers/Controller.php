@@ -165,7 +165,7 @@ class Controller extends BaseController {
         //$request->input('address')
         //$request->input('public_key')
 
-        var_dump(getenv('CROSS_WEBSITE_PASSWORD'));
+        //var_dump(getenv('CROSS_WEBSITE_PASSWORD'));
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -178,8 +178,40 @@ class Controller extends BaseController {
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
 
-        var_dump($resp);
+        $importing = $request->input('importing');
+        if(isset($importing) && !empty($importing)) {
+            $unique = true;
+            foreach($resp as $key) {
+                if($key->address == $request->input('address')) {
+                    $unique = false;
+                    break;
+                }
+            }
 
-        die();
+            if($unique) {
+                //INSERT
+                $this->submitPublicKey($request->input('address'), $request->input('public_key'));
+            }
+        } else {
+            //INSERT
+            $this->submitPublicKey($request->input('address'), $request->input('public_key'));
+        }
+    }
+
+    protected function submitPublicKey($address, $key) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_POST => 1,
+            CURLOPT_URL => 'https://assurance.dentacoin.com/save-public-key',
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_POSTFIELDS => array(
+                'address' => $address,
+                'public_key' => $key
+            )
+        ));
+
+        $resp = json_decode(curl_exec($curl));
+        curl_close($curl);
     }
 }

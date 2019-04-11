@@ -1176,7 +1176,8 @@ function styleInputTypeFile()    {
                                                         url: HOME_URL + '/save-public-key',
                                                         data: {
                                                             address: '0x'+address,
-                                                            public_key: response.public_key
+                                                            public_key: response.public_key,
+                                                            importing: true
                                                         },
                                                         headers: {
                                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
