@@ -208,7 +208,8 @@ class Controller extends BaseController {
             CURLOPT_SSL_VERIFYPEER => 0,
             CURLOPT_POSTFIELDS => array(
                 'address' => $address,
-                'public_key' => $key
+                'public_key' => $key,
+                'password' => getenv('CROSS_WEBSITE_PASSWORD')
             )
         ));
 

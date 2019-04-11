@@ -21,11 +21,6 @@ Route::group(['prefix' => '/', 'middleware' => 'frontEndMiddleware'], function (
 
     Route::get('/buy', 'BuyController@getView')->name('buy');
 
-    Route::get('/test123', function() {
-        var_dump(getenv('CROSS_WEBSITE_PASSWORD'));
-        die();
-    })->name('test123');
-
     Route::get('/faq', 'FaqController@getView')->name('faq');
 
     Route::post('/get-custom-auth-html', 'Controller@getCustomAuthHtml')->name('get-custom-auth-html');
