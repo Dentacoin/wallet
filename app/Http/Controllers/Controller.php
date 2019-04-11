@@ -196,6 +196,7 @@ class Controller extends BaseController {
             //INSERT
             $this->submitPublicKey($request->input('address'), $request->input('public_key'));
         }
+        return response()->json(['success' => true]);
     }
 
     protected function submitPublicKey($address, $key) {
