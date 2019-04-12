@@ -1,4 +1,7 @@
-const Web3 = require("../../../node_modules/web3"); // import web3 v1.0 constructor
+const Web3 = require('../../../node_modules/web3'); // import web3 v1.0 constructor
+const keythereum = require('../../../node_modules/keythereum');
+const EthCrypto = require('../../../node_modules/eth-crypto');
+const fs = require('../../../node_modules/fs');
 
 // use globally injected web3 to find the currentProvider and wrap with web3 v1.0
 const getWeb3 = (provider) => {
@@ -15,4 +18,74 @@ const getContractInstance = (web3) => (contractName, address) => {
     return instance;
 };
 
-module.exports = {getWeb3, getContractInstance};
+function generateKeystoreFile(password) {
+    var dk = keythereum.create({keyBytes: 32, ivBytes: 16});
+    var keyObjectExported = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, {
+        cipher: 'aes-128-ctr',
+        kdfparams: {
+            c: 262144,
+            dklen: 32,
+            prf: 'hmac-sha256'
+        }
+    });
+
+    const public_key = EthCrypto.publicKeyByPrivateKey(dk.privateKey.toString('hex'));
+
+    return {
+        success: {
+            public_key: public_key,
+            keystore: keyObjectExported
+        }
+    };
+}
+
+function importKeystoreFile(keystore, password) {
+    fs.writeFile(__dirname+'/keystore/'+JSON.parse(keystore).address, keystore, function (err) {
+        if(err) {
+            return {
+                error: true
+            }
+        }
+        //saving the json from keystore file into object
+        var keyObject = keythereum.importFromFile(JSON.parse(keystore).address, __dirname);
+
+        //deleting the keystore file from our directory
+        fs.unlink(__dirname+'/keystore/'+JSON.parse(keystore).address, function (err) {
+            if(err) {
+                return {
+                    error: true
+                }
+            }
+
+            try {
+                var private_key = keythereum.recover(password, keyObject);
+                const public_key = EthCrypto.publicKeyByPrivateKey(private_key.toString('hex'));
+                return {
+                    success: keyObject,
+                    public_key: public_key,
+                    address: JSON.parse(keystore).address
+                }
+            } catch (e) {
+                return {
+                    error: true,
+                    message: 'Wrong secret password.'
+                }
+            }
+        });
+    });
+}
+
+function decryptKeystore(keystore, password) {
+    try {
+        return {
+            success: keythereum.recover(password, JSON.parse(keystore)), to_string: keythereum.recover(password, JSON.parse(keystore)).toString('hex')
+        }
+    } catch (e) {
+        return {
+            error: true,
+            message: 'Wrong secret password.'
+        }
+    }
+}
+
+module.exports = {getWeb3, getContractInstance, generateKeystoreFile, importKeystoreFile, decryptKeystore};

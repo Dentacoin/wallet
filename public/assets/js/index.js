@@ -1,4 +1,7 @@
-var {getWeb3, getContractInstance} = require('./helper');
+var {getWeb3, getContractInstance, generateKeystoreFile, importKeystoreFile, decryptKeystore} = require('./helper');
+
+console.log('test 123');
+console.log(generateKeystoreFile('test123'));
 
 basic.init();
 
