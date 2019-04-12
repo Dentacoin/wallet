@@ -1,8 +1,5 @@
 var {getWeb3, getContractInstance, generateKeystoreFile, importKeystoreFile, decryptKeystore} = require('./helper');
 
-console.log('test 123');
-console.log(generateKeystoreFile('test123'));
-
 basic.init();
 
 initComboxes();
@@ -112,55 +109,45 @@ function initChecker()  {
                             appendLoaderContainer();
 
                             setTimeout(function() {
-                                $.ajax({
-                                    type: 'POST',
-                                    url: 'https://methods.dentacoin.com/app-create',
-                                    data: {
-                                        password: $('.custom-auth-popup .keystore-file-pass').val().trim()
-                                    },
-                                    dataType: 'json',
-                                    success: function (response) {
-                                        if(response.success)    {
-                                            $.ajax({
-                                                type: 'POST',
-                                                url: HOME_URL + '/save-public-key',
-                                                data: {
-                                                    address: '0x'+response.success.keystore.address,
-                                                    public_key: response.success.public_key
-                                                },
-                                                dataType: 'json',
-                                                headers: {
-                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                                },
-                                                success: function (inner_response) {
-                                                    if(inner_response.success) {
-                                                        $('.loader-container').remove();
+                                var generated_keystore = generateKeystoreFile($('.custom-auth-popup .keystore-file-pass').val().trim());
 
-                                                        var keystore_downloaded = false;
-                                                        $('.custom-auth-popup .popup-left').attr('data-step', 'second');
-                                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)" class="white-blue-btn"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">I understand. CONTINUE</a></div>');
-                                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function()  {
-                                                            window.open(HOME_URL + '/force-keystore-download/' + JSON.stringify(response.success.keystore), '_blank');
-                                                            //download(response.success.keystore.address, JSON.stringify(response.success.keystore));
-                                                            $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
-                                                            keystore_downloaded = true;
-                                                        });
-
-                                                        $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').click(function()  {
-                                                            if(keystore_downloaded) {
-                                                                localStorage.setItem('current-account', JSON.stringify({
-                                                                    address: '0x' + response.success.keystore.address,
-                                                                    keystore: response.success.keystore
-                                                                }));
-                                                                window.location.reload();
-                                                            }else {
-                                                                basic.showAlert('Please save the Keystore file and keep it safe!', '', true);
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            });
+                                //save the public key to assurance
+                                var internet = navigator.onLine;
+                                if(internet == 'true') {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: HOME_URL + '/save-public-key',
+                                        data: {
+                                            address: '0x' + generated_keystore.success.keystore.address,
+                                            public_key: generated_keystore.success.public_key
+                                        },
+                                        dataType: 'json',
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         }
+                                    });
+                                }
+
+                                $('.loader-container').remove();
+
+                                var keystore_downloaded = false;
+                                $('.custom-auth-popup .popup-left').attr('data-step', 'second');
+                                $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)" class="white-blue-btn"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">I understand. CONTINUE</a></div>');
+                                $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function()  {
+                                    window.open(HOME_URL + '/force-keystore-download/' + JSON.stringify(generated_keystore.success.keystore), '_blank');
+                                    $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
+                                    keystore_downloaded = true;
+                                });
+
+                                $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').click(function()  {
+                                    if(keystore_downloaded) {
+                                        localStorage.setItem('current-account', JSON.stringify({
+                                            address: '0x' + generated_keystore.success.keystore.address,
+                                            keystore: generated_keystore.success.keystore
+                                        }));
+                                        window.location.reload();
+                                    }else {
+                                        basic.showAlert('Please save the Keystore file and keep it safe!', '', true);
                                     }
                                 });
                             }, 1000);
@@ -1163,45 +1150,39 @@ function styleInputTypeFile()    {
                                     appendLoaderContainer();
 
                                     setTimeout(function() {
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: 'https://methods.dentacoin.com/app-import',
-                                            data: {
-                                                password: keystore_password,
-                                                keystore: keystore_string,
-                                                address: address
-                                            },
-                                            dataType: 'json',
-                                            success: function (response) {
-                                                if(response.success)    {
-                                                    $.ajax({
-                                                        type: 'POST',
-                                                        url: HOME_URL + '/save-public-key',
-                                                        data: {
-                                                            address: '0x'+address,
-                                                            public_key: response.public_key,
-                                                            importing: true
-                                                        },
-                                                        headers: {
-                                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                                        },
-                                                        dataType: 'json',
-                                                        success: function (inner_response) {
-                                                            if(inner_response.success) {
-                                                                localStorage.setItem('current-account', JSON.stringify({
-                                                                    address: '0x' + address,
-                                                                    keystore: response.success
-                                                                }));
-                                                                window.location.reload();
-                                                            }
+                                        var imported_keystore = importKeystoreFile(keystore_string, keystore_password);
+                                        if(imported_keystore.success) {
+                                            var internet = navigator.onLine;
+                                            if(internet == 'true') {
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: HOME_URL + '/save-public-key',
+                                                    data: {
+                                                        address: '0x'+address,
+                                                        public_key: imported_keystore.public_key,
+                                                        importing: true
+                                                    },
+                                                    headers: {
+                                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function (inner_response) {
+                                                        if(inner_response.success) {
+
                                                         }
-                                                    });
-                                                }else if(response.error)    {
-                                                    $('.loader-container').remove();
-                                                    basic.showAlert(response.error, '', true);
-                                                }
+                                                    }
+                                                });
                                             }
-                                        });
+
+                                            localStorage.setItem('current-account', JSON.stringify({
+                                                address: '0x' + address,
+                                                keystore: imported_keystore.success
+                                            }));
+                                            window.location.reload();
+                                        } else if(imported_keystore.error) {
+                                            $('.loader-container').remove();
+                                            basic.showAlert(imported_keystore.message, '', true);
+                                        }
                                     }, 1000);
                                 }
                             });
@@ -1337,55 +1318,47 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                     basic.showAlert('Please enter your password.', '', true);
                     return false;
                 }else {
-                    //API call for decrypt localstorage json
-                    $.ajax({
-                        type: 'POST',
-                        url: 'https://methods.dentacoin.com/decrypt-pk',
-                        data: {
-                            password: $('.transaction-confirmation-popup #user-keystore-password').val().trim(),
-                            keystore: JSON.stringify(JSON.parse(localStorage.getItem('current-account')).keystore)
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            if(response.success)    {
-                                App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
-                                    const EthereumTx = require('ethereumjs-tx');
-                                    var transaction_obj = {
-                                        gasLimit: App.web3_1_0.utils.toHex(65000),
-                                        gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
-                                        from: global_state.account,
-                                        nonce: App.web3_1_0.utils.toHex(nonce),
-                                        chainId: 1
-                                    };
+                    appendLoaderContainer();
+                    var decrypted_keystore = decryptKeystore(JSON.stringify(JSON.parse(localStorage.getItem('current-account')).keystore), $('.transaction-confirmation-popup #user-keystore-password').val().trim());
+                    if(decrypted_keystore.success)    {
+                        App.web3_1_0.eth.getTransactionCount(global_state.account, function (err, nonce) {
+                            const EthereumTx = require('ethereumjs-tx');
+                            var transaction_obj = {
+                                gasLimit: App.web3_1_0.utils.toHex(65000),
+                                gasPrice: App.web3_1_0.utils.toHex(on_popup_call_gas_price),
+                                from: global_state.account,
+                                nonce: App.web3_1_0.utils.toHex(nonce),
+                                chainId: 1
+                            };
 
-                                    if(function_abi != null) {
-                                        transaction_obj.data = function_abi;
-                                    }
-
-                                    var token_label;
-                                    if(symbol == 'DCN') {
-                                        transaction_obj.to = App.contract_address;
-                                        token_label = 'Dentacoin tokens';
-                                    } else if(symbol == 'ETH') {
-                                        transaction_obj.to = sending_to_address;
-                                        transaction_obj.value = App.web3_1_0.utils.toHex(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'));
-                                        token_label = 'Ethers';
-                                    }
-
-                                    const tx = new EthereumTx(transaction_obj);
-                                    //signing the transaction
-                                    tx.sign(new Buffer(response.success, 'hex'));
-                                    //sending the transaction
-                                    App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
-                                        basic.closeDialog();
-                                        displayMessageOnDCNTransactionSend(token_label, transactionHash, symbol);
-                                    });
-                                });
-                            }else if(response.error)    {
-                                basic.showAlert(response.error, '', true);
+                            if(function_abi != null) {
+                                transaction_obj.data = function_abi;
                             }
-                        }
-                    });
+
+                            var token_label;
+                            if(symbol == 'DCN') {
+                                transaction_obj.to = App.contract_address;
+                                token_label = 'Dentacoin tokens';
+                            } else if(symbol == 'ETH') {
+                                transaction_obj.to = sending_to_address;
+                                transaction_obj.value = App.web3_1_0.utils.toHex(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'));
+                                token_label = 'Ethers';
+                            }
+
+                            const tx = new EthereumTx(transaction_obj);
+                            //signing the transaction
+                            tx.sign(new Buffer(decrypted_keystore.success, 'hex'));
+                            //sending the transaction
+                            App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
+                                $('.loader-container').remove();
+                                basic.closeDialog();
+                                displayMessageOnDCNTransactionSend(token_label, transactionHash, symbol);
+                            });
+                        });
+                    }else if(decrypted_keystore.error)    {
+                        $('.loader-container').remove();
+                        basic.showAlert(decrypted_keystore.message, '', true);
+                    }
                 }
             });
         }
@@ -1396,3 +1369,4 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
 function appendLoaderContainer() {
     $('body').append('<div class="loader-container"><figure itemscope="" itemtype="http://schema.org/ImageObject" class="inline-block"><img src="/assets/images/loader.gif" alt="Loader" itemprop="contentUrl"/></figure></div>');
 }
+

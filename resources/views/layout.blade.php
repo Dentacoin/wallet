@@ -158,6 +158,6 @@
     <script src="/assets/js/app-compiled.js?v=1.0.60"></script>
     @yield("script_block")
     {{--<script src="/dist/js/front-script.js"></script>--}}
-    <script src="/assets/js/index-compiled.js?v=1.2.93"></script>
+    <script src="/assets/js/index-bundled.js?v=1.2.94"></script>
 </body>
 </html>

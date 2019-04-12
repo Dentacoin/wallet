@@ -32535,7 +32535,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 /* WEBPACK VAR INJECTION */(function(__dirname) {var Web3 = __webpack_require__(189); // import web3 v1.0 constructor
 var keythereum = __webpack_require__(363);
 var EthCrypto = __webpack_require__(379);
-var fs = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../node_modules/fs\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var fs = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"fs\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 // use globally injected web3 to find the currentProvider and wrap with web3 v1.0
 var getWeb3 = function getWeb3(provider) {

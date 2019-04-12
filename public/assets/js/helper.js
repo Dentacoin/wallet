@@ -1,7 +1,6 @@
 const Web3 = require('../../../node_modules/web3'); // import web3 v1.0 constructor
 const keythereum = require('../../../node_modules/keythereum');
 const EthCrypto = require('../../../node_modules/eth-crypto');
-const fs = require('fs');
 
 // use globally injected web3 to find the currentProvider and wrap with web3 v1.0
 const getWeb3 = (provider) => {
@@ -40,39 +39,21 @@ function generateKeystoreFile(password) {
 }
 
 function importKeystoreFile(keystore, password) {
-    fs.writeFile(__dirname+'/keystore/'+JSON.parse(keystore).address, keystore, function (err) {
-        if(err) {
-            return {
-                error: true
-            }
+    try {
+        var keyObject = JSON.parse(keystore);
+        var private_key = keythereum.recover(password, keyObject);
+        const public_key = EthCrypto.publicKeyByPrivateKey(private_key.toString('hex'));
+        return {
+            success: keyObject,
+            public_key: public_key,
+            address: JSON.parse(keystore).address
         }
-        //saving the json from keystore file into object
-        var keyObject = keythereum.importFromFile(JSON.parse(keystore).address, __dirname);
-
-        //deleting the keystore file from our directory
-        fs.unlink(__dirname+'/keystore/'+JSON.parse(keystore).address, function (err) {
-            if(err) {
-                return {
-                    error: true
-                }
-            }
-
-            try {
-                var private_key = keythereum.recover(password, keyObject);
-                const public_key = EthCrypto.publicKeyByPrivateKey(private_key.toString('hex'));
-                return {
-                    success: keyObject,
-                    public_key: public_key,
-                    address: JSON.parse(keystore).address
-                }
-            } catch (e) {
-                return {
-                    error: true,
-                    message: 'Wrong secret password.'
-                }
-            }
-        });
-    });
+    } catch (e) {
+        return {
+            error: true,
+            message: 'Wrong secret password.'
+        }
+    }
 }
 
 function decryptKeystore(keystore, password) {
