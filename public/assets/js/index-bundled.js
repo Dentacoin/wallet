@@ -76407,8 +76407,6 @@ function initChecker()  {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         success: function(response) {
-                                            console.log(response, 'response');
-
                                             $('.loader-container').remove();
 
                                             var keystore_downloaded = false;
@@ -77451,18 +77449,14 @@ function styleInputTypeFile()    {
                                                     },
                                                     dataType: 'json',
                                                     success: function (inner_response) {
-                                                        if(inner_response.success) {
-
-                                                        }
+                                                        localStorage.setItem('current-account', JSON.stringify({
+                                                            address: '0x' + address,
+                                                            keystore: imported_keystore.success
+                                                        }));
+                                                        window.location.reload();
                                                     }
                                                 });
                                             }
-
-                                            localStorage.setItem('current-account', JSON.stringify({
-                                                address: '0x' + address,
-                                                keystore: imported_keystore.success
-                                            }));
-                                            window.location.reload();
                                         } else if(imported_keystore.error) {
                                             $('.loader-container').remove();
                                             basic.showAlert(imported_keystore.message, '', true);
