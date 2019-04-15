@@ -76394,8 +76394,7 @@ function initChecker()  {
 
                                 //save the public key to assurance
                                 var internet = navigator.onLine;
-                                console.log(internet, 'internet');
-                                if(internet == 'true') {
+                                if(internet) {
                                     $.ajax({
                                         type: 'POST',
                                         url: HOME_URL + '/save-public-key',
@@ -77438,7 +77437,7 @@ function styleInputTypeFile()    {
                                         var imported_keystore = importKeystoreFile(keystore_string, keystore_password);
                                         if(imported_keystore.success) {
                                             var internet = navigator.onLine;
-                                            if(internet == 'true') {
+                                            if(internet) {
                                                 $.ajax({
                                                     type: 'POST',
                                                     url: HOME_URL + '/save-public-key',
