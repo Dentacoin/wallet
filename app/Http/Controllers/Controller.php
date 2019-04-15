@@ -161,45 +161,7 @@ class Controller extends BaseController {
         }
     }
 
-    protected function savePublicKey(Request $request) {
-        //$request->input('address')
-        //$request->input('public_key')
-
-        //var_dump(getenv('CROSS_WEBSITE_PASSWORD'));
-
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_POST => 1,
-            CURLOPT_URL => 'https://assurance.dentacoin.com/get-public-keys',
-            CURLOPT_SSL_VERIFYPEER => 0
-        ));
-
-        $resp = json_decode(curl_exec($curl));
-        curl_close($curl);
-
-        $importing = $request->input('importing');
-        if(isset($importing) && !empty($importing)) {
-            $unique = true;
-            foreach($resp as $key) {
-                if($key->address == $request->input('address')) {
-                    $unique = false;
-                    break;
-                }
-            }
-
-            if($unique) {
-                //INSERT
-                $this->submitPublicKey($request->input('address'), $request->input('public_key'));
-            }
-        } else {
-            //INSERT
-            $this->submitPublicKey($request->input('address'), $request->input('public_key'));
-        }
-        return response()->json(['success' => true]);
-    }
-
-    protected function submitPublicKey($address, $key) {
+    protected function submitPublicKey(Request $request) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
@@ -207,8 +169,8 @@ class Controller extends BaseController {
             CURLOPT_URL => 'https://assurance.dentacoin.com/save-public-key',
             CURLOPT_SSL_VERIFYPEER => 0,
             CURLOPT_POSTFIELDS => array(
-                'address' => $address,
-                'public_key' => $key,
+                'address' => $request->input('address'),
+                'public_key' => $request->input('public_key'),
                 'password' => getenv('CROSS_WEBSITE_PASSWORD')
             )
         ));
