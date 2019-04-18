@@ -17,5 +17,17 @@ class HomeController extends Controller     {
         $qr->setSize(220);
         return response()->json(['success' => $qr->getDataUri()]);
     }
+
+    protected function test() {
+        var_dump(session('logged_user'));
+
+        $session_arr = [
+            'type' => 'testing-type'
+        ];
+
+        session(['logged_user' => $session_arr]);
+
+        return;
+    }
 }
 
