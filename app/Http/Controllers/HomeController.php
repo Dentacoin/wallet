@@ -19,6 +19,7 @@ class HomeController extends Controller     {
     }
 
     protected function test() {
+        var_dump(getenv('APP_KEY'));
         var_dump(session('logged_user'));
 
         $session_arr = [
