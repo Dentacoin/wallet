@@ -15,6 +15,18 @@
 Route::group(['prefix' => '/', 'middleware' => 'frontEndMiddleware'], function () {
     Route::get('/', 'HomeController@getView')->name('home');
 
+    Route::get('/test123', function() {
+        var_dump(session('logged_user'));
+
+        $session_arr = [
+            'type' => 'testing-type'
+        ];
+
+        session(['logged_user' => $session_arr]);
+
+        die('asd');
+    })->name('test123');
+
     Route::post('/get-qr-code-from-address', 'HomeController@generateQrImage')->name('get-qr-code-from-address');
 
     Route::post('/build-transaction-history', 'HomeController@buildTransactionHistory')->name('build-transaction-history');
