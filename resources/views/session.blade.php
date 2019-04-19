@@ -7,7 +7,7 @@
 
 HAVE SESSION!
 <br>
-Name session: {{$session('logged_user')['type']}}
+Name session: {{session('logged_user')['type']}}
 
 </body>
 </html>
