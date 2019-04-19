@@ -28,7 +28,7 @@ class HomeController extends Controller     {
 
         session(['logged_user' => $session_arr]);
 
-        return;
+        die(123);
     }
 }
 
