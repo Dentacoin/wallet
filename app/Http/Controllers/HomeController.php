@@ -22,14 +22,14 @@ class HomeController extends Controller     {
         //var_dump(getenv('APP_KEY'));
         //var_dump(session('logged_user'));
 
-        $session_arr = [
+        /*$session_arr = [
             'type' => 'Dentacoin-test'
         ];
 
         //var_dump(session('logged_user'));
         if(empty(session('logged_user'))) {
             session(['logged_user' => $session_arr]);
-        }
+        }*/
 
         if(!empty(session('logged_user'))) {
             return view('session');
