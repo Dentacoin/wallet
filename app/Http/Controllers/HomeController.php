@@ -26,6 +26,7 @@ class HomeController extends Controller     {
             'type' => 'Dentacoin-test'
         ];
 
+        var_dump(session('logged_user'));
         if(empty(session('logged_user'))) {
             session(['logged_user' => $session_arr]);
             die('session created');
