@@ -27,6 +27,7 @@ class HomeController extends Controller     {
         ];
 
         var_dump(session('logged_user'));
+        var_dump(session('logged_user')['type']);
         if(empty(session('logged_user'))) {
             session(['logged_user' => $session_arr]);
             die('session created');
