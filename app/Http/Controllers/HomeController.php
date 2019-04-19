@@ -23,12 +23,20 @@ class HomeController extends Controller     {
         var_dump(session('logged_user'));
 
         $session_arr = [
-            'type' => 'testing-type'
+            'type' => 'Dentacoin-test'
         ];
 
-        session(['logged_user' => $session_arr]);
+        if(empty(session('logged_user'))) {
+            session(['logged_user' => $session_arr]);
+            die('session created');
+        }
 
-        die(123);
+        if(!empty(session('logged_user'))) {
+            return view('session');
+        } else {
+            return view('no-session');
+        }
+
     }
 }
 
