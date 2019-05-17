@@ -77045,7 +77045,12 @@ if($('body').hasClass('home'))  {
         }else if(!$('#privacy-policy-agree').is(':checked')) {
             basic.showAlert('Please agree with our Privacy Policy.', '', true);
         }else {
-            ga('send', 'event', 'Purchase', 'Buy', currency, usd_input_value);
+            //sending GTAG event
+            gtag('event', 'Purchase', {
+                'event_category': currency,
+                'value': usd_input_value
+            });
+
             window.location = 'https://indacoin.com/gw/payment_form?partner=dentacoin&cur_from=USD&cur_to='+currency+'&amount='+usd_input_value+'&address='+$('.buy-container .address-field').val().trim()+'&user_id='+$('.buy-container .email-field').val().trim();
         }
     });
