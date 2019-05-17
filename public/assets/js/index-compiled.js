@@ -30581,6 +30581,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var onAccountSwitch = function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5() {
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
@@ -30764,8 +30766,7 @@ function initChecker() {
 
                                 //save the public key to assurance
                                 var internet = navigator.onLine;
-                                console.log(internet, 'internet');
-                                if (internet == 'true') {
+                                if (internet) {
                                     $.ajax({
                                         type: 'POST',
                                         url: HOME_URL + '/save-public-key',
@@ -30778,8 +30779,6 @@ function initChecker() {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         success: function success(response) {
-                                            console.log(response, 'response');
-
                                             $('.loader-container').remove();
 
                                             var keystore_downloaded = false;
@@ -31593,6 +31592,10 @@ if ($('body').hasClass('home')) {
         } else if (!$('#privacy-policy-agree').is(':checked')) {
             basic.showAlert('Please agree with our Privacy Policy.', '', true);
         } else {
+            console.log(currency, 'currency');
+            console.log(typeof currency === 'undefined' ? 'undefined' : _typeof(currency));
+            return false;
+            //ga('send', 'event', 'Purchase', 'Buy', 'DCN',
             window.location = 'https://indacoin.com/gw/payment_form?partner=dentacoin&cur_from=USD&cur_to=' + currency + '&amount=' + $('.buy-container #paying-with-amount').val().trim() + '&address=' + $('.buy-container .address-field').val().trim() + '&user_id=' + $('.buy-container .email-field').val().trim();
         }
     });
@@ -32025,7 +32028,7 @@ function styleInputTypeFile() {
                                         var imported_keystore = importKeystoreFile(keystore_string, keystore_password);
                                         if (imported_keystore.success) {
                                             var internet = navigator.onLine;
-                                            if (internet == 'true') {
+                                            if (internet) {
                                                 $.ajax({
                                                     type: 'POST',
                                                     url: HOME_URL + '/save-public-key',
@@ -32039,16 +32042,14 @@ function styleInputTypeFile() {
                                                     },
                                                     dataType: 'json',
                                                     success: function success(inner_response) {
-                                                        if (inner_response.success) {}
+                                                        localStorage.setItem('current-account', JSON.stringify({
+                                                            address: '0x' + address,
+                                                            keystore: imported_keystore.success
+                                                        }));
+                                                        window.location.reload();
                                                     }
                                                 });
                                             }
-
-                                            localStorage.setItem('current-account', JSON.stringify({
-                                                address: '0x' + address,
-                                                keystore: imported_keystore.success
-                                            }));
-                                            window.location.reload();
                                         } else if (imported_keystore.error) {
                                             $('.loader-container').remove();
                                             basic.showAlert(imported_keystore.message, '', true);

@@ -748,9 +748,10 @@ if($('body').hasClass('home'))  {
             currency_amount_for_one_usd = eth_for_one_usd;
         }
 
-        if(parseFloat($('.buy-container #paying-with-amount').val().trim()) < 30)  {
+        var usd_input_value = parseFloat($('.buy-container #paying-with-amount').val().trim());
+        if(usd_input_value < 30)  {
             basic.showAlert('The minimum transaction limit is 30 USD.', '', true);
-        }else if(parseFloat($('.buy-container #paying-with-amount').val().trim()) > 6000)  {
+        }else if(usd_input_value > 6000)  {
             basic.showAlert('The maximum transaction limit is 6000 USD.', '', true);
         }else if(parseFloat($('.buy-container #buyable-currency-amount').val().trim()) < currency_amount_for_one_usd * 30)  {
             basic.showAlert('The minimum transaction limit is 30 USD in '+currency+'.', '', true);
@@ -763,7 +764,8 @@ if($('body').hasClass('home'))  {
         }else if(!$('#privacy-policy-agree').is(':checked')) {
             basic.showAlert('Please agree with our Privacy Policy.', '', true);
         }else {
-            window.location = 'https://indacoin.com/gw/payment_form?partner=dentacoin&cur_from=USD&cur_to='+currency+'&amount='+$('.buy-container #paying-with-amount').val().trim()+'&address='+$('.buy-container .address-field').val().trim()+'&user_id='+$('.buy-container .email-field').val().trim();
+            ga('send', 'event', 'Purchase', 'Buy', currency, usd_input_value);
+            window.location = 'https://indacoin.com/gw/payment_form?partner=dentacoin&cur_from=USD&cur_to='+currency+'&amount='+usd_input_value+'&address='+$('.buy-container .address-field').val().trim()+'&user_id='+$('.buy-container .email-field').val().trim();
         }
     });
 
