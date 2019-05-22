@@ -704,9 +704,9 @@ if($('body').hasClass('home'))  {
         }
 
         if($('.current-buyable-currency').attr('data-currency') == 'DCN') {
-            $('.buy-container #buyable-currency-amount').val(dcn_for_one_usd * parseFloat($(this).val().trim()));
+            $('.buy-container #buyable-currency-amount').val(dcn_for_one_usd * parseInt($(this).val().trim()));
         } else if($('.current-buyable-currency').attr('data-currency') == 'ETH') {
-            $('.buy-container #buyable-currency-amount').val(eth_for_one_usd * parseFloat($(this).val().trim()));
+            $('.buy-container #buyable-currency-amount').val(eth_for_one_usd * parseInt($(this).val().trim()));
         }
     });
 
@@ -744,8 +744,18 @@ if($('body').hasClass('home'))  {
         var currency_amount_for_one_usd;
         if(currency == 'DCN') {
             currency_amount_for_one_usd = dcn_for_one_usd;
+            var event_obj = {
+                'event_category': 'Purchase',
+                'value': parseInt($('#buyable-currency-amount').val().trim()),
+                'event_label': currency
+            };
         } else if(currency == 'ETH') {
             currency_amount_for_one_usd = eth_for_one_usd;
+            var event_obj = {
+                'event_category': 'Purchase',
+                'value': parseInt($('#paying-with-amount').val().trim()),
+                'event_label': 'USD in ETH'
+            };
         }
 
         var usd_input_value = parseFloat($('.buy-container #paying-with-amount').val().trim());
@@ -765,11 +775,7 @@ if($('body').hasClass('home'))  {
             basic.showAlert('Please agree with our Privacy Policy.', '', true);
         }else {
             //sending GTAG event
-            gtag('event', 'Buy', {
-                'event_category': 'Purchase',
-                'value': parseFloat($('#buyable-currency-amount').val().trim()),
-                'event_label': currency
-            });
+            gtag('event', 'Buy', event_obj);
 
             window.location = 'https://indacoin.com/gw/payment_form?partner=dentacoin&cur_from=USD&cur_to='+currency+'&amount='+usd_input_value+'&address='+$('.buy-container .address-field').val().trim()+'&user_id='+$('.buy-container .email-field').val().trim();
         }
