@@ -76969,7 +76969,7 @@ if($('body').hasClass('home'))  {
 }else if($('body').hasClass('buy'))  {
     var dcn_for_one_usd = parseFloat($('.buy-container').attr('data-dcn-for-one-usd'));
     var eth_for_one_usd = parseFloat($('.buy-container').attr('data-eth-for-one-usd'));
-    $('.buy-container #buyable-currency-amount').val(dcn_for_one_usd * parseFloat($('.buy-container #paying-with-amount').val().trim()));
+    $('.buy-container #buyable-currency-amount').val(Math.floor(dcn_for_one_usd * parseFloat($('.buy-container #paying-with-amount').val().trim())));
 
     $('.buy-container #paying-with-amount').on('input', function() {
         if($(this).val().trim() < 30)   {
