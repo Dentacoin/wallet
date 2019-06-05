@@ -76985,7 +76985,7 @@ if($('body').hasClass('home'))  {
         }
 
         if($('.current-buyable-currency').attr('data-currency') == 'DCN') {
-            $('.buy-container #buyable-currency-amount').val(dcn_for_one_usd * parseInt($(this).val().trim()));
+            $('.buy-container #buyable-currency-amount').val(Math.floor(dcn_for_one_usd * parseInt($(this).val().trim())));
         } else if($('.current-buyable-currency').attr('data-currency') == 'ETH') {
             $('.buy-container #buyable-currency-amount').val(eth_for_one_usd * parseInt($(this).val().trim()));
         }

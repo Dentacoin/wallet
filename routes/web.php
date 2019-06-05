@@ -15,8 +15,6 @@
 Route::group(['prefix' => '/', 'middleware' => 'frontEndMiddleware'], function () {
     Route::get('/', 'HomeController@getView')->name('home');
 
-    Route::get('/test123', 'HomeController@test')->name('test123');
-
     Route::post('/get-qr-code-from-address', 'HomeController@generateQrImage')->name('get-qr-code-from-address');
 
     Route::post('/build-transaction-history', 'HomeController@buildTransactionHistory')->name('build-transaction-history');
