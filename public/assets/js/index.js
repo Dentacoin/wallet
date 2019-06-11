@@ -1362,16 +1362,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                 transaction_obj.to = sending_to_address;
                                 transaction_obj.value = App.web3_1_0.utils.toHex(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'));
                                 token_label = 'Ethers';
-
-                                basic.showAlert('Sending ethers temporally not working, please try again in 30 minutes.', '', true);
-
-                                console.log(token_val, 'App.web3_1_0.utils.toWei(token_val.toString(), \'ether\')');
-                                console.log(token_val.toString(), 'App.web3_1_0.utils.toWei(token_val.toString(), \'ether\')');
-                                console.log(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'), 'App.web3_1_0.utils.toWei(token_val.toString(), \'ether\')');
-                                return false;
                             }
-
-
 
                             const tx = new EthereumTx(transaction_obj);
                             //signing the transaction
@@ -1384,7 +1375,7 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                 if(symbol == 'DCN') {
                                     fireGoogleAnalyticsEvent('Pay', 'Next', 'DCN', token_val);
                                 } else if(symbol == 'ETH') {
-                                    fireGoogleAnalyticsEvent('Pay', 'Next', 'ETH in USD', token_val);
+                                    fireGoogleAnalyticsEvent('Pay', 'Next', 'ETH in USD', Math.floor(parseFloat(token_val) * parseFloat($('body').attr('data-current-eth-in-usd'))));
                                 }
 
                                 displayMessageOnDCNTransactionSend(token_label, transactionHash, symbol);
