@@ -591,7 +591,7 @@ var App = {
             return new Promise(function(resolve, reject) {
                 var event_obj = {
                     filter: {_from: global_state.account},
-                    fromBlock: 0,
+                    fromBlock: 6000000,
                     toBlock: 'latest'
                 };
 
