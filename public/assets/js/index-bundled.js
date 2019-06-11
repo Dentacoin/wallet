@@ -76499,6 +76499,8 @@ var App = {
             getInstance = getContractInstance(App.web3_1_0);
             myContract = getInstance(DCNArtifact, App.contract_address);
 
+            App.events.logTransfer();
+
             //getting current eth balance for current public address
             if(App.web3_0_2 != null) {
                 global_state.curr_addr_eth_balance = App.web3_0_2.fromWei(await App.getAddressETHBalance(global_state.account));
@@ -76839,7 +76841,7 @@ var App = {
         }
     },
     events: {
-        logTransfer: function() {
+        /*logTransfer: function() {
             var transactions_hash_arr = [];
             var transfer_event_obj = {
                 filter: {_from: global_state.account},
@@ -76864,6 +76866,19 @@ var App = {
                 console.log(event, 'changed'); // same results as the optional callback above
             })
             .on('error', console.error);
+        }*/
+        logTransfer: function() {
+            console.log('logTransfer');
+            var transfer_event_obj = {
+                filter: {_from: global_state.account}
+            };
+            myContract.events.Transfer(transfer_event_obj, function(error, result) {
+                if(error) {
+                    console.log(error, 'transfer event error');
+                } else {
+                    console.log(result, 'transfer event result');
+                }
+            });
         }
     },
     helper: {
