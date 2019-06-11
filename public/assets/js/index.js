@@ -133,12 +133,17 @@ function initChecker()  {
                                             $('.custom-auth-popup .popup-left[data-step="second"] .popup-body').html('<label class="custom-label">Download your Keystore file and keep it safe!<br>The only way to access your wallet and manage your Dentacoin tokens is by uploading this file.</label><div class="download-btn btn-container"><a href="javascript:void(0)" class="white-blue-btn"><i class="fa fa-download" aria-hidden="true"></i> Download Keystore File</a></div><div class="second-reminder"><span class="red">*Do not lose it!</span> It cannot be recovered if you lost it.<br><span class="red">*Do not share it!</span> Your funds will be stolen if you use this file on malicious/phishing site.<br><span class="red">*Make a backup!</span> Secure it like the millions of dollars it may one day be worth.</div><div class="continue-btn btn-container"><a href="javascript:void(0)" class="disabled white-blue-btn">I understand. CONTINUE</a></div>');
                                             $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .download-btn > a').click(function()  {
                                                 window.open(HOME_URL + '/force-keystore-download/' + JSON.stringify(generated_keystore.success.keystore), '_blank');
+
+                                                fireGoogleAnalyticsEvent('Register', 'Download', 'Download Keystore');
+
                                                 $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').removeClass('disabled');
                                                 keystore_downloaded = true;
                                             });
 
                                             $('.custom-auth-popup .popup-left[data-step="second"] .popup-body .continue-btn > a').click(function()  {
                                                 if(keystore_downloaded) {
+                                                    fireGoogleAnalyticsEvent('Register', 'Create', 'Wallet');
+
                                                     localStorage.setItem('current-account', JSON.stringify({
                                                         address: '0x' + generated_keystore.success.keystore.address,
                                                         keystore: generated_keystore.success.keystore
@@ -801,6 +806,7 @@ if($('body').hasClass('home'))  {
 
     $('.send-container .next a').click(function()  {
         if(innerAddressCheck($('.send-container .wallet-address input.combobox-input').val().trim())) {
+            fireGoogleAnalyticsEvent('Pay', 'Next', 'DCN Address');
             window.location = HOME_URL + '/send/amount-to/' + $('.send-container .wallet-address .combobox-input').val().trim();
         }else {
             basic.showAlert('Please enter a valid wallet address. It should start with "0x" and be followed by 40 characters (numbers and letters).', '', true);
@@ -929,7 +935,7 @@ function pageAmountToLogic()    {
 
     //on input in usd input change dcn input
     $('.amount-to-container input#usd').on('input', function()  {
-        $('.amount-to-container input#dcn').val($(this).val().trim() / global_state.curr_dcn_in_usd);
+        $('.amount-to-container input#dcn').val(Math.floor($(this).val().trim() / global_state.curr_dcn_in_usd));
     });
 
     $('.amount-to-container .send-value-btn').click(async function()  {
@@ -1182,6 +1188,8 @@ function styleInputTypeFile()    {
                                                     },
                                                     dataType: 'json',
                                                     success: function (inner_response) {
+                                                        fireGoogleAnalyticsEvent('Login', 'Upload', 'SK');
+
                                                         localStorage.setItem('current-account', JSON.stringify({
                                                             address: '0x' + address,
                                                             keystore: imported_keystore.success
@@ -1354,7 +1362,14 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                                 transaction_obj.to = sending_to_address;
                                 transaction_obj.value = App.web3_1_0.utils.toHex(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'));
                                 token_label = 'Ethers';
+
+                                basic.showAlert('Sending ethers temporally not working, please try again in 30 minutes.', '', true);
+
+                                console.log(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'), 'App.web3_1_0.utils.toWei(token_val.toString(), \'ether\')');
+                                return false;
                             }
+
+
 
                             const tx = new EthereumTx(transaction_obj);
                             //signing the transaction
@@ -1363,6 +1378,13 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
                             App.web3_1_0.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'), function (err, transactionHash) {
                                 $('.loader-container').remove();
                                 basic.closeDialog();
+
+                                if(symbol == 'DCN') {
+                                    fireGoogleAnalyticsEvent('Pay', 'Next', 'DCN', token_val);
+                                } else if(symbol == 'ETH') {
+                                    fireGoogleAnalyticsEvent('Pay', 'Next', 'ETH in USD', token_val);
+                                }
+
                                 displayMessageOnDCNTransactionSend(token_label, transactionHash, symbol);
                             });
                         });
@@ -1381,3 +1403,27 @@ function appendLoaderContainer() {
     $('body').append('<div class="loader-container"><figure itemscope="" itemtype="http://schema.org/ImageObject" class="inline-block"><img src="/assets/images/loader.gif" alt="Loader" itemprop="contentUrl"/></figure></div>');
 }
 
+// =================================== GOOGLE ANALYTICS TRACKING LOGIC ======================================
+
+function bindTrackerClickDentistsBtnEvent() {
+    $(document).on('click', '.init-dentists-click-event', function() {
+
+    });
+}
+bindTrackerClickDentistsBtnEvent();
+
+function fireGoogleAnalyticsEvent(category, action, label, value) {
+    var event_obj = {
+        'event_action' : action,
+        'event_category': category,
+        'event_label': label
+    };
+
+    if(value != undefined) {
+        event_obj.value = value;
+    }
+
+    gtag('event', label, event_obj);
+}
+
+// =================================== /GOOGLE ANALYTICS TRACKING LOGIC ======================================
