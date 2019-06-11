@@ -76470,7 +76470,7 @@ var App = {
         if(localStorage.getItem('current-account') != null && typeof(web3) === 'undefined')    {
             //CUSTOM
             global_state.account = JSON.parse(localStorage.getItem('current-account')).address;
-            App.web3_1_0 = getWeb3(new Web3.providers.WebsocketProvider('https://mainnet.infura.io/c6ab28412b494716bc5315550c0d4071'));
+            App.web3_1_0 = getWeb3(new Web3.providers.HttpProvider('https://mainnet.infura.io/c6ab28412b494716bc5315550c0d4071'));
         }else if(typeof(web3) !== 'undefined') {
             //METAMASK
             App.web3_0_2 = web3;
@@ -76498,9 +76498,9 @@ var App = {
             // get the contract artifact file and use it to instantiate a truffle contract abstraction
             getInstance = getContractInstance(App.web3_1_0);
             myContract = getInstance(DCNArtifact, App.contract_address);
-            console.log(myContract, 'myContract');
 
-            App.events.logTransfer();
+            var this_account_transfer_events = await App.events.logTransfer();
+            console.log(this_account_transfer_events, 'this_account_transfer_events');
 
             //getting current eth balance for current public address
             if(App.web3_0_2 != null) {
@@ -76869,17 +76869,16 @@ var App = {
             .on('error', console.error);
         }*/
         logTransfer: function() {
-            var transfer_event_obj = {
-                filter: {_from: global_state.account},
-                fromBlock: 7939000,
-                toBlock: 'latest'
-            };
-            myContract.events.Transfer(transfer_event_obj, function(error, result) {
-                if(error) {
-                    console.log(error, 'transfer event error');
-                } else {
-                    console.log(result, 'transfer event result');
-                }
+            return new Promise(function(resolve, reject) {
+                var event_obj = {
+                    filter: {_from: global_state.account},
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                };
+
+                myContract.getPastEvents('Transfer', event_obj, function(error, event){
+                    resolve(event);
+                });
             });
         }
     },
