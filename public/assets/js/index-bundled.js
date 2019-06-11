@@ -76868,9 +76868,10 @@ var App = {
             .on('error', console.error);
         }*/
         logTransfer: function() {
-            console.log('logTransfer');
             var transfer_event_obj = {
-                filter: {_from: global_state.account}
+                filter: {_from: global_state.account},
+                fromBlock: 7939000,
+                toBlock: 'latest'
             };
             myContract.events.Transfer(transfer_event_obj, function(error, result) {
                 if(error) {
