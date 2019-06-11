@@ -76498,6 +76498,7 @@ var App = {
             // get the contract artifact file and use it to instantiate a truffle contract abstraction
             getInstance = getContractInstance(App.web3_1_0);
             myContract = getInstance(DCNArtifact, App.contract_address);
+            console.log(myContract, 'myContract');
 
             App.events.logTransfer();
 
