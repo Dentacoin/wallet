@@ -77646,6 +77646,8 @@ function callTransactionConfirmationPopup(token_val, symbol, usd_val, sending_to
 
                                 basic.showAlert('Sending ethers temporally not working, please try again in 30 minutes.', '', true);
 
+                                console.log(token_val, 'App.web3_1_0.utils.toWei(token_val.toString(), \'ether\')');
+                                console.log(token_val.toString(), 'App.web3_1_0.utils.toWei(token_val.toString(), \'ether\')');
                                 console.log(App.web3_1_0.utils.toWei(token_val.toString(), 'ether'), 'App.web3_1_0.utils.toWei(token_val.toString(), \'ether\')');
                                 return false;
                             }
