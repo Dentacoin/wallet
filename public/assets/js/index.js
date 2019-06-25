@@ -194,6 +194,8 @@ var App = {
             //METAMASK
             App.web3_0_2 = web3;
             global_state.account = App.web3_0_2.eth.defaultAccount;
+            console.log(App.web3_0_2.eth.defaultAccount, 'App.web3_0_2.eth.defaultAccount');
+            console.log(App.web3_0_2.eth.selectedAddress, 'App.web3_0_2.eth.selectedAddress');
             //overwrite web3 0.2 with web 1.0
             web3 = getWeb3(App.web3_0_2.currentProvider);
             App.web3_1_0 = web3;
