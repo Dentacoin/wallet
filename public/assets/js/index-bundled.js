@@ -76555,7 +76555,7 @@ var App = {
         return myContract.methods.transfer(send_addr, value).send({
             from: global_state.account,
             gas: 60000,
-            gasPrice: 45000
+            gasPrice: 45000000000
         }).on('transactionHash', function(hash){
             displayMessageOnDCNTransactionSend('Dentacoin tokens', hash, 'DCN');
         })/*.then(function (result){
