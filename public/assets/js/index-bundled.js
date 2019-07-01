@@ -76554,7 +76554,8 @@ var App = {
     sendValue: function(send_addr, value)  {
         return myContract.methods.transfer(send_addr, value).send({
             from: global_state.account,
-            gas: 65000
+            gas: 60000,
+            gasPrice: 45000
         }).on('transactionHash', function(hash){
             displayMessageOnDCNTransactionSend('Dentacoin tokens', hash, 'DCN');
         })/*.then(function (result){
@@ -76757,7 +76758,6 @@ var App = {
                 }else {
                     hours = new Date(timestamp_javascript).getHours();
                 }
-
 
                 //first 3 are visible, rest are going to hidden tbody
                 table_html+='<tr class="'+class_name+' single-transaction" data-timestamp="'+array[i].timestamp+'" data-class="'+class_name+'" data-tx-id="'+array[i].transactionHash+'" data-dcn-amount="'+array[i].returnValues._value+'" data-block-number="'+array[i].blockNumber+'" data-label="'+label+'" data-address="'+other_address+'"><td class="align-middle icon"></td><td class="align-middle"><ul class="align-middle"><li>'+(date_obj.getMonth() + 1) + '/' + date_obj.getDate() + '/' + date_obj.getFullYear() +'</li><li>'+hours+':'+minutes+'</li></ul></td><td class="align-middle"><ul class="align-middle"><li><span><strong>'+label+': </strong>'+json_clinic+' '+other_address+'</span></li><li><a href="https://etherscan.io/tx/'+array[i].transactionHash+'" target="_blank"><strong class="transaction-id">Transaction ID</strong></a></li></ul></td><td class="align-middle"><ul class="align-middle"><li class="value-dcn">'+dcn_amount+'</li><li>'+usd_amount+' USD</li></ul></td></tr>';
